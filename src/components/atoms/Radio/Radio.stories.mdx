@@ -1,0 +1,49 @@
+import dedent from 'ts-dedent'
+import { ArgsTable, Canvas, Description, Meta, Preview, Source, Story } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { Radio } from './Radio'
+
+<Meta title='01. Atoms / Radio' component={Radio} />
+
+# Radio
+
+`import { Radio } from '@labfriend/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex flex-col gap-2'>
+      <Radio checked={false} />
+      <Radio>Radio</Radio>
+      <Radio>Radio</Radio>
+      <Radio disabled>Radio Disabled</Radio>
+      <Radio disabled checked>
+        Radio Disabled
+      </Radio>
+      <Radio indeterminate>Radio indeterminate</Radio>
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<Radio />
+  <Radio>Radio</Radio>
+  <Radio disabled>Radio Disabled</Radio>
+  <Radio disabled checked>Radio Disabled</Radio>
+  <Radio indeterminate>Radio indeterminate</Radio>`}
+/>
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={Radio} />

@@ -1,0 +1,130 @@
+import dedent from 'ts-dedent'
+
+import {
+  ArgsTable,
+  Canvas,
+  Description,
+  Meta,
+  Preview,
+  Source,
+  Story,
+  DocsContainer,
+} from '@storybook/addon-docs'
+
+import {
+  fontStack,
+  fontSources,
+  fontFamily,
+  headings,
+  body,
+  colors,
+} from '../../config/typography'
+
+import { palette, primary, brand } from '../../config/colors'
+
+import {
+  PageHeroOne,
+  DocHeading,
+  DocTypographyTable,
+  DocColorStripe,
+  DocColorPalette,
+} from '@karapincha/hydra-ui'
+
+import ColorIcon from '@karapincha/hydra-ui/dist/svg/ColorIcon'
+
+<Meta
+  title='00. Styleguide / Colors'
+  parameters={{ options: { isToolshown: false } }}
+/>
+
+<PageHeroOne
+  data={{
+    title: 'Colors',
+    description:
+      'Our color palette is a selection of colors that work together to create consistency in the way we use colors in products.',
+    thumbnail: (
+      <ColorIcon
+        primaryColor={palette.B.base}
+        secondaryColor={palette.N.base}
+        darkerColor={palette.N['900']}
+      />
+    ),
+  }}
+  className='mb-[20px]'
+/>
+
+<DocHeading
+  heading='Usage'
+  headingClassName='text-h2 mb-5'
+  paragraph='Color distinguishes our brand and helps us create consistent experiences across products.'
+  className='mb-16'
+/>
+
+<DocHeading
+  heading='React'
+  headingClassName='text-h3 mb-1'
+  paragraph={`As a className — <code>.text-{colorCode}</code> / <code>.bg-{colorCode}</code> / <code>.border-{colorCode}</code>`}
+  className='mb-5'
+/>
+
+<Source
+  language='html'
+  code={dedent`   
+  <h1 className="text-B-500">This text is Brand color</h1>
+  <h1 className="bg-B-500">This element's background is Brand color</h1>
+  <h1 className="border-B-500">This element's border is Brand color</h1>
+`}
+/>
+
+<DocHeading
+  heading='Stylesheet'
+  headingClassName='text-h3 mb-1'
+  paragraph={`As a SCSS mixin — <code>@apply {colorCode}</code>`}
+  className='mt-16 mb-10'
+/>
+
+<Source
+  language='css'
+  code={dedent`   
+  /* Text */
+  .example { @apply text-B-500; }
+  /* Background */
+  .example { @apply bg-B-500; }
+  /* Border */
+  .example { @apply border-B-500; }
+`}
+/>
+
+<DocHeading
+  heading='Color Palette'
+  headingClassName='text-h2 mb-5'
+  paragraph={`Color distinguishes our brand and helps us create consistent experiences across products.`}
+  className='mt-16 mb-16'
+/>
+
+<DocHeading
+  heading='Brand Primary'
+  headingClassName='text-h3 mb-1'
+  className='mb-5'
+/>
+
+<DocColorStripe
+  isJustified
+  colorsObj={palette.B}
+  className='mb-16'
+  palette={palette}
+/>
+
+<DocHeading
+  heading='Extended'
+  headingClassName='text-h3 mb-1'
+  className='mb-5'
+/>
+
+<DocColorPalette
+  isJustified
+  palette={palette}
+  primary={primary}
+  brand={brand}
+  className='mb-16'
+/>

@@ -1,0 +1,43 @@
+import dedent from 'ts-dedent'
+import {
+  ArgsTable,
+  Canvas,
+  Description,
+  Meta,
+  Preview,
+  Source,
+  Story,
+} from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { ToolTip } from './ToolTip'
+
+<Meta title='01. Atoms / ToolTip' component={ToolTip} />
+
+# ToolTip
+
+`import { ToolTip } from '@labfriend/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <ToolTip />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<ToolTip />`} />
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={ToolTip} />

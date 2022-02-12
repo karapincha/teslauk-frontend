@@ -1,0 +1,249 @@
+import dedent from 'ts-dedent'
+import { ArgsTable, Canvas, Description, Meta, Preview, Source, Story } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+import { Search, ChevronDown, Box, User } from 'react-feather'
+
+import TextField from './TextField'
+
+<Meta title='01. Atoms / TextField' component={TextField} />
+
+# TextField
+
+`import { TextField } from '@labfriend/ui'`
+
+**Note:** forwardRef is integrated by default. Just pass `ref` prop.
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center w-full gap-4 flex-col'>
+      <TextField placeholder='John Doe' />
+      <TextField disabled defaultValue='Disabled' />
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<TextField placeholder='John Doe' />
+      <TextField disabled defaultValue='Disabled' />`}
+/>
+
+<br />
+<br />
+
+### With icon
+
+<br />
+
+<Story name='With icon'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center w-full gap-4 flex-col'>
+      <TextField iconBefore={<Search className='text-N-600' size={16} />} placeholder='John Doe' />
+      <TextField
+        iconAfter={<ChevronDown className='text-N-600' size={16} />}
+        placeholder='John Doe'
+      />
+      <TextField
+        iconBefore={<Box className='text-N-600' size={16} />}
+        iconAfter={<ChevronDown className='text-N-600' size={16} />}
+        placeholder='John Doe'
+      />
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<TextField iconBefore={<Search className='text-N-600' size={16} />} placeholder='John Doe' />
+  <TextField iconAfter={<ChevronDown className='text-N-600' size={16} />} placeholder='John Doe' />`}
+/>
+
+<br />
+<br />
+
+### With label
+
+<br />
+
+<Story name='With label'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center w-full gap-4 flex-col'>
+      <TextField
+        iconBefore={<User className='text-N-600' size={16} />}
+        placeholder='John Doe'
+        label='Full name'
+      />
+      <TextField
+        iconAfter={<ChevronDown className='text-N-600' size={16} />}
+        placeholder='John Doe'
+        label='Select user'
+      />
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<TextField
+        iconBefore={<User className='text-N-600' size={16} />}
+        placeholder='John Doe'
+        label='Full name'
+      />
+      
+      <TextField
+        iconAfter={<ChevronDown className='text-N-600' size={16} />}
+        placeholder='John Doe'
+        label='Select user'
+      />
+`}
+/>
+
+<br />
+<br />
+
+### Error / Success
+
+<br />
+
+<Story name='Error / Success'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center w-full gap-4 flex-col'>
+      <TextField
+        iconBefore={<User className='text-N-600' size={16} />}
+        placeholder='John Doe'
+        label='Full name'
+        hint='Please enter your full name.'
+        isError
+      />
+      <TextField
+        iconAfter={<ChevronDown className='text-N-600' size={16} />}
+        placeholder='John Doe'
+        label='Select user'
+        hint='Succefully submitted.'
+        isSuccess
+      />
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<TextField
+        iconBefore={<User className='text-N-600' size={16} />}
+        placeholder='John Doe'
+        label='Full name'
+      />
+      
+      <TextField
+        iconAfter={<ChevronDown className='text-N-600' size={16} />}
+        placeholder='John Doe'
+        label='Select user'
+      />
+`}
+/>
+
+<br />
+<br />
+
+### Sizes
+
+<br />
+
+<Story name='Sizes'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center w-full gap-4 flex-col'>
+      <TextField
+        iconBefore={<User className='text-N-600' size={16} />}
+        placeholder='John Doe'
+        size='lg'
+      />
+      <TextField
+        iconAfter={<ChevronDown className='text-N-600' size={16} />}
+        placeholder='John Doe'
+        size='default'
+      />
+      <TextField
+        iconAfter={<ChevronDown className='text-N-600' size={16} />}
+        placeholder='John Doe'
+        size='sm'
+      />
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`
+  <TextField
+    iconBefore={<User className='text-N-600' size={16} />}
+    placeholder='John Doe'
+    size='lg'
+  />
+  
+  <TextField
+    iconAfter={<ChevronDown className='text-N-600' size={16} />}
+    placeholder='John Doe'
+    size='default'
+  />
+
+  <TextField
+    iconAfter={<ChevronDown className='text-N-600' size={16} />}
+    placeholder='John Doe'
+    size='sm'
+  />
+`}
+/>
+
+<br />
+<br />
+
+### Full Code Sample
+
+<br />
+
+<Source
+  language={'jsx'}
+  code={dedent`import React, { FC } from "react";
+import { Search, ChevronDown, Box, User } from "react-feather";
+import { TextField } from '@labfriend/ui'
+ 
+const Sample = (props) => {
+  return (
+    <>
+      <TextField
+        iconBefore={<Search className="text-N-600" size={16} />}
+        placeholder="John Doe"
+      />
+      
+      <TextField
+        iconAfter={<ChevronDown className="text-N-600" size={16} />}
+        placeholder="John Doe"
+        />
+        
+      <TextField
+        iconBefore={<Box className="text-N-600" size={16} />}
+        iconAfter={<ChevronDown className="text-N-600" size={16} />}
+        placeholder="John Doe"
+      />
+    </>
+  );
+};
+ 
+Sample.propTypes = {};
+ 
+export default Sample;`}
+/>
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={TextField} />

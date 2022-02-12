@@ -1,0 +1,49 @@
+/* TailwindCSS */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  .display,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif text-N-800;
+  }
+
+  .display {
+    @apply text-display;
+  }
+
+  h1 {
+    @apply text-h1 font-h1;
+  }
+
+  h2 {
+    @apply text-h2 font-h2;
+  }
+
+  h3 {
+    @apply text-h3 font-h3;
+  }
+
+  h4 {
+    @apply text-h4 font-h4;
+  }
+
+  h5 {
+    @apply text-h5 font-h5;
+  }
+
+  h6 {
+    @apply text-h6 font-h6;
+  }
+
+  a,
+  .link {
+    @apply text-B-500 hover:text-B-400;
+  }
+}

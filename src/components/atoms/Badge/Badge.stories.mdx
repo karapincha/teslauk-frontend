@@ -1,0 +1,84 @@
+import dedent from 'ts-dedent'
+import {
+  ArgsTable,
+  Canvas,
+  Description,
+  Meta,
+  Preview,
+  Source,
+  Story,
+} from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { Badge } from './Badge'
+
+<Meta title='01. Atoms / Badge' component={Badge} />
+
+# Badge
+
+`import { Badge } from '@labfriend/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Badge>Badge</Badge>
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<Badge />`} />
+
+<br />
+<br />
+
+### Appearances
+
+<br />
+
+<Story name='Appearances'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Badge appearance='success'>Badge</Badge>
+      <Badge appearance='info'>Badge</Badge>
+      <Badge appearance='error'>Badge</Badge>
+      <Badge appearance='warning'>Badge</Badge>
+      <Badge appearance='default'>Badge</Badge>
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<Badge appearance='success'>Badge</Badge>
+      <Badge appearance='info'>Badge</Badge>
+      <Badge appearance='error'>Badge</Badge>
+      <Badge appearance='warning'>Badge</Badge>
+      <Badge appearance='default'>Badge</Badge>`} />
+
+<br />
+<br />
+
+### Sizes
+
+<br/>
+
+<Story name='Sizes'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Badge size='default'>Badge</Badge>
+      <Badge size='sm'>Badge</Badge>
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<Badge size='default'>Badge</Badge>
+    <Badge size='sm'>Badge</Badge>`} />
+
+### Properties
+
+<ArgsTable of={Badge} />

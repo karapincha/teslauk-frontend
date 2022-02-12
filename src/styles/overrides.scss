@@ -1,0 +1,60 @@
+/* RC-Slider */
+.rc-slider {
+  &-tooltip {
+    top: -28px !important;
+    @apply select-none;
+
+    &-arrow {
+      display: none;
+    }
+
+    &-inner {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      color: #728197 !important;
+      font-weight: 500 !important;
+    }
+  }
+
+  &-handle {
+    &-dragging {
+      box-shadow: none !important;
+    }
+  }
+}
+
+/* Swiper bullets */
+.swiper-pagination {
+  bottom: 24px !important;
+
+  &-bullet {
+    width: 52px !important;
+    height: 8px !important;
+    border-radius: 8px !important;
+    background-color: #d8e1ec !important;
+    opacity: 1 !important;
+
+    &-active {
+      background-color: #4b5669 !important;
+    }
+  }
+}
+
+/* Product Card Carousel Preview */
+.preview-carousel {
+  .swiper-pagination {
+    bottom: 24px !important;
+
+    &-bullet {
+      width: 20px !important;
+      height: 4px !important;
+      border-radius: 8px !important;
+      background-color: #d8e1ec !important;
+      opacity: 1 !important;
+
+      &-active {
+        background-color: #4b5669 !important;
+      }
+    }
+  }
+}

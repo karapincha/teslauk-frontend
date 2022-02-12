@@ -1,0 +1,123 @@
+import dedent from 'ts-dedent'
+
+import {
+  ArgsTable,
+  Canvas,
+  Description,
+  Meta,
+  Preview,
+  Source,
+  Story,
+  DocsContainer,
+} from '@storybook/addon-docs'
+
+import {
+  fontStack,
+  fontSources,
+  fontFamily,
+  headings,
+  body,
+  number,
+  colors,
+} from '../../config/typography'
+import { palette } from '../../config/colors'
+
+import TypographyIcon from '@karapincha/hydra-ui/dist/svg/TypographyIcon'
+
+import {
+  PageHeroOne,
+  DocHeading,
+  DocTypographyTable,
+  DocColorStripe,
+  DocColorPalette,
+} from '@karapincha/hydra-ui'
+
+<Meta title='00. Styleguide / Typography' parameters={{ options: { isToolshown: false } }} />
+
+<PageHeroOne
+  data={{
+    title: 'Typography',
+    description:
+      'Type is our system of fonts. Each font conveys the appropriate sentiment to assist our users through each stage of their journey.',
+    thumbnail: (
+      <TypographyIcon
+        primaryColor={palette.B.base}
+        secondaryColor={palette.N.base}
+        darkerColor={palette.N['900']}
+      />
+    ),
+  }}
+  className='mb-[20px]'
+/>
+
+<DocHeading
+  heading='Usage'
+  headingClassName='text-h2 mb-5'
+  paragraph='We use sans serif fonts for most of our type in-product, the exception being when you want to display code then you should defer to monospace fonts.'
+  className='mb-14'
+/>
+
+<DocHeading
+  heading='Font-stacks'
+  headingClassName='text-h3 mb-1'
+  paragraph='Google Fonts'
+  className='mb-5'
+  links={[
+    {
+      name: 'DM Serif Display',
+      link: 'https://fonts.google.com/specimen/DM+Serif+Display',
+      className: 'font-serif text-lg',
+    },
+    {
+      name: 'Inter',
+      link: 'https://fonts.google.com/specimen/Inter',
+      className: 'font-sans text-lg',
+    },
+    {
+      name: 'IBM Plex Mono',
+      link: 'https://fonts.google.com/specimen/IBM+Plex+Mono',
+      className: 'font-mono text-lg',
+    },
+  ]}
+/>
+
+<Source
+  language='css'
+  code={dedent`   
+  /* Sans-Serif Font Stack */
+  font-family: ${fontFamily.sans};
+  /* Serif Font Stack */
+  font-family: ${fontFamily.serif};
+  /* Mono Font Stack */
+  font-family: ${fontFamily.mono};
+`}
+/>
+
+<DocHeading
+  heading='Font System'
+  headingClassName='text-h2 mb-5 font-600'
+  paragraph={`Out font system is custom curated and picked by our best designers. The system consist of two types font scales; Which are <code>Headings</code> and <code>Body</code>`}
+  className='mt-16 mb-16'
+/>
+
+<DocHeading
+  heading='Headings'
+  headingClassName='text-h3 mb-1'
+  paragraph={`Font Family — <code>"Inter", sans-serif</code>`}
+  className='mb-5'
+/>
+
+<DocTypographyTable type={headings} className='mb-14' />
+
+<DocHeading
+  heading='Body'
+  headingClassName='text-h3 mb-1'
+  paragraph={`Font Family — <code>"Inter", sans-serif</code>`}
+  className='mb-5'
+/>
+
+<DocTypographyTable type={body} className='mb-14' />
+
+<!-- Hack to override missing JIT styles -->
+
+<div className='md:grid-cols-4 md:grid' />

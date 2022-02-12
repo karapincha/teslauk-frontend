@@ -1,0 +1,93 @@
+import dedent from 'ts-dedent'
+import { ArgsTable, Canvas, Description, Meta, Preview, Source, Story } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { Quantity } from './Quantity'
+
+<Meta title='01. Atoms / Quantity' component={Quantity} />
+
+# Quantity
+
+`import { Quantity } from '@labfriend/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Quantity />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<Quantity />`} />
+
+<br />
+<br />
+
+### With hint
+
+<br />
+
+<Story name='With hint'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Quantity
+        id='uniqueID'
+        hint='MOQ: 5x5'
+        tooltip='Minimum order quantity: 5 Must be ordered in multiples of 5 units'
+      />
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<Quantity
+        id='uniqueID'
+        hint='MOQ: 5x5'
+        tooltip='Minimum order quantity: 5 Must be ordered in multiples of 5 units'
+      />`}
+/>
+
+<br />
+<br />
+
+### isHorizontal
+
+<br />
+
+<Story name='isHorizontal'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Quantity
+        id='uniqueID'
+        hint='MOQ: 5x5'
+        tooltip='Minimum order quantity: 5 Must be ordered in multiples of 5 units'
+        isHorizontal
+      />
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<Quantity
+        id='uniqueID'
+        hint='MOQ: 5x5'
+        tooltip='Minimum order quantity: 5 Must be ordered in multiples of 5 units'
+        isHorizontal
+      />`}
+/>
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={Quantity} />

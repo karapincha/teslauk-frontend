@@ -1,0 +1,62 @@
+import dedent from 'ts-dedent'
+import {
+  ArgsTable,
+  Canvas,
+  Description,
+  Meta,
+  Preview,
+  Source,
+  Story,
+} from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+import { Tag as TagIcon, Shield, Disc, Zap } from 'react-feather'
+
+import { Tag } from './Tag'
+
+<Meta title='01. Atoms / Tag' component={Tag} />
+
+# Tag
+
+`import { Tag } from '@labfriend/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Tag color='green' onClick={() => {}} icon={<TagIcon size={14} />}>
+        Promotional
+      </Tag>
+      <Tag color='red' onClick={() => {}} icon={<Shield size={14} />}>
+        Hazardous
+      </Tag>
+      <Tag color='purple' onClick={() => {}} icon={<Disc size={14} />}>
+        Radioactive
+      </Tag>
+      <Tag color='orange' onClick={() => {}} icon={<Zap size={14} />}>
+        Fragile
+      </Tag>
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<Tag color='green' onClick={() => {}} icon={<TagIcon size={14}/>}>Promotional</Tag>
+  <Tag color='red' onClick={() => {}} icon={<Shield size={14}/>}>Hazardous</Tag>
+  <Tag color='purple' onClick={() => {}} icon={<Disc size={14}/>}>Radioactive</Tag>
+  <Tag color='orange' onClick={() => {}} icon={<Zap size={14}/>}>Fragile</Tag>
+  `}
+/>
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={Tag} />

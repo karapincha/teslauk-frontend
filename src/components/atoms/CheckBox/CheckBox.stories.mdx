@@ -1,0 +1,43 @@
+import dedent from 'ts-dedent'
+import { ArgsTable, Canvas, Description, Meta, Preview, Source, Story } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { CheckBox } from './CheckBox'
+
+<Meta title='01. Atoms / CheckBox' component={CheckBox} />
+
+# CheckBox
+
+`import { CheckBox } from '@labfriend/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex flex-col gap-2'>
+      <CheckBox />
+      <CheckBox>CheckBox</CheckBox>
+      <CheckBox disabled>CheckBox Disabled</CheckBox>
+      <CheckBox disabled checked>CheckBox Disabled</CheckBox>
+      <CheckBox indeterminate>CheckBox indeterminate</CheckBox>
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<CheckBox />
+  <CheckBox>CheckBox</CheckBox>
+  <CheckBox disabled>CheckBox Disabled</CheckBox>
+  <CheckBox disabled checked>CheckBox Disabled</CheckBox>
+  <CheckBox indeterminate>CheckBox indeterminate</CheckBox>`} />
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={CheckBox} />

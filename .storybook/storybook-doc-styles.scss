@@ -1,0 +1,13 @@
+.sbdocs.sbdocs-wrapper {
+  .doc-story {
+    /* Preview */
+    &__preview {
+      background: repeating-conic-gradient(#eef3f8 0% 25%, transparent 0% 50%)
+        50% / 20px 20px;
+      border: 1px solid #e2e6f6;
+      border-radius: 8px;
+      margin-bottom: 40px;
+      padding: 40px;
+    }
+  }
+}

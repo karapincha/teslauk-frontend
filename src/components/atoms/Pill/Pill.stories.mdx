@@ -1,0 +1,90 @@
+import dedent from 'ts-dedent'
+import {
+  ArgsTable,
+  Canvas,
+  Description,
+  Meta,
+  Preview,
+  Source,
+  Story,
+} from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { Pill } from './Pill'
+
+<Meta title='01. Atoms / Pill' component={Pill} />
+
+# Pill
+
+`import { Pill } from '@labfriend/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Pill>Beaker</Pill>
+      <Pill onClose={() => {}}>Reusable Garments</Pill>
+      <Pill isActive>Beaker</Pill>
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<Pill>Beaker</Pill>
+  <Pill onClose={() => {}}>Reusable Garments</Pill> 
+  <Pill isActive>Beaker</Pill>`}
+/>
+
+<br />
+<br />
+
+### Sizes
+
+<br />
+
+<Story name='Sizes'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4 mb-4'>
+      <Pill size='default'>Beaker</Pill>
+      <Pill size='default' onClose={() => {}}>
+        Reusable Garments
+      </Pill>
+      <Pill size='default' isActive>
+        Burette
+      </Pill>
+    </div>
+    <div className='flex items-center gap-4'>
+      <Pill size='sm'>Beaker</Pill>
+      <Pill size='sm' onClose={() => {}}>
+        Reusable Garments
+      </Pill>
+      <Pill size='sm' isActive>
+        Burette
+      </Pill>
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<Pill size='default'>Beaker</Pill>
+  <Pill size='default' onClose={() => {}}>Reusable Garments</Pill>
+  <Pill size='default' isActive>Burette</Pill>
+  <Pill size='sm'>Beaker</Pill>
+  <Pill size='sm' onClose={() => {}}>Reusable Garments</Pill>
+  <Pill size='sm' isActive>Burette</Pill>`}
+/>
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={Pill} />

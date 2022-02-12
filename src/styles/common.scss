@@ -1,0 +1,16 @@
+* {
+  @apply selection:bg-A-200 selection:text-N-800;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+img {
+  max-width: unset;
+}
+
+.scrollbar-thin {
+  -webkit-appearance: none !important;
+  -webkit-overflow-scrolling: auto;
+}

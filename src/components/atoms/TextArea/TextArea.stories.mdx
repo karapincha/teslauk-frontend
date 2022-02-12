@@ -1,0 +1,107 @@
+import dedent from 'ts-dedent'
+import { ArgsTable, Canvas, Description, Meta, Preview, Source, Story } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+import { Search, ChevronDown, Box, User } from 'react-feather'
+
+import TextArea from './TextArea'
+
+<Meta title='01. Atoms / TextArea' component={TextArea} />
+
+# TextArea
+
+`import { TextArea } from '@labfriend/ui'`
+
+**Note:** forwardRef is integrated by default. Just pass `ref` prop.
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center w-full gap-4 flex-col'>
+      <TextArea placeholder='123 st. Australia' />
+      <TextArea disabled defaultValue='Disabled' />
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<TextArea placeholder='123 st. Australia' />
+      <TextArea disabled defaultValue='Disabled' />`}
+/>
+
+<br />
+<br />
+
+### With label
+
+<br />
+
+<Story name='With label'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center w-full gap-4 flex-col'>
+      <TextArea placeholder='123 st. Australia' label='Address' />
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<TextArea
+        placeholder='123 st. Australia'
+        label='Address'
+      />
+`}
+/>
+
+<br />
+<br />
+
+### Error / Success
+
+<br />
+
+<Story name='Error / Success'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center w-full gap-4 flex-col'>
+      <TextArea
+        placeholder='123 st. Australia'
+        label='Address'
+        hint='Please enter your full name.'
+        isError
+      />
+      <TextArea
+        placeholder='123 st. Australia'
+        label='Address'
+        hint='Succefully submitted.'
+        isSuccess
+      />
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<TextArea
+        placeholder='123 st. Australia'
+        label='Address'
+      />
+      
+      <TextArea
+        placeholder='123 st. Australia'
+        label='Address'
+      />
+`}
+/>
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={TextArea} />

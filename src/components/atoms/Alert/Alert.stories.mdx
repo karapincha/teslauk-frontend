@@ -1,0 +1,62 @@
+import dedent from 'ts-dedent'
+import { ArgsTable, Canvas, Description, Meta, Preview, Source, Story } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { Alert } from './Alert'
+
+<Meta title='01. Atoms / Alert' component={Alert} />
+
+# Alert
+
+`import { Alert } from '@labfriend/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Alert>Hey you! You are amazing.</Alert>
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<Alert />`} />
+
+<br />
+<br />
+
+### Appearances
+
+<br />
+
+<Story name='Appearances'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex flex-col gap-4'>
+      <Alert appearance='success'>E-mail with instructions has been sent to you.</Alert>
+      <Alert appearance='error'>Something went wrong...</Alert>
+      <Alert appearance='warning'>Are you sure you want to do this?</Alert>
+      <Alert appearance='info'>Hey you! You are amazing.</Alert>
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`
+<Alert appearance='success'>E-mail with instructions has been sent to you.</Alert>
+<Alert appearance='error'>Something went wrong...</Alert>
+<Alert appearance='warning'>Are you sure you want to do this?</Alert>
+<Alert appearance='info'>Hey you! You are amazing.</Alert>`}
+/>
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={Alert} />

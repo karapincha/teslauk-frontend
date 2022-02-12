@@ -1,0 +1,202 @@
+import dedent from 'ts-dedent'
+import { Meta, Story, Source, ArgsTable } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+import { CreditCard, ArrowUpRight } from 'react-feather'
+
+import { Button } from './Button'
+
+<Meta title='01. Atoms / Button' component={Button} />
+
+# Button
+
+`import { Button } from '@labfriend/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Button>Button</Button>
+      <Button iconBefore={<CreditCard size={18} />}>Button</Button>
+      <Button iconAfter={<CreditCard size={18} />}>Button</Button>
+      <Button disabled>Disabled</Button>
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<Button>Button</Button>
+<Button iconBefore={<CreditCard size={18} />}>Button</Button>
+<Button iconAfter={<CreditCard size={18} />}>Button</Button>
+<Button disabled>Disabled</Button>`}
+/>
+
+<br />
+<br />
+
+### Appearance
+
+<br />
+
+<Story name='Appearance'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4 mb-4'>
+      <Button appearance='primary'>Button</Button>
+      <Button appearance='primary' iconBefore={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button appearance='primary' iconAfter={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button appearance='primary' disabled>
+        Disabled
+      </Button>
+    </div>
+    <div className='flex items-center gap-4 mb-4'>
+      <Button isRounded appearance='primary'>
+        Button
+      </Button>
+      <Button isRounded appearance='primary' iconBefore={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button isRounded appearance='primary' iconAfter={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button isRounded appearance='primary' disabled>
+        Disabled
+      </Button>
+    </div>
+    <div className='flex items-center gap-4 mb-4'>
+      <Button appearance='secondary'>Button</Button>
+      <Button appearance='secondary' iconBefore={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button appearance='secondary' iconAfter={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button appearance='secondary' disabled>
+        Disabled
+      </Button>
+    </div>
+    <div className='flex items-center gap-4 mb-4'>
+      <Button view='outline'>Button</Button>
+      <Button view='outline' iconBefore={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button view='outline' iconAfter={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button view='outline' disabled>
+        Disabled
+      </Button>
+    </div>
+    <div className='flex items-center gap-4 mb-4'>
+      <Button appearance='ghost'>Button</Button>
+      <Button appearance='ghost' iconBefore={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button appearance='ghost' iconAfter={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button appearance='ghost' disabled>
+        Disabled
+      </Button>
+    </div>
+    <div className='flex items-center gap-4 mb-4'>
+      <Button appearance='link'>Link Button</Button>
+      <Button appearance='link' iconBefore={<CreditCard size={18} />}>
+        Link Button
+      </Button>
+      <Button appearance='link' view='outline' iconAfter={<CreditCard size={18} />}>
+        Link Button
+      </Button>
+      <Button appearance='link' disabled>
+        Link Button
+      </Button>
+    </div>
+    <div className='flex items-center gap-4'>
+      <Button view='outline' icon={<ArrowUpRight size={18} />} />
+      <Button view='outline' icon={<ArrowUpRight size={18} />} />
+      <Button view='outline' icon={<ArrowUpRight size={18} />} />
+      <Button view='outline' icon={<ArrowUpRight size={18} />} disabled />
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<Button appearance='primary'>Button</Button>
+  <Button isRounded>Button</Button>
+  <Button appearance='secondary'>Button</Button>
+  <Button view='outline'>Button</Button>
+  <Button appearance='ghost'>Button</Button>
+  <Button appearance='link'>Link Button</Button>
+  <Button view='outline' icon={<ArrowUpRight size={18} />} />`}
+/>
+
+<br />
+<br />
+
+### Sizes
+
+<br />
+
+<Story name='Sizes'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4 mb-4'>
+      <Button size='lg'>Button</Button>
+      <Button size='lg' iconBefore={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button size='lg' iconAfter={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button size='lg' disabled>
+        Disabled
+      </Button>
+    </div>
+    <div className='flex items-center gap-4 mb-4'>
+      <Button size='md'>Button</Button>
+      <Button size='md' iconBefore={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button size='md' iconAfter={<CreditCard size={18} />}>
+        Button
+      </Button>
+      <Button size='md' disabled>
+        Disabled
+      </Button>
+    </div>
+    <div className='flex items-center gap-4'>
+      <Button size='sm'>Button</Button>
+      <Button size='sm' iconBefore={<CreditCard size={12} />}>
+        Button
+      </Button>
+      <Button size='sm' iconAfter={<CreditCard size={12} />}>
+        Button
+      </Button>
+      <Button size='sm' disabled>
+        Disabled
+      </Button>
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<Button size="lg" iconAfter={<CreditCard size={18} />}>Button</Button>
+<Button size="sm" iconBefore={<CreditCard size={12} />}>Button</Button>`}
+/>
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={Button} />
