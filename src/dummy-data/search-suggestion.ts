@@ -94,7 +94,7 @@ export const searchSuggestions = {
   manufacturers: [
     {
       id: 0,
-      label: 'Labfriend Labware',
+      label: 'karapincha Labware',
     },
     {
       id: 2,
@@ -118,7 +118,7 @@ export const searchSuggestions = {
     },
     {
       id: 7,
-      label: 'Labfriend Labware',
+      label: 'karapincha Labware',
     },
     {
       id: 8,
@@ -137,7 +137,7 @@ export const searchSuggestions = {
   sellers: [
     {
       id: 0,
-      label: 'Labfriend PTY Ltd',
+      label: 'karapincha PTY Ltd',
     },
     {
       id: 1,
@@ -157,7 +157,7 @@ export const searchSuggestions = {
     },
     {
       id: 5,
-      label: 'Labfriend PTY Ltd',
+      label: 'karapincha PTY Ltd',
     },
     {
       id: 6,
@@ -177,7 +177,7 @@ export const searchSuggestions = {
     },
     {
       id: 10,
-      label: 'Labfriend PTY Ltd',
+      label: 'karapincha PTY Ltd',
     },
   ],
 

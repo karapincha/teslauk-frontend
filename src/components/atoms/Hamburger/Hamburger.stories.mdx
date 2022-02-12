@@ -1,0 +1,36 @@
+import dedent from 'ts-dedent'
+import { Meta, Story, Source, ArgsTable } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+import { CreditCard, ArrowUpRight } from 'react-feather'
+
+import { Hamburger } from './Hamburger'
+
+<Meta title='01. Atoms / Hamburger' component={Hamburger} />
+
+# Hamburger
+
+`import { Hamburger } from '@teslaowners/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Hamburger />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<Hamburger />`} />
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={Hamburger} />
