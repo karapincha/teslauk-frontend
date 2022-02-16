@@ -21,19 +21,19 @@ export const Beaker = ({ size = 28, color = 'currentColor', ...restProps }) => {
         <path
           d='M7.77305 15.3997H10.013'
           stroke={color}
-          stroke-width='1.11999'
+          strokeWidth='1.11999'
           stroke-miterlimit='10'
         />
         <path
           d='M7.77305 13.1599H10.013'
           stroke={color}
-          stroke-width='1.11999'
+          strokeWidth='1.11999'
           stroke-miterlimit='10'
         />
         <path
           d='M7.77305 10.9199H10.013'
           stroke={color}
-          stroke-width='1.11999'
+          strokeWidth='1.11999'
           stroke-miterlimit='10'
         />
         <path

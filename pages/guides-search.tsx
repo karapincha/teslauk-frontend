@@ -18,12 +18,20 @@ const Home: NextPage = () => {
       <div className='container flex pt-[100px]'>
         <PageHeader
           hasSearch
-          searchPlaceholder='Search your question here?'
           heading='Written by Tesla Owners <br />for Tesla Owners'
           description='Search through over 120 guides'
           image='https://images.unsplash.com/flagged/photo-1579782647395-2e6fb36a64f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=806&q=80'
           headingClassName='text-N-10'
           descriptionClassName='text-white'
+          btnProps={{
+            onClick: (e: any) => console.log(e),
+            children: 'Search asdadasdadadadasdsada',
+            appearance: 'primary',
+          }}
+          inputProps={{
+            onChange: (e: any) => console.log(e.target.value),
+            placeholder: 'Search your question here?',
+          }}
         />
       </div>
 
@@ -181,7 +189,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <SupplierRibbon className="border-t border-N-100" />
+      <SupplierRibbon className='border-t border-N-100' />
       <Footer />
     </>
   )

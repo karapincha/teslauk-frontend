@@ -5,32 +5,21 @@ import { ButtonProps } from '@/components/atoms/Button'
 
 export interface PageHeaderProps {
   [x: string]: any
-  heading?: string
-  description?: string
-  image?: string
-  icon?: ReactNode
-  searchPlaceholder?: string
-  btnProps?: ButtonProps
-  onSearchChange?: Function
-  onSearchSubmit?: Function
-  textColor?: 'white' | 'black'
 }
 
 export const PageHeader: FC<PageHeaderProps> = ({
-  className,
-  heading,
-  description,
-  image,
-  icon,
-  searchPlaceholder,
   btnProps,
-  onSearchChange,
-  onSearchSubmit,
-  textColor,
-  headingClassName,
-  iconClassName,
+  className,
+  description,
   descriptionClassName,
   hasSearch,
+  heading,
+  headingClassName,
+  icon,
+  iconClassName,
+  image,
+  inputProps,
+  textColor,
   ...restProps
 }: PageHeaderProps) => {
   const [bannerImage, setBannerImage] = useState<any>(
@@ -77,19 +66,8 @@ export const PageHeader: FC<PageHeaderProps> = ({
         {hasSearch && (
           <FieldGroup
             className='w-[496px] lg:pt-[16px]'
-            placeholder={searchPlaceholder}
-            btnProps={{
-              label: 'Search',
-              onSearchSubmit: (e: any) => {
-                console.log('Clicked', e)
-              },
-              appearance: 'primary',
-            }}
-            inputProps={{
-              onSearchChange: (e: any) => {
-                console.log(e.target.value)
-              },
-            }}
+            btnProps={btnProps}
+            inputProps={inputProps}
           />
         )}
       </div>
