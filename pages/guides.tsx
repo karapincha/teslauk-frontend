@@ -2,8 +2,9 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { PageHeader, LinkListCard } from '@/components/molecules'
-import { FileText } from 'react-feather'
+import { FileText, Mail } from 'react-feather'
 import { useRouter } from 'next/router'
+import { ContactCta } from '@/components/molecules/ContactCta'
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -40,6 +41,12 @@ const Home: NextPage = () => {
           }}
         />
       </div>
+
+      <ContactCta
+        heading='Still have questions? Contact us'
+        icon={<Mail size={32} />}
+        email='hello@teslaowners.org.uk'
+      />
 
       <div className='container flex flex-col gap-[40px] py-[80px]'>
         <h4 className='text-h4 font-600 text-N-800'>Browse by the categories</h4>
