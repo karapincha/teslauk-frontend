@@ -35,17 +35,17 @@ export const MembershipCard: FC<MembershipCardProps> = ({
     `membership-card shadow pb-[48px] pt-[32px] px-[28px] rounded-[12px] w-full flex flex-col shadow-[0px_25px_50px_-12px_rgba(95,111,140,0.1)]`,
     className,
     {
-      'bg-N-600 text-white min-w-[500px]': type === 'primary',
+      'bg-N-600 text-white': type === 'primary',
       'bg-white text-N-700': type === 'secondary',
     }
   )
 
   return (
     <div className={MembershipCardClasses} {...restProps}>
-      <div className='flex h-full'>
-        <div className='flex h-full flex-col'>
+      <div className='flex h-full w-full'>
+        <div className='flex h-full w-full flex-col'>
           <h3
-            className={CN('mb-[12px]', {
+            className={CN('mb-[0px]', {
               'text-white': type === 'primary',
               'text-N-700': type === 'secondary',
             })}>

@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
-import { linksList } from '@/dummy-data/links-list'
 
 export interface ListCardProps {
   [x: string]: any
@@ -14,16 +13,16 @@ export interface ListItemProps {
   isActive?: boolean
 }
 
-export const ListCard: FC<ListCardProps> = ({ className, ...restProps }: ListCardProps) => {
+export const ListCard: FC<ListCardProps> = ({ className, list, ...restProps }: ListCardProps) => {
   const ListCardClasses = CN(`list-card w-full`, className, {})
 
   return (
     <div className={ListCardClasses} {...restProps}>
       <ul className='group flex flex-col border-b border-N-200 text-md text-N-800'>
-        {linksList.map(({ id, label, link, isActive }, index) => {
+        {(list || []).map(({ id, label, link, isActive }: any, index: number) => {
           return (
             <li
-              className='flex items-center border-N-200 bg-N-50 py-[12px] group-first:border-t hover:bg-N-200'
+              className='flex items-center border-N-200 bg-N-50 py-[12px] group-first:border-t'
               key={id || index}>
               {link && (
                 <a

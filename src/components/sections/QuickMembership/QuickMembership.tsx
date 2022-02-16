@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
 import { SectionHeading, MembershipCard } from '@/components/molecules'
+import { MembershipCardPreview } from '@/components/sections'
 
 export interface QuickMembershipProps {
   [x: string]: any
@@ -27,39 +28,7 @@ export const QuickMembership: FC<QuickMembershipProps> = ({
           />
         </div>
 
-        <div className='flex justify-center gap-[48px]'>
-          <MembershipCard
-            type='secondary'
-            heading='Member'
-            price='Free'
-            list={[
-              'Full access to our extensive resources',
-              'Monthly email newsletter',
-              'Various Discussion Groups',
-              'New Owner Onboarding',
-              'Access to some Club Events',
-            ]}
-            ctaBtnText='Join'
-            onClickCtaBtn={() => {}}
-          />
-          <MembershipCard
-            type='primary'
-            heading='Supporter'
-            description='Annual subscription'
-            price='£35'
-            list={[
-              'Full access to our extensive resources',
-              'Monthly email newsletter',
-              'Various Discussion Groups',
-              'New Owner Onboarding',
-              'Access to some Club Events',
-            ]}
-            ctaBtnText='Become a supporter'
-            onClickCtaBtn={() => {}}
-            secondaryCTABtnText='See more benefits'
-            onClickSecondaryCtaBtn={() => {}}
-          />
-        </div>
+        <MembershipCardPreview />
       </div>
     </div>
   )

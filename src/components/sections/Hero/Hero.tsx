@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
 import { Button } from '@/components/atoms'
+import Link from 'next/link'
 
 export interface HeroProps {
   [x: string]: any
@@ -23,16 +24,20 @@ export const Hero: FC<HeroProps> = ({ className, ...restProps }: HeroProps) => {
 
             <div className='hero__actions pt-[32px]'>
               <div className='inline-flex flex-col gap-[16px]'>
-                <Button iconAfter={<i className='ri-arrow-right-up-line text-lg' />}>
-                  Become a free member
-                </Button>
+                <Link href='/membership' passHref>
+                  <Button iconAfter={<i className='ri-arrow-right-up-line text-lg' />}>
+                    Become a free member
+                  </Button>
+                </Link>
 
                 <div className='flex'>
-                  <Button
-                    appearance='link'
-                    iconAfter={<i className='ri-arrow-right-up-line text-lg' />}>
-                    Login
-                  </Button>
+                  <Link href='/login' passHref>
+                    <Button
+                      appearance='link'
+                      iconAfter={<i className='ri-arrow-right-up-line text-lg' />}>
+                      Login
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>

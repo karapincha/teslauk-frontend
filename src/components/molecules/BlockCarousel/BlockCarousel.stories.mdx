@@ -1,0 +1,43 @@
+import dedent from 'ts-dedent'
+import {
+  ArgsTable,
+  Canvas,
+  Description,
+  Meta,
+  Preview,
+  Source,
+  Story,
+} from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { BlockCarousel } from './BlockCarousel'
+
+<Meta title='02. Molecules / BlockCarousel' component={BlockCarousel} />
+
+# BlockCarousel
+
+`import { BlockCarousel } from '@labfriend/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex flex-col gap-[40px]'>
+      <BlockCarousel id='one' options={{ slidesPerView: 2, autoPlay: false }} />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<BlockCarousel />`} />
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={BlockCarousel} />
