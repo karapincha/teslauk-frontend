@@ -17,7 +17,7 @@ export const FieldGroup: FC<FieldGroupProps> = ({
   ...restProps
 }: FieldGroupProps) => {
   const FieldGroupClasses = CN(`field-group flex`, className)
-  const { label: btnLabel, className: btnClassName, ...restBtnProps } = btnProps
+  const { children: btnChildren, className: btnClassName, ...restBtnProps } = btnProps
 
   return (
     <div className={FieldGroupClasses} {...restProps}>
@@ -29,7 +29,7 @@ export const FieldGroup: FC<FieldGroupProps> = ({
         {...inputProps}
       />
       <Button className={CN('rounded-tl-none rounded-bl-none', btnClassName)} {...restBtnProps}>
-        {btnLabel || 'Submit'}
+        {btnChildren || 'Submit'}
       </Button>
     </div>
   )

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Header } from '@/components/sections'
+import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { PageHeader } from '@/components/molecules'
 import { Button } from '@/components/atoms'
 
@@ -109,12 +109,15 @@ const Home: NextPage = () => {
             Thank you, if you have any questions please <a>contact the team.</a>
           </p>
           <div className='pt-[32px]'>
-            <Button iconAfter={<i className='text-lg ri-arrow-right-line' />}>
+            <Button iconAfter={<i className='ri-arrow-right-line text-lg' />}>
               Proceed to submission
             </Button>
           </div>
         </article>
       </div>
+
+      <SupplierRibbon className='border-t border-N-100' />
+      <Footer />
     </>
   )
 }

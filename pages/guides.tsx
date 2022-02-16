@@ -3,8 +3,11 @@ import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { PageHeader, LinkListCard } from '@/components/molecules'
 import { FileText } from 'react-feather'
+import { useRouter } from 'next/router'
 
 const Home: NextPage = () => {
+  const router = useRouter()
+
   return (
     <>
       <Head>
@@ -24,8 +27,11 @@ const Home: NextPage = () => {
           headingClassName='text-N-10'
           descriptionClassName='text-white'
           btnProps={{
-            onClick: (e: any) => console.log(e),
-            children: 'Search asdadasdadadadasdsada',
+            onClick: (e: any) => {
+              e.preventDefault()
+              router.push('/guides-search')
+            },
+            children: 'Search',
             appearance: 'primary',
           }}
           inputProps={{
