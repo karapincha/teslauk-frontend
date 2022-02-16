@@ -1,20 +1,21 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
 import { ArrowRight } from 'react-feather'
-import { linkListCardList } from '@/dummy-data/link-list-card-list'
 
 export interface LinkListCardProps {
   [x: string]: any
   link: string
-  cardHeading: string
+  heading: string
   articleCount: string | number
+  list: any[]
 }
 
 export const LinkListCard: FC<LinkListCardProps> = ({
   className,
-  cardHeading,
+  heading,
   link,
   articleCount,
+  list,
   ...restProps
 }: LinkListCardProps) => {
   const LinkListCardClasses = CN(`list-card`, className, {
@@ -23,9 +24,9 @@ export const LinkListCard: FC<LinkListCardProps> = ({
 
   return (
     <div className={LinkListCardClasses} {...restProps}>
-      <h4 className='lis-card__heading mb-[24px] text-h4 font-500'>{cardHeading}</h4>
+      <h4 className='lis-card__heading mb-[24px] text-h4 font-500'>{heading}</h4>
       <ul className='list-card__list pb-[24px]'>
-        {linkListCardList.map(({ id, textIcon, text }: any, index: number) => {
+        {(list || []).map(({ id, textIcon, text }: any, index: number) => {
           return (
             <li className='mb-[16px] flex' key={id || index}>
               {textIcon}{' '}

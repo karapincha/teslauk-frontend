@@ -10,6 +10,8 @@ import {
 } from '@/components/sections'
 import { PageHeader, LinkListCard } from '@/components/molecules'
 
+import { linkListCardList } from '@/dummy-data/link-list-card-list'
+
 const Home: NextPage = () => {
   return (
     <>
@@ -34,14 +36,14 @@ const Home: NextPage = () => {
       </div>
 
       <div className='container py-[80px]'>
-        <h4 className='text-h4 mb-[40px]'>Browser by the category</h4>
+        <h4 className='mb-[40px] text-h4'>Browser by the category</h4>
 
         <div className='grid grid-cols-2 gap-[48px]'>
-          <LinkListCard cardHeading='About the car' articleCount='24' />
-          <LinkListCard cardHeading='About the car' articleCount='24' />
-          <LinkListCard cardHeading='About the car' articleCount='24' />
-          <LinkListCard cardHeading='About the car' articleCount='24' />
-          <LinkListCard cardHeading='About the car' articleCount='24' />
+          <LinkListCard list={linkListCardList} heading='About the car' articleCount='24' />
+          <LinkListCard list={linkListCardList} heading='About the car' articleCount='24' />
+          <LinkListCard list={linkListCardList} heading='About the car' articleCount='24' />
+          <LinkListCard list={linkListCardList} heading='About the car' articleCount='24' />
+          <LinkListCard list={linkListCardList} heading='About the car' articleCount='24' />
         </div>
       </div>
     </>
