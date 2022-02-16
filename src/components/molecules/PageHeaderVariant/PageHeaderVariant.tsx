@@ -17,7 +17,11 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
 
   return (
     <div className={PageHeaderVariantClasses} {...restProps}>
-      <h1 className='w-fixed w-[300px] flex-shrink-0 text-h1 font-700 text-N-800'>{heading}</h1>
+      <h1
+        className='w-fixed w-[368px] flex-shrink-0 text-h1 font-700 text-N-800'
+        dangerouslySetInnerHTML={{ __html: heading || '' }}
+      />
+
       <div className='h-[407px] w-full'>
         <img src={image} className='h-full w-full rounded-[12px] object-cover object-center' />
       </div>

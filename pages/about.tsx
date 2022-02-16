@@ -17,11 +17,42 @@ const Home: NextPage = () => {
 
       <Header className='pt-[80px]' />
 
-      <div className='container flex pt-[100px]'>
+      <div className='container pt-[100px]'>
         <PageHeaderVariant
-          heading='Who we are & What we do'
+          heading='Who we are <br />&amp; What we <br />do'
           image='https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
         />
+      </div>
+
+      <div className='container pt-[64px] pb-[80px]'>
+        <div className='mx-auto flex max-w-[992px] gap-[48px]'>
+          <div className='flex w-[264px] flex-shrink-0'>
+            <h5 className='text-h5 font-500'>
+              Our mission is to enhance the Tesla ownership experience and help the UK transition to
+              sustainable energy.
+            </h5>
+          </div>
+
+          <div className='flex w-full'>
+            <p className='text-md text-N-600'>
+              Whilst representing 30% of Tesla owners in the UK we deliver a plethora of events
+              nationwide; support where Tesla cannot or will not; coordination for fundraising and
+              charitable acts; representation to Government & Tesla; education to promote the uptake
+              and adoption of electric vehicles, renewable energy & zero carbon living; and
+              fostering of good relations between Members, Staff, and other supporters of Tesla, and
+              other parties who seek to achieve similar aims and purposes to the Club.
+              <br />
+              <br />
+              To maximise utilisation we take a proactive approach with owners to enable onboarding,
+              education and mentorship from before ownership starts to after their first event, then
+              the fun really starts with our in-person events (3 per month across the UK); track
+              days (12 per year); large scale events (circa 200+ owners per event); road trip
+              events; finally numerous discussion groups (circa 32,000 posts with 543,000 comments
+              per year) and guides on our website ensure continued support throughout all aspects of
+              ownership.
+            </p>
+          </div>
+        </div>
       </div>
 
       <SupplierRibbon className='border-t border-N-100' />
