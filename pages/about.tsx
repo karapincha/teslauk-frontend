@@ -4,6 +4,8 @@ import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useRouter } from 'next/router'
 import { PageHeaderVariant } from '@/components/molecules/PageHeaderVariant'
 import { Button } from '@/components/atoms'
+import { InitiativeCard } from '@/components/molecules/InitiativeCard'
+import { ChartLine } from '@/icons'
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -86,6 +88,41 @@ const Home: NextPage = () => {
             className='h-full w-full rounded-[12px] object-cover object-center'
           />
         </div>
+      </div>
+
+      <div className='container flex'>
+        <InitiativeCard
+          icon={<ChartLine size={64} />}
+          heading='Education & Outreach'
+          description='As part of our mission, we seek out opportunities to accelerate the world’s transition to sustainable energy we do following programmes.'
+          list={[
+            {
+              id: 1,
+              label: "Show & Tell' events to all schools across the UK",
+              link: '',
+              onClick: () => {},
+            },
+            {
+              id: 2,
+              label: 'Fire & Rescue demonstrations - Q&A',
+              link: '',
+              onClick: () => {},
+            },
+            {
+              id: 3,
+              label: 'Fear Uncertainty & Doubt',
+              link: '',
+              onClick: () => {},
+            },
+          ]}
+          btnProps={{
+            label: 'Sign Up',
+            onClick: () => {
+              console.log('Clicked')
+            },
+            appearance: 'primary',
+          }}
+        />
       </div>
 
       <SupplierRibbon className='border-t border-N-100' />

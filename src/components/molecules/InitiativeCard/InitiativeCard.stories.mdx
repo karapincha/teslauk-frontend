@@ -1,0 +1,92 @@
+import dedent from 'ts-dedent'
+import { ArgsTable, Canvas, Description, Meta, Preview, Source, Story } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+import { ChartLine } from '@/icons'
+import { initiativeList } from '@/dummy-data/initiative-list'
+
+import { InitiativeCard } from './InitiativeCard'
+
+<Meta title='02. Molecules / InitiativeCard' component={InitiativeCard} />
+
+# InitiativeCard
+
+`import { InitiativeCard } from '@teslaowners/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <InitiativeCard
+        icon={<ChartLine size={64} />}
+        heading='Education & Outreach'
+        description='As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes.'
+        list={initiativeList}
+      />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<InitiativeCard
+        icon={<ChartLine size={64} />}
+        heading='Education & Outreach'
+        description='As part of our mission, we seek out opportunities to to accelerate 
+        the world’s transition to sustainable energy we do following programmes.'
+        list={initiativeList}
+      />`} />
+
+<br />
+<br />
+
+<br />
+<br />
+
+### Appearance
+
+<br />
+
+<Story name='Appearance'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <InitiativeCard
+        icon={<ChartLine size={64} />}
+        heading='Education & Outreach'
+        description='As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes. As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes.'
+        btnProps={{
+          label: 'Sign Up',
+          onClick: () => {
+            console.log('Clicked')
+          },
+          appearance: 'primary',
+        }}
+      />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<InitiativeCard
+        icon={<ChartLine size={64} />}
+        heading='Education & Outreach'
+        description='As part of our mission, we seek out opportunities to to accelerate the world’s transition to 
+        sustainable energy we do following programmes. As part of our mission, we seek out opportunities to to 
+        accelerate the world’s transition to sustainable energy we do following programmes.'
+        btnProps={{
+          label: 'Sign Up',
+          onClick: () => {
+            console.log('Clicked')
+          },
+          appearance: 'primary',
+        }}
+      />`} />
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={InitiativeCard} />
