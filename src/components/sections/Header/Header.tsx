@@ -3,6 +3,7 @@ import CN from 'classnames'
 import { Logo } from '@/components/atoms/Logo'
 import { Button } from '@/components/atoms/Button'
 import { Hamburger } from '@/components/atoms/Hamburger'
+import Link from 'next/link'
 
 export interface HeaderProps {
   [x: string]: any
@@ -24,14 +25,19 @@ export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps
             <Button appearance='link' view='outline'>
               Suppliers
             </Button>
-            <Button appearance='link' view='outline'>
-              Guides
-            </Button>
+
+            <Link href='/guides' passHref>
+              <Button appearance='link' view='outline'>
+                Guides
+              </Button>
+            </Link>
           </div>
         </div>
 
         <div className='header__center absolute left-0 z-0 flex w-full items-center justify-center'>
-          <Logo />
+          <Link href='/' passHref>
+            <Logo className='cursor-pointer' />
+          </Link>
         </div>
 
         <div className='header__right relative z-10 flex items-center gap-[28px]'>

@@ -11,11 +11,18 @@ export const CallToAction: FC<CallToActionProps> = ({
   className,
   ...restProps
 }: CallToActionProps) => {
-  const CallToActionClasses = CN(`call-to-action py-[116px] bg-B-500`, className)
+  const CallToActionClasses = CN(
+    `call-to-action py-[116px] bg-B-500 bg-[url(/images/call-to-action-pattern.svg)]`,
+    className
+  )
 
   return (
     <div className={CallToActionClasses} {...restProps}>
-      <div className='container flex rounded-[12px] bg-white py-[72px] px-[100px]'>
+      <div className='container relative flex min-h-[400px] items-center rounded-[12px] bg-white py-[72px] px-[100px]'>
+        <div className='absolute bottom-0 left-0 flex h-[442px] w-[576px]'>
+          <img src='/images/cta-car.png' width={576} height={442} />
+        </div>
+
         <div className='ml-auto flex max-w-[472px]'>
           <SectionHeading
             overline='Free membership'

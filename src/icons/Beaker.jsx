@@ -9,7 +9,7 @@ export const Beaker = ({ size = 28, color = 'currentColor', ...restProps }) => {
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
       {...restProps}>
-      <g clipPath='url(#clip0_3297_13201)'>
+      <g clip-path='url(#clip0_3297_13201)'>
         <path
           d='M21.2198 7.28014L19.5328 9.06176V26.8799H6.65296V7.28014H21.2128H21.2198ZM21.2128 6.16016H6.65296C6.03445 6.16016 5.53297 6.66163 5.53297 7.28014V26.8799C5.53297 27.4984 6.03445 27.9999 6.65296 27.9999H19.5185C20.137 27.9999 20.6528 27.4984 20.6528 26.8799V9.50948L22.0315 8.05209C22.3403 7.72758 22.4224 7.25018 22.2457 6.83859C22.069 6.42699 21.6622 6.16016 21.2145 6.16016H21.2128Z'
           fill={color}
@@ -21,20 +21,20 @@ export const Beaker = ({ size = 28, color = 'currentColor', ...restProps }) => {
         <path
           d='M7.77305 15.3997H10.013'
           stroke={color}
-          strokeWidth='1.11999'
-          strokeMiterlimit='10'
+          stroke-width='1.11999'
+          stroke-miterlimit='10'
         />
         <path
           d='M7.77305 13.1599H10.013'
           stroke={color}
-          strokeWidth='1.11999'
-          strokeMiterlimit='10'
+          stroke-width='1.11999'
+          stroke-miterlimit='10'
         />
         <path
           d='M7.77305 10.9199H10.013'
           stroke={color}
-          strokeWidth='1.11999'
-          strokeMiterlimit='10'
+          stroke-width='1.11999'
+          stroke-miterlimit='10'
         />
         <path
           d='M22.0284 0.0620245C21.7523 -0.0796539 21.4155 0.0298248 21.2746 0.304502L12.4133 17.08H13.6722L22.2709 0.815776C22.412 0.540539 22.3036 0.203143 22.0284 0.0620245Z'

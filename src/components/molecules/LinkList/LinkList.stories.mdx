@@ -1,0 +1,49 @@
+import dedent from 'ts-dedent'
+import { ArgsTable, Canvas, Description, Meta, Preview, Source, Story } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { LinkList } from './LinkList'
+
+<Meta title='02. Molecules / LinkList' component={LinkList} />
+
+# LinkList
+
+`import { LinkList } from '@teslaowners/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <LinkList
+        direction='vertical'
+        list={[
+          { id: 0, linkText: 'Homepage' },
+          { id: 1, linkText: 'Analytics' },
+          { id: 2, linkText: 'Insights' },
+        ]}
+      />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<LinkList
+        direction='vertical'
+        list={[
+          { id: 0, linkText: 'Homepage' },
+          { id: 1, linkText: 'Analytics' },
+          { id: 2, linkText: 'Insights' },
+        ]}
+      />`} />
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={LinkList} />

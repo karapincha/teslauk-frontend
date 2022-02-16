@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
 import { ArrowRight } from 'react-feather'
+import { Button } from '@/components/atoms'
+import Link from 'next/link'
 
 export interface LinkListCardProps {
   [x: string]: any
@@ -18,31 +20,40 @@ export const LinkListCard: FC<LinkListCardProps> = ({
   list,
   ...restProps
 }: LinkListCardProps) => {
-  const LinkListCardClasses = CN(`list-card`, className, {
-    'bg-N-50 rounded-[12px] py-[40px] px-[32px] text-N-800 w-[576px]': true,
-  })
+  const LinkListCardClasses = CN(
+    `list-card break-inside bg-N-50 rounded-[12px] py-[40px] px-[32px] text-N-800 mb-[48px] flex flex-col gap-[24px]`,
+    className
+  )
 
   return (
     <div className={LinkListCardClasses} {...restProps}>
-      <h4 className='lis-card__heading mb-[24px] text-N-800 text-h4 font-500'>{heading}</h4>
-      <ul className='flex flex-col list-card__list gap-[16px]'>
+      <h4 className='lis-card__heading text-h4 font-500 text-N-800'>{heading}</h4>
+
+      <ul className='list-card__list flex flex-col gap-[8px]'>
         {(list || []).map(({ id, textIcon, text }: any, index: number) => {
           return (
-            <li className='flex text-N-400' key={id || index}>
-              {textIcon}{' '}
-              <a className='ml-[16px] cursor-pointer text-base font-500 text-N-800 hover:text-B-500 truncate'>{text}</a>
+            <li className='flex items-center gap-[16px] text-N-400' key={id || index}>
+              {textIcon && <span className='flex'>{textIcon}</span>}
+
+              <a className='cursor-pointer truncate text-base font-400 text-N-700 hover:text-B-500'>
+                {text}
+              </a>
             </li>
           )
         })}
       </ul>
 
       {articleCount && (
-        <span className='flex items-center cursor-pointer list-card__link pt-[24px]'>
-          <a className='mr-[8px] text-base font-600 !text-B-500' href={link}>
-            See all {articleCount} articles
-          </a>
-          <ArrowRight className='text-B-500' size={20} />
-        </span>
+        <div className='block'>
+          <Link href='/guides' passHref>
+            <Button
+              className='!text-B-500'
+              iconAfter={<i className='ri-arrow-right-line text-lg' />}
+              appearance='link'>
+              {`See all ${articleCount} articles`}
+            </Button>
+          </Link>
+        </div>
       )}
     </div>
   )

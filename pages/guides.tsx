@@ -13,9 +13,9 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='pt-[80px] pb-[0px]' />
+      <Header className='pt-[80px]' />
 
-      <div className='container flex pt-[80px]'>
+      <div className='container flex pt-[100px]'>
         <PageHeader
           hasSearch
           searchPlaceholder='Search your question here?'
@@ -27,35 +27,35 @@ const Home: NextPage = () => {
         />
       </div>
 
-      <div className='container py-[40px]'>
-        <h4 className='mb-[40px] text-h4 font-600 text-N-800'>Browse by the categories</h4>
+      <div className='container flex flex-col gap-[40px] py-[80px]'>
+        <h4 className='text-h4 font-600 text-N-800'>Browse by the categories</h4>
 
-        <div className='grid grid-cols-2 gap-[48px]'>
+        <div className='masonry sm:masonry-sm md:masonry-md'>
           <LinkListCard
             list={[
               {
                 id: 0,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: '100 things you never knew about your Tesla car (Model S & X edition)',
               },
               {
                 id: 1,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Everything you learn as a new Tesla owner in winter',
               },
               {
                 id: 2,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Tracking your Tesla from the factory to the UK',
               },
               {
                 id: 3,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Tesla Charging Etiquette',
               },
               {
                 id: 4,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Charging Cables and Adapters',
               },
             ]}
@@ -67,22 +67,22 @@ const Home: NextPage = () => {
             list={[
               {
                 id: 0,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: '100 things you never knew about your Tesla (Model S & X edition)',
               },
               {
                 id: 1,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Everything you learn as a new Tesla owner in winter',
               },
               {
                 id: 2,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Tracking your Tesla from the factory to the UK',
               },
               {
                 id: 3,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Tesla Charging Etiquette',
               },
             ]}
@@ -93,27 +93,27 @@ const Home: NextPage = () => {
             list={[
               {
                 id: 0,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: '100 things you never knew about your Tesla (Model S & X edition)',
               },
               {
                 id: 1,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Everything you learn as a new Tesla owner in winter',
               },
               {
                 id: 2,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Tracking your Tesla from the factory to the UK',
               },
               {
                 id: 3,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Tesla Charging Etiquette',
               },
               {
                 id: 4,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Charging Cables and Adapters',
               },
             ]}
@@ -125,27 +125,27 @@ const Home: NextPage = () => {
             list={[
               {
                 id: 0,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: '100 things you never knew about your Tesla (Model S & X edition)',
               },
               {
                 id: 1,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Everything you learn as a new Tesla owner in winter',
               },
               {
                 id: 2,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Tracking your Tesla from the factory to the UK',
               },
               {
                 id: 3,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Tesla Charging Etiquette',
               },
               {
                 id: 4,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Charging Cables and Adapters',
               },
             ]}
@@ -157,22 +157,22 @@ const Home: NextPage = () => {
             list={[
               {
                 id: 0,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: '100 things you never knew about your Tesla (Model S & X edition)',
               },
               {
                 id: 1,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Everything you learn as a new Tesla owner in winter',
               },
               {
                 id: 2,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Tracking your Tesla from the factory to the UK',
               },
               {
                 id: 3,
-                textIcon: <FileText size={24} />,
+                textIcon: <FileText size={20} />,
                 text: 'Tesla Charging Etiquette',
               },
             ]}
