@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
 import { Accordion } from '@/components/atoms'
-import { faq } from '@/dummy-data/faq'
+import { faqList1, faqList2 } from '@/dummy-data/faq'
 
 export interface FaqProps {
   [x: string]: any
@@ -17,10 +17,24 @@ export const Faq: FC<FaqProps> = ({ className, ...restProps }: FaqProps) => {
           <h3>Frequently asked questions</h3>
         </div>
 
-        <div className='block w-full pt-[80px]'>
-          <div className='grid w-full grid-cols-2 gap-[48px]'>
-            {(faq || []).map(({ id, heading, body }: any, index: number) => (
-              <Accordion key={id || index} heading={heading} className='border-b border-N-100 pb-[16px] break-inside'>
+        <div className='grid w-full grid-cols-2 gap-[48px] pt-[64px]'>
+          <div className='column-1'>
+            {(faqList1 || []).map(({ id, heading, body }: any, index: number) => (
+              <Accordion
+                key={id || index}
+                heading={heading}
+                className='break-inside border-b border-N-100 py-[16px] last:border-b-0'>
+                {body}
+              </Accordion>
+            ))}
+          </div>
+
+          <div className='column-1 gap-[16px]'>
+            {(faqList2 || []).map(({ id, heading, body }: any, index: number) => (
+              <Accordion
+                key={id || index}
+                heading={heading}
+                className='break-inside border-b border-N-100 py-[16px] last:border-b-0'>
                 {body}
               </Accordion>
             ))}

@@ -42,12 +42,6 @@ const Home: NextPage = () => {
         />
       </div>
 
-      <ContactCta
-        heading='Still have questions? Contact us'
-        icon={<Mail size={32} />}
-        email='hello@teslaowners.org.uk'
-      />
-
       <div className='container flex flex-col gap-[40px] py-[80px]'>
         <h4 className='text-h4 font-600 text-N-800'>Browse by the categories</h4>
 

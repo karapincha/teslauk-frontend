@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { FileText, Mail } from 'react-feather'
 import {
   Header,
   Footer,
@@ -9,7 +10,7 @@ import {
   TestimonialCarousel,
   Faq,
 } from '@/components/sections'
-import { PageHeader } from '@/components/molecules'
+import { PageHeader, ContactCta } from '@/components/molecules'
 import { testimonials } from '@/dummy-data/testimonials'
 
 const Home: NextPage = () => {
@@ -22,6 +23,7 @@ const Home: NextPage = () => {
       </Head>
 
       <Header className='pt-[80px]' />
+
       <div className='container flex pt-[100px]'>
         <PageHeader
           heading='Join the club'
@@ -30,13 +32,22 @@ const Home: NextPage = () => {
           descriptionClassName='text-N-600'
         />
       </div>
+
       <div className='container max-w-[992px] py-[80px]'>
         <MembershipCardPreview />
       </div>
+
       <SupporterBenefits className='py-[80px]' />
       <TestimonialCarousel className='pt-[104px] pb-[80px]' list={testimonials} />
-      <Faq className='py-[80px]' list={testimonials} />
-      <SupplierRibbon className='border-t border-N-100' />
+      <Faq className='pt-[40px] pb-[80px]' list={testimonials} />
+
+      <ContactCta
+        heading='Still have questions? Contact us'
+        icon={<Mail size={32} />}
+        email='hello@teslaowners.org.uk'
+      />
+
+      <SupplierRibbon className="pt-[60px]" />
       <Footer />
     </>
   )
