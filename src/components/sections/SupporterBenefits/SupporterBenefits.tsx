@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
 import { ListCard } from '@/components/molecules'
-import { benefits } from '@/dummy-data/benifits-list'
 
 export interface SupporterBenefitsProps {
   [x: string]: any
