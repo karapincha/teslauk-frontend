@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
 import { Avatar } from '@/components/atoms'
-import { Quote } from '@/icons'
 
 export interface QuoteCardProps {
   [x: string]: any
@@ -26,7 +25,7 @@ export const QuoteCard: FC<QuoteCardProps> = ({
 
   return (
     <div className={QuoteCardClasses} {...restProps}>
-      <Quote className='absolute right-[24px] top-[-48px]' size={80} />
+      <i className='ri-double-quotes-r absolute right-[24px] top-[-20px] text-[100px] text-B-500' />
 
       <p className='text-N-600' dangerouslySetInnerHTML={{ __html: quote || '' }} />
 

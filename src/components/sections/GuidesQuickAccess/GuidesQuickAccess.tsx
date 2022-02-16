@@ -45,7 +45,7 @@ export const GuidesQuickAccess: FC<GuidesQuickAccessProps> = ({
             </div>
           </div>
 
-          <div className='block'>
+          <div className='block max-w-[576px] ml-auto'>
             <div className='grid grid-cols-2 gap-x-[48px] gap-y-[36px]'>
               <Link href='/guides/about-the-car'>
                 <FeatureCard
@@ -76,7 +76,7 @@ export const GuidesQuickAccess: FC<GuidesQuickAccessProps> = ({
 
               <Link href='/guides/about-the-car'>
                 <FeatureCard
-                  heading='Upgrading, Modifying and Fixing'
+                  heading='Upgrading and Modifying'
                   description='Everything you need to know about the car'
                   icon='/images/icons/quick-guide-icon-4.png'
                   className='cursor-pointer'

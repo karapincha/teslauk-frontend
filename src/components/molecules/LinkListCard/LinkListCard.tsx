@@ -32,7 +32,7 @@ export const LinkListCard: FC<LinkListCardProps> = ({
       <ul className='list-card__list flex flex-col gap-[8px]'>
         {(list || []).map(({ id, textIcon, text }: any, index: number) => {
           return (
-            <li className='flex items-center gap-[16px] text-N-400' key={id || index}>
+            <li className='flex items-center gap-[8px] text-N-400' key={id || index}>
               {textIcon && <span className='flex'>{textIcon}</span>}
 
               <a className='cursor-pointer truncate text-base font-400 text-N-700 hover:text-B-500'>

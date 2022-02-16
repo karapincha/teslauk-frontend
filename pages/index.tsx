@@ -9,6 +9,7 @@ import {
   QuickTestimonials,
   GuidesQuickAccess,
   CallToAction,
+  SupplierRibbon,
 } from '@/components/sections'
 
 const Home: NextPage = () => {
@@ -24,9 +25,10 @@ const Home: NextPage = () => {
       <Hero className='pt-[100px] pb-[40px]' />
       <EventCard className='pt-[40px] pb-[80px]' />
       <QuickMembership className='py-[80px]' />
-      {/* <QuickTestimonials className='py-[80px]' /> */}
+      <QuickTestimonials className='py-[80px]' />
       <GuidesQuickAccess className='pt-[80px] pb-[128px]' />
       <CallToAction />
+      <SupplierRibbon />
       <Footer />
     </>
   )

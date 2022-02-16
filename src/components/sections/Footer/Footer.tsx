@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
 import { Logo, FieldGroup } from '@/components/atoms'
-import { Facebook, Instagram, Twitter, LinkedIn, YouTube } from '@/icons'
 import { LinkList } from '@/components/molecules'
+import { Facebook, Instagram, Twitter, LinkedIn, YouTube } from '@/icons'
 
 export interface FooterProps {
   [x: string]: any
@@ -12,29 +12,6 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
   const FooterClasses = CN(`footer w-full`, className, {})
 
   const copyrightDate = new Date().getFullYear()
-
-  const menuItems = [
-    {
-      id: '0',
-      linkText: 'About Tesla Owners UK',
-      link: '/about-us',
-    },
-    {
-      id: '1',
-      linkText: 'Contact us',
-      link: '/contact-us',
-    },
-    {
-      id: '2',
-      linkText: 'Careers',
-      link: '/careers',
-    },
-    {
-      id: '3',
-      linkText: 'Blog',
-      link: '/blog',
-    },
-  ]
 
   const socialLinks = [
     {
@@ -103,19 +80,17 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
             </div>
 
             <div className='footer__social flex-shrink-0'>
-              <div className='flex flex-shrink-0 flex-col'>
-                <a
-                  className='mb-[12px] text-md text-N-600 hover:text-B-500'
-                  href='mailto:hello@Tesla Owners UK.com'>
-                  hello@teslaowners.org.uk
-                </a>
-                <span className='mb-[16px] text-md text-N-600'>+1 312 219 8691</span>
-                <span className='mb-[24px] text-md text-N-600'>
-                  United Kingdom <br /> The Terrace <br />
-                  Grantham St, Lincoln LN2 1lW
-                </span>
+              <div className='flex flex-shrink-0 flex-col gap-[24px] text-md text-N-600'>
+                <div className='flex flex-col gap-[16px]'>
+                  <a href='mailto:hello@Tesla Owners UK.com'>hello@teslaowners.org.uk</a>
+                  <span>+1 312 219 8691</span>
+                  <span>
+                    United Kingdom <br /> The Terrace <br />
+                    Grantham St, Lincoln LN2 1lW
+                  </span>
+                </div>
 
-                <ul className='mb-[32px] flex gap-[16px]'>
+                <ul className='flex gap-[16px]'>
                   {socialLinks.map(({ id, link, icon }, index) => (
                     <li key={id || index}>
                       <a target='_blank' href={link} className='text-N-500 hover:text-B-500'>
@@ -127,8 +102,8 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
               </div>
             </div>
 
-            <div className='footer__link-list'>
-              <p className='mb-[16px] text-sm font-500 text-N-500'>Solutions</p>
+            <div className='footer__link-list flex flex-col gap-[16px]'>
+              <p className='text-md font-500 text-N-500'>Solutions</p>
               <LinkList
                 direction='vertical'
                 list={[
@@ -140,8 +115,8 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
               />
             </div>
 
-            <div className='footer__link-list'>
-              <p className='mb-[16px] text-sm font-500 text-N-500'>Solutions</p>
+            <div className='footer__link-list flex flex-col gap-[16px]'>
+              <p className='text-md font-500 text-N-500'>Solutions</p>
               <LinkList
                 direction='vertical'
                 list={[
@@ -153,8 +128,8 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
               />
             </div>
 
-            <div className='footer__link-list'>
-              <p className='mb-[16px] text-sm font-500 text-N-500'>Solutions</p>
+            <div className='footer__link-list flex flex-col gap-[16px]'>
+              <p className='text-md font-500 text-N-500'>Solutions</p>
               <LinkList
                 direction='vertical'
                 list={[
@@ -171,12 +146,13 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
 
       <div className='border-t border-N-100'>
         <div className='container flex items-center justify-between'>
-          <div className='py-[32px]'>
-            <p className='mb-[8px] text-md font-600 text-N-600'>Subscribe to newsletter</p>
+          <div className='flex flex-col gap-[8px] py-[32px]'>
+            <p className='text-md font-600 text-N-600'>Subscribe to newsletter</p>
             <p className='text-sm text-N-600'>
               Our weekly newsletter will keep you updated on all you need to know as a tesla owner.
             </p>
           </div>
+
           <FieldGroup
             placeholder='Enter email address'
             btnProps={{
@@ -195,7 +171,7 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
         </div>
       </div>
 
-      <div className='footer__bottom flex border-t border-N-100 bg-N-50 py-[20px] text-md text-N-500'>
+      <div className='footer__bottom flex border-t border-N-100 bg-N-50 py-[16px] text-md'>
         <div className='container flex items-center justify-between'>
           <span className='footer__bottom__copyrights text-md text-N-600'>
             Copyright © {copyrightDate} · Tesla Owners UK Limited

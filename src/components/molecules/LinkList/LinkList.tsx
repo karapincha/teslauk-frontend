@@ -24,7 +24,7 @@ export const LinkList: FC<LinkListProps> = ({
         return (
           <ul className={CN('link-list__items', DirectionClassName)}>
             <li
-              className='mb-[16px] cursor-pointer text-base font-500 text-N-600 hover:text-B-500'
+              className='mb-[16px] cursor-pointer text-base text-N-600 hover:text-B-500'
               key={id || index}>
               {Wrap && (
                 <Wrap onClick={onClick}>

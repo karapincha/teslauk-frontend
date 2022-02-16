@@ -37,58 +37,58 @@ export const PageHeader: FC<PageHeaderProps> = ({
     'url(/images/page-header-banner-fallback.png)'
   )
   const PageHeaderClasses = CN(
-    `page-header flex flex-col w-full items-center bg-no-repeat bg-cover rounded-[12px] overflow-hidden lg:py-[48px] bg-center`,
+    `page-header flex flex-col w-full bg-no-repeat bg-cover rounded-[12px] overflow-hidden relative lg:py-[48px] bg-center after:content-[''] after:absolute after:top-0 after:bottom-0 after:left-0 after:right-0 after:bg-N-800/70 after:z-[0]`,
     className
   )
 
   useEffect(() => {
-    if (image) {
-      setBannerImage(`url(${image})`)
-    }
+    image && setBannerImage(`url(${image})`)
   }, [image])
 
   return (
     <div className={CN(PageHeaderClasses)} style={{ backgroundImage: bannerImage }} {...restProps}>
-      {icon && <span className={CN(iconClassName)}>{icon}</span>}
+      <div className='relative z-[1] flex flex-col items-center'>
+        {icon && <span className={CN(iconClassName)}>{icon}</span>}
 
-      {heading && (
-        <h2
-          className={CN(
-            'page-header__heading w-[60%] max-w-[529px] text-center font-700 text-N-800 lg:text-h3',
-            headingClassName
-          )}
-          dangerouslySetInnerHTML={{ __html: heading || '' }}
-        />
-      )}
+        {heading && (
+          <h2
+            className={CN(
+              'page-header__heading w-[60%] max-w-[529px] text-center font-700 text-N-800 lg:text-h3',
+              headingClassName
+            )}
+            dangerouslySetInnerHTML={{ __html: heading || '' }}
+          />
+        )}
 
-      {description && (
-        <p
-          className={CN(
-            'page-header__description w-1/2 text-center text-md font-500 text-N-600 lg:pt-[24px]',
-            descriptionClassName
-          )}
-          dangerouslySetInnerHTML={{ __html: description || '' }}
-        />
-      )}
+        {description && (
+          <p
+            className={CN(
+              'page-header__description w-1/2 text-center text-md font-500 lg:pt-[24px]',
+              descriptionClassName
+            )}
+            dangerouslySetInnerHTML={{ __html: description || '' }}
+          />
+        )}
 
-      {hasSearch && (
-        <FieldGroup
-          className='w-[496px] lg:pt-[16px]'
-          placeholder={searchPlaceholder}
-          btnProps={{
-            label: 'Search',
-            onSearchSubmit: (e: any) => {
-              console.log('Clicked', e)
-            },
-            appearance: 'primary',
-          }}
-          inputProps={{
-            onSearchChange: (e: any) => {
-              console.log(e.target.value)
-            },
-          }}
-        />
-      )}
+        {hasSearch && (
+          <FieldGroup
+            className='w-[496px] lg:pt-[16px]'
+            placeholder={searchPlaceholder}
+            btnProps={{
+              label: 'Search',
+              onSearchSubmit: (e: any) => {
+                console.log('Clicked', e)
+              },
+              appearance: 'primary',
+            }}
+            inputProps={{
+              onSearchChange: (e: any) => {
+                console.log(e.target.value)
+              },
+            }}
+          />
+        )}
+      </div>
     </div>
   )
 }
