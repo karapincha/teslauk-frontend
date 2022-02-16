@@ -86,7 +86,7 @@ const Home: NextPage = () => {
                 text: 'Tesla Charging Etiquette',
               },
             ]}
-            heading='About the car'
+            heading='For new owners'
           />
 
           <LinkListCard
@@ -117,7 +117,7 @@ const Home: NextPage = () => {
                 text: 'Charging Cables and Adapters',
               },
             ]}
-            heading='About the car'
+            heading='Upgrading, Modifying & Fixing'
             articleCount='24'
           />
 
@@ -149,7 +149,7 @@ const Home: NextPage = () => {
                 text: 'Charging Cables and Adapters',
               },
             ]}
-            heading='About the car'
+            heading='Charging away from home'
             articleCount='24'
           />
 
@@ -176,7 +176,7 @@ const Home: NextPage = () => {
                 text: 'Tesla Charging Etiquette',
               },
             ]}
-            heading='About the car'
+            heading='Fear, Uncertainty & Doubt'
           />
         </div>
       </div>
