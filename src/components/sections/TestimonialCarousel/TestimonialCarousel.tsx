@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import CN from 'classnames'
 import { Button } from '@/components/atoms'
 import { BlockCarousel, QuoteCard } from '@/components/molecules'
@@ -17,6 +17,7 @@ export const TestimonialCarousel: FC<TestimonialCarouselProps> = ({
     `testimonial-carousel flex flex-col overflow-hidden`,
     className
   )
+  const [isCarouselLast, setIsCarouselLast] = useState(false)
 
   const slidesList = (list || []).map(({ id, className, ...restProps }: any, index: number) => ({
     id: id || index,
@@ -27,7 +28,7 @@ export const TestimonialCarousel: FC<TestimonialCarouselProps> = ({
 
   return (
     <div className={TestimonialCarouselClasses} {...restProps}>
-      <div className='container'>
+      <div className='container overflow-hidden'>
         <div className='flex justify-between'>
           <h3>What club members say...</h3>
 
@@ -41,7 +42,14 @@ export const TestimonialCarousel: FC<TestimonialCarouselProps> = ({
           </div>
         </div>
 
-        <div className='flex w-full pt-[64px]'>
+        <div
+          className={CN(
+            'relative flex w-full pt-[64px] after:absolute after:h-full after:w-[80px] after:from-N-10 after:to-[transparent] after:content-[""]',
+            {
+              'after:right-0 after:bg-gradient-to-l': !isCarouselLast,
+              'after:left-0 after:bg-gradient-to-r': isCarouselLast,
+            }
+          )}>
           <BlockCarousel
             id='testimonial-carousel'
             options={{
@@ -62,6 +70,15 @@ export const TestimonialCarousel: FC<TestimonialCarouselProps> = ({
                 1280: {
                   slidesPerView: 'auto',
                   spaceBetween: 40,
+                },
+              },
+              on: {
+                slideChange: function (e: any) {
+                  if (e.isEnd) {
+                    setIsCarouselLast(true)
+                  } else {
+                    setIsCarouselLast(false)
+                  }
                 },
               },
             }}
