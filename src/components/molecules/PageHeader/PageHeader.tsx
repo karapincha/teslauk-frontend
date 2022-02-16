@@ -37,7 +37,11 @@ export const PageHeader: FC<PageHeaderProps> = ({
     'url(/images/page-header-banner-fallback.png)'
   )
   const PageHeaderClasses = CN(
-    `page-header flex flex-col w-full bg-no-repeat bg-cover rounded-[12px] overflow-hidden relative lg:py-[48px] bg-center after:content-[''] after:absolute after:top-0 after:bottom-0 after:left-0 after:right-0 after:bg-N-800/70 after:z-[0]`,
+    `page-header flex flex-col w-full bg-no-repeat bg-cover rounded-[12px] overflow-hidden relative lg:py-[48px] bg-center`,
+    {
+      "after:content-[''] after:absolute after:top-0 after:bottom-0 after:left-0 after:right-0 after:bg-N-800/70 after:z-[0]":
+        image,
+    },
     className
   )
 
