@@ -36,7 +36,7 @@ const Home: NextPage = () => {
               {
                 id: 0,
                 textIcon: <FileText size={24} />,
-                text: '100 things you never knew about your Tesla (Model S & X edi...',
+                text: '100 things you never knew about your Tesla car (Model S & X edition)',
               },
               {
                 id: 1,
@@ -68,7 +68,7 @@ const Home: NextPage = () => {
               {
                 id: 0,
                 textIcon: <FileText size={24} />,
-                text: '100 things you never knew about your Tesla (Model S & X edi...',
+                text: '100 things you never knew about your Tesla (Model S & X edition)',
               },
               {
                 id: 1,
@@ -94,7 +94,7 @@ const Home: NextPage = () => {
               {
                 id: 0,
                 textIcon: <FileText size={24} />,
-                text: '100 things you never knew about your Tesla (Model S & X edi...',
+                text: '100 things you never knew about your Tesla (Model S & X edition)',
               },
               {
                 id: 1,
@@ -126,7 +126,7 @@ const Home: NextPage = () => {
               {
                 id: 0,
                 textIcon: <FileText size={24} />,
-                text: '100 things you never knew about your Tesla (Model S & X edi...',
+                text: '100 things you never knew about your Tesla (Model S & X edition)',
               },
               {
                 id: 1,
@@ -158,7 +158,7 @@ const Home: NextPage = () => {
               {
                 id: 0,
                 textIcon: <FileText size={24} />,
-                text: '100 things you never knew about your Tesla (Model S & X edi...',
+                text: '100 things you never knew about your Tesla (Model S & X edition)',
               },
               {
                 id: 1,
