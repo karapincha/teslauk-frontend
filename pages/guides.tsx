@@ -38,6 +38,10 @@ const Home: NextPage = () => {
 
         <div className='grid grid-cols-2 gap-[48px]'>
           <LinkListCard cardHeading='About the car' articleCount='24' />
+          <LinkListCard cardHeading='About the car' articleCount='24' />
+          <LinkListCard cardHeading='About the car' articleCount='24' />
+          <LinkListCard cardHeading='About the car' articleCount='24' />
+          <LinkListCard cardHeading='About the car' articleCount='24' />
         </div>
       </div>
     </>
