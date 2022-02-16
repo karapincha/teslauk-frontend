@@ -65,7 +65,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
 
         {hasSearch && (
           <FieldGroup
-            className='w-[496px] lg:pt-[16px]'
+            className='w-[370px] lg:pt-[16px]'
             btnProps={btnProps}
             inputProps={inputProps}
           />

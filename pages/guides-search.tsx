@@ -1,8 +1,9 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Link from 'next/link'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
-import { PageHeader, LinkListCard } from '@/components/molecules'
-import { FileText } from 'react-feather'
+import { PageHeader, ArticleCard, Pagination } from '@/components/molecules'
+import { searchResult } from '@/dummy-data/search-result'
 
 const Home: NextPage = () => {
   return (
@@ -20,172 +21,40 @@ const Home: NextPage = () => {
           hasSearch
           heading='Written by Tesla Owners <br />for Tesla Owners'
           description='Search through over 120 guides'
-          image='https://images.unsplash.com/flagged/photo-1579782647395-2e6fb36a64f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=806&q=80'
-          headingClassName='text-N-10'
-          descriptionClassName='text-white'
+          headingClassName='text-N-800'
+          descriptionClassName='text-N-600'
           btnProps={{
             onClick: (e: any) => console.log(e),
-            children: 'Search asdadasdadadadasdsada',
+            children: 'Search',
             appearance: 'primary',
           }}
           inputProps={{
             onChange: (e: any) => console.log(e.target.value),
             placeholder: 'Search your question here?',
+            defaultValue: 'Tesla',
           }}
         />
       </div>
 
-      <div className='container flex flex-col gap-[40px] py-[80px]'>
-        <h4 className='text-h4 font-600 text-N-800'>Browse by the categories</h4>
+      <div className='container flex flex-col py-[80px]'>
+        <div className='mx-auto flex w-full max-w-[784px] flex-col'>
+          <div className='mb-[48px] text-h5 text-N-700'>
+            Results <span className='font-500 text-N-800'>1-10</span> of{' '}
+            <span className='font-500 text-N-800'>57</span> search results for{' '}
+            <span className='font-500 text-B-500'>“Tesla”</span>
+          </div>
 
-        <div className='masonry sm:masonry-sm md:masonry-md'>
-          <LinkListCard
-            list={[
-              {
-                id: 0,
-                textIcon: <FileText size={20} />,
-                text: '100 things you never knew about your Tesla car (Model S & X edition)',
-              },
-              {
-                id: 1,
-                textIcon: <FileText size={20} />,
-                text: 'Everything you learn as a new Tesla owner in winter',
-              },
-              {
-                id: 2,
-                textIcon: <FileText size={20} />,
-                text: 'Tracking your Tesla from the factory to the UK',
-              },
-              {
-                id: 3,
-                textIcon: <FileText size={20} />,
-                text: 'Tesla Charging Etiquette',
-              },
-              {
-                id: 4,
-                textIcon: <FileText size={20} />,
-                text: 'Charging Cables and Adapters',
-              },
-            ]}
-            heading='About the car'
-            articleCount='24'
-          />
+          <div className='flex flex-col gap-[32px]'>
+            {(searchResult || []).map((item: any, index: number) => (
+              <Link href={item?.permalink} passHref key={index}>
+                <ArticleCard data={item} />
+              </Link>
+            ))}
+          </div>
+        </div>
 
-          <LinkListCard
-            list={[
-              {
-                id: 0,
-                textIcon: <FileText size={20} />,
-                text: '100 things you never knew about your Tesla (Model S & X edition)',
-              },
-              {
-                id: 1,
-                textIcon: <FileText size={20} />,
-                text: 'Everything you learn as a new Tesla owner in winter',
-              },
-              {
-                id: 2,
-                textIcon: <FileText size={20} />,
-                text: 'Tracking your Tesla from the factory to the UK',
-              },
-              {
-                id: 3,
-                textIcon: <FileText size={20} />,
-                text: 'Tesla Charging Etiquette',
-              },
-            ]}
-            heading='For new owners'
-          />
-
-          <LinkListCard
-            list={[
-              {
-                id: 0,
-                textIcon: <FileText size={20} />,
-                text: '100 things you never knew about your Tesla (Model S & X edition)',
-              },
-              {
-                id: 1,
-                textIcon: <FileText size={20} />,
-                text: 'Everything you learn as a new Tesla owner in winter',
-              },
-              {
-                id: 2,
-                textIcon: <FileText size={20} />,
-                text: 'Tracking your Tesla from the factory to the UK',
-              },
-              {
-                id: 3,
-                textIcon: <FileText size={20} />,
-                text: 'Tesla Charging Etiquette',
-              },
-              {
-                id: 4,
-                textIcon: <FileText size={20} />,
-                text: 'Charging Cables and Adapters',
-              },
-            ]}
-            heading='Upgrading, Modifying & Fixing'
-            articleCount='24'
-          />
-
-          <LinkListCard
-            list={[
-              {
-                id: 0,
-                textIcon: <FileText size={20} />,
-                text: '100 things you never knew about your Tesla (Model S & X edition)',
-              },
-              {
-                id: 1,
-                textIcon: <FileText size={20} />,
-                text: 'Everything you learn as a new Tesla owner in winter',
-              },
-              {
-                id: 2,
-                textIcon: <FileText size={20} />,
-                text: 'Tracking your Tesla from the factory to the UK',
-              },
-              {
-                id: 3,
-                textIcon: <FileText size={20} />,
-                text: 'Tesla Charging Etiquette',
-              },
-              {
-                id: 4,
-                textIcon: <FileText size={20} />,
-                text: 'Charging Cables and Adapters',
-              },
-            ]}
-            heading='Charging away from home'
-            articleCount='24'
-          />
-
-          <LinkListCard
-            list={[
-              {
-                id: 0,
-                textIcon: <FileText size={20} />,
-                text: '100 things you never knew about your Tesla (Model S & X edition)',
-              },
-              {
-                id: 1,
-                textIcon: <FileText size={20} />,
-                text: 'Everything you learn as a new Tesla owner in winter',
-              },
-              {
-                id: 2,
-                textIcon: <FileText size={20} />,
-                text: 'Tracking your Tesla from the factory to the UK',
-              },
-              {
-                id: 3,
-                textIcon: <FileText size={20} />,
-                text: 'Tesla Charging Etiquette',
-              },
-            ]}
-            heading='Fear, Uncertainty & Doubt'
-          />
+        <div className='mx-auto w-full max-w-[784px] pt-[40px]'>
+          <Pagination />
         </div>
       </div>
 

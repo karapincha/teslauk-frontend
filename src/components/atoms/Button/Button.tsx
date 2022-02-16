@@ -19,6 +19,7 @@ export interface ButtonProps {
   iconBefore?: ReactNode | string | number
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   view?: 'outline' | 'solid'
+  isSquare?: boolean
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -33,6 +34,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       iconBefore,
       size,
       view,
+      isSquare,
       ...restProps
     }: ButtonProps,
     ref: any
@@ -52,6 +54,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         'h-[52px] px-[32px]': size === 'lg',
         'h-[62px] px-[32px]': size === 'xl',
         '!px-[0]': appearance === 'link' || appearance === 'link-invert',
+        '!px-[0] w-[38px]': isSquare && size === 'sm',
+        '!px-[0] w-[48px]': isSquare && size === 'md',
+        '!px-[0] w-[52px]': isSquare && size === 'lg',
+        '!px-[0] w-[62px]': isSquare && size === 'xl',
 
         /* Appearance */
         'bg-B-500 text-white hover:bg-B-600': appearance === 'primary' && view === 'solid',
