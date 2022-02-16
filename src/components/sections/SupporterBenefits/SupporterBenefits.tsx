@@ -22,8 +22,70 @@ export const SupporterBenefits: FC<SupporterBenefitsProps> = ({
         <h3>All supporter benefits</h3>
 
         <div className='flex gap-[40px]'>
-          <ListCard list={benefits} />
-          <ListCard list={benefits} />
+          <ListCard
+            list={[
+              {
+                id: 0,
+                label: 'Optional Owners Welcome Pack',
+              },
+              {
+                id: 1,
+                label: 'Your vote at the AGM',
+              },
+              {
+                id: 2,
+                label: 'Ability to buy Tesla Owners UK Merch (e.g. our Polo shirt)',
+              },
+              {
+                id: 3,
+                label: 'Over 50 Exclusive Discounts¹',
+              },
+              {
+                id: 4,
+                label: 'Access to Club Only Events',
+              },
+              {
+                id: 5,
+                label: 'Priority Access to Tesla Owners UK events',
+              },
+              {
+                id: 6,
+                label: 'Up to £240 in cashback on Pirelli tyres each year²',
+              },
+            ]}
+          />
+          <ListCard
+            list={[
+              {
+                id: 0,
+                label: 'EU Cable & CHAdeMO Rentals³',
+              },
+              {
+                id: 1,
+                label: 'Exclusive Factory Tours',
+              },
+              {
+                id: 2,
+                label: 'Track Day Events',
+              },
+              {
+                id: 3,
+                label: 'Free Legal Advice⁴',
+              },
+              {
+                id: 4,
+                label: 'Educational programme full access',
+              },
+              {
+                id: 5,
+                label: 'Leave reviews for your favourite suppliers',
+              },
+              {
+                id: 6,
+                label: 'Access to our Advocacy Team',
+              },
+            ]}
+          />
         </div>
 
         <div className='flex flex-col text-md'>
