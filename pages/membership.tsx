@@ -7,8 +7,10 @@ import {
   MembershipCardPreview,
   SupporterBenefits,
   TestimonialCarousel,
+  Faq,
 } from '@/components/sections'
 import { PageHeader } from '@/components/molecules'
+import { testimonials } from '@/dummy-data/testimonials'
 
 const Home: NextPage = () => {
   return (
@@ -20,7 +22,6 @@ const Home: NextPage = () => {
       </Head>
 
       <Header className='pt-[80px]' />
-
       <div className='container flex pt-[100px]'>
         <PageHeader
           heading='Join the club'
@@ -29,52 +30,12 @@ const Home: NextPage = () => {
           descriptionClassName='text-N-600'
         />
       </div>
-
       <div className='container max-w-[992px] py-[80px]'>
         <MembershipCardPreview />
       </div>
-
-      <SupporterBenefits />
-      <TestimonialCarousel
-        list={[
-          {
-            quote:
-              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis. Nemo expedita voluptas culpa sapiente alias molestiae. ',
-            name: 'John Doe',
-            title: 'Director, Some Co Ltd.',
-            avatar: 'https://source.boringavatars.com/bauhaus/120/?colors=A1AFC1,040D1F,E31937',
-          },
-          {
-            quote:
-              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis. Nemo expedita voluptas culpa sapiente alias molestiae. ',
-            name: 'John Doe',
-            title: 'Director, Some Co Ltd.',
-            avatar: 'https://source.boringavatars.com/bauhaus/120/?colors=A1AFC1,040D1F,E31937',
-          },
-          {
-            quote:
-              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis. Nemo expedita voluptas culpa sapiente alias molestiae. ',
-            name: 'John Doe',
-            title: 'Director, Some Co Ltd.',
-            avatar: 'https://source.boringavatars.com/bauhaus/120/?colors=A1AFC1,040D1F,E31937',
-          },
-          {
-            quote:
-              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis. Nemo expedita voluptas culpa sapiente alias molestiae. ',
-            name: 'John Doe',
-            title: 'Director, Some Co Ltd.',
-            avatar: 'https://source.boringavatars.com/bauhaus/120/?colors=A1AFC1,040D1F,E31937',
-          },
-          {
-            quote:
-              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo expedita voluptas culpa sapiente alias molestiae. Numquam corrupti in laborum sed rerum et corporis. Nemo expedita voluptas culpa sapiente alias molestiae. ',
-            name: 'John Doe',
-            title: 'Director, Some Co Ltd.',
-            avatar: 'https://source.boringavatars.com/bauhaus/120/?colors=A1AFC1,040D1F,E31937',
-          },
-        ]}
-      />
-
+      <SupporterBenefits className='py-[80px]' />
+      <TestimonialCarousel className='pt-[104px] pb-[80px]' list={testimonials} />
+      <Faq className='py-[80px]' list={testimonials} />
       <SupplierRibbon className='border-t border-N-100' />
       <Footer />
     </>

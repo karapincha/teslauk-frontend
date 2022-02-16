@@ -14,13 +14,15 @@ export const TestimonialCarousel: FC<TestimonialCarouselProps> = ({
   ...restProps
 }: TestimonialCarouselProps) => {
   const TestimonialCarouselClasses = CN(
-    `testimonial-carousel flex flex-col pt-[104px] pb-[80px]`,
+    `testimonial-carousel flex flex-col overflow-hidden`,
     className
   )
 
   const slidesList = (list || []).map(({ id, className, ...restProps }: any, index: number) => ({
     id: id || index,
-    Component: () => <QuoteCard key={id || index} className={className} {...restProps} />,
+    Component: () => (
+      <QuoteCard key={id || index} className={CN('w-[472px]', className)} {...restProps} />
+    ),
   }))
 
   return (
@@ -39,12 +41,12 @@ export const TestimonialCarousel: FC<TestimonialCarouselProps> = ({
           </div>
         </div>
 
-        <div className='flex w-full'>
+        <div className='flex w-full pt-[64px]'>
           <BlockCarousel
-            id='promotion-carousel'
+            id='testimonial-carousel'
             options={{
-              slidesPerView: 1,
-              autoPlay: false,
+              slidesPerView: 'auto',
+              autoPlay: { delay: 3000 },
               breakpoints: {
                 // when window width is >= 320px
                 375: {
@@ -53,19 +55,20 @@ export const TestimonialCarousel: FC<TestimonialCarouselProps> = ({
                 },
                 // when window width is >= 768px
                 768: {
-                  slidesPerView: 3,
+                  slidesPerView: 'auto',
                   spaceBetween: 30,
                 },
                 // when window width is >= 1264px
-                1264: {
-                  slidesPerView: 3,
+                1280: {
+                  slidesPerView: 'auto',
                   spaceBetween: 40,
                 },
               },
             }}
             slides={slidesList}
-            prevButton={'testimonial-controll-prev'}
+            prevButton={'.testimonial-controll-prev'}
             nextButton={'.testimonial-controll-next'}
+            className='pt-[40px]'
           />
         </div>
       </div>

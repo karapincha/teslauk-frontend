@@ -1,0 +1,43 @@
+import dedent from 'ts-dedent'
+import {
+  ArgsTable,
+  Canvas,
+  Description,
+  Meta,
+  Preview,
+  Source,
+  Story,
+} from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { Faq } from './Faq'
+
+<Meta title='01. Atoms / Faq' component={Faq} />
+
+# Faq
+
+`import { Faq } from '@karapincha/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Faq />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<Faq />`} />
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={Faq} />

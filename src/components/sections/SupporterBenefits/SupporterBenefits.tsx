@@ -12,7 +12,7 @@ export const SupporterBenefits: FC<SupporterBenefitsProps> = ({
   ...restProps
 }: SupporterBenefitsProps) => {
   const SupporterBenefitsClasses = CN(
-    `supporter-benefits flex flex-col py-[80px] bg-N-50`,
+    `supporter-benefits flex flex-col bg-N-50`,
     className
   )
 

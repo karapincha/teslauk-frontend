@@ -38,7 +38,7 @@ export const BlockCarousel: FC<BlockCarouselProps> = ({
   loop,
   ...restProps
 }: BlockCarouselProps) => {
-  const BlockCarouselClasses = CN(`block-carousel flex flex-col overflow-hidden`, className)
+  const BlockCarouselClasses = CN(`block-carousel w-full flex flex-col`, className)
 
   const {
     autoPlay,
@@ -61,7 +61,7 @@ export const BlockCarousel: FC<BlockCarouselProps> = ({
         typeof autoPlay === 'boolean'
           ? autoPlay
           : {
-              delay: autoPlay?.delay || 3000,
+              delay: autoPlay?.delay || 1000,
               disableOnInteraction: autoPlay?.disableOnInteraction || false,
               pauseOnMouseEnter: autoPlay?.pauseOnMouseEnter || false,
               reverseDirection: autoPlay?.reverseDirection || false,
