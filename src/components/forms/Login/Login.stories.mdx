@@ -10,13 +10,13 @@ import {
 } from '@storybook/addon-docs'
 import { DocStory } from '@karapincha/hydra-ui'
 
-import { FormSample } from './FormSample'
+import { Login } from './Login'
 
-<Meta title='04. Forms / FormSample' component={FormSample} />
+<Meta title='01. Atoms / Login' component={Login} />
 
-# FormSample
+# Login
 
-`import { FormSample } from '@karapincha/ui'`
+`import { Login } from '@karapincha/ui'`
 
 <br />
 <br />
@@ -28,16 +28,16 @@ import { FormSample } from './FormSample'
 <Story name='Default'>
   <div className='doc-story__preview' style={{ zoom: '100%' }}>
     <div className='flex items-center gap-4'>
-      <FormSample />
+      <Login />
     </div>
   </div>
 </Story>
 
-<Source language={'jsx'} code={dedent`<FormSample />`} />
+<Source language={'jsx'} code={dedent`<Login />`} />
 
 <br />
 <br />
 
 ### Properties
 
-<ArgsTable of={FormSample} />
+<ArgsTable of={Login} />

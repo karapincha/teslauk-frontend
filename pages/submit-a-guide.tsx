@@ -14,9 +14,9 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='pt-[80px]' />
+      <Header className='py-[24px]' />
 
-      <div className='container flex pt-[100px]'>
+      <div className='container flex pt-[20px]'>
         <PageHeader
           heading='Pass on your expertise <br />and experiences'
           headingClassName='text-N-800'

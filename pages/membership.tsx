@@ -22,9 +22,9 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='pt-[80px]' />
+      <Header className='py-[24px]' />
 
-      <div className='container flex flex-col pt-[120px]'>
+      <div className='container flex pt-[60px]'>
         <div className='mx-auto flex max-w-[600px]'>
           <SectionHeading
             heading='Join the club'

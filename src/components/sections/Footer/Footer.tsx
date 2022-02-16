@@ -17,50 +17,50 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
     {
       id: '0',
       icon: <Facebook size={28} />,
-      link: 'https://facebook.com',
+      url: 'https://facebook.com',
     },
     {
       id: '2',
       icon: <Twitter size={28} />,
-      link: 'https://twitter.com',
+      url: 'https://twitter.com',
     },
     {
       id: '1',
       icon: <Instagram size={28} />,
-      link: 'https://instagram.com',
+      url: 'https://instagram.com',
     },
     {
       id: '3',
       icon: <LinkedIn size={28} />,
-      link: 'https://www.linkedin.com',
+      url: 'https://www.linkedin.com',
     },
     {
       id: '4',
       icon: <YouTube size={28} />,
-      link: 'https://www.youtube.com',
+      url: 'https://www.youtube.com',
     },
   ]
 
   const footerBottomLinks = [
     {
       id: '0',
-      linkText: 'Press',
-      link: '/return-policy',
+      label: 'Press',
+      url: '/return-policy',
     },
     {
       id: '1',
-      linkText: 'Terms',
-      link: '/terms-of-condition',
+      label: 'Terms',
+      url: '/terms-of-condition',
     },
     {
       id: '2',
-      linkText: 'Cookies',
-      link: '/delivery',
+      label: 'Cookies',
+      url: '/delivery',
     },
     {
       id: '3',
-      linkText: 'Privacy',
-      link: '/privacy-policy',
+      label: 'Privacy Policy',
+      url: '/privacy-policy',
     },
   ]
 
@@ -91,9 +91,9 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
                 </div>
 
                 <ul className='flex gap-[16px]'>
-                  {socialLinks.map(({ id, link, icon }, index) => (
+                  {socialLinks.map(({ id, url, icon }, index) => (
                     <li key={id || index}>
-                      <a target='_blank' href={link} className='text-N-500 hover:text-B-500'>
+                      <a target='_blank' href={url} className='text-N-500 hover:text-B-500'>
                         {icon}
                       </a>
                     </li>
@@ -103,14 +103,14 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
             </div>
 
             <div className='footer__link-list flex flex-col gap-[16px]'>
-              <p className='text-md font-500 text-N-500'>Solutions</p>
+              <p className='text-md font-500 text-N-500'>About the club</p>
               <LinkList
                 direction='vertical'
                 list={[
-                  { id: 0, linkText: 'Marketing' },
-                  { id: 1, linkText: 'Analytics' },
-                  { id: 2, linkText: 'Commerce' },
-                  { id: 3, linkText: 'Insights' },
+                  { id: 0, label: 'About Us', url: '/about' },
+                  { id: 1, label: 'Club Rules', url: '/club-rules' },
+                  { id: 2, label: 'Articles of Association', url: '/articles-of-association' },
+                  { id: 3, label: 'Meeting Minutes' },
                 ]}
               />
             </div>
@@ -120,10 +120,10 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
               <LinkList
                 direction='vertical'
                 list={[
-                  { id: 0, linkText: 'Marketing' },
-                  { id: 1, linkText: 'Analytics' },
-                  { id: 2, linkText: 'Commerce' },
-                  { id: 3, linkText: 'Insights' },
+                  { id: 0, label: 'Marketing' },
+                  { id: 1, label: 'Analytics' },
+                  { id: 2, label: 'Commerce' },
+                  { id: 3, label: 'Insights' },
                 ]}
               />
             </div>
@@ -133,10 +133,10 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
               <LinkList
                 direction='vertical'
                 list={[
-                  { id: 0, linkText: 'Marketing' },
-                  { id: 1, linkText: 'Analytics' },
-                  { id: 2, linkText: 'Commerce' },
-                  { id: 3, linkText: 'Insights' },
+                  { id: 0, label: 'Marketing' },
+                  { id: 1, label: 'Analytics' },
+                  { id: 2, label: 'Commerce' },
+                  { id: 3, label: 'Insights' },
                 ]}
               />
             </div>
@@ -178,13 +178,13 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
           </span>
 
           <ul className='flex gap-[50px]'>
-            {(footerBottomLinks || []).map(({ id, link, linkText, ...restProps }, index) => (
+            {(footerBottomLinks || []).map(({ id, link, label, ...restProps }, index) => (
               <li key={id || index}>
                 <a
                   href={link}
                   {...restProps}
                   className='text-sm font-500 text-N-600 hover:text-B-500'>
-                  {linkText}
+                  {label}
                 </a>
               </li>
             ))}

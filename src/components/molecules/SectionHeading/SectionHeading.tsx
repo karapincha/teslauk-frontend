@@ -9,7 +9,6 @@ export interface SectionHeadingProps {
   heading?: string
   overline?: string
   headingClassName?: string
-  link?: any
   cta?: any
 }
 
@@ -19,7 +18,6 @@ export const SectionHeading: FC<SectionHeadingProps> = ({
   description,
   heading,
   overline,
-  link,
   cta,
   headingClassName,
   ...restProps
@@ -69,8 +67,6 @@ export const SectionHeading: FC<SectionHeadingProps> = ({
 
 SectionHeading.defaultProps = {
   heading: 'Heading',
-  subHeading: 'Sub heading',
-  description: 'Description',
 }
 
 export default SectionHeading

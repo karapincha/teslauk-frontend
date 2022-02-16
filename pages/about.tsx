@@ -16,9 +16,9 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='pt-[80px]' />
+      <Header className='py-[24px]' />
 
-      <div className='container pt-[100px]'>
+      <div className='container flex pt-[20px]'>
         <PageHeaderVariant
           heading='Who we are <br />&amp; What we <br />do'
           image='https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'

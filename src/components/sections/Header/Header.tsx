@@ -10,7 +10,10 @@ export interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps) => {
-  const HeaderClasses = CN(`header w-full h-[40px] flex items-center pt-[80px]`, className, {})
+  const HeaderClasses = CN(
+    `header flex w-full h-[148px] flex items-center`,
+    className
+  )
 
   return (
     <div className={HeaderClasses} {...restProps}>
@@ -42,7 +45,10 @@ export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps
 
         <div className='header__right relative z-10 flex items-center gap-[28px]'>
           <Button icon={<i className='ri-search-2-line text-lg' />} appearance='link' />
-          <Button view='outline'>Login</Button>
+
+          <Link href='/login'>
+            <Button view='outline'>Login</Button>
+          </Link>
         </div>
       </div>
     </div>

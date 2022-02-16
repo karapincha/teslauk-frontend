@@ -12,6 +12,9 @@ import {
   SupplierRibbon,
 } from '@/components/sections'
 
+import { Login } from '@/components/forms'
+import { SectionHeading } from '@/components/molecules'
+
 const Home: NextPage = () => {
   return (
     <>
@@ -22,12 +25,13 @@ const Home: NextPage = () => {
       </Head>
 
       <Header className='py-[24px]' />
-      <Hero className='pt-[20px] pb-[40px]' />
-      <EventCard className='pt-[40px] pb-[80px]' />
-      <QuickMembership className='py-[80px]' />
-      <QuickTestimonials className='py-[80px]' />
-      <GuidesQuickAccess className='pt-[80px] pb-[128px]' />
-      <CallToAction />
+
+      <div className='container flex flex-col items-center bg-[url(/images/login-bg.png)] pt-[120px]'>
+        <SectionHeading heading='Tesla Owners UK Account' align='center' />
+
+        <Login />
+      </div>
+
       <SupplierRibbon />
       <Footer />
     </>
