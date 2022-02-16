@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { PageHeader } from '@/components/molecules'
 import { Button } from '@/components/atoms'
+import { PageLock } from '@/components/molecules/PageLock'
 
 const Home: NextPage = () => {
   return (
@@ -109,13 +110,20 @@ const Home: NextPage = () => {
             Thank you, if you have any questions please <a>contact the team.</a>
           </p>
           <div className='pt-[32px]'>
-            <Button iconAfter={<i className='ri-arrow-right-line text-lg' />}>
+            <Button iconAfter={<i className='text-lg ri-arrow-right-line' />}>
               Proceed to submission
             </Button>
           </div>
         </article>
       </div>
 
+      <PageLock
+        heading='You are one step away...'
+        description='You have to be a supporter of Tesla Owners Club UK in order to submit content. Become a member and enjoy full access to our extensive resources,  club events, various discussion groups and more.'
+        cta={
+          <Button iconAfter={<i className='text-lg ri-arrow-right-line' />}>Get Membership</Button>
+        }
+      />
       <SupplierRibbon className='border-t border-N-100' />
       <Footer />
     </>
