@@ -17,9 +17,12 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
 
   return (
     <div className={PageHeaderVariantClasses} {...restProps}>
-      <h1 className='text-h1 font-700 text-N-800'>{heading}</h1>
-      <div>
-        <img src={image} width={784} height={407} className='rounded-[12px]' />
+      <h1 className='w-fixed w-[300px] text-h1 font-700 text-N-800 flex-shrink-0'>{heading}</h1>
+      <div className='h-[407px] w-[852px]'>
+        <img
+          src={image}
+          className='w-full rounded-[12px] object-cover object-center h-full'
+        />
       </div>
     </div>
   )
