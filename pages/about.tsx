@@ -58,7 +58,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className='container pt-[64px] pb-[80px]'>
+      <div className='container pb-[80px]'>
         <div className='flex flex-col items-center gap-[24px]'>
           <div className='flex'>
             <h3 className='text-h3 font-700 text-N-800'>See who is behind Tesla Owners UK</h3>
