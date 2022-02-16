@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useRouter } from 'next/router'
 import { PageHeaderVariant } from '@/components/molecules/PageHeaderVariant'
+import { Button } from '@/components/atoms'
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -34,7 +35,7 @@ const Home: NextPage = () => {
           </div>
 
           <div className='flex w-full'>
-            <p className='text-md text-N-600'>
+            <p className='text-md font-500 text-N-600'>
               Whilst representing 30% of Tesla owners in the UK we deliver a plethora of events
               nationwide; support where Tesla cannot or will not; coordination for fundraising and
               charitable acts; representation to Government & Tesla; education to promote the uptake
@@ -52,6 +53,38 @@ const Home: NextPage = () => {
               ownership.
             </p>
           </div>
+        </div>
+      </div>
+
+      <div className='container pt-[64px] pb-[80px]'>
+        <div className='flex flex-col items-center gap-[24px]'>
+          <div className='flex'>
+            <h3 className='text-h3 font-700 text-N-800'>See who is behind Tesla Owners UK</h3>
+          </div>
+
+          <div className='flex max-w-[577px] text-center'>
+            <p className='text-base font-400 text-N-600'>
+              Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit
+              officia consequat duis enim velit mollit.
+            </p>
+          </div>
+          <div className='flex gap-[24px]'>
+            <Button appearance='secondary' size='md'>
+              Meet the Team
+            </Button>
+            <Button appearance='primary' size='md'>
+              Become a member
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      <div className='container pb-[80px]'>
+        <div className='flex h-[711px] w-full'>
+          <img
+            src='/images/banners/002.jpg'
+            className='h-full w-full rounded-[12px] object-cover object-center'
+          />
         </div>
       </div>
 
