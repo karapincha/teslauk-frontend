@@ -9,6 +9,7 @@ export interface SectionHeadingProps {
   heading?: string
   overline?: string
   link?: any
+  cta?: any
 }
 
 export const SectionHeading: FC<SectionHeadingProps> = ({
@@ -18,6 +19,7 @@ export const SectionHeading: FC<SectionHeadingProps> = ({
   heading,
   overline,
   link,
+  cta,
   ...restProps
 }: SectionHeadingProps) => {
   const SectionHeadingClasses = CN(
@@ -50,14 +52,12 @@ export const SectionHeading: FC<SectionHeadingProps> = ({
           />
         )}
 
-        {link && (
+        {cta && (
           <div
             className={CN('flex pt-[24px]', {
               'justify-center': align === 'center',
             })}>
-            <Button iconAfter={<i className='ri-arrow-right-line text-lg' />} appearance='link'>
-              {link?.text}
-            </Button>
+            {cta}
           </div>
         )}
       </div>

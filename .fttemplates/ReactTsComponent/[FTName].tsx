@@ -9,7 +9,7 @@ export const <FTName>: FC<<FTName>Props> = ({
   className,
   ...restProps
 }: <FTName>Props) => {
-  const <FTName>Classes = CN(`<FTName | kebabcase>`, className, {})
+  const <FTName>Classes = CN(`<FTName | kebabcase>`, className)
 
   return (
     <div className={<FTName>Classes} {...restProps}>

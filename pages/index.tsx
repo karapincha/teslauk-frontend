@@ -7,6 +7,7 @@ import {
   QuickMembership,
   QuickTestimonials,
   GuidesQuickAccess,
+  CallToAction,
 } from '@/components/sections'
 
 const Home: NextPage = () => {
@@ -23,7 +24,8 @@ const Home: NextPage = () => {
       <EventCard className='pt-[40px] pb-[80px]' />
       <QuickMembership className='py-[80px]' />
       <QuickTestimonials className='py-[80px]' />
-      <GuidesQuickAccess className='py-[80px]' />
+      <GuidesQuickAccess className='pt-[80px] pb-[128px]' />
+      <CallToAction />
     </>
   )
 }
