@@ -93,6 +93,10 @@ module.exports = {
           },
         },
       }),
+      backgroundImage: {
+        'page-lock-bg':
+          'linear-gradient(180deg, rgba(248, 251, 253, 0) 0%, red 40.39%, #F8FBFD 100%)',
+      },
     },
   },
   plugins: [

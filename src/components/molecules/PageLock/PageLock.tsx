@@ -16,7 +16,7 @@ export const PageLock: FC<PageLockProps> = ({
   ...restProps
 }: PageLockProps) => {
   const PageLockClasses = CN(
-    `page-lock bg-gradient-to-t[rgba(248, 251, 253, 0) 0%, #F8FBFD 40.39%, #F8FBFD 100%)] mb-[56px]`,
+    `page-lock h-[50vh] flex pb-[56px] items-end bg-gradient-to-t from-[#F8FBFD] to-[rgba(248,251,253,0)] fixed bottom-0 via-[#F8FBFD] left-0 right-0`,
     className
   )
 
@@ -28,7 +28,7 @@ export const PageLock: FC<PageLockProps> = ({
           <p className='mb-0 text-base font-500 text-N-600'>{description}</p>
         </div>
 
-        <div className='flex items-end justify-end w-full'>{cta}</div>
+        <div className='flex w-full items-end justify-end'>{cta}</div>
       </div>
     </div>
   )
