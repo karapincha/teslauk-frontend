@@ -33,14 +33,18 @@ export const PageHeader: FC<PageHeaderProps> = ({
   hasSearch,
   ...restProps
 }: PageHeaderProps) => {
-  const [bannerImage, setBannerImage] = useState<any>(`url(${image})` || 'url(/images/004.svg)')
+  const [bannerImage, setBannerImage] = useState<any>(
+    'url(/images/page-header-banner-fallback.png)'
+  )
   const PageHeaderClasses = CN(
-    `page-header flex flex-col w-full items-center bg-no-repeat bg-cover rounded-[12px] lg:py-[48px] bg-center`,
+    `page-header flex flex-col w-full items-center bg-no-repeat bg-cover rounded-[12px] overflow-hidden lg:py-[48px] bg-center`,
     className
   )
 
   useEffect(() => {
-    setBannerImage(`url(${image})`)
+    if (image) {
+      setBannerImage(`url(${image})`)
+    }
   }, [image])
 
   return (
