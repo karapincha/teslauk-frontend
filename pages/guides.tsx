@@ -1,16 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import {
-  Header,
-  Hero,
-  EventCard,
-  QuickMembership,
-  QuickTestimonials,
-  GuidesQuickAccess,
-} from '@/components/sections'
+import { Header } from '@/components/sections'
 import { PageHeader, LinkListCard } from '@/components/molecules'
-
-import { linkListCardList } from '@/dummy-data/link-list-card-list'
+import { FileText } from 'react-feather'
 
 const Home: NextPage = () => {
   return (
@@ -35,15 +27,157 @@ const Home: NextPage = () => {
         />
       </div>
 
-      <div className='container py-[80px]'>
-        <h4 className='mb-[40px] text-h4'>Browser by the category</h4>
+      <div className='container py-[40px]'>
+        <h4 className='mb-[40px] text-h4 font-600 text-N-800'>Browse by the categories</h4>
 
         <div className='grid grid-cols-2 gap-[48px]'>
-          <LinkListCard list={linkListCardList} heading='About the car' articleCount='24' />
-          <LinkListCard list={linkListCardList} heading='About the car' articleCount='24' />
-          <LinkListCard list={linkListCardList} heading='About the car' articleCount='24' />
-          <LinkListCard list={linkListCardList} heading='About the car' articleCount='24' />
-          <LinkListCard list={linkListCardList} heading='About the car' articleCount='24' />
+          <LinkListCard
+            list={[
+              {
+                id: 0,
+                textIcon: <FileText size={24} />,
+                text: '100 things you never knew about your Tesla (Model S & X edi...',
+              },
+              {
+                id: 1,
+                textIcon: <FileText size={24} />,
+                text: 'Everything you learn as a new Tesla owner in winter',
+              },
+              {
+                id: 2,
+                textIcon: <FileText size={24} />,
+                text: 'Tracking your Tesla from the factory to the UK',
+              },
+              {
+                id: 3,
+                textIcon: <FileText size={24} />,
+                text: 'Tesla Charging Etiquette',
+              },
+              {
+                id: 4,
+                textIcon: <FileText size={24} />,
+                text: 'Charging Cables and Adapters',
+              },
+            ]}
+            heading='About the car'
+            articleCount='24'
+          />
+
+          <LinkListCard
+            list={[
+              {
+                id: 0,
+                textIcon: <FileText size={24} />,
+                text: '100 things you never knew about your Tesla (Model S & X edi...',
+              },
+              {
+                id: 1,
+                textIcon: <FileText size={24} />,
+                text: 'Everything you learn as a new Tesla owner in winter',
+              },
+              {
+                id: 2,
+                textIcon: <FileText size={24} />,
+                text: 'Tracking your Tesla from the factory to the UK',
+              },
+              {
+                id: 3,
+                textIcon: <FileText size={24} />,
+                text: 'Tesla Charging Etiquette',
+              },
+            ]}
+            heading='For new owners'
+          />
+
+          <LinkListCard
+            list={[
+              {
+                id: 0,
+                textIcon: <FileText size={24} />,
+                text: '100 things you never knew about your Tesla (Model S & X edi...',
+              },
+              {
+                id: 1,
+                textIcon: <FileText size={24} />,
+                text: 'Everything you learn as a new Tesla owner in winter',
+              },
+              {
+                id: 2,
+                textIcon: <FileText size={24} />,
+                text: 'Tracking your Tesla from the factory to the UK',
+              },
+              {
+                id: 3,
+                textIcon: <FileText size={24} />,
+                text: 'Tesla Charging Etiquette',
+              },
+              {
+                id: 4,
+                textIcon: <FileText size={24} />,
+                text: 'Charging Cables and Adapters',
+              },
+            ]}
+            heading='Upgrading, Modifying & Fixing'
+            articleCount='24'
+          />
+
+          <LinkListCard
+            list={[
+              {
+                id: 0,
+                textIcon: <FileText size={24} />,
+                text: '100 things you never knew about your Tesla (Model S & X edi...',
+              },
+              {
+                id: 1,
+                textIcon: <FileText size={24} />,
+                text: 'Everything you learn as a new Tesla owner in winter',
+              },
+              {
+                id: 2,
+                textIcon: <FileText size={24} />,
+                text: 'Tracking your Tesla from the factory to the UK',
+              },
+              {
+                id: 3,
+                textIcon: <FileText size={24} />,
+                text: 'Tesla Charging Etiquette',
+              },
+              {
+                id: 4,
+                textIcon: <FileText size={24} />,
+                text: 'Charging Cables and Adapters',
+              },
+            ]}
+            heading='Charging away from home'
+            articleCount='24'
+          />
+
+          <LinkListCard
+            list={[
+              {
+                id: 0,
+                textIcon: <FileText size={24} />,
+                text: '100 things you never knew about your Tesla (Model S & X edi...',
+              },
+              {
+                id: 1,
+                textIcon: <FileText size={24} />,
+                text: 'Everything you learn as a new Tesla owner in winter',
+              },
+              {
+                id: 2,
+                textIcon: <FileText size={24} />,
+                text: 'Tracking your Tesla from the factory to the UK',
+              },
+              {
+                id: 3,
+                textIcon: <FileText size={24} />,
+                text: 'Tesla Charging Etiquette',
+              },
+            ]}
+            heading='Fear, Uncertainty & Doubt'
+          />
         </div>
       </div>
     </>
