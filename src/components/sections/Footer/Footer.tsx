@@ -70,7 +70,7 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
         <div className='container'>
           <div className='footer__top flex justify-between pt-[40px] pb-[44px]'>
             <div className='footer__about max-w-[400px]'>
-              <Logo className='mb-[32px]' isInverted />
+              <Logo className='mb-[32px]' />
               <p className='text-sm font-500 text-N-500'>
                 Tesla Owners United Kingdom is the official UK Tesla Owners Club, and is operated by
                 Tesla Owners UK Limited, a company limited by guarantee (registration number

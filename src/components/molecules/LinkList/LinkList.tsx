@@ -20,9 +20,9 @@ export const LinkList: FC<LinkListProps> = ({
 
   return (
     <div className={LinkListClasses} {...restProps}>
-      {(list || []).map(({ id, onClick, linkText, wrapperComponent: Wrap }, index) => {
-        return (
-          <ul className={CN('link-list__items', DirectionClassName)}>
+      <ul className={CN('link-list__items', DirectionClassName)}>
+        {(list || []).map(({ id, onClick, linkText, wrapperComponent: Wrap }, index) => {
+          return (
             <li
               className='mb-[16px] cursor-pointer text-base text-N-600 hover:text-B-500'
               key={id || index}>
@@ -34,9 +34,9 @@ export const LinkList: FC<LinkListProps> = ({
 
               {!Wrap && <a onClick={onClick}>{linkText}</a>}
             </li>
-          </ul>
-        )
-      })}
+          )
+        })}
+      </ul>
     </div>
   )
 }
