@@ -178,16 +178,18 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
           </span>
 
           <ul className='flex gap-[50px]'>
-            {(footerBottomLinks || []).map(({ id, link, label, ...restProps }, index) => (
-              <li key={id || index}>
-                <a
-                  href={link}
-                  {...restProps}
-                  className='text-sm font-500 text-N-600 hover:text-B-500'>
-                  {label}
-                </a>
-              </li>
-            ))}
+            {(footerBottomLinks || []).map(
+              ({ id, link, label, ...restProps }: any, index: number) => (
+                <li key={id || index}>
+                  <a
+                    href={link}
+                    {...restProps}
+                    className='text-sm font-500 text-N-600 hover:text-B-500'>
+                    {label}
+                  </a>
+                </li>
+              )
+            )}
           </ul>
         </div>
       </div>
