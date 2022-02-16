@@ -8,6 +8,7 @@ export interface SectionHeadingProps {
   description?: string
   heading?: string
   overline?: string
+  headingClassName?: string
   link?: any
   cta?: any
 }
@@ -20,6 +21,7 @@ export const SectionHeading: FC<SectionHeadingProps> = ({
   overline,
   link,
   cta,
+  headingClassName,
   ...restProps
 }: SectionHeadingProps) => {
   const SectionHeadingClasses = CN(
@@ -40,14 +42,14 @@ export const SectionHeading: FC<SectionHeadingProps> = ({
 
         {heading && (
           <h2
-            className='mb-[16px] text-N-800'
+            className={CN('mb-[16px] text-N-800', headingClassName)}
             dangerouslySetInnerHTML={{ __html: heading || '' }}
           />
         )}
 
         {description && (
           <p
-            className='text-base font-400 text-N-600'
+            className='text-md font-400 text-N-600'
             dangerouslySetInnerHTML={{ __html: description || '' }}
           />
         )}

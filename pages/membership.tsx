@@ -10,7 +10,7 @@ import {
   TestimonialCarousel,
   Faq,
 } from '@/components/sections'
-import { PageHeader, ContactCta } from '@/components/molecules'
+import { PageHeader, ContactCta, SectionHeading } from '@/components/molecules'
 import { testimonials } from '@/dummy-data/testimonials'
 
 const Home: NextPage = () => {
@@ -24,13 +24,16 @@ const Home: NextPage = () => {
 
       <Header className='pt-[80px]' />
 
-      <div className='container flex pt-[100px]'>
-        <PageHeader
-          heading='Join the club'
-          description='Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. '
-          headingClassName='text-N-800'
-          descriptionClassName='text-N-600'
-        />
+      <div className='container flex flex-col pt-[120px]'>
+        <div className='mx-auto flex max-w-[600px]'>
+          <SectionHeading
+            heading='Join the club'
+            headingClassName="text-display"
+            description='Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.'
+            align='center'
+            overline='Be Elite'
+          />
+        </div>
       </div>
 
       <div className='container max-w-[992px] py-[80px]'>
@@ -38,16 +41,16 @@ const Home: NextPage = () => {
       </div>
 
       <SupporterBenefits className='py-[80px]' />
-      <TestimonialCarousel className='pt-[104px] pb-[80px]' list={testimonials} />
-      <Faq className='pt-[40px] pb-[80px]' list={testimonials} />
+      <TestimonialCarousel className='py-[80px]' list={testimonials} />
+      <Faq className='pt-[20px] pb-[80px]' list={testimonials} />
 
       <ContactCta
-        heading='Still have questions? Contact us'
+        heading='Still have questions? <br />Contact us'
         icon={<Mail size={32} />}
         email='hello@teslaowners.org.uk'
       />
 
-      <SupplierRibbon className="pt-[60px]" />
+      <SupplierRibbon />
       <Footer />
     </>
   )

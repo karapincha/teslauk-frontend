@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
-import { Button } from '@/components/atoms'
+import { SectionHeading } from '@/components/molecules'
 
 export interface CardProps {
   [x: string]: any
@@ -9,7 +9,6 @@ export interface CardProps {
   description?: string
   image?: string
   imageAlt?: string
-  link?: string
   onClickLink?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
@@ -20,8 +19,7 @@ export const Card: FC<CardProps> = ({
   description,
   image,
   imageAlt,
-  link,
-  linkText,
+  cta,
   onClickLink,
   ...restProps
 }: CardProps) => {
@@ -34,24 +32,12 @@ export const Card: FC<CardProps> = ({
       </div>
 
       <div className='card__content flex flex-col pl-[48px]'>
-        <span
-          className='text-overline mb-[16px] uppercase text-B-500'
-          dangerouslySetInnerHTML={{ __html: subHeading || '' }}
+        <SectionHeading
+          heading={heading}
+          overline={subHeading}
+          description={description}
+          cta={cta}
         />
-        <h2 className='mb-[24px]' dangerouslySetInnerHTML={{ __html: heading || '' }} />
-        <p className='mb-[24px]' dangerouslySetInnerHTML={{ __html: description || '' }} />
-
-        <div className='flex'>
-          {link && (
-            <Button
-              appearance='link'
-              view='outline'
-              iconAfter={<i className='ri-arrow-right-line text-lg' />}
-              onClick={onClickLink}>
-              {linkText}
-            </Button>
-          )}
-        </div>
       </div>
     </div>
   )

@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
+import Link from 'next/link'
 import { Card, DateCard } from '@/components/molecules'
+import { Button } from '@/components/atoms'
 
 export interface EventCardProps {
   [x: string]: any
@@ -22,6 +24,13 @@ export const EventCard: FC<EventCardProps> = ({ className, ...restProps }: Event
             linkText='View all events'
             onClickLink={() => {}}
             description='Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.'
+            cta={
+              <Link href='/guides'>
+                <Button iconAfter={<i className='ri-arrow-right-line text-lg' />} appearance='link'>
+                  View all the events
+                </Button>
+              </Link>
+            }
           />
         </div>
 

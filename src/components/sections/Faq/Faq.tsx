@@ -17,7 +17,7 @@ export const Faq: FC<FaqProps> = ({ className, ...restProps }: FaqProps) => {
           <h3>Frequently asked questions</h3>
         </div>
 
-        <div className='grid w-full grid-cols-2 gap-[48px] pt-[64px]'>
+        <div className='grid w-full grid-cols-2 gap-[48px] pt-[40px]'>
           <div className='column-1'>
             {(faqList1 || []).map(({ id, heading, body }: any, index: number) => (
               <Accordion

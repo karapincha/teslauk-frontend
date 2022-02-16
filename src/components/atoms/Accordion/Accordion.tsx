@@ -22,7 +22,7 @@ export const Accordion: FC<AccordionProps> = ({
       <div
         className='accordion__header flex cursor-pointer items-center justify-between'
         onClick={() => setIsOpen(!isOpen)}>
-        <span className={CN('flex items-center text-lg font-500', headingClassName)}>{heading}</span>
+        <span className={CN('flex items-center text-base font-500', headingClassName)}>{heading}</span>
         <span className='flex items-center'>
           {isOpen ? (
             <X size={24} className='text-B-500' />

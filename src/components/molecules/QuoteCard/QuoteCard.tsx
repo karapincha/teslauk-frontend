@@ -27,7 +27,7 @@ export const QuoteCard: FC<QuoteCardProps> = ({
     <div className={QuoteCardClasses} {...restProps}>
       <i className='ri-double-quotes-r absolute right-[24px] top-[-20px] text-[80px] text-B-500' />
 
-      <p className='text-N-600' dangerouslySetInnerHTML={{ __html: quote || '' }} />
+      <p className='text-N-600 text-md' dangerouslySetInnerHTML={{ __html: quote || '' }} />
 
       <div className='flex items-center gap-[12px]'>
         <Avatar image={avatar} size='sm' />

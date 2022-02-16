@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
+import Link from 'next/link'
 import { SectionHeading } from '@/components/molecules'
 import { Button } from '@/components/atoms'
 
@@ -28,7 +29,11 @@ export const CallToAction: FC<CallToActionProps> = ({
             overline='Free membership'
             heading='Ready to get onboard?'
             description='Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.'
-            cta={<Button iconAfter={<i className='ri-arrow-right-line text-lg' />}>Sign up</Button>}
+            cta={
+              <Link href='/membership'>
+                <Button iconAfter={<i className='ri-arrow-right-line text-lg' />}>Sign up</Button>
+              </Link>
+            }
           />
         </div>
       </div>

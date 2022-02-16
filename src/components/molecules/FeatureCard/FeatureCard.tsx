@@ -25,7 +25,7 @@ export const FeatureCard: FC<FeatureCardProps> = ({
       </div>
 
       <div className='flex flex-col'>
-        <h5 className='mb-[8px] group-hover:text-B-400' dangerouslySetInnerHTML={{ __html: heading || '' }} />
+        <h5 className='text-h6 mb-[8px] group-hover:text-B-400' dangerouslySetInnerHTML={{ __html: heading || '' }} />
         <span
           className='text-md text-N-600'
           dangerouslySetInnerHTML={{ __html: description || '' }}

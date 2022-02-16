@@ -12,7 +12,7 @@ export const SupplierRibbon: FC<SupplierRibbonProps> = ({
   ...restProps
 }: SupplierRibbonProps) => {
   const SupplierRibbonClasses = CN(`supplier-ribbon`, className, {
-    'w-full flex justify-between py-[20px]': true,
+    'w-full flex justify-between pt-[40px] pb-[20px]': true,
   })
 
   const logoList = [
