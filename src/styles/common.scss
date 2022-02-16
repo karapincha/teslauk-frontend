@@ -1,9 +1,13 @@
 * {
-  @apply selection:bg-A-200 selection:text-N-800;
+  @apply selection:bg-N-800 selection:text-white;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans text-base text-N-700 bg-N-10;
 }
 
 img {

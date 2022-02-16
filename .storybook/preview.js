@@ -1,6 +1,7 @@
 import * as NextImage from 'next/image'
 
 import '@karapincha/hydra-ui/dist/bundle.css'
+import 'remixicon/fonts/remixicon.css'
 import './storybook.css'
 import './storybook-doc-styles.scss'
 import '@/styles/tailwind.scss'

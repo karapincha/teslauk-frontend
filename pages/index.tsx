@@ -1,6 +1,13 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Header } from '@/components/sections/Header'
+import {
+  Header,
+  Hero,
+  EventCard,
+  QuickMembership,
+  QuickTestimonials,
+  GuidesQuickAccess,
+} from '@/components/sections'
 
 const Home: NextPage = () => {
   return (
@@ -11,7 +18,12 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header />
+      <Header className='pt-[80px] pb-[0px]' />
+      <Hero className='pt-[80px] pb-[40px]' />
+      <EventCard className='pt-[40px] pb-[80px]' />
+      <QuickMembership className='py-[80px]' />
+      <QuickTestimonials className='py-[80px]' />
+      <GuidesQuickAccess className='py-[80px]' />
     </>
   )
 }

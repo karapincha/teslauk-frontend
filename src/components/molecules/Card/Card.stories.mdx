@@ -1,0 +1,53 @@
+import dedent from 'ts-dedent'
+import { ArgsTable, Canvas, Description, Meta, Preview, Source, Story } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { Card } from './Card'
+
+<Meta title='02. Molecules / Card' component={Card} />
+
+# Card
+
+`import { Card } from '@teslaowners/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '70%' }}>
+    <div className='flex'>
+      <Card
+        heading='Events happening <br /> around you'
+        subHeading='Private events'
+        image='/images/banners/002.jpg'
+        imageAlt="Event's banner"
+        link='/events'
+        linkText='View all events'
+        onClickLink={() => {}}
+        description='Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.'
+      />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<Card
+        heading='Events happening <br /> around you'
+        subHeading='Private events'
+        image='/images/banners/002.jpg'
+        imageAlt="Event's banner"
+        link='/events'
+        linkText='View all events'
+        onClickLink={() => {}}
+        description='Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.'
+      />`} />
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={Card} />

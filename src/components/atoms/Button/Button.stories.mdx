@@ -22,8 +22,8 @@ import { Button } from './Button'
   <div className='doc-story__preview' style={{ zoom: '100%' }}>
     <div className='flex items-center gap-4'>
       <Button>Button</Button>
-      <Button iconBefore={<CreditCard size={18} />}>Button</Button>
-      <Button iconAfter={<CreditCard size={18} />}>Button</Button>
+      <Button iconBefore={<i className='ri-heart-fill' />}>Button</Button>
+      <Button iconAfter={<i className='ri-heart-fill' />}>Button</Button>
       <Button disabled>Disabled</Button>
     </div>
   </div>
@@ -32,9 +32,36 @@ import { Button } from './Button'
 <Source
   language={'jsx'}
   code={dedent`<Button>Button</Button>
-<Button iconBefore={<CreditCard size={18} />}>Button</Button>
-<Button iconAfter={<CreditCard size={18} />}>Button</Button>
-<Button disabled>Disabled</Button>`}
+      <Button iconBefore={<i className='ri-heart-fill' />}>Button</Button>
+      <Button iconAfter={<i className='ri-heart-fill' />}>Button</Button>
+      <Button disabled>Disabled</Button>`}
+/>
+
+<br />
+<br />
+
+### Size
+
+<br />
+
+<Story name='Size'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <Button size='xs'>Button</Button>
+      <Button size='sm'>Button</Button>
+      <Button size='md'>Button</Button>
+      <Button size='lg'>Button</Button>
+      <Button size='xl'>Button</Button>
+    </div>
+  </div>
+</Story>
+
+<Source
+  language={'jsx'}
+  code={dedent`<Button>Button</Button>
+      <Button iconBefore={<i className='ri-heart-fill' />}>Button</Button>
+      <Button iconAfter={<i className='ri-heart-fill' />}>Button</Button>
+      <Button disabled>Disabled</Button>`}
 />
 
 <br />
@@ -46,85 +73,13 @@ import { Button } from './Button'
 
 <Story name='Appearance'>
   <div className='doc-story__preview' style={{ zoom: '100%' }}>
-    <div className='flex items-center gap-4 mb-4'>
+    <div className='flex items-center gap-4 rounded-[4px] bg-N-400 p-[20px]'>
       <Button appearance='primary'>Button</Button>
-      <Button appearance='primary' iconBefore={<CreditCard size={18} />}>
-        Button
-      </Button>
-      <Button appearance='primary' iconAfter={<CreditCard size={18} />}>
-        Button
-      </Button>
-      <Button appearance='primary' disabled>
-        Disabled
-      </Button>
-    </div>
-    <div className='flex items-center gap-4 mb-4'>
-      <Button isRounded appearance='primary'>
-        Button
-      </Button>
-      <Button isRounded appearance='primary' iconBefore={<CreditCard size={18} />}>
-        Button
-      </Button>
-      <Button isRounded appearance='primary' iconAfter={<CreditCard size={18} />}>
-        Button
-      </Button>
-      <Button isRounded appearance='primary' disabled>
-        Disabled
-      </Button>
-    </div>
-    <div className='flex items-center gap-4 mb-4'>
       <Button appearance='secondary'>Button</Button>
-      <Button appearance='secondary' iconBefore={<CreditCard size={18} />}>
-        Button
-      </Button>
-      <Button appearance='secondary' iconAfter={<CreditCard size={18} />}>
-        Button
-      </Button>
-      <Button appearance='secondary' disabled>
-        Disabled
-      </Button>
-    </div>
-    <div className='flex items-center gap-4 mb-4'>
-      <Button view='outline'>Button</Button>
-      <Button view='outline' iconBefore={<CreditCard size={18} />}>
-        Button
-      </Button>
-      <Button view='outline' iconAfter={<CreditCard size={18} />}>
-        Button
-      </Button>
-      <Button view='outline' disabled>
-        Disabled
-      </Button>
-    </div>
-    <div className='flex items-center gap-4 mb-4'>
+      <Button appearance='neutral'>Button</Button>
+      <Button appearance='link'>Button</Button>
       <Button appearance='ghost'>Button</Button>
-      <Button appearance='ghost' iconBefore={<CreditCard size={18} />}>
-        Button
-      </Button>
-      <Button appearance='ghost' iconAfter={<CreditCard size={18} />}>
-        Button
-      </Button>
-      <Button appearance='ghost' disabled>
-        Disabled
-      </Button>
-    </div>
-    <div className='flex items-center gap-4 mb-4'>
-      <Button appearance='link'>Link Button</Button>
-      <Button appearance='link' iconBefore={<CreditCard size={18} />}>
-        Link Button
-      </Button>
-      <Button appearance='link' view='outline' iconAfter={<CreditCard size={18} />}>
-        Link Button
-      </Button>
-      <Button appearance='link' disabled>
-        Link Button
-      </Button>
-    </div>
-    <div className='flex items-center gap-4'>
-      <Button view='outline' icon={<ArrowUpRight size={18} />} />
-      <Button view='outline' icon={<ArrowUpRight size={18} />} />
-      <Button view='outline' icon={<ArrowUpRight size={18} />} />
-      <Button view='outline' icon={<ArrowUpRight size={18} />} disabled />
+      <Button appearance='ghost-invert'>Button</Button>
     </div>
   </div>
 </Story>
@@ -132,57 +87,37 @@ import { Button } from './Button'
 <Source
   language={'jsx'}
   code={dedent`<Button appearance='primary'>Button</Button>
-  <Button isRounded>Button</Button>
-  <Button appearance='secondary'>Button</Button>
-  <Button view='outline'>Button</Button>
-  <Button appearance='ghost'>Button</Button>
-  <Button appearance='link'>Link Button</Button>
-  <Button view='outline' icon={<ArrowUpRight size={18} />} />`}
+      <Button appearance='secondary'>Button</Button>
+      <Button appearance='neutral'>Button</Button>
+      <Button appearance='link'>Button</Button>
+      <Button appearance='ghost'>Button</Button>
+      <Button appearance='ghost-invert'>Button</Button>`}
 />
 
 <br />
 <br />
 
-### Sizes
+### View
 
 <br />
 
-<Story name='Sizes'>
+<Story name='View'>
   <div className='doc-story__preview' style={{ zoom: '100%' }}>
-    <div className='flex items-center gap-4 mb-4'>
-      <Button size='lg'>Button</Button>
-      <Button size='lg' iconBefore={<CreditCard size={18} />}>
+    <div className='flex items-center gap-4 rounded-[4px] bg-N-200 p-[20px]'>
+      <Button appearance='primary' view='outline'>
         Button
       </Button>
-      <Button size='lg' iconAfter={<CreditCard size={18} />}>
+      <Button appearance='secondary' view='outline'>
         Button
       </Button>
-      <Button size='lg' disabled>
-        Disabled
-      </Button>
-    </div>
-    <div className='flex items-center gap-4 mb-4'>
-      <Button size='md'>Button</Button>
-      <Button size='md' iconBefore={<CreditCard size={18} />}>
+      <Button appearance='neutral' view='outline'>
         Button
       </Button>
-      <Button size='md' iconAfter={<CreditCard size={18} />}>
+      <Button appearance='ghost' view='outline'>
         Button
       </Button>
-      <Button size='md' disabled>
-        Disabled
-      </Button>
-    </div>
-    <div className='flex items-center gap-4'>
-      <Button size='sm'>Button</Button>
-      <Button size='sm' iconBefore={<CreditCard size={12} />}>
+      <Button appearance='ghost-invert' view='outline'>
         Button
-      </Button>
-      <Button size='sm' iconAfter={<CreditCard size={12} />}>
-        Button
-      </Button>
-      <Button size='sm' disabled>
-        Disabled
       </Button>
     </div>
   </div>
@@ -190,8 +125,11 @@ import { Button } from './Button'
 
 <Source
   language={'jsx'}
-  code={dedent`<Button size="lg" iconAfter={<CreditCard size={18} />}>Button</Button>
-<Button size="sm" iconBefore={<CreditCard size={12} />}>Button</Button>`}
+  code={dedent`<Button appearance='primary' view='outline'>Button</Button>
+      <Button appearance='secondary' view='outline'>Button</Button>
+      <Button appearance='neutral' view='outline'>Button</Button>
+      <Button appearance='ghost' view='outline'>Button</Button>
+      <Button appearance='ghost-invert' view='outline'>Button</Button>`}
 />
 
 <br />

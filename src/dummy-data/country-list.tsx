@@ -2,6 +2,10 @@ import Flags from 'country-flag-icons/react/3x2'
 
 export const countries = [
   {
+    label: 'Select country',
+    value: '',
+  },
+  {
     iconBefore: <Flags.LK className='w-[28px]' />,
     label: 'Sri Lanka (LK)',
     value: 'Sri Lanka',

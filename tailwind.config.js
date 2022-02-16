@@ -18,7 +18,7 @@ module.exports = {
     screens: {
       sm: '640px',
       md: '768px',
-      lg: '1264px',
+      lg: '1200px',
     },
     container: {
       center: true,
@@ -42,18 +42,12 @@ module.exports = {
       ...appTypography.body.fontWeight,
     },
     boxShadow: {
-      'DEFAULT':
-        '0px 1.99269px 5.47989px -1.49452px rgba(1,56,106,0.05), 0px 3.4872px 15.9415px -0.996344px rgba(1,56,106,0.12)',
-      'sm': '0px 2px 36px -12px rgb(1 56 106 / 9%), 0px 3px 16px -1px rgb(1 56 106 / 3%)',
-      'box':
-        '0px 0.498172px 0.996344px -0.498172px rgb(7 77 219 / 12%), 0px 0.996344px 0.996344px -0.498172px rgb(7 61 169 / 8%)',
-      'menu-item':
-        '0px 0.498172px 0.996344px -0.498172px rgba(4, 13, 31, 0.12), 0px 0.996344px 0.996344px -0.498172px rgba(4, 13, 31, 0.08)',
-      'menu': '0px 12px 24px -14px rgb(1 56 106 / 12%)',
-      'none': 'none',
+      DEFAULT: '0px_25px_50px_-12px_rgba(95,111,140,0.1)',
+      none: 'none',
     },
     dropShadow: {
-      DEFAULT: '0px 3px 12px rgba(1, 56, 106, 0.08)',
+      'DEFAULT': '0px_3px_12px_rgba(1,56,106,0.08)',
+      '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
     },
     extend: {
       colors: {
@@ -105,8 +99,11 @@ module.exports = {
     require('@tailwindcss/line-clamp'),
     require('@tailwindcss/typography'),
     require('tailwind-scrollbar'),
+    require('tailwindcss-children'),
   ],
   variants: {
     scrollbar: ['rounded'],
+    flex: ['children', 'default'],
+    inlineFlex: ['children', 'default'],
   },
 }

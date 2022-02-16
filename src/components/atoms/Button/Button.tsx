@@ -2,19 +2,23 @@ import React, { forwardRef, ReactNode } from 'react'
 import CN from 'classnames'
 
 export interface ButtonProps {
-  appearance?: 'primary' | 'secondary' | 'ghost' | 'link' | 'light'
-  children?: ReactNode | string | number | undefined
-  className?: string | undefined
+  [x: string]: any
+  appearance?:
+    | 'primary'
+    | 'secondary'
+    | 'neutral'
+    | 'ghost'
+    | 'ghost-invert'
+    | 'link'
+    | 'link-invert'
+  children?: any
+  className?: string
   disabled?: boolean
-  icon?: ReactNode | string | number | undefined
-  iconAfter?: ReactNode | string | number | undefined
-  iconBefore?: ReactNode | string | number | undefined
-  isRounded?: boolean
-  isNarrow?: boolean
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-  size?: 'default' | 'sm' | 'lg' | 'md' | undefined
-  type?: 'button' | 'submit' | 'reset' | undefined
-  view?: 'default' | 'outline' | 'subtle'
+  icon?: ReactNode | string | number
+  iconAfter?: ReactNode | string | number
+  iconBefore?: ReactNode | string | number
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  view?: 'outline' | 'solid'
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -27,131 +31,54 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       icon,
       iconAfter,
       iconBefore,
-      isRounded,
-      onClick,
       size,
-      type,
       view,
-      isNarrow,
       ...restProps
     }: ButtonProps,
     ref: any
   ) => {
-    /* Text and Icon Color */
-    const BtnTextClasses =
-      (appearance === 'link' && !disabled && '!text-B-500 group-hover:!text-B-500') ||
-      (view === 'outline' && !disabled && 'text-N-700 group-hover:!text-white') ||
-      (size === 'md' && 'text-md') ||
-      // (view !== 'outline' && !disabled && 'text-N-700 group-hover:text-N-800') ||
-      (disabled && 'text-N-500')
-
-    /* Background Color */
-    const BtnBGClasses =
-      (appearance === 'primary' &&
-        view !== 'outline' &&
-        !disabled &&
-        'bg-A-300 hover:bg-A-400 active:bg-A-300') ||
-      (appearance === 'secondary' &&
-        view !== 'outline' &&
-        !disabled &&
-        'bg-N-200 hover:bg-N-300 active:bg-N-200') ||
-      (appearance === 'light' &&
-        view !== 'outline' &&
-        !disabled &&
-        'bg-N-50 hover:bg-N-100 active:bg-N-50') ||
-      (appearance === 'ghost' &&
-        view !== 'outline' &&
-        !disabled &&
-        'bg-[transparent] hover:bg-N-50 active:bg-N-100') ||
-      (appearance === 'link' &&
-        view !== 'outline' &&
-        !disabled &&
-        'bg-[transparent] hover:bg-B-50 active:bg-B-100') ||
-      (appearance === 'link' &&
-        view === 'outline' &&
-        !disabled &&
-        'bg-[transparent] hover:bg-B-50 active:bg-B-100') ||
-      (view === 'outline' && !disabled && 'bg-[transparent] hover:bg-N-700 active:bg-N-800') ||
-      (disabled && 'bg-N-200')
-
-    /* Border Color */
-    const BtnBorderClasses =
-      (appearance === 'primary' && view !== 'outline' && !disabled && 'border-A-400') ||
-      (appearance === 'secondary' &&
-        view !== 'outline' &&
-        !disabled &&
-        'border-N-200 hover:border-N-200') ||
-      (appearance === 'light' &&
-        view !== 'outline' &&
-        !disabled &&
-        'border-N-50 hover:border-N-50') ||
-      (appearance === 'ghost' && view !== 'outline' && !disabled && 'border-[transparent]') ||
-      (appearance === 'link' && view !== 'outline' && !disabled && 'border-[transparent]') ||
-      (appearance === 'link' && view === 'outline' && !disabled && 'border-B-500') ||
-      (view === 'outline' && !disabled && 'border-N-700') ||
-      (disabled && 'border-N-50')
-
-    /* Text Size */
-    const BtnTextSizeClasses =
-      (size === 'lg' && 'text-base') || (size == 'sm' && 'text-md') || 'text-base'
-
     /* General */
-    const ButtonClasses = CN('btn', className, {
-      /* Common */
-      'rounded-[4px] text-base font-600 flex items-center justify-center border group ease-in-out duration-100':
-        true,
+    const ButtonClasses = CN(
+      'btn rounded-[4px] text-base font-500 flex items-center justify-center group transition-colors gap-[6px] children:inline-flex border-2 border-transparent',
+      className,
+      {
+        /* Disabled */
+        'pointer-events-none select-none cursor-not-allowed': disabled,
 
-      /* Disabled */
-      'pointer-events-none select-none cursor-not-allowed': disabled,
+        /* Sizing */
+        'h-[24px] px-[8px] text-[12px] font-500': size === 'xs',
+        'h-[38px] px-[16px] text-[14px]': size === 'sm',
+        'h-[48px] px-[20px]': size === 'md',
+        'h-[52px] px-[32px]': size === 'lg',
+        'h-[62px] px-[32px]': size === 'xl',
+        '!px-[0]': appearance === 'link' || appearance === 'link-invert',
 
-      /* Sizing */
-      'h-[56px] px-[40px]': size === 'default',
-      'h-[64px] px-[40px]': size === 'lg',
-      'h-[46px] px-[24px]': size === 'md',
-      'h-[32px] px-[16px] text-[8px]': size === 'sm' && !isNarrow,
-      'h-[32px] px-[8px] text-[8px]': size === 'sm' && isNarrow,
+        /* Appearance */
+        'bg-B-500 text-white hover:bg-B-600': appearance === 'primary' && view === 'solid',
+        'bg-N-200 text-N-800 hover:bg-N-300': appearance === 'secondary' && view === 'solid',
+        'bg-N-800 text-white': appearance === 'neutral' && view === 'solid',
+        'bg-transparent text-N-800 hover:text-B-500': appearance === 'link',
+        'bg-transparent text-white hover:text-N-200': appearance === 'link-invert',
+        'bg-transparent text-N-800': appearance === 'ghost' && view === 'solid',
+        'bg-transparent text-white': appearance === 'ghost-invert' && view === 'solid',
 
-      'h-[56px] px-[14px]': !children && icon && size === 'default',
-
-      /* isRounded */
-      'rounded-full': isRounded,
-    })
+        /* View */
+        'bg-transparent text-N-800 border-N-800': appearance === 'primary' && view === 'outline',
+        'bg-transparent text-N-700 !border-N-400': appearance === 'secondary' && view === 'outline',
+        'bg-transparent text-N-800 !border-N-800': appearance === 'neutral' && view === 'outline',
+        'bg-transparent text-N-800 hover:border-N-800':
+          appearance === 'ghost' && view === 'outline',
+        'bg-transparent text-white hover:border-white':
+          appearance === 'ghost-invert' && view === 'outline',
+      }
+    )
 
     return (
-      <button
-        className={CN(ButtonClasses, BtnTextClasses, BtnBGClasses, BtnBorderClasses)}
-        disabled={disabled}
-        onClick={onClick}
-        ref={ref}
-        type={type}
-        {...restProps}>
-        {iconBefore && (
-          <div
-            className={CN('btn__icon', BtnTextClasses, BtnTextSizeClasses, {
-              'mr-[12px]': size !== 'sm',
-              'mr-[8px]': size === 'sm',
-            })}>
-            {iconBefore}
-          </div>
-        )}
-
-        {!children && icon && (
-          <div className={CN('btn__content', BtnTextClasses, BtnTextSizeClasses)}>{icon}</div>
-        )}
-
-        {children && (
-          <div className={CN('btn__content', BtnTextClasses, BtnTextSizeClasses)}>{children}</div>
-        )}
-
-        {iconAfter && (
-          <div
-            className={CN('btn__icon', BtnTextClasses, BtnTextSizeClasses, {
-              'ml-[12px]': size !== 'sm',
-              'ml-[8px]': size === 'sm',
-            })}>
-            {iconAfter}
-          </div>
-        )}
+      <button className={CN(ButtonClasses)} disabled={disabled} ref={ref} {...restProps}>
+        {iconBefore && <div className={CN('btn__icon children:inline-flex')}>{iconBefore}</div>}
+        {!children && icon && <div className={CN('btn__content')}>{icon}</div>}
+        {children && <div className={CN('btn__content')}>{children}</div>}
+        {iconAfter && <div className={CN('btn__icon children:inline-flex')}>{iconAfter}</div>}
       </button>
     )
   }
@@ -163,9 +90,8 @@ Button.defaultProps = {
   disabled: false,
   iconAfter: undefined,
   iconBefore: undefined,
-  size: 'default',
-  type: 'button',
-  view: 'default',
+  size: 'md',
+  view: 'solid',
 }
 
 export default Button

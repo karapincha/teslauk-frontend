@@ -1,13 +1,5 @@
 import dedent from 'ts-dedent'
-import {
-  ArgsTable,
-  Canvas,
-  Description,
-  Meta,
-  Preview,
-  Source,
-  Story,
-} from '@storybook/addon-docs'
+import { ArgsTable, Canvas, Description, Meta, Preview, Source, Story } from '@storybook/addon-docs'
 import { DocStory } from '@karapincha/hydra-ui'
 
 import { Logo } from './Logo'
@@ -16,12 +8,12 @@ import { Logo } from './Logo'
 
 # Logo
 
-`import { Logo } from '@karapincha/ui'`
+`import { Logo } from '@teslaowners/ui'`
 
 <br />
 <br />
 
-### Default
+### Preview
 
 <br />
 
@@ -32,6 +24,8 @@ import { Logo } from './Logo'
     </div>
   </div>
 </Story>
+
+<Source language={'jsx'} code={dedent`<Logo />`} />
 
 <br />
 <br />

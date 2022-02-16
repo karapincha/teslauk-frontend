@@ -35,10 +35,10 @@ module.exports = {
 
     fontSize: {
       display: [
-        '64px',
+        '60px',
         {
           label: 'Display',
-          lineHeight: '86px',
+          lineHeight: '72px',
           letterSpacing: '-1.25px',
         },
       ],
@@ -54,7 +54,7 @@ module.exports = {
         '40px',
         {
           label: 'H2',
-          lineHeight: '58px',
+          lineHeight: '52px',
           letterSpacing: '-0.74px',
         },
       ],
@@ -90,6 +90,14 @@ module.exports = {
           letterSpacing: '-0.26px',
         },
       ],
+      overline: [
+        '14px',
+        {
+          label: 'Overline',
+          lineHeight: '24px',
+          letterSpacing: '3.5px',
+        },
+      ],
     },
 
     fontWeight: {
@@ -97,9 +105,10 @@ module.exports = {
       h1: 700,
       h2: 700,
       h3: 700,
-      h4: 700,
+      h4: 500,
       h5: 600,
       h6: 600,
+      overline: 600,
     },
   },
 
@@ -110,11 +119,10 @@ module.exports = {
         '16px',
         {
           label: 'Base',
-          lineHeight: '32px',
+          lineHeight: '28px',
           letterSpacing: '-0.18px',
         },
       ],
-
       xl: [
         '28px',
         {

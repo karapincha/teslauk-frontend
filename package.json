@@ -22,7 +22,9 @@
     "react-player": "^2.9.0",
     "react-table": "^7.7.0",
     "react-tooltip": "^4.2.21",
-    "swiper": "^7.4.1"
+    "remixicon": "^2.5.0",
+    "swiper": "^7.4.1",
+    "tailwindcss-children": "^2.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -53,6 +55,8 @@
     "eslint-plugin-storybook": "^0.5.5",
     "postcss": "^8.2.15",
     "postcss-loader": "^6.2.1",
+    "prettier": "^2.5.1",
+    "prettier-plugin-tailwindcss": "^0.1.7",
     "react-docgen-typescript-loader": "^3.7.2",
     "sass": "^1.45.1",
     "sass-loader": "^12.4.0",

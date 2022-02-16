@@ -11,7 +11,7 @@
   h4,
   h5,
   h6 {
-    @apply font-serif text-N-800;
+    @apply font-sans text-N-800;
   }
 
   .display {
@@ -40,6 +40,10 @@
 
   h6 {
     @apply text-h6 font-h6;
+  }
+
+  .text-overline {
+    @apply font-overline;
   }
 
   a,

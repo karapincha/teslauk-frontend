@@ -19,7 +19,7 @@ export interface TextFieldProps {
   onClickIconBefore?: any
   readOnly?: boolean
   required?: boolean
-  size?: 'default' | 'lg' | 'sm'
+  size?: 'md' | 'lg' | 'sm'
   type?:
     | 'text'
     | 'date'
@@ -101,18 +101,18 @@ export const TextField: FC<TextFieldProps> = forwardRef(
       'border flex items-center rounded-[4px] w-full group ease-in-out duration-[50] relative z-[0]':
         true,
       'mt-[11px]': label,
-      'h-[46px]': size === 'default' || !size,
+      'h-[48px]': size === 'md' || !size,
       'h-[60px]': size === 'lg',
       'h-[40px]': size === 'sm',
     })
 
     return (
-      <div className='flex flex-col w-full text-field__container'>
+      <div className='text-field__container flex w-full flex-col'>
         <div className={TextFieldWrapperClasses}>
           {label && (
             <label
               className={CN(
-                'absolute !text-sm text-N-700 text-field__label top-[-11px] left-[12px] px-[4px] after:content-[""] after:absolute after:left-0 after:right-0 after:h-[9px] after:bottom-[2px] after:z-[0]',
+                'text-field__label absolute top-[-11px] left-[12px] px-[4px] !text-sm text-N-700 after:absolute after:left-0 after:right-0 after:bottom-[2px] after:z-[0] after:h-[9px] after:content-[""]',
                 {
                   'after:bg-white': !disabled,
                   'after:bg-N-50': disabled,
@@ -126,7 +126,7 @@ export const TextField: FC<TextFieldProps> = forwardRef(
 
           {iconBefore && (
             <div
-              className={CN('text-field__icon flex items-center pl-[16px] pr-[12px] h-full')}
+              className={CN('text-field__icon flex h-full items-center pl-[16px] pr-[12px]')}
               onClick={onClickIconBefore || onClickIcon}
               onKeyDown={onClickIconBefore || onClickIcon}
               role='button'
@@ -147,7 +147,7 @@ export const TextField: FC<TextFieldProps> = forwardRef(
           {type === 'password' && (
             <div
               className={CN(
-                'text-field__icon flex items-center pr-[16px] pl-[12px] h-full text-N-500'
+                'text-field__icon flex h-full items-center pr-[16px] pl-[12px] text-N-500'
               )}
               onClick={() => setInputType(prev => (prev === 'password' ? 'text' : 'password'))}
               role='button'
@@ -158,7 +158,7 @@ export const TextField: FC<TextFieldProps> = forwardRef(
 
           {iconAfter && (
             <div
-              className={CN('text-field__icon flex items-center pr-[16px] pl-[12px] h-full')}
+              className={CN('text-field__icon flex h-full items-center pr-[16px] pl-[12px]')}
               onClick={onClickIconAfter || onClickIcon}
               onKeyDown={onClickIconAfter || onClickIcon}
               role='button'
@@ -170,7 +170,7 @@ export const TextField: FC<TextFieldProps> = forwardRef(
 
         {hint && (
           <span
-            className={CN('text-sm pt-[2px]', hintClassName, {
+            className={CN('pt-[2px] text-sm', hintClassName, {
               'text-R-400': isError,
               'text-G-500': isSuccess,
             })}>
@@ -192,7 +192,7 @@ TextField.defaultProps = {
   onClickIconAfter: undefined,
   onClickIconBefore: undefined,
   readOnly: false,
-  size: 'default',
+  size: 'md',
   type: 'text',
   wrapperClassName: undefined,
 }

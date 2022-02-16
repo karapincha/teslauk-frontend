@@ -8,7 +8,7 @@ export const treeLinks = [
         url: '/cleaning-implements',
       },
       {
-        title: 'Draining racks with really long name for a category',
+        title: 'Draining racks',
         url: '/draining-racks',
 
         subItems: [

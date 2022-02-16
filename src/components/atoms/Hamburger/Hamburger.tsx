@@ -22,15 +22,15 @@ export const Hamburger: FC<HamburgerProps> = ({
       <div className={HamburgerClasses} style={{ width: width, height: height }} {...restProps}>
         <input
           className={CN(
-            'block h-full opacity-0 cursor-pointer absolute w-full z-[2]',
+            'absolute z-[2] block h-full w-full cursor-pointer opacity-0',
             styles.hamburger__checkbox
           )}
           type='checkbox'
         />
 
-        <div className='bottom-0 h-[8px] left-0 m-auto absolute right-0 top-0 w-[32px]'>
-          <span className='rounded-[20px] block h-[2px] absolute w-full bg-N-800'></span>
-          <span className='rounded-[20px] block h-[2px] absolute w-full bg-N-800'></span>
+        <div className='absolute bottom-0 left-0 right-0 top-0 m-auto h-[8px] w-[32px]'>
+          <span className='absolute block h-[2px] w-full rounded-[20px] bg-N-800'></span>
+          <span className='absolute block h-[2px] w-full rounded-[20px] bg-N-800'></span>
         </div>
       </div>
 

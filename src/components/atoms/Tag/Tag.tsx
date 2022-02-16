@@ -27,8 +27,7 @@ export const Tag: FC<TagProps> = ({
 
   const TagClasses = CN(`tag`, className, {
     /* Common */
-    ' flex items-center cursor-pointer bg-white pl-[8px] rounded-tr-xl overflow-hidden':
-      true,
+    ' flex items-center cursor-pointer bg-white pl-[8px] rounded-tr-xl overflow-hidden': true,
 
     /* Text */
     'text-xs text-N-500 font-600': true,
@@ -39,12 +38,12 @@ export const Tag: FC<TagProps> = ({
 
   return (
     <div className={CN('tag', TagClasses)} onClick={onClick} {...restProps}>
-      <span className='flex items-center h-full'>{children}</span>
+      <span className='flex h-full items-center'>{children}</span>
 
       {icon && (
         <span
           className={CN(
-            'tag__icon ml-[8px] px-[6px] h-full flex items-center text-white',
+            'tag__icon ml-[8px] flex h-full items-center px-[6px] text-white',
             tagIconBGColor
           )}>
           {icon}

@@ -1,0 +1,41 @@
+import dedent from 'ts-dedent'
+import {
+  ArgsTable,
+  Canvas,
+  Description,
+  Meta,
+  Preview,
+  Source,
+  Story,
+} from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { SectionHeading } from './SectionHeading'
+
+<Meta title='02. Molecules / SectionHeading' component={SectionHeading} />
+
+# SectionHeading
+
+`import { SectionHeading } from '@teslaowners/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <SectionHeading link='/' linkText='Explore products' />
+    </div>
+  </div>
+</Story>
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={SectionHeading} />
