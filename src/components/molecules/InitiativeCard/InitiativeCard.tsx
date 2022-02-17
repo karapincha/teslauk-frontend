@@ -39,27 +39,25 @@ export const InitiativeCard: FC<InitiativeCardProps> = ({
 
   return (
     <div className={InitiativeCardClasses} {...restProps}>
-      {icon && <span className='text-N-400 lg:pb-[16px] inline-flex'>{icon}</span>}
-      {heading && <h4 className='text-h4 text-N-800 font-500 pb-[16px]'>{heading}</h4>}
-      {description && <p className='text-md text-N-600 font-500'>{description}</p>}
+      {icon && <span className='inline-flex text-N-400 lg:pb-[16px]'>{icon}</span>}
+      {heading && <h4 className='pb-[16px] text-h5 font-500 text-N-800'>{heading}</h4>}
+      {description && <p className='text-md font-500 text-N-600'>{description}</p>}
 
       {list && (
         <div className='pt-[24px]'>
-          <ul className='flex flex-col border-t text-md text-N-800 group border-N-200 '>
+          <ul className='flex flex-col border-t group border-N-200 text-md text-N-800 '>
             {(list || []).map(({ id, label, onClick }, index) => {
               return (
                 <li
-                  className='flex items-center py-[8px] border-N-200 border-b justify-between hover:text-B-500'
+                  className='border-b border-N-200 py-[8px] hover:text-B-500'
                   key={id || index}>
                   <a
-                    className='text-base text-N-800 font-600 hover:text-B-500'
+                    className='flex items-center justify-between text-md font-500 text-N-800 hover:text-B-500'
                     onClick={onClick}
                     href={link}>
-                    {label}
-                  </a>
-                  <span className='pl-[16px]'>
+                    <span className=''>{label}</span>
                     <ArrowRight size={20} />
-                  </span>
+                  </a>
                 </li>
               )
             })}
