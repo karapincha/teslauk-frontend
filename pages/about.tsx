@@ -91,14 +91,14 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className='bg-[url(/images/patterns/background.svg)] pt-[64px]'>
+      <div className='bg-[url(/images/patterns/background.svg)] py-[64px]'>
         <SectionHeading
           heading='Club initiatives'
           description='As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes.'
           align='center'
-          className='max-w-[472px] mx-auto'
+          className='mx-auto max-w-[472px]'
         />
-        <div className='container flex'>
+        <div className='container grid grid-cols-3 gap-[48px] pt-[48px]'>
           <InitiativeCard
             icon={<ChartLine size={64} />}
             heading='Education & Outreach'
@@ -123,13 +123,116 @@ const Home: NextPage = () => {
                 onClick: () => {},
               },
             ]}
+          />
+          <InitiativeCard
+            icon={<ChartLine size={64} />}
+            heading='Education & Outreach'
+            description='As part of our mission, we seek out opportunities to accelerate the world’s transition to sustainable energy we do following programmes.'
+            list={[
+              {
+                id: 1,
+                label: 'Press, media coverage & support',
+                link: '',
+                onClick: () => {},
+              },
+              {
+                id: 2,
+                label: 'Fire & Rescue demonstrations - Q&A',
+                link: '',
+                onClick: () => {},
+              },
+              {
+                id: 3,
+                label: 'Fear Uncertainty & Doubt',
+                link: '',
+                onClick: () => {},
+              },
+            ]}
+          />
+          <InitiativeCard
+            icon={<ChartLine size={64} />}
+            heading='See why so many companies sign up as a paid supplier'
+            description='As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes. As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes. '
             btnProps={{
-              label: 'Sign Up',
+              label: 'Read more',
               onClick: () => {
                 console.log('Clicked')
               },
-              appearance: 'primary',
+              appearance: 'neutral',
             }}
+          />
+          <InitiativeCard
+            icon={<ChartLine size={64} />}
+            heading='Education & Outreach'
+            description='As part of our mission, we seek out opportunities to accelerate the world’s transition to sustainable energy we do following programmes.'
+            list={[
+              {
+                id: 1,
+                label: "Show & Tell' events to all schools across the UK",
+                link: '',
+                onClick: () => {},
+              },
+              {
+                id: 2,
+                label: 'Fire & Rescue demonstrations - Q&A',
+                link: '',
+                onClick: () => {},
+              },
+              {
+                id: 3,
+                label: 'Fear Uncertainty & Doubt',
+                link: '',
+                onClick: () => {},
+              },
+            ]}
+          />
+          <InitiativeCard
+            icon={<ChartLine size={64} />}
+            heading='Education & Outreach'
+            description='As part of our mission, we seek out opportunities to accelerate the world’s transition to sustainable energy we do following programmes.'
+            list={[
+              {
+                id: 1,
+                label: 'Access the Club Rules',
+                link: '',
+                onClick: () => {},
+              },
+              {
+                id: 2,
+                label: 'Meeting Minutes',
+                link: '',
+                onClick: () => {},
+              },
+              {
+                id: 3,
+                label: 'Important updates',
+                link: '',
+                onClick: () => {},
+              },
+            ]}
+          />
+        </div>
+      </div>
+
+      <div className='container py-[80px]'>
+        <div className='flex gap-[48px]'>
+          <img
+            src='https://images.unsplash.com/photo-1634988115790-d00c024dfac0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
+            width={368}
+            height={276}
+            className='rounded-[12px] object-cover object-center'
+          />
+          <img
+            src='https://images.unsplash.com/photo-1635777076167-58f70b261f2b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
+            width={368}
+            height={276}
+            className='rounded-[12px] object-cover object-center'
+          />
+          <img
+            src='https://images.unsplash.com/photo-1617704548623-340376564e68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
+            width={368}
+            height={276}
+            className='rounded-[12px] object-cover object-center'
           />
         </div>
       </div>
