@@ -44,7 +44,7 @@ export const TestimonialCarousel: FC<TestimonialCarouselProps> = ({
 
         <div
           className={CN(
-            'relative flex w-full pt-[64px] after:absolute after:h-full after:w-[80px] after:from-N-10 after:to-[transparent] after:content-[""]',
+            'relative flex w-full py-[64px] after:absolute after:h-full after:w-[80px] after:from-N-10 after:to-[transparent] after:content-[""]',
             {
               'after:right-0 after:bg-gradient-to-l': !isCarouselLast,
               'after:left-0 after:bg-gradient-to-r': isCarouselLast,

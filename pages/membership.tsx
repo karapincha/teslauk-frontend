@@ -41,7 +41,7 @@ const Home: NextPage = () => {
       </div>
 
       <SupporterBenefits className='py-[80px]' />
-      <TestimonialCarousel className='py-[80px]' list={testimonials} />
+      <TestimonialCarousel className='pt-[80px] pb-[16px]' list={testimonials} />
       <Faq className='pt-[20px] pb-[80px]' list={testimonials} />
 
       <ContactCta
