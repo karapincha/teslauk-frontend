@@ -27,11 +27,11 @@ const Home: NextPage = () => {
       <div className='container flex pt-[60px]'>
         <div className='mx-auto flex max-w-[600px]'>
           <SectionHeading
+            overline='Be a supporter'
             heading='Join the club'
             headingClassName="text-display"
             description='Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.'
             align='center'
-            overline='Be Elite'
           />
         </div>
       </div>
