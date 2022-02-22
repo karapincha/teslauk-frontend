@@ -23,7 +23,7 @@ const Home: NextPage = () => {
 
       {/* <Header className='py-[24px]' /> */}
       <Hero className='pt-[20px] pb-[40px]' />
-      {/* <EventCard className='pt-[40px] pb-[80px]' /> */}
+      <EventCard className='py-[48px] md:pt-[24px] lg:py-[80px]' />
       {/*
       <QuickMembership className='py-[80px]' />
       <QuickTestimonials className='py-[80px]' />
