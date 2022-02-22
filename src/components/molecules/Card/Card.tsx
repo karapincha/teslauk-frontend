@@ -28,7 +28,7 @@ export const Card: FC<CardProps> = ({
   return (
     <div className={CardClasses} {...restProps}>
       <div className='card__image h-[424px] w-[680px] flex-shrink-0 overflow-hidden rounded-[12px]'>
-        <img src={image} alt={imageAlt} className='h-full w-full object-cover' />
+        <img src={image} alt={imageAlt} className='object-cover w-full h-full' />
       </div>
 
       <div className='card__content flex flex-col pl-[48px]'>

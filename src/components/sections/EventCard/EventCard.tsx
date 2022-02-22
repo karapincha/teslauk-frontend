@@ -26,7 +26,7 @@ export const EventCard: FC<EventCardProps> = ({ className, ...restProps }: Event
             description='Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.'
             cta={
               <Link href='/guides'>
-                <Button iconAfter={<i className='ri-arrow-right-line text-lg' />} appearance='link'>
+                <Button iconAfter={<i className='text-lg ri-arrow-right-line' />} appearance='link'>
                   View all the events
                 </Button>
               </Link>

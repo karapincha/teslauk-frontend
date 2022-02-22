@@ -21,15 +21,16 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='py-[24px]' />
+      {/* <Header className='py-[24px]' /> */}
       <Hero className='pt-[20px] pb-[40px]' />
-      <EventCard className='pt-[40px] pb-[80px]' />
+      {/* <EventCard className='pt-[40px] pb-[80px]' /> */}
+      {/*
       <QuickMembership className='py-[80px]' />
       <QuickTestimonials className='py-[80px]' />
       <GuidesQuickAccess className='pt-[80px] pb-[128px]' />
       <CallToAction />
       <SupplierRibbon />
-      <Footer />
+      <Footer /> */}
     </>
   )
 }
