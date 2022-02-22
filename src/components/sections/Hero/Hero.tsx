@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
-import { Button } from '@/components/atoms'
 import Link from 'next/link'
-import { render } from 'react-dom'
+import { Button } from '@/components/atoms'
+import { useViewport } from '@/utils'
 
 export interface HeroProps {
   [x: string]: any
@@ -10,6 +10,7 @@ export interface HeroProps {
 
 export const Hero: FC<HeroProps> = ({ className, ...restProps }: HeroProps) => {
   const HeroClasses = CN(`hero`, className, {})
+  const { isDesktop, isMobile, isTablet } = useViewport()
 
   const renderGraphic = () => {
     return (
@@ -37,12 +38,14 @@ export const Hero: FC<HeroProps> = ({ className, ...restProps }: HeroProps) => {
               officia consequat duis enim velit mollit.
             </p>
 
+            {isMobile && renderGraphic()}
+
             <div className='hero__actions w-full pt-[32px] md:w-auto lg:w-auto'>
               <div className='inline-flex w-full flex-col items-center gap-[16px] lg:items-start'>
                 <Link href='/membership' passHref>
                   <Button
                     className='w-full'
-                    iconAfter={<i className='text-lg ri-arrow-right-up-line' />}>
+                    iconAfter={<i className='ri-arrow-right-up-line text-lg' />}>
                     Become a free member
                   </Button>
                 </Link>
@@ -51,7 +54,7 @@ export const Hero: FC<HeroProps> = ({ className, ...restProps }: HeroProps) => {
                   <Link href='/login' passHref>
                     <Button
                       appearance='link'
-                      iconAfter={<i className='text-lg ri-arrow-right-up-line' />}>
+                      iconAfter={<i className='ri-arrow-right-up-line text-lg' />}>
                       Login
                     </Button>
                   </Link>
@@ -60,7 +63,7 @@ export const Hero: FC<HeroProps> = ({ className, ...restProps }: HeroProps) => {
             </div>
           </div>
 
-          {renderGraphic()}
+          {!isMobile && renderGraphic()}
         </div>
       </div>
     </div>
