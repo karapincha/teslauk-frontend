@@ -3,6 +3,7 @@ import CN from 'classnames'
 import Link from 'next/link'
 import { SectionHeading, FeatureCard } from '@/components/molecules'
 import { Button } from '@/components/atoms'
+import { useViewport } from '@/utils'
 
 export interface GuidesQuickAccessProps {
   [x: string]: any
@@ -13,6 +14,7 @@ export const GuidesQuickAccess: FC<GuidesQuickAccessProps> = ({
   ...restProps
 }: GuidesQuickAccessProps) => {
   const GuidesQuickAccessClasses = CN(`guides-quick-access`, className, {})
+  const { isDesktop, isMobile, isTablet } = useViewport()
 
   return (
     <div className={GuidesQuickAccessClasses} {...restProps}>
@@ -29,12 +31,12 @@ export const GuidesQuickAccess: FC<GuidesQuickAccessProps> = ({
               </Button>
             </Link>
           }
-          className='mx-auto mb-[80px] max-w-[472px]'
+          className='mx-auto mb-[40px] lg:mb-[80px] max-w-[472px]'
         />
 
-        <div className='flex'>
-          <div className='flex flex-col items-center'>
-            <img src='/images/section-img-001.png' width={576} height={460} />
+        <div className='flex flex-col lg:flex-row'>
+          <div className='flex flex-col items-center w-full lg:w-auto'>
+            <img src='/images/section-img-001.png' width={(isMobile && 286) || (isTablet && 486) || 576} height={(isMobile && 124) || (isTablet && 212) || 460} />
 
             <div className='mt-[-40px] flex gap-[8px]'>
               <span className='text-h3 font-600 text-N-800'>120+</span>
@@ -45,32 +47,32 @@ export const GuidesQuickAccess: FC<GuidesQuickAccessProps> = ({
             </div>
           </div>
 
-          <div className='block max-w-[576px] ml-auto'>
-            <div className='grid grid-cols-2 gap-x-[48px] gap-y-[36px]'>
+          <div className='block lg:max-w-[576px] mx-auto md:mx-[unset] md:px-[80px] lg:px-0 lg:ml-auto pt-[60px] lg:pt-0'>
+            <div className='grid md:grid-cols-2 lg:grid-cols-2 gap-x-[48px] gap-y-[36px] md:justify-between'>
               <Link href='/guides/about-the-car'>
                 <FeatureCard
-                  heading='About your <br />Tesla car'
+                  heading='About your Tesla car'
                   description='Everything you need to know about the car'
                   icon='/images/icons/quick-guide-icon-1.png'
-                  className='cursor-pointer'
+                  className='cursor-pointer lg:w-[calc(100%-20px)]'
                 />
               </Link>
 
               <Link href='/guides/about-the-car'>
                 <FeatureCard
-                  heading='Charging away <br />from home'
+                  heading='Charging away from home'
                   description='Everything you need to know about the car'
                   icon='/images/icons/quick-guide-icon-2.png'
-                  className='cursor-pointer'
+                  className='cursor-pointer lg:w-[calc(100%-20px)]'
                 />
               </Link>
 
               <Link href='/guides/about-the-car'>
                 <FeatureCard
-                  heading='Things to do for <br />new owners'
+                  heading='Things to do for new owners'
                   description='Everything you need to know about the car'
                   icon='/images/icons/quick-guide-icon-3.png'
-                  className='cursor-pointer'
+                  className='cursor-pointer lg:w-[calc(100%-20px)]'
                 />
               </Link>
 
@@ -79,7 +81,7 @@ export const GuidesQuickAccess: FC<GuidesQuickAccessProps> = ({
                   heading='Upgrading and Modifying'
                   description='Everything you need to know about the car'
                   icon='/images/icons/quick-guide-icon-4.png'
-                  className='cursor-pointer'
+                  className='cursor-pointer lg:w-[calc(100%-20px)]'
                 />
               </Link>
 
