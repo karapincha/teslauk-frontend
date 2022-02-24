@@ -32,7 +32,7 @@ export const LogoBlock: FC<LogoBlockProps> = ({
   ...restProps
 }: LogoBlockProps) => {
   const LogoBlockClasses = CN(
-    `logo-block flex flex-wrap md:grid md:grid-cols-3 items-center w-full lg:justify-between gap-[20px] lg:gap-0 justify-center md:gap-x-[120px] md:gap-y-[28px]`,
+    `logo-block flex flex-wrap md:grid md:grid-cols-3 lg:flex items-center w-full lg:justify-between gap-[20px] lg:gap-0 justify-center md:gap-x-[120px] md:gap-y-[28px]`,
     className
   )
 

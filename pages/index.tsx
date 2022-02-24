@@ -29,9 +29,7 @@ const Home: NextPage = () => {
       <GuidesQuickAccess className='pt-[80px] pb-[128px]' />
       <CallToAction />
       <SupplierRibbon />
-      {/*
-      <SupplierRibbon />
-      <Footer /> */}
+      <Footer />
     </>
   )
 }
