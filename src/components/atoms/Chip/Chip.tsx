@@ -31,7 +31,7 @@ export const Chip: FC<ChipProps> = ({
     className,
     {
       /* Background Color */
-      'bg-white hover:bg-N-50': !isActive,
+      'bg-N-50 hover:bg-N-100': !isActive,
       'bg-B-500': isActive,
 
       /* onClick */
