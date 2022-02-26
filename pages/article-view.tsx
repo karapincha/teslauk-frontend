@@ -6,10 +6,12 @@ import { PageHeaderVariant } from '@/components/molecules/PageHeaderVariant'
 import { Badge, Button, Chip, TextArea } from '@/components/atoms'
 import { InitiativeCard } from '@/components/molecules/InitiativeCard'
 import { ChartLine } from '@/icons'
-import { LinkListCard, ListCard, SectionHeading } from '@/components/molecules'
-import { Tag, ShoppingBag } from 'react-feather'
+import { LinkListCard } from '@/components/molecules'
+import { Tag, ShoppingBag, ArrowRight } from 'react-feather'
 import { ArticleViewTopic } from '@/components/molecules/ArticleViewTopic'
 import { InlineCTA } from '@/components/molecules/InlineCTA'
+import { articleList } from '@/dummy-data/article-list'
+import { ContactCard } from '@/components/molecules/ContactCard'
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -139,12 +141,80 @@ const Home: NextPage = () => {
           </article>
         </div>
 
-        <div className='flex'>
-          <div className='pt-[56px]'>
-            <p>Categories</p>
-            <div className='pt-[12px]'>
-              <Chip label='About the car' icon={<Tag size={20} />} />
+        <div className='article-view-right-bar'>
+          <div className='article-view-categories mb-[48px] pt-[56px]'>
+            <p className='text-base font-600 text-N-600'>Categories</p>
+            <div className='cursor-pointer pt-[12px]'>
+              <Chip
+                className='mb-[16px]'
+                iconClassName='text-N-400'
+                label='About the car'
+                icon={<Tag size={20} />}
+              />
+              <Chip
+                className='mb-[16px]'
+                iconClassName='text-N-400'
+                label='For new owners'
+                icon={<Tag size={20} />}
+              />
+              <Chip
+                className='mb-[16px]'
+                iconClassName='text-N-400'
+                label='Charging away from home'
+                icon={<Tag size={20} />}
+              />
+              <Chip
+                className='mb-[16px]'
+                iconClassName='text-N-400'
+                label='Upgrading, Modifying & Fixing'
+                icon={<Tag size={20} />}
+              />
+              <Chip
+                className='mb-[16px]'
+                iconClassName='text-N-400'
+                label='Fear, Uncertainty & Doubt'
+                icon={<Tag size={20} />}
+              />
             </div>
+          </div>
+
+          <div className='most-accessed'>
+            <p className='text-base font-600 text-N-600'>Most Accessed...</p>
+            <ul className='flex flex-col gap-[8px] pt-[16px]'>
+              {(articleList || []).map(({ id, text, link }: any, index: number) => (
+                <li key={id || index}>
+                  <a href={link} className='text-base font-500 text-N-800  hover:text-B-500'>
+                    {text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className='flex items-center gap-[4px] pt-[16px] text-B-500'>
+              <a href='#' className='text-base font-600 text-B-500 hover:text-B-600'>
+                See all most accessed (30)
+              </a>
+              <span>
+                <ArrowRight size={20} />
+              </span>
+            </p>
+          </div>
+          <div className='pt-[48px]'>
+            <ContactCard
+              description='Remember modifying your vehicle may invalidate part of 
+                your vehicle’s warranty.<br/>
+                Therefore,  be careful and check with Tesla if unsure. Also any modifications will most likely need to be 
+                OK’d with your car insurance company.<br/><br/>
+                To the best of our knowledge, these guides are correct and factual.
+                However we take no responsibility if something does go wrong.<br/><br/>
+                If you spot a mistake please ensure you alert us.'
+              btnProps={{
+                label: 'Contact Us',
+                onClick: () => {
+                  console.log('Clicked')
+                },
+                view: 'outline',
+              }}
+            />
           </div>
         </div>
       </div>
@@ -163,8 +233,6 @@ const Home: NextPage = () => {
           />
         </div>
       </div>
-
-      
 
       <SupplierRibbon className='border-t border-N-100' />
       <Footer />
