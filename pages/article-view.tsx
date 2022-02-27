@@ -2,10 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useRouter } from 'next/router'
-import { PageHeaderVariant } from '@/components/molecules/PageHeaderVariant'
-import { Badge, Button, Chip, TextArea } from '@/components/atoms'
-import { InitiativeCard } from '@/components/molecules/InitiativeCard'
-import { ChartLine } from '@/icons'
+import { Chip } from '@/components/atoms'
 import { LinkListCard } from '@/components/molecules'
 import { Tag, ShoppingBag, ArrowRight } from 'react-feather'
 import { ArticleViewTopic } from '@/components/molecules/ArticleViewTopic'
@@ -68,7 +65,7 @@ const Home: NextPage = () => {
               </p>
             </article>
           </div>
-          <div className='h-[368px] w-[680px] pt-[40px]'>
+          <div className='h-[368px] w-[680px] py-[40px]'>
             <img
               className='h-full w-full rounded-[12px] object-cover object-center'
               src='https://images.unsplash.com/photo-1617704548623-340376564e68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
@@ -87,26 +84,31 @@ const Home: NextPage = () => {
               sed euismod nisi porta lorem.
             </p>
           </article>
-          <LinkListCard
-            heading='Products you may like on Amazon'
-            list={[
-              {
-                id: 0,
-                textIcon: <ShoppingBag size={20} />,
-                text: 'Millaissolutions Car Detailing Valeters Wash and Rinse Two Bucket System - 20 litre Buckets **LIMITED TIME - NOW SUPPLIED WITH SCATCHSHIELD GUARDS **',
-              },
-              {
-                id: 1,
-                textIcon: <ShoppingBag size={20} />,
-                text: 'Set of 2 Buckets and Grit Guards, Premium Quality, Prevent Swirls and Scratches when Washing Your Car, 20 Litre Buckets with Lids',
-              },
-              {
-                id: 2,
-                textIcon: <ShoppingBag size={20} />,
-                text: 'AUTO RAE-CHEM GRIT SHIELD & HEAVY DUTY 20L BUCKET WHITE - For 2 Bucket Car Wash Method + FREE SHAMPOO + WASH MIT + MICROFIBRE TOWELÎ',
-              },
-            ]}
-          />
+          <div className='amazon-products py-[32px]'>
+            <LinkListCard
+              heading='Products you may like on Amazon'
+              headingClassName='!text-sm !text-N-600 !font-500'
+              textClassName='!text-sm !text-N-700 !font-600 !text-overflaw-[unset] whitespace-normal'
+              iconClassName='text-B-500'
+              list={[
+                {
+                  id: 0,
+                  textIcon: <ShoppingBag size={20} />,
+                  text: 'Millaissolutions Car Detailing Valeters Wash and Rinse Two Bucket System - 20 litre Buckets **LIMITED TIME - NOW SUPPLIED WITH SCATCHSHIELD GUARDS **',
+                },
+                {
+                  id: 1,
+                  textIcon: <ShoppingBag size={20} />,
+                  text: 'Set of 2 Buckets and Grit Guards, Premium Quality, Prevent Swirls and Scratches when Washing Your Car, 20 Litre Buckets with Lids',
+                },
+                {
+                  id: 2,
+                  textIcon: <ShoppingBag size={20} />,
+                  text: 'AUTO RAE-CHEM GRIT SHIELD & HEAVY DUTY 20L BUCKET WHITE - For 2 Bucket Car Wash Method + FREE SHAMPOO + WASH MIT + MICROFIBRE TOWELÎ',
+                },
+              ]}
+            />
+          </div>
           <article className='prose'>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
@@ -120,7 +122,7 @@ const Home: NextPage = () => {
               sed euismod nisi porta lorem.
             </p>
           </article>
-          <div className='h-[368px] w-[680px] pt-[40px]'>
+          <div className='h-[368px] w-[680px] py-[40px]'>
             <img
               className='h-full w-full rounded-[12px] object-cover object-center'
               src='https://images.unsplash.com/photo-1617704548623-340376564e68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
@@ -219,7 +221,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className='container'>
+      <div className='container pt-[40px] pb-[32px]'>
         <div className='flex w-[784px]'>
           <InlineCTA
             heading='Do you have the experties? Share your knowledge!'
