@@ -27,7 +27,7 @@ export const LinkListCard: FC<LinkListCardProps> = ({
   ...restProps
 }: LinkListCardProps) => {
   const LinkListCardClasses = CN(
-    `list-card break-inside bg-N-50 rounded-[12px] py-[40px] px-[32px] text-N-800 flex flex-col gap-[24px]`,
+    `list-card break-inside bg-N-50 rounded-[12px] py-[24px] md:py-[24px] lg:py-[40px] px-[24px] text-N-800 flex flex-col gap-[24px]`,
     className
   )
 
@@ -37,7 +37,7 @@ export const LinkListCard: FC<LinkListCardProps> = ({
         {heading}
       </h4>
 
-      <ul className='list-card__list flex flex-col gap-[8px]'>
+      <ul className='list-card__list flex flex-col gap-[24px]'>
         {(list || []).map(({ id, textIcon, text }: any, index: number) => {
           return (
             <li className='flex items-center gap-[8px] text-N-400' key={id || index}>

@@ -15,7 +15,7 @@ export const ContactCard: FC<ContactCardProps> = ({
   ...restProps
 }: ContactCardProps) => {
   const ContactCardClasses = CN(
-    `contact-card bg-N-50 lg:px-[32px] lg:pt-[32px] lg:pb-[48px] lg:w-[367px] rounded-[8px]`,
+    `contact-card bg-N-50 px-[24px] lg:px-[32px] py-[32px] lg:pb-[48px] lg:w-[367px] rounded-[8px]`,
     className
   )
   const { children, ...restBtnProps } = btnProps || {}
@@ -23,11 +23,11 @@ export const ContactCard: FC<ContactCardProps> = ({
   return (
     <div className={ContactCardClasses} {...restProps}>
       <p
-        className='contact-card__description text-base text-N-600 lg:pb-[24px]'
+        className='contact-card__description font-400 text-base text-N-600 pb-[24px]'
         dangerouslySetInnerHTML={{ __html: description }}
       />
       <Button
-        className={CN('rounded-[4px] bg-transparent')}
+        className={CN('rounded-[4px] bg-transparent w-full md:w-[unset] lg:w-[unset]')}
         {...restBtnProps}>
         {children || 'Contact Us'}
       </Button>
