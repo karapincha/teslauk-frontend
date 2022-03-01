@@ -8,9 +8,38 @@ import { InitiativeCard } from '@/components/molecules/InitiativeCard'
 import { ChartLine } from '@/icons'
 import { MembershipCard, SectionHeading } from '@/components/molecules'
 import { MemberCard } from '@/components/molecules/MemberCard'
+import { Chip } from '@/components/atoms'
+import Link from 'next/link'
+import { DashboardMenu } from '@/components/molecules/DashboardMenu'
 
 const Home: NextPage = () => {
   const router = useRouter()
+  const upcomingEventsList = [
+    {
+      id: '0',
+      label: 'Track Days',
+      url: '#',
+      date: '05 Jan',
+    },
+    {
+      id: '1',
+      label: 'Factory Tours',
+      url: '#',
+      date: '12 Jan',
+    },
+    {
+      id: '2',
+      label: 'Track Days',
+      url: '#',
+      date: '26 Jan',
+    },
+    {
+      id: '3',
+      label: 'Track Days',
+      url: '#',
+      date: '26 Jan',
+    },
+  ]
 
   return (
     <>
@@ -22,13 +51,38 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      <div className='container flex pt-[20px]'>
+      <div className='container flex flex-col pt-[20px]'>
         <MemberCard
           name='Tim Fernando'
           email='tim@example.com'
           type='Supporter membership'
           expireDate='20/10/2021'
         />
+
+        <div className='events w-[368px] rounded-[12px] bg-N-50 px-[32px] py-[32px]'>
+          <p className='mb-[16px] text-md text-N-600'>Upcoming events</p>
+          <ul className='flex flex-col gap-[16px]'>
+            {upcomingEventsList.map(({ id, url, label, date }, index) => (
+              <li key={id || index} className='flex justify-between'>
+                <a target='_blank' href={url} className='text-N-800 hover:text-B-500'>
+                  {label}
+                </a>
+                <p className='text-base font-600 text-N-800'>{date}</p>
+              </li>
+            ))}
+          </ul>
+          <div className='pt-[16px]'>
+          <Link href='#'>
+            <Button iconAfter={<i className='ri-arrow-right-line text-lg' />} appearance='link'>
+              View all events
+            </Button>
+          </Link>
+          </div>
+        </div>
+
+        <div className='w-[368px]'>
+        <DashboardMenu />
+        </div>
       </div>
 
       <SupplierRibbon className='border-t border-N-100' />

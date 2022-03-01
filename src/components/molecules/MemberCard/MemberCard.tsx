@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
-import { Logo } from '@/components/atoms'
 
 export interface MemberCardProps {
   [x: string]: any
@@ -10,7 +9,14 @@ export interface MemberCardProps {
   expireDate?: string
 }
 
-export const MemberCard: FC<MemberCardProps> = ({ className, name, email, type, expireDate, ...restProps }: MemberCardProps) => {
+export const MemberCard: FC<MemberCardProps> = ({
+  className,
+  name,
+  email,
+  type,
+  expireDate,
+  ...restProps
+}: MemberCardProps) => {
   const MemberCardClasses = CN(
     `member-card bg-[url(/images/005.svg)] px-[24px] py-[24px] h-[236px] w-[368px] bg-cover bg-no-repeat rounded-[12px]`,
     className
@@ -18,17 +24,18 @@ export const MemberCard: FC<MemberCardProps> = ({ className, name, email, type, 
 
   return (
     <div className={MemberCardClasses} {...restProps}>
-      <div className='flex items-center justify-between'>
+      <div className='logos flex items-center justify-between'>
         <img src='/images/logo-circle.png' width={40} height={40} />
-        <a href='#'><img src='/images/wallet.png' width={110} height={34} /></a>
+        <a href='#'>
+          <img src='/images/wallet.png' width={110} height={34} />
+        </a>
       </div>
       <div className='pt-[8px]'>
-        <div className=''>
-          <h4 className='text-h4 font-600 text-N-10'>{name}</h4>
-          <p className='text-base text-N-10'>{email}</p>
-        </div>
+        <h4 className='text-h4 font-600 text-N-10'>{name}</h4>
+        <p className='text-base text-N-10'>{email}</p>
+
         <div className='grid grid-cols-[1fr_0.5fr] pt-[16px]'>
-          <div className='text-N-10 w-fixed'>
+          <div className='w-fixed text-N-10'>
             <p className='text-md font-600'>Type</p>
             <p className='text-base font-400'>{type}</p>
           </div>
@@ -43,7 +50,7 @@ export const MemberCard: FC<MemberCardProps> = ({ className, name, email, type, 
 }
 
 MemberCard.defaultProps = {
-  type: 'Not defined'
+  type: 'Not defined',
 }
 
 export default MemberCard
