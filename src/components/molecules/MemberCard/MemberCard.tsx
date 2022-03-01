@@ -18,7 +18,7 @@ export const MemberCard: FC<MemberCardProps> = ({
   ...restProps
 }: MemberCardProps) => {
   const MemberCardClasses = CN(
-    `member-card bg-[url(/images/005.svg)] px-[24px] py-[24px] h-[236px] w-[368px] bg-cover bg-no-repeat rounded-[12px]`,
+    `member-card bg-[url(/images/005.svg)] px-[24px] py-[24px] h-[236px] w-full lg:w-[368px] bg-cover bg-no-repeat rounded-[12px]`,
     className
   )
 

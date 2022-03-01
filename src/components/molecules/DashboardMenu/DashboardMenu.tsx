@@ -70,7 +70,7 @@ export const DashboardMenu: FC<DashboardMenuProps> = ({
     <div className={DashboardMenuClasses} {...restProps}>
       <ul className='flex flex-col gap-[8px]'>
         {dashboardMenuList.map(({ id, url, label, icon, isActive }, index) => (
-          <li key={id || index} className='flex justify-between py-[8px] pl-[12px] hover:bg-N-50'>
+          <li key={id || index} className='flex justify-between py-[8px] pl-[12px] hover:bg-N-50 hover:rounded-[4px]'>
             <a
               target='_blank'
               href={url}
