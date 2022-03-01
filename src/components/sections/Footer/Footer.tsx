@@ -59,7 +59,7 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
     },
     {
       id: '3',
-      label: 'Privacy Policy',
+      label: 'Privacy',
       url: '/privacy-policy',
     },
   ]
@@ -68,7 +68,7 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
     <div className={FooterClasses} {...restProps}>
       <div className='border-t border-N-100'>
         <div className='container'>
-          <div className='footer__top flex flex-col justify-between pt-[40px] pb-[44px] lg:flex-row'>
+          <div className='footer__top flex flex-col justify-between pt-[24px] pb-[44px] lg:flex-row lg:pt-[40px]'>
             <div className='footer__about max-w-[400px]'>
               <Logo className='mb-[32px]' />
               <p className='text-sm font-500 text-N-500'>
@@ -79,7 +79,7 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
               </p>
             </div>
 
-            <div className='footer__social flex-shrink-0'>
+            <div className='footer__social flex-shrink-0 pt-[24px] lg:pt-0'>
               <div className='flex flex-shrink-0 flex-col gap-[24px] text-md text-N-600'>
                 <div className='flex flex-col gap-[16px]'>
                   <a href='mailto:hello@Tesla Owners UK.com'>hello@teslaowners.org.uk</a>
@@ -102,7 +102,7 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
               </div>
             </div>
 
-            <div className='footer__link-list flex flex-col gap-[16px]'>
+            <div className='footer__link-list flex flex-col gap-[16px] pt-[32px] lg:pt-0'>
               <p className='text-md font-500 text-N-500'>About the club</p>
               <LinkList
                 direction='vertical'
@@ -145,15 +145,16 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
       </div>
 
       <div className='border-t border-N-100'>
-        <div className='container flex items-center justify-between'>
-          <div className='flex flex-col gap-[8px] py-[32px]'>
+        <div className='container flex flex-col items-center justify-between pb-[24px] md:flex-row md:gap-[76px] md:pb-0 lg:flex-row lg:pb-0'>
+          <div className='flex flex-col gap-[8px] pt-[32px] md:py-[48px] lg:py-[32px]'>
             <p className='text-md font-600 text-N-600'>Subscribe to newsletter</p>
-            <p className='text-sm text-N-600'>
+            <p className='pb-[24px] text-sm text-N-600 md:pb-0 lg:pb-0'>
               Our weekly newsletter will keep you updated on all you need to know as a tesla owner.
             </p>
           </div>
 
           <FieldGroup
+            className='w-full lg:w-[unset]'
             placeholder='Enter email address'
             btnProps={{
               label: 'Subscribe',
@@ -172,12 +173,12 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
       </div>
 
       <div className='footer__bottom flex border-t border-N-100 bg-N-50 py-[16px] text-md'>
-        <div className='container flex items-center justify-between'>
-          <span className='footer__bottom__copyrights text-md text-N-600'>
+        <div className='container flex flex-col-reverse justify-between gap-[16px] md:flex-row md:items-center md:gap-0 lg:flex-row lg:items-center lg:gap-0'>
+          <span className='footer__bottom__copyrights text-md font-400 text-N-600'>
             Copyright © {copyrightDate} · Tesla Owners UK Limited
           </span>
 
-          <ul className='flex gap-[50px]'>
+          <ul className='flex gap-[24px] lg:gap-[50px]'>
             {(footerBottomLinks || []).map(
               ({ id, link, label, ...restProps }: any, index: number) => (
                 <li key={id || index}>

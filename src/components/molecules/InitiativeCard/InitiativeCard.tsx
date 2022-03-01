@@ -31,7 +31,7 @@ export const InitiativeCard: FC<InitiativeCardProps> = ({
   ...restProps
 }: InitiativeCardProps) => {
   const InitiativeCardClasses = CN(
-    `initiative-card bg-white lg:px-[32px] lg:pt-[32px] pb-[64px] rounded-[12px] lg:w-[368px] h-full shadow-[0px_25px_50px_-12px_rgba(95,111,140,0.1)]`,
+    `initiative-card bg-white px-[32px] pt-[32px] pb-[64px] rounded-[12px] lg:w-[368px] h-full shadow-[0px_25px_50px_-12px_rgba(95,111,140,0.1)]`,
     className,
     {}
   )

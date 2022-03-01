@@ -23,14 +23,14 @@ const Home: NextPage = () => {
 
       <div className='container flex pt-[20px]'>
         <PageHeaderVariant
-          heading='Who we are <br />&amp; What we <br />do'
+          heading='Who we are & What we do'
           image='https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
         />
       </div>
 
-      <div className='container pt-[64px] pb-[80px]'>
-        <div className='mx-auto flex max-w-[992px] gap-[48px]'>
-          <div className='flex w-[264px] flex-shrink-0'>
+      <div className='container pt-[32px] pb-[40px] md:pb-[80px] lg:pb-[80px] lg:pt-[64px]'>
+        <div className='mx-auto flex max-w-[992px] flex-col gap-[24px] md:flex-row lg:flex-row md:gap-[32px] lg:gap-[48px]'>
+          <div className='flex flex-shrink-0 md:w-[264px] lg:w-[264px]'>
             <h5 className='text-h5 font-500'>
               Our mission is to enhance the Tesla ownership experience and help the UK transition to
               sustainable energy.
@@ -59,10 +59,12 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className='container pb-[80px]'>
+      <div className='container pb-[40px] md:pb-[80px] lg:pb-[80px]'>
         <div className='flex flex-col items-center gap-[24px]'>
           <div className='flex'>
-            <h3 className='text-h3 font-700 text-N-800'>See who is behind Tesla Owners UK</h3>
+            <h3 className='text-center text-h3 font-700 text-N-800 lg:text-left'>
+              See who is behind Tesla Owners UK
+            </h3>
           </div>
 
           <div className='flex max-w-[577px] text-center'>
@@ -71,19 +73,19 @@ const Home: NextPage = () => {
               officia consequat duis enim velit mollit.
             </p>
           </div>
-          <div className='flex gap-[24px]'>
-            <Button appearance='secondary' size='md'>
+          <div className='flex w-full flex-col gap-[24px] md:w-[unset] lg:w-[unset] md:flex-row lg:flex-row'>
+            <Button className='w-full md:w-[unset] lg:w-[unset]' appearance='secondary' size='md'>
               Meet the Team
             </Button>
-            <Button appearance='primary' size='md'>
+            <Button className='w-full md:w-[unset] lg:w-[unset]' appearance='primary' size='md'>
               Become a member
             </Button>
           </div>
         </div>
       </div>
 
-      <div className='container pb-[80px]'>
-        <div className='flex h-[711px] w-full'>
+      <div className='container pb-[40px] md:pb-[80px] lg:pb-[80px]'>
+        <div className='flex h-[204px] w-full md:h-[418px] lg:h-[711px]'>
           <img
             src='/images/banners/002.jpg'
             className='h-full w-full rounded-[12px] object-cover object-center'
@@ -91,14 +93,14 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className='bg-[url(/images/patterns/background.svg)] py-[64px]'>
+      <div className='bg-[url(/images/patterns/background.svg)] pb-[40px] pt-[64px] md:pb-[64px] lg:pb-[64px]'>
         <SectionHeading
           heading='Club initiatives'
           description='As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes.'
           align='center'
           className='mx-auto max-w-[472px]'
         />
-        <div className='container grid grid-cols-3 gap-[48px] pt-[48px]'>
+        <div className='container flex flex-col gap-[48px] md:gap-[24px] lg:gap-[48px] pt-[48px] md:grid md:grid-cols-2 lg:grid lg:grid-cols-3'>
           <InitiativeCard
             icon={<ChartLine size={64} />}
             heading='Education & Outreach'
@@ -214,25 +216,22 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className='container py-[80px]'>
-        <div className='flex gap-[48px]'>
+      <div className='container pt-[40px] pb-[80px] md:py-[56px] lg:py-[80px]'>
+        <div className='flex w-full flex-col items-center md:justify-between gap-[40px] lg:gap-[48px] md:flex-row lg:flex-row'>
           <img
             src='https://images.unsplash.com/photo-1634988115790-d00c024dfac0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-            width={368}
             height={276}
-            className='rounded-[12px] object-cover object-center'
+            className='w-full rounded-[12px] object-cover object-center md:w-[220px] lg:w-[368px]'
           />
           <img
             src='https://images.unsplash.com/photo-1635777076167-58f70b261f2b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-            width={368}
             height={276}
-            className='rounded-[12px] object-cover object-center'
+            className='w-full rounded-[12px] object-cover object-center md:w-[220px] lg:w-[368px]'
           />
           <img
             src='https://images.unsplash.com/photo-1617704548623-340376564e68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-            width={368}
             height={276}
-            className='rounded-[12px] object-cover object-center'
+            className='w-full rounded-[12px] object-cover object-center md:w-[220px] lg:w-[368px]'
           />
         </div>
       </div>
