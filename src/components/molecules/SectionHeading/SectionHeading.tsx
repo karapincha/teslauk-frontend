@@ -40,7 +40,7 @@ export const SectionHeading: FC<SectionHeadingProps> = ({
 
         {heading && (
           <h2
-            className={CN('mb-[16px] text-N-800', headingClassName)}
+            className={CN('mb-[16px] text-N-800 text-h4 md:text-h3 lg:text-h2 font-500 md:font-700 lg:font-700', headingClassName)}
             dangerouslySetInnerHTML={{ __html: heading || '' }}
           />
         )}
