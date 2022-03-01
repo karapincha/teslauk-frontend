@@ -11,6 +11,7 @@ export interface ChipProps {
   isActive?: boolean
   label: string
   labelClassName?: string
+  iconClassName?: string
   onClick?: any
 }
 
@@ -21,6 +22,7 @@ export const Chip: FC<ChipProps> = ({
   isActive,
   label,
   labelClassName,
+  iconClassName,
   onClick,
   ...restProps
 }: ChipProps) => {
@@ -31,7 +33,7 @@ export const Chip: FC<ChipProps> = ({
     className,
     {
       /* Background Color */
-      'bg-white hover:bg-N-50': !isActive,
+      'bg-N-50 hover:bg-N-100': !isActive,
       'bg-B-500': isActive,
 
       /* onClick */
@@ -50,7 +52,7 @@ export const Chip: FC<ChipProps> = ({
         <span
           className={CN(
             'chip__icon flex items-center justify-center w-[28px] h-full flex-shrink-0',
-            chipTextColor
+            chipTextColor, iconClassName
           )}>
           {icon}
         </span>

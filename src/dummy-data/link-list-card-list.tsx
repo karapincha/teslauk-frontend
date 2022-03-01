@@ -28,3 +28,5 @@ export const linkListCardList = [
       text: 'Charging Cables and Adapters',
     },
   ]
+
+  export default linkListCardList
