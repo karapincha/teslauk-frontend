@@ -111,7 +111,7 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      <div className='container gap-[48px] pt-[40px] pb-[40px] lg:pb-[80px] lg:grid lg:grid-cols-[1fr_4fr_1fr]'>
+      <div className='container gap-[48px] pt-[40px] pb-[40px] lg:grid lg:grid-cols-[1fr_4fr_1fr] lg:pb-[80px]'>
         <div className='dashboard-menu hidden lg:flex'>
           <div className='w-full'>
             <DashboardMenu />
@@ -155,9 +155,9 @@ const Home: NextPage = () => {
             </ul>
           </div>
 
-          <div className='pt-[32px]'>
+          <div className='w-full overflow-auto pt-[32px] scrollbar-thin scrollbar-thumb-N-300 scrollbar-track-N-100 overflow-y-scroll scrollbar-py-[12px] scrollbar-track-rounded-full scrollbar-thumb-rounded-full'>
             <p className='mb-[16px] text-md text-N-600'>Recent orders</p>
-            <ul className='flex flex-col gap-[16px]'>
+            <ul className='flex w-[600px] md:w-[unset] lg:w-[unset] flex-col gap-[16px] overflow-auto '>
               {recentOrdersList.map(({ id, orderNumber, url, label, date, isCompleted }, index) => (
                 <li key={id || index} className='grid grid-cols-[0.75fr_1fr_3fr_1fr] gap-[24px]'>
                   <span className='text-base text-N-800'>{orderNumber}</span>
@@ -175,20 +175,20 @@ const Home: NextPage = () => {
                 </li>
               ))}
             </ul>
-            <div className='pt-[16px]'>
-              <Link href='#'>
-                <Button iconAfter={<i className='ri-arrow-right-line text-lg' />} appearance='link'>
-                  View all orders
-                </Button>
-              </Link>
-            </div>
+          </div>
+          <div className='pt-[24px] md:pt-[16px] lg:pt-[16px]'>
+            <Link href='#'>
+              <Button iconAfter={<i className='ri-arrow-right-line text-lg' />} appearance='link'>
+                View all orders
+              </Button>
+            </Link>
           </div>
         </div>
 
-        <div>
+        <div className='lg:flex lg:flex-col'>
           <div className='flex'>
             {!isMobile && (
-              <div>
+              <div className='md:w-full'>
                 <MemberCard
                   name='Tim Fernando'
                   email='tim@example.com'
@@ -210,7 +210,7 @@ const Home: NextPage = () => {
             )}
           </div>
 
-          <div className='events w-full lg:w-[368px] rounded-[12px] bg-N-50 px-[24px] py-[24px] lg:px-[32px] lg:py-[32px]'>
+          <div className='events w-full rounded-[12px] bg-N-50 px-[24px] py-[24px] lg:w-[368px] lg:px-[32px] lg:py-[32px]'>
             <p className='mb-[16px] text-md text-N-600'>Upcoming events</p>
             <ul className='flex flex-col gap-[16px]'>
               {upcomingEventsList.map(({ id, url, label, date }, index) => (
