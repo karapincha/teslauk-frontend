@@ -20,6 +20,7 @@ export interface ButtonProps {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   view?: 'outline' | 'solid'
   isSquare?: boolean
+  isActive?: boolean
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -35,6 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       size,
       view,
       isSquare,
+      isActive,
       ...restProps
     }: ButtonProps,
     ref: any
@@ -46,6 +48,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       {
         /* Disabled */
         'pointer-events-none select-none cursor-not-allowed': disabled,
+
+        /* isActive */
+        'text-N-800': isActive,
+        'text-N-500': !isActive,
 
         /* Sizing */
         'h-[24px] px-[8px] text-[12px] font-500': size === 'xs',
