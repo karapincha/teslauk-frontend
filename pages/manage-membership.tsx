@@ -44,48 +44,50 @@ const Home: NextPage = () => {
         </div>
 
         <div className='flex w-full flex-col'>
-          <div className='flex justify-between'>
+          <div>
+            <h4 className='text-h4 font-600 text-N-800'>Membership</h4>
+          </div>
+          <div className='flex flex-col-reverse justify-between md:flex-row lg:flex-row'>
             <div className='lg:w-full'>
-              <div>
-                <h4 className='text-h4 font-600 text-N-800'>Membership</h4>
-                <div className='pt-[32px]'>
+              <div className='membership-details'>
+                <div className='md:pt-[40px] lg:pt-[32px]'>
                   <div className='text-base font-500 text-N-800'>Membership details</div>
-                  <div className='flex gap-[32px] pt-[16px] text-base'>
+                  <div className='flex gap-[64px] pt-[16px] text-base lg:gap-[32px]'>
                     <div className='flex flex-col gap-[16px]'>
-                      <div className='flex'>
+                      <div className='flex flex-col lg:flex-row'>
                         <p className='w-[104px] text-md font-500 text-N-600'>Name</p>
                         <p>Tim Fernando</p>
                       </div>
-                      <div className='flex'>
+                      <div className='flex flex-col lg:flex-row'>
                         <p className='w-[104px] text-md font-500 text-N-600'>Email</p>
                         <p>tim@example.com</p>
                       </div>
-                      <div className='flex'>
+                      <div className='flex flex-col lg:flex-row'>
                         <p className='w-[104px] text-md font-500 text-N-600'>Type</p>
                         <p>Supporter membership</p>
                       </div>
-                      <div className='flex'>
+                      <div className='flex flex-col lg:flex-row'>
                         <p className='w-[104px] text-md font-500 text-N-600'>ID</p>
                         <p>5867</p>
                       </div>
                     </div>
                     <div className='flex flex-col gap-[16px]'>
-                      <div className='flex'>
+                      <div className='flex flex-col lg:flex-row'>
                         <p className='w-[104px] text-md font-500 text-N-600'>Status</p>
                         <p className='font-600 text-G-500'>Active</p>
                       </div>
-                      <div className='flex'>
+                      <div className='flex flex-col lg:flex-row'>
                         <p className='w-[104px] text-md font-500 text-N-600'>Start date</p>
                         <p>20/10/2021</p>
                       </div>
-                      <div className='flex'>
+                      <div className='flex flex-col lg:flex-row'>
                         <p className='w-[104px] text-md font-500 text-N-600'>Expires on</p>
                         <p className='font-600 text-B-500'>20/10/2021</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className='pt-[32px]'>
+                <div className='pt-[24px] md:pt-[40px] lg:pt-[32px]'>
                   <Link href='#'>
                     <Button
                       className='text-base !font-600 !text-N-800'
@@ -96,10 +98,10 @@ const Home: NextPage = () => {
                   </Link>
                 </div>
 
-                <div className='pt-[32px]'>
+                <div className='w-full pt-[24px] md:pt-[40px] lg:pt-[32px]'>
                   <Link href='#'>
                     <Button
-                      className='text-base !font-600 !text-N-800'
+                      className='w-full text-base !font-600 !text-N-800 md:w-[unset] lg:w-[unset]'
                       appearance='secondary'
                       view='solid'>
                       Cancel membership
@@ -109,7 +111,7 @@ const Home: NextPage = () => {
               </div>
             </div>
 
-            <div className='flex h-[400px] flex-col items-center'>
+            <div className='member-card flex flex-col items-center md:pt-[40px] lg:h-[400px] lg:pt-0'>
               <MemberCard
                 name='Tim Fernando'
                 email='tim@example.com'
@@ -130,11 +132,11 @@ const Home: NextPage = () => {
             </div>
           </div>
 
-          <div className='pt-[80px]'>
+          <div className='subscriptions pt-[40px] md:pt-[80px] lg:pt-[80px]'>
             <div className='text-base font-500 text-N-800'>Subscription totals</div>
-            <div className='scrollbar-py-[12px] scrollbar-track-rounded-full scrollbar-thumb-rounded-full w-full overflow-auto overflow-y-scroll pt-[24px]  scrollbar-thin scrollbar-track-N-100 scrollbar-thumb-N-300 md:pt-[24px] lg:pt-[16px]'>
-              <div className='flex w-[1000px] flex-col gap-[16px] overflow-auto md:w-[960px] lg:w-[unset]'>
-                <div className='grid grid-cols-[8fr_2fr_2fr_2fr] gap-[16px] bg-N-50 py-[4px] pl-[16px] text-md font-500 text-N-600'>
+            <div className='w-full pt-[16px] md:pt-[24px] lg:pt-[24px]'>
+              <div className='flex flex-col gap-[16px] md:w-[unset] lg:w-[unset]'>
+                <div className='grid grid-cols-[2fr_2fr_1fr_1fr] gap-[16px] bg-N-50 py-[4px] px-[8px] text-sm font-500 text-N-600 md:grid-cols-[8fr_2fr_2fr_2fr] md:pl-[16px]  md:text-md lg:grid-cols-[8fr_2fr_2fr_2fr] lg:pl-[16px] lg:text-md'>
                   <div>Product</div>
                   <div>No. of items</div>
                   <div>Total</div>
@@ -142,19 +144,19 @@ const Home: NextPage = () => {
                 </div>
               </div>
               <div>
-                <ul className='flex w-[1000px] flex-col gap-[16px] overflow-auto bg-white text-base md:w-[960px] lg:w-[unset]'>
+                <ul className='flex flex-col gap-[16px] bg-white text-sm  md:w-[unset] md:text-base lg:w-[unset] lg:text-base'>
                   {recentOrdersList.map(({ id, url, product, itemsCount, price }, index) => (
                     <li
                       key={id || index}
-                      className='grid grid-cols-[8fr_2fr_2fr_2fr] gap-[16px] border-b-[1px] border-N-200 py-[20px] pl-[16px]'>
-                      <p className='font-400 text-N-600'>{product}</p>
+                      className='grid grid-cols-[2fr_2fr_1fr_1fr] gap-[16px] border-b-[1px] border-N-200 py-[20px] px-[8px] md:grid-cols-[8fr_2fr_2fr_2fr] md:pl-[16px] lg:grid-cols-[8fr_2fr_2fr_2fr] lg:pl-[16px]'>
+                      <p className='font-400 text-N-600 md:text-N-800 lg:text-N-600'>{product}</p>
                       <p className='font-400 text-N-600'>{itemsCount}</p>
                       <p>{price}</p>
                       <div className='flex gap-[16px]'>
                         <a
                           target='_blank'
                           href={url}
-                          className='font-600 text-N-800 hover:text-B-500'>
+                          className='text-base font-600 text-N-800 hover:text-B-500'>
                           View
                         </a>
                       </div>
@@ -162,13 +164,13 @@ const Home: NextPage = () => {
                   ))}
                 </ul>
                 <ul className='bg-white'>
-                  <li className='grid grid-cols-[5fr_2fr] border-b-[1px] border-N-200 py-[20px] pl-[16px]'>
+                  <li className='grid grid-cols-[4fr_2fr] border-b-[1px] border-N-200 py-[20px] px-[8px] md:grid-cols-[5fr_2fr] md:pl-[16px] lg:grid-cols-[5fr_2fr] lg:pl-[16px]'>
                     <p className='text-md font-600 text-N-600'>Sub total:</p>
-                    <p className='text-base font-600'>£35.00 / day</p>
+                    <p className='text-sm font-600 md:text-base lg:text-base'>£35.00 / day</p>
                   </li>
-                  <li className='tex-md grid grid-cols-[5fr_2fr] py-[20px] pl-[16px]'>
+                  <li className='tex-md grid grid-cols-[4fr_2fr] border-b-[1px] border-N-200 py-[20px] px-[8px] md:grid-cols-[5fr_2fr] md:pl-[16px]  lg:grid-cols-[5fr_2fr] lg:pl-[16px]'>
                     <p className='text-md font-600 text-N-600'>Total:</p>
-                    <p className='text-base font-600'>£35.00 / day</p>
+                    <p className='text-sm font-600 md:text-base lg:text-base'>£35.00 / day</p>
                   </li>
                 </ul>
               </div>
