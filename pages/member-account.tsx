@@ -5,26 +5,11 @@ import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useRouter } from 'next/router'
 import { Button, TextField } from '@/components/atoms'
-import { MemberCard } from '@/components/molecules/MemberCard'
-import { ArrowRightCircle } from 'react-feather'
 import { DashboardMenu } from '@/components/molecules/DashboardMenu'
-import { useViewport } from '@/utils'
 
 const Home: NextPage = () => {
   const router = useRouter()
-  const { isDesktop, isMobile, isTablet } = useViewport()
-  const recentOrdersList = [
-    {
-      id: '0',
-      product: `Tesla Owners UK Annual Supporter Fee + Official Supporter Welcome Pack
-      Sold By: Tesla Owners UK `,
-      url: '#',
-      itemsCount: '1',
-      price: '£35.00 / day',
-      subTotal: '£35.00 / day',
-      total: '£35.00 / day',
-    },
-  ]
+
 
   return (
     <>

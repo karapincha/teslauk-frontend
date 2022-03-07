@@ -70,7 +70,7 @@ export const TextField: FC<TextFieldProps> = forwardRef(
     const wrapperBorderColor =
       (!disabled &&
         !isError &&
-        'border-N-200 outline-none focus-within:border-B-400 focus-within:shadow-[inset_0px_0px_0px_1px_#E31937]') ||
+        'border-N-300 outline-none focus-within:border-B-400 focus-within:shadow-[inset_0px_0px_0px_1px_#E31937]') ||
       (disabled && 'border-N-200') ||
       (!disabled &&
         isError &&
@@ -101,9 +101,9 @@ export const TextField: FC<TextFieldProps> = forwardRef(
       'border flex items-center rounded-[4px] w-full group ease-in-out duration-[50] relative z-[0]':
         true,
       'mt-[11px]': label,
-      'h-[48px]': size === 'md' || !size,
+      'h-[38px]': size === 'md' || !size,
       'h-[60px]': size === 'lg',
-      'h-[40px]': size === 'sm',
+      'h-[32px]': size === 'sm',
     })
 
     return (
