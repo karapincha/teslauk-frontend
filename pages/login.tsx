@@ -26,10 +26,12 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      <div className='container flex flex-col items-center bg-[url(/images/login-bg.png)] pt-[120px]'>
+      <div className='container flex flex-col items-center rounded-[12px] bg-[url(/images/hero-pattern.svg)] py-[32px] lg:pt-[40px] lg:pb-[80px]'>
         <SectionHeading heading='Tesla Owners UK Account' align='center' />
 
-        <Login />
+        <div className='w-full pt-[8px] md:w-[448px] md:pt-[16px] lg:w-[448px] lg:pt-[16px]'>
+          <Login />
+        </div>
       </div>
 
       <SupplierRibbon />

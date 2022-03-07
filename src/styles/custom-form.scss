@@ -5,7 +5,7 @@
     /* On checked or Indeterminate */
     &:checked ~ .checkbox__checkmark,
     &:indeterminate ~ .checkbox__checkmark {
-      @apply shadow-none bg-B-500 border-B-500;
+      @apply shadow-none bg-N-800 border-N-800;
     }
 
     /* Checked Indicator */
