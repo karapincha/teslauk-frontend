@@ -100,7 +100,7 @@ export const TextField: FC<TextFieldProps> = forwardRef(
       /* Input Field Wrapper Common */
       'border flex items-center rounded-[4px] w-full group ease-in-out duration-[50] relative z-[0]':
         true,
-      'mt-[11px]': label,
+      'mt-[28px]': label,
       'h-[38px]': size === 'md' || !size,
       'h-[60px]': size === 'lg',
       'h-[32px]': size === 'sm',
@@ -112,7 +112,7 @@ export const TextField: FC<TextFieldProps> = forwardRef(
           {label && (
             <label
               className={CN(
-                'text-field__label absolute top-[-11px] left-[12px] px-[4px] !text-sm text-N-700 after:absolute after:left-0 after:right-0 after:bottom-[2px] after:z-[0] after:h-[9px] after:content-[""]',
+                'text-field__label absolute top-[-28px] left-[-2px] font-500 !text-md text-N-600 after:absolute after:left-0 after:right-0 after:bottom-[2px] after:z-[0] after:h-[9px] after:content-[""]',
                 {
                   'after:bg-white': !disabled,
                   'after:bg-N-50': disabled,
