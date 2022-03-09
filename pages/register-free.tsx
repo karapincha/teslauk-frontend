@@ -14,13 +14,13 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='py-[24px]' />
+      {/* <Header className='py-[24px]' /> */}
 
-      <div className='container pt-[24px] pb-[40px] md:pt-[40px] md:pb-[80px] lg:pt-[40px] lg:pb-[80px]'>
+      <div className='container pt-[24px] md:pt-[40px] lg:pt-[40px]'>
         <div className='flex flex-col items-center rounded-[12px] bg-[url(/images/hero-pattern.svg)] py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[40px] lg:pb-[80px]'>
           <SectionHeading heading='Tesla Owners UK Account' align='center' />
 
-          <div className='w-full pt-[32px] md:w-[672px] md:pt-[32px] lg:w-[672px] lg:pt-[32px]'>
+          <div className='w-[90%] pt-[32px] md:w-[672px] md:pt-[32px] lg:w-[672px] lg:pt-[32px]'>
             <div className='w-full rounded-[8px] bg-white px-[16px] py-[32px] md:px-[40px] md:py-[32px] lg:px-[40px] lg:py-[32px]'>
               <h4 className='pb-[24px] text-center text-h4 font-600 text-N-800'>
                 Register as a Free associate Member

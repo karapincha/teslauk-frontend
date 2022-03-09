@@ -12,7 +12,7 @@ export const SupplierRibbon: FC<SupplierRibbonProps> = ({
   ...restProps
 }: SupplierRibbonProps) => {
   const SupplierRibbonClasses = CN(`supplier-ribbon`, className, {
-    'w-full flex justify-between py-[24px] md:pt-[64px] md:pb-[24px] lg:pt-[40px] lg:pb-[20px]': true,
+    'w-full flex justify-between pt-[40px] md:pt-[80px] lg:pt-[80px]': true,
   })
 
   const logoList = [
@@ -50,7 +50,7 @@ export const SupplierRibbon: FC<SupplierRibbonProps> = ({
 
   return (
     <div className={SupplierRibbonClasses} {...restProps}>
-      <div className='container'>
+      <div className='container border-t border-N-100 py-[24px] lg:pt-[40px] lg:pb-[20px]'>
         <LogoBlock logoList={logoList} />
       </div>
     </div>
