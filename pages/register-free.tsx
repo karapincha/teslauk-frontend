@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       {/* <Header className='py-[24px]' /> */}
 
       <div className='container pt-[24px] md:pt-[40px] lg:pt-[40px]'>
-        <div className='flex flex-col items-center rounded-[12px] bg-[url(/images/hero-pattern.svg)] py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[40px] lg:pb-[80px]'>
+        <div className='flex flex-col items-center rounded-[12px] bg-[url(/images/hero-pattern.svg)] bg-no-repeat bg-cover py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[40px] lg:pb-[80px]'>
           <SectionHeading heading='Tesla Owners UK Account' align='center' />
 
           <div className='w-[90%] pt-[32px] md:w-[672px] md:pt-[32px] lg:w-[672px] lg:pt-[32px]'>
