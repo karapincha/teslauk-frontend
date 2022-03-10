@@ -19,40 +19,44 @@ const Home: NextPage = () => {
 
       <div className='container pt-[24px] md:pt-[40px] lg:pt-[40px]'>
         <div className='flex flex-col items-center rounded-[12px] bg-[url(/images/hero-pattern.svg)] bg-cover bg-no-repeat py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[40px] lg:pb-[80px]'>
-          <SectionHeading heading='Tesla Owners UK Account' align='center' />
+          <SectionHeading
+            heading='Tesla Owners UK Account'
+            align='center'
+            headingClassName='mb-0'
+          />
 
-          <div className='w-[90%] pt-[32px] md:w-[672px] md:pt-[32px] lg:w-[672px] lg:pt-[32px]'>
+          <div className='w-[90%] pt-[32px] md:w-[672px] lg:w-[672px]'>
             <div className='relative flex w-full justify-center rounded-t-[8px]'>
               <img src='/images/register-banner.png' className='w-full rounded-t-[8px]' />
-              <h4 className='absolute pb-[24px] text-center text-h4 font-600 text-N-800 lg:top-[32px]'>
+              <h4 className='absolute top-[16px] pb-[24px] text-center text-md font-600 text-N-800 lg:top-[32px] lg:text-h4'>
                 Register as a Supporter
               </h4>
             </div>
 
-            <div className='w-full rounded-b-[8px] bg-white px-[16px] py-[32px] md:px-[40px] md:py-[32px] lg:px-[40px] lg:py-[32px]'>
+            <div className='w-full rounded-b-[8px] bg-white px-[16px] pt-[24px] pb-[32px] md:px-[40px] lg:px-[48px]'>
               <div className='flex border-b-[1px] border-b-N-200 pb-[24px]'>
                 <div className='flex w-full flex-col gap-[8px]'>
                   <div className='flex'>
                     <p className='text-sm font-500 text-N-600'>You are purchasing</p>
                   </div>
 
-                  <div className='flex justify-between'>
-                    <div className='flex w-[258px] flex-col gap-[8px]'>
+                  <div className='flex flex-col justify-between md:flex-row lg:flex-row'>
+                    <div className='flex flex-col gap-[8px] md:w-[258px] lg:w-[258px]'>
                       <p className='text-md font-400 text-N-800'>
                         Tesla Owners UK Annual Supporter Fee + Official Supporter Welcome Pack
                       </p>
                       <p className='text-sm font-500 text-N-600'>
-                        Official Supporter Tesla Owners UK <br /> Subscription
+                        Official Supporter Tesla Owners UK Subscription
                       </p>
                     </div>
 
-                    <div className='flex flex-col items-end gap-[12px]'>
+                    <div className='flex flex-col gap-[12px] pt-[24px] md:items-end md:pt-0 lg:items-end lg:pt-0'>
                       <p className='text-md font-500 text-B-500'>
                         £35.00 / year and a £15.00 sign-up fee
                       </p>
                       <Link href='#'>
                         <Button
-                          className='w-[190px] text-base !text-N-800'
+                          className='w-full text-base !text-N-800 md:w-[190px] lg:w-[190px]'
                           appearance='secondary'
                           iconAfter={<ArrowUpRight size={20} />}>
                           See all benefits
@@ -111,7 +115,7 @@ const Home: NextPage = () => {
                   />
                 </div>
 
-                <div className='flex flex-col gap-[4px]'>
+                <div className='flex w-full flex-col gap-[4px]'>
                   <TextField
                     label='Vehicle VIN No (Available from app)'
                     required
@@ -119,7 +123,7 @@ const Home: NextPage = () => {
                   />
                 </div>
 
-                <div className='flex flex-col justify-between gap-[8px] lg:flex-row lg:gap-[48px]'>
+                <div className='flex flex-col justify-between gap-[8px] md:flex-row md:gap-[48px] lg:flex-row lg:gap-[48px]'>
                   <div className='flex flex-col gap-[12px]'>
                     <TextField placeholder='Model 3' label='Tesla Model' required />
                     <p className='text-sm font-500 text-N-600'>
@@ -127,7 +131,7 @@ const Home: NextPage = () => {
                       matches the VIN No above)
                     </p>
                   </div>
-                  <div className='flex h-[118px] justify-center'>
+                  <div className='flex h-[118px] w-full justify-center'>
                     <img src='/images/model-3.png' height={118} width={264} />
                   </div>
                 </div>
@@ -146,7 +150,7 @@ const Home: NextPage = () => {
                   <div className='flex w-[unset] flex-col items-start gap-[4px]'>
                     <Link href='#'>
                       <Button
-                        className='h-[unset] w-full border-none px-0 text-base !font-600 !text-N-800 md:w-[unset] lg:w-[unset]'
+                        className='h-[unset] w-[unset] border-none px-0 text-base !font-600 !text-N-800'
                         appearance='ghost'
                         iconAfter={<ArrowUpRight size={20} />}>
                         Club’s rules
@@ -154,7 +158,7 @@ const Home: NextPage = () => {
                     </Link>
                     <Link href='#'>
                       <Button
-                        className='h-[unset] w-full border-none px-0 text-base !font-600 !text-N-800 md:w-[unset] lg:w-[unset]'
+                        className='h-[unset] w-[unset] border-none px-0 text-base !font-600 !text-N-800'
                         appearance='ghost'
                         iconAfter={<ArrowUpRight size={20} />}>
                         Articles of Association
@@ -162,7 +166,7 @@ const Home: NextPage = () => {
                     </Link>
                     <Link href='#'>
                       <Button
-                        className='h-[unset] w-full border-none px-0 text-base !font-600 !text-N-800 md:w-[unset] lg:w-[unset]'
+                        className='h-[unset] w-[unset] border-none px-0 text-base !font-600 !text-N-800'
                         appearance='ghost'
                         iconAfter={<ArrowUpRight size={20} />}>
                         Privacy Policy
