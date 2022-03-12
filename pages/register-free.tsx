@@ -14,7 +14,7 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      {/* <Header className='py-[24px]' /> */}
+      <Header className='py-[24px]' />
 
       <div className='container pt-[24px] md:pt-[40px] lg:pt-[40px]'>
         <div className='flex flex-col items-center rounded-[12px] bg-[url(/images/hero-pattern.svg)] bg-no-repeat bg-cover py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[40px] lg:pb-[80px]'>
