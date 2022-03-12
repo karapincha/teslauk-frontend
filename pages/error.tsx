@@ -2,9 +2,7 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
-import { SectionHeading } from '@/components/molecules'
-import { Button, TextField, CheckBox } from '@/components/atoms'
-import { ArrowUpRight } from 'react-feather'
+import { Button } from '@/components/atoms'
 
 const Home: NextPage = () => {
   return (
