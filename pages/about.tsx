@@ -23,13 +23,13 @@ const Home: NextPage = () => {
 
       <div className='container flex pt-[20px]'>
         <PageHeaderVariant
-          heading='Who we are & What we do'
+          heading='Who we are </br> & What we do'
           image='https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
         />
       </div>
 
       <div className='container pt-[32px] pb-[40px] md:pb-[80px] lg:pb-[80px] lg:pt-[64px]'>
-        <div className='mx-auto flex max-w-[992px] flex-col gap-[24px] md:flex-row lg:flex-row md:gap-[32px] lg:gap-[48px]'>
+        <div className='mx-auto flex max-w-[992px] flex-col gap-[24px] md:flex-row md:gap-[32px] lg:flex-row lg:gap-[48px]'>
           <div className='flex flex-shrink-0 md:w-[264px] lg:w-[264px]'>
             <h5 className='text-h5 font-500'>
               Our mission is to enhance the Tesla ownership experience and help the UK transition to
@@ -73,7 +73,7 @@ const Home: NextPage = () => {
               officia consequat duis enim velit mollit.
             </p>
           </div>
-          <div className='flex w-full flex-col gap-[24px] md:w-[unset] lg:w-[unset] md:flex-row lg:flex-row'>
+          <div className='flex w-full flex-col gap-[24px] md:w-[unset] md:flex-row lg:w-[unset] lg:flex-row'>
             <Button className='w-full md:w-[unset] lg:w-[unset]' appearance='secondary' size='md'>
               Meet the Team
             </Button>
@@ -100,7 +100,7 @@ const Home: NextPage = () => {
           align='center'
           className='mx-auto max-w-[472px]'
         />
-        <div className='container flex flex-col gap-[48px] md:gap-[24px] lg:gap-[48px] pt-[48px] md:grid md:grid-cols-2 lg:grid lg:grid-cols-3'>
+        <div className='container flex flex-col gap-[48px] pt-[48px] md:grid md:grid-cols-2 md:gap-[24px] lg:grid lg:grid-cols-3 lg:gap-[48px]'>
           <InitiativeCard
             icon={<ChartLine size={64} />}
             heading='Education & Outreach'
@@ -217,7 +217,7 @@ const Home: NextPage = () => {
       </div>
 
       <div className='container pt-[40px] pb-[80px] md:py-[56px] lg:py-[80px]'>
-        <div className='flex w-full flex-col items-center md:justify-between gap-[40px] lg:gap-[48px] md:flex-row lg:flex-row'>
+        <div className='flex w-full flex-col items-center gap-[40px] md:flex-row md:justify-between lg:flex-row lg:gap-[48px]'>
           <img
             src='https://images.unsplash.com/photo-1634988115790-d00c024dfac0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
             height={276}
