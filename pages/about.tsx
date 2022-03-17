@@ -93,7 +93,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className='bg-[url(/images/patterns/background.svg)] pb-[40px] pt-[64px] md:pb-[64px] lg:pb-[64px]'>
+      <div className='bg-[url(/images/patterns/background.svg)] bg-cover bg-no-repeat pb-[40px] pt-[64px] md:pb-[64px] lg:pb-[64px]'>
         <SectionHeading
           heading='Club initiatives'
           description='As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes.'
