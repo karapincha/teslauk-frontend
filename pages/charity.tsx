@@ -32,7 +32,7 @@ const Home: NextPage = () => {
       </div>
 
       <div className='container'>
-        <div className='flex flex-col gap-[24px] pb-[24px] md:flex-row md:items-center md:justify-between lg:flex-row lg:justify-between md:pb-[40px] lg:pb-[40px]'>
+        <div className='flex flex-col gap-[24px] pb-[24px] md:flex-row md:items-center md:justify-between md:pb-[40px] lg:flex-row lg:justify-between lg:pb-[40px]'>
           <h3 className='text-h4 font-700 text-N-800 md:w-[388px] md:text-h3 lg:w-[unset] lg:text-h3'>
             Tesla Owners UK Charity & Programmes
           </h3>
@@ -43,13 +43,9 @@ const Home: NextPage = () => {
         <div className='flex flex-col gap-[24px] md:gap-[40px] lg:gap-[40px]'>
           <ProgrammeCard
             heading='Radio Flyer Programme'
-            description={`This world is a cruel place sometimes so if we can put a smile on someone’s face we will do our best.Tesla Owners UK have a ongoing programme of procuring “Radio Flyer” children’s ride on cars for donation to Hospitals, Hospices and similar.
-            <br/><br/>
-            So far, over 170 of these have been donated – sourced from Tesla Owners UK Members, but also donated by Radioflyer, and even by direct donation by Elon Musk!    There is a stock of more waiting for homes!
-            We require the cars to be used at the facility by those children receiving medical care ONLY.
-            <br/><br/>
-            Charities/hospitals are not allowed to resell/auction the cars, we remain owners of them so please only apply if your patients will use them.
-            To secure a Radio Flyer – the intended recipient organisation should complete a request form below. If you’re a parent or family member please pass this page to the person or people responsible for the organisation to complete.`}
+            description={`This world is a cruel place sometimes so if we can put a smile on someone’s face we will do our best. Tesla Owners UK have a ongoing programme of procuring “Radio Flyer” children’s ride on cars for donation to Hospitals, Hospices and similar.
+            <br/> <br/>
+            So far, over 170 of these have been donated – sourced from Tesla Owners UK Members, but also donated by Radioflyer, and even by direct donation by Elon Musk!    There is a stock of more waiting for homes!. We req...`}
             image='/images/charity/charity-001.png'
             descriptionCTA='See more'
             btnProps={{
