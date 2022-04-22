@@ -4,13 +4,15 @@ import { Logo } from '@/components/atoms/Logo'
 import { Button } from '@/components/atoms/Button'
 import { Hamburger } from '@/components/atoms/Hamburger'
 import Link from 'next/link'
+import { useViewport } from '@/utils'
 
 export interface HeaderProps {
   [x: string]: any
 }
 
 export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps) => {
-  const HeaderClasses = CN(`header flex w-full h-[148px] flex items-center`, className)
+  const HeaderClasses = CN(`header flex w-full lg:h-[148px] flex items-center`, className)
+  const { isTablet, isMobile, isDesktop } = useViewport()
 
   return (
     <div className={HeaderClasses} {...restProps}>
@@ -18,7 +20,7 @@ export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps
         <div className='header__left relative z-10 flex items-center'>
           <Hamburger className='mr-[32px]' />
 
-          <div className='flex items-center gap-[32px]'>
+          <div className='hidden items-center gap-[32px] lg:flex'>
             <Button appearance='link' view='outline'>
               Events
             </Button>
@@ -37,7 +39,7 @@ export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps
 
         <div className='header__center absolute left-0 z-0 flex w-full items-center justify-center'>
           <Link href='/' passHref>
-            <Logo className='cursor-pointer' />
+            <Logo className='cursor-pointer' size={isMobile ? 52 : isTablet ? 68 : 100} />
           </Link>
         </div>
 
@@ -45,7 +47,9 @@ export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps
           <Button icon={<i className='ri-search-2-line text-lg' />} appearance='link' />
 
           <Link href='/login'>
-            <Button view='outline'>Login</Button>
+            <Button view='outline' className='hidden lg:inline'>
+              Login
+            </Button>
           </Link>
         </div>
       </div>

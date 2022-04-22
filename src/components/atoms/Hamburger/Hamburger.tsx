@@ -33,8 +33,6 @@ export const Hamburger: FC<HamburgerProps> = ({
           <span className='absolute block h-[2px] w-full rounded-[20px] bg-N-800'></span>
         </div>
       </div>
-
-      <span className='ml-2 font-500 text-N-800 lg:hidden'>Menu</span>
     </>
   )
 }

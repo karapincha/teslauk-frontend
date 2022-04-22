@@ -13,7 +13,7 @@ export const Logo: FC<LogoProps> = forwardRef(
     return (
       <div className={LogoClasses} ref={ref} {...restProps}>
         <svg width={size} height={size} viewBox='0 0 472 472'>
-          <title>g14</title>
+          <title>Tesla Owners UK Logo</title>
           <g id='Page-1' stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
             <g
               id='g14'
