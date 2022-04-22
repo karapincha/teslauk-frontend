@@ -244,7 +244,7 @@ const Home: NextPage = () => {
       </div>
       <div className='container pb-[32px]'>{isDesktop && renderGraphic()}</div>
 
-      <SupplierRibbon className='border-t border-N-100' />
+      <SupplierRibbon />
       <Footer />
     </>
   )

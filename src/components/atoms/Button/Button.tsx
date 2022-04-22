@@ -50,8 +50,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         'pointer-events-none select-none cursor-not-allowed': disabled,
 
         /* isActive */
-        'text-N-800': isActive,
-        'text-N-500': !isActive,
+        // 'text-N-800': isActive,
+        // 'text-N-500': !isActive,
 
         /* Sizing */
         'h-[24px] px-[8px] text-[12px] font-500': size === 'xs',
@@ -59,6 +59,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         'h-[48px] px-[20px]': size === 'md',
         'h-[52px] px-[32px]': size === 'lg',
         'h-[62px] px-[32px]': size === 'xl',
+
         '!px-[0]': appearance === 'link' || appearance === 'link-invert',
         '!px-[0] w-[38px]': isSquare && size === 'sm',
         '!px-[0] w-[48px]': isSquare && size === 'md',

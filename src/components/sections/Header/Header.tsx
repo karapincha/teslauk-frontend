@@ -10,10 +10,7 @@ export interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps) => {
-  const HeaderClasses = CN(
-    `header flex w-full h-[148px] flex items-center`,
-    className
-  )
+  const HeaderClasses = CN(`header flex w-full h-[148px] flex items-center`, className)
 
   return (
     <div className={HeaderClasses} {...restProps}>
@@ -25,6 +22,7 @@ export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps
             <Button appearance='link' view='outline'>
               Events
             </Button>
+
             <Button appearance='link' view='outline'>
               Suppliers
             </Button>

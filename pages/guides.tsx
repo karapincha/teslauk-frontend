@@ -38,6 +38,7 @@ const Home: NextPage = () => {
           inputProps={{
             onChange: (e: any) => console.log(e.target.value),
             placeholder: 'Search your question here?',
+            size: 'lg',
           }}
         />
       </div>
@@ -45,7 +46,7 @@ const Home: NextPage = () => {
       <div className='container flex flex-col gap-[40px] py-[80px]'>
         <h4 className='text-h4 font-600 text-N-800'>Browse by the categories</h4>
 
-        <div className='masonry sm:masonry-sm md:masonry-md'>
+        <div className='grid grid-cols-2 gap-[32px]'>
           <LinkListCard
             list={[
               {
@@ -196,7 +197,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <SupplierRibbon className='border-t border-N-100' />
+      <SupplierRibbon />
       <Footer />
     </>
   )

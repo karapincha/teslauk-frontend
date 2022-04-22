@@ -117,7 +117,7 @@ const Home: NextPage = () => {
         </article>
       </div>
 
-      <SupplierRibbon className='border-t border-N-100' />
+      <SupplierRibbon />
       <Footer />
     </>
   )

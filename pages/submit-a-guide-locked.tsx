@@ -124,7 +124,7 @@ const Home: NextPage = () => {
           <Button iconAfter={<i className='ri-arrow-right-line text-lg' />}>Get Membership</Button>
         }
       />
-      <SupplierRibbon className='border-t border-N-100' />
+      <SupplierRibbon />
       <Footer />
     </>
   )

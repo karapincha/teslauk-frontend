@@ -55,17 +55,17 @@
 @layer utilities {
   @variants responsive {
     .masonry {
-      column-gap: 48px;
+      gap: 48px;
       column-count: 1;
     }
 
     .masonry-sm {
-      column-gap: 48px;
+      gap: 48px;
       column-count: 2;
     }
 
     .masonry-md {
-      column-gap: 48px;
+      gap: 48px;
       column-count: 2;
     }
 

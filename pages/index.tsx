@@ -21,7 +21,7 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      {/* <Header className='py-[24px]' /> */}
+      <Header className='py-[24px]' />
       <Hero className='pt-[20px] pb-[40px]' />
       <EventCard className='py-[48px] md:pt-[24px] lg:py-[80px]' />
       <QuickMembership className='py-[24px] lg:py-[80px]' />

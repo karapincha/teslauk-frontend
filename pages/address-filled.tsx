@@ -90,7 +90,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-      <SupplierRibbon className='border-t border-N-100' />
+      <SupplierRibbon />
       <Footer />
     </>
   )
