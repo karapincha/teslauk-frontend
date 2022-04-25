@@ -53,7 +53,7 @@ export const GuidesQuickAccess: FC<GuidesQuickAccessProps> = ({
                 <FeatureCard
                   heading='About your Tesla car'
                   description='Everything you need to know about the car'
-                  icon='/images/icons/quick-guide-icon-1.png'
+                  icon='/images/icons/quick-guide-icon-2.png'
                   className='cursor-pointer lg:w-[calc(100%-20px)]'
                 />
               </Link>
@@ -78,7 +78,7 @@ export const GuidesQuickAccess: FC<GuidesQuickAccessProps> = ({
 
               <Link href='/guides/about-the-car'>
                 <FeatureCard
-                  heading='Upgrading and Modifying'
+                  heading='Upgrading, Modifying and Fixing'
                   description='Everything you need to know about the car'
                   icon='/images/icons/quick-guide-icon-4.png'
                   className='cursor-pointer lg:w-[calc(100%-20px)]'
@@ -89,7 +89,7 @@ export const GuidesQuickAccess: FC<GuidesQuickAccessProps> = ({
                 <FeatureCard
                   heading='Fear, Uncertainty &amp; Doubt (FUD)'
                   description='Everything you need to know about the car'
-                  icon='/images/icons/quick-guide-icon-1.png'
+                  icon='/images/icons/quick-guide-icon-2.png'
                 />
               </Link>
             </div>

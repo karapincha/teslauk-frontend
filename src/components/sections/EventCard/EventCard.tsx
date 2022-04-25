@@ -14,10 +14,10 @@ export const EventCard: FC<EventCardProps> = ({ className, ...restProps }: Event
 
   return (
     <div className={EventCardClasses} {...restProps}>
-      <div className='container flex flex-col gap-[16px] md:gap-[32px] lg:gap-[56px]'>
+      <div className='container flex flex-col gap-[24px] md:gap-[32px] lg:gap-[56px]'>
         <div className='flex w-full'>
           <Card
-            heading='Events happening <br /> around you'
+            heading='Events happening <br/> throughout UK'
             subHeading='Private events'
             image='/images/banners/002.jpg'
             imageAlt="Event's banner"
@@ -35,7 +35,7 @@ export const EventCard: FC<EventCardProps> = ({ className, ...restProps }: Event
           />
         </div>
 
-        <div className='flex flex-col gap-[40px] md:flex md:flex-row lg:gap-[64px] lg:flex lg:flex-row'>
+        <div className='flex flex-col gap-[40px] md:flex md:flex-col lg:flex lg:flex-row md:gap-[32px] lg:gap-[64px]'>
           <DateCard appearance='primary' className='!w-[calc(100%-16px)]' />
           <DateCard month='Jul' date='12' className='!w-[calc(100%-16px)]' />
           <DateCard month='Aug' date='26' className='!w-[calc(100%-16px)]' />

@@ -22,13 +22,13 @@ const Home: NextPage = () => {
       </Head>
 
       <Header className='pt-[16px] md:pt-[24px] md:pb-[8px] lg:py-[24px]' />
-      <Hero className='pt-[20px] pb-[40px]' />
-      <EventCard className='py-[48px] md:pt-[24px] lg:py-[80px]' />
-      <QuickMembership className='py-[24px] lg:py-[80px]' />
-      <QuickTestimonials className='py-[24px] lg:py-[80px]' />
-      <GuidesQuickAccess className='pt-[80px] pb-[128px]' />
+      <Hero className='pt-[20px] pb-[24px] lg:pb-[40px]' />
+      <EventCard className='py-[24px] md:py-[80px] lg:py-[80px]' />
+      <QuickMembership className='py-[24px] md:py-[80px] lg:py-[80px]' />
+      <QuickTestimonials className='py-[24px] md:py-[80px] lg:py-[80px]' />
+      <GuidesQuickAccess className='pb-[24px] lg:pt-[20px] md:pb-[80px] lg:pb-[128px]' />
       <CallToAction />
-      <SupplierRibbon />
+      <SupplierRibbon className='!pt-0'/>
       <Footer />
     </>
   )

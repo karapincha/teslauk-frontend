@@ -45,7 +45,7 @@ export const DateCard: FC<DateCardProps> = ({
 
       <div className='date-card__content'>
         <h4 className='text-h5 date-card__heading mb-[4px]'>{heading}</h4>
-        <p className='date-card__location mb-[16px] flex items-center font-500 text-B-500 text-md'>
+        <p className='date-card__location mb-[16px] flex items-center font-500 text-N-500 text-md'>
           <MapPin size={16} />
           <span className='pl-[8px]'>{location}</span>
         </p>
