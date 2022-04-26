@@ -26,7 +26,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
     'url(/images/page-header-banner-fallback.png)'
   )
   const PageHeaderClasses = CN(
-    `page-header flex flex-col w-full bg-no-repeat bg-cover rounded-[12px] overflow-hidden relative lg:py-[48px] bg-center`,
+    `page-header flex flex-col w-full bg-no-repeat bg-cover rounded-[12px] overflow-hidden relative py-[32px] px-[16px] lg:py-[48px] bg-center`,
     {
       "after:content-[''] after:absolute after:top-0 after:bottom-0 after:left-0 after:right-0 after:bg-N-800/70 after:z-[0]":
         image,
@@ -46,7 +46,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
         {heading && (
           <h2
             className={CN(
-              'page-header__heading w-[60%] max-w-[529px] text-center font-700 text-N-800 lg:text-h3',
+              'page-header__heading max-w-[529px] text-center text-h4 font-700 text-N-800 md:text-h3 lg:w-[60%]',
               headingClassName
             )}
             dangerouslySetInnerHTML={{ __html: heading || '' }}
@@ -56,7 +56,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
         {description && (
           <p
             className={CN(
-              'page-header__description w-1/2 text-center text-md font-500 lg:pt-[24px]',
+              'page-header__description w-1/2 pt-[16px] text-center text-md font-500 lg:pt-[24px]',
               descriptionClassName
             )}
             dangerouslySetInnerHTML={{ __html: description || '' }}
@@ -65,7 +65,7 @@ export const PageHeader: FC<PageHeaderProps> = ({
 
         {hasSearch && (
           <FieldGroup
-            className='w-[370px] lg:pt-[16px]'
+            className='pt-[16px] md:w-[496px] lg:w-[370px]'
             btnProps={btnProps}
             inputProps={inputProps}
           />

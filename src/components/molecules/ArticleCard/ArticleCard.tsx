@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
 import Link from 'next/link'
+import { useViewport } from '@/utils'
 
 export interface ArticleCardProps {
   [x: string]: any
@@ -13,10 +14,11 @@ export const ArticleCard: FC<ArticleCardProps> = ({
   ...restProps
 }: ArticleCardProps) => {
   const ArticleCardClasses = CN(
-    `article-card flex justify-between w-full gap-[80px] group cursor-pointer`,
+    `article-card flex md:flex-row flex-col-reverse justify-between w-full gap-[24px] md:gap-[32px] lg:gap-[80px] group cursor-pointer md:items-end`,
     className
   )
   const { tags, heading, excerpt, image } = data
+  const { isMobile, isTablet, isDesktop } = useViewport()
 
   return (
     <div className={ArticleCardClasses} {...restProps}>
@@ -33,13 +35,20 @@ export const ArticleCard: FC<ArticleCardProps> = ({
             ))}
           </ul>
         </div>
-        <h2 className='mb-[8px] text-h5 font-500 group-hover:text-B-500'>{heading}</h2>
-        <p className='text-N-600 text-md' dangerouslySetInnerHTML={{ __html: excerpt || '' }} />
+        <h2 className='mb-[8px] text-h4 font-600 group-hover:text-B-500 lg:text-h5 lg:font-500'>
+          {heading}
+        </h2>
+        <p className='text-md text-N-600' dangerouslySetInnerHTML={{ __html: excerpt || '' }} />
       </div>
 
       {image && (
-        <div className='flex h-[136px] w-[200px] flex-shrink-0 overflow-hidden rounded-[6px]'>
-          <img src={image} width={200} height={136} className='object-cover object-center' />
+        <div className='flex h-[232px] w-[343px] flex-shrink-0 overflow-hidden rounded-[6px] md:h-[136px] md:w-[200px]'>
+          <img
+            src={image}
+            width={(!isMobile && 200) || 343}
+            height={(!isMobile && 136) || 232}
+            className='object-cover object-center'
+          />
         </div>
       )}
     </div>

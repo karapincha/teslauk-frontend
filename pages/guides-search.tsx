@@ -16,7 +16,7 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      <div className='container flex pt-[20px]'>
+      <div className='container flex pt-[20px] pb-[24px] md:pb-0'>
         <PageHeader
           hasSearch
           heading='Written by Tesla Owners <br />for Tesla Owners'
@@ -32,19 +32,20 @@ const Home: NextPage = () => {
             onChange: (e: any) => console.log(e.target.value),
             placeholder: 'Search your question here?',
             defaultValue: 'Tesla',
+            size:'lg',
           }}
         />
       </div>
 
-      <div className='container flex flex-col py-[80px]'>
+      <div className='container flex flex-col pt-[24px] pb-[40px] md:py-[80px]'>
         <div className='mx-auto flex w-full max-w-[784px] flex-col'>
-          <div className='mb-[48px] text-h5 text-N-700'>
+          <div className='mb-[24px] md:mb-[40px] lg::mb-[48px] text-h5 text-N-700'>
             Results <span className='font-500 text-N-800'>1-10</span> of{' '}
             <span className='font-500 text-N-800'>57</span> search results for{' '}
             <span className='font-500 text-B-500'>“Tesla”</span>
           </div>
 
-          <div className='flex flex-col gap-[32px]'>
+          <div className='flex flex-col gap-[24px] md:gap-[32px]'>
             {(searchResult || []).map((item: any, index: number) => (
               <Link href={item?.permalink} passHref key={index}>
                 <ArticleCard data={item} />
