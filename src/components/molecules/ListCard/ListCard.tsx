@@ -11,14 +11,15 @@ export interface ListItemProps {
   label?: string
   link?: string
   isActive?: boolean
+  commonClassName?: string
 }
 
-export const ListCard: FC<ListCardProps> = ({ className, list, ...restProps }: ListCardProps) => {
+export const ListCard: FC<ListCardProps> = ({ className, list, commonClassName, ...restProps }: ListCardProps) => {
   const ListCardClasses = CN(`list-card w-full`, className, {})
 
   return (
     <div className={ListCardClasses} {...restProps}>
-      <ul className='group flex flex-col border-b border-N-200 text-md text-N-800'>
+      <ul className={CN('group flex flex-col lg:border-b border-N-200 text-md text-N-800', commonClassName)}>
         {(list || []).map(({ id, label, link, isActive }: any, index: number) => {
           return (
             <li

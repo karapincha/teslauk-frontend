@@ -19,17 +19,17 @@ export const ContactCta: FC<ContactCtaProps> = ({
 
   return (
     <div className={ContactCtaClasses} {...restProps}>
-      <div className='container flex gap-[172px]'>
+      <div className='container flex flex-col items-center gap-[32px] lg:flex-row lg:gap-[172px]'>
         <h2
-          className='w-[452px] flex-shrink-0 text-h3 font-600 text-N-800'
+          className='flex-shrink-0 text-center text-h4 font-600 text-N-800 md:text-h2 lg:w-[452px] lg:text-h3'
           dangerouslySetInnerHTML={{ __html: heading || '' }}
         />
 
-        <div className='flex items-center gap-[24px]'>
+        <div className='flex flex-col items-center gap-[24px] lg:flex-row'>
           <div className='flex h-[64px] w-[64px] items-center justify-center rounded-[8px] bg-B-400'>
             <span className='text-N-10'>{icon}</span>
           </div>
-          <a href={`mailto:${email}`} className='text-h4 text-B-500'>
+          <a href={`mailto:${email}`} className='text-h5 text-B-500 md:text-h4 lg:text-h4'>
             {email}
           </a>
         </div>

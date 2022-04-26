@@ -14,7 +14,7 @@ export const MembershipCardPreview: FC<MembershipCardPreviewProps> = ({
 
   return (
     <div className={MembershipCardPreviewClasses} {...restProps}>
-      <div className='flex w-full flex-col justify-center gap-[24px] md:flex md:flex-row lg:flex lg:flex-row lg:gap-[48px]'>
+      <div className='flex w-full flex-col justify-center gap-[24px] md:grid md:grid-cols-2 lg:flex lg:flex-row lg:gap-[48px]'>
         <MembershipCard
           type='secondary'
           heading='Member'

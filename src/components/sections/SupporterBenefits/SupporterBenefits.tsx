@@ -10,17 +10,16 @@ export const SupporterBenefits: FC<SupporterBenefitsProps> = ({
   className,
   ...restProps
 }: SupporterBenefitsProps) => {
-  const SupporterBenefitsClasses = CN(
-    `supporter-benefits flex flex-col bg-N-50`,
-    className
-  )
+  const SupporterBenefitsClasses = CN(`supporter-benefits flex flex-col bg-N-50`, className)
 
   return (
     <div className={SupporterBenefitsClasses} {...restProps}>
-      <div className='container flex flex-col gap-[40px]'>
-        <h3>All supporter benefits</h3>
+      <div className='container flex flex-col'>
+        <h3 className='pb-[40px] text-center text-h4 md:text-left md:text-h3 lg:text-left lg:text-h3'>
+          All supporter benefits
+        </h3>
 
-        <div className='flex gap-[40px]'>
+        <div className='flex flex-col lg:flex-row lg:gap-[40px]'>
           <ListCard
             list={[
               {
@@ -54,6 +53,7 @@ export const SupporterBenefits: FC<SupporterBenefitsProps> = ({
             ]}
           />
           <ListCard
+            commonClassName='border-b'
             list={[
               {
                 id: 0,
@@ -87,7 +87,8 @@ export const SupporterBenefits: FC<SupporterBenefitsProps> = ({
           />
         </div>
 
-        <div className='flex flex-col text-md'>
+        <div className='flex flex-col pt-[24px] text-md md:pt-[32px] lg:pt-[32px]'>
+          <a className='pb-[24px] text-base font-600 md:pb-[32px] lg:pb-[32px]'>And many more...</a>
           <p>
             ¹ All discount codes and other Tesla related offers are subject to change without notice
           </p>

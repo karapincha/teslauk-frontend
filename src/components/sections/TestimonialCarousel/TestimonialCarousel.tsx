@@ -30,7 +30,9 @@ export const TestimonialCarousel: FC<TestimonialCarouselProps> = ({
     <div className={TestimonialCarouselClasses} {...restProps}>
       <div className='container overflow-hidden'>
         <div className='flex justify-between'>
-          <h3>What club members say...</h3>
+          <h3 className='w-[186px] text-h4 md:w-[unset] lg:w-[unset] lg:text-h3'>
+            What club members say...
+          </h3>
 
           <div className='flex items-center gap-[16px]'>
             <Button view='outline' isSquare className='testimonial-controll-prev'>
