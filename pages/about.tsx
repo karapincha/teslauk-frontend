@@ -23,12 +23,12 @@ const Home: NextPage = () => {
 
       <div className='container flex pt-[20px]'>
         <PageHeaderVariant
-          heading='Who we are </br> & What we do'
+          heading='Who we are <br class="hidden md:inline" /> & What <br class="md:hidden"/> we do'
           image='https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
         />
       </div>
 
-      <div className='container pt-[32px] pb-[40px] md:pb-[80px] lg:pb-[80px] lg:pt-[64px]'>
+      <div className='container pt-[40px] pb-[40px] md:py-[80px]'>
         <div className='mx-auto flex max-w-[992px] flex-col gap-[24px] md:flex-row md:gap-[32px] lg:flex-row lg:gap-[48px]'>
           <div className='flex flex-shrink-0 md:w-[264px] lg:w-[264px]'>
             <h5 className='text-h5 font-500'>
@@ -62,7 +62,7 @@ const Home: NextPage = () => {
       <div className='container pb-[40px] md:pb-[80px] lg:pb-[80px]'>
         <div className='flex flex-col items-center gap-[24px]'>
           <div className='flex'>
-            <h3 className='text-center text-h3 font-700 text-N-800 lg:text-left'>
+            <h3 className='text-center text-h4 font-600 text-N-800 md:text-h3 md:font-700 lg:text-left'>
               See who is behind Tesla Owners UK
             </h3>
           </div>
@@ -73,7 +73,7 @@ const Home: NextPage = () => {
               officia consequat duis enim velit mollit.
             </p>
           </div>
-          <div className='flex w-full flex-col gap-[24px] md:w-[unset] md:flex-row lg:w-[unset] lg:flex-row'>
+          <div className='flex w-full flex-col gap-[16px] md:w-[unset] md:flex-row md:gap-[24px] lg:w-[unset] lg:flex-row'>
             <Button className='w-full md:w-[unset] lg:w-[unset]' appearance='secondary' size='md'>
               Meet the Team
             </Button>
@@ -93,14 +93,15 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className='bg-[url(/images/patterns/background.svg)] bg-cover bg-no-repeat pb-[40px] pt-[64px] md:pb-[64px] lg:pb-[64px]'>
+      <div className='container bg-[url(/images/patterns/background.svg)] bg-cover bg-no-repeat py-[40px] md:py-[80px]'>
         <SectionHeading
           heading='Club initiatives'
+          headingClassName='!text-h3 font-700'
           description='As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes.'
           align='center'
           className='mx-auto max-w-[472px]'
         />
-        <div className='container flex flex-col gap-[48px] pt-[48px] md:grid md:grid-cols-2 md:gap-[24px] lg:grid lg:grid-cols-3 lg:gap-[48px]'>
+        <div className='flex flex-col gap-[24px] pt-[24px] md:grid md:grid-cols-2 md:pt-[48px] lg:grid lg:grid-cols-3 lg:gap-[48px]'>
           <InitiativeCard
             icon={<ChartLine size={64} />}
             heading='Education & Outreach'
@@ -156,11 +157,11 @@ const Home: NextPage = () => {
             heading='See why so many companies sign up as a paid supplier'
             description='As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes. As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes. '
             btnProps={{
-              label: 'Read more',
+              children: 'Sign up',
               onClick: () => {
                 console.log('Clicked')
               },
-              appearance: 'neutral',
+              appearance: 'primary',
             }}
           />
           <InitiativeCard
@@ -216,7 +217,7 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className='container pt-[40px] pb-[80px] md:py-[56px] lg:py-[80px]'>
+      <div className='container py-[40px] md:py-[80px]'>
         <div className='flex w-full flex-col items-center gap-[40px] md:flex-row md:justify-between lg:flex-row lg:gap-[48px]'>
           <img
             src='https://images.unsplash.com/photo-1634988115790-d00c024dfac0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
