@@ -14,10 +14,10 @@ export const Hero: FC<HeroProps> = ({ className, ...restProps }: HeroProps) => {
 
   const renderGraphic = () => {
     return (
-      <div className='hero__graphic drag-none select-none md:absolute md:bottom-[-0px] md:right-[-0px] md:z-[-1] md:w-[360px] lg:absolute lg:bottom-[-0px] lg:right-[-0px] lg:z-[-1] lg:w-[832px]'>
+      <div className='hero__graphic drag-none select-none md:absolute md:bottom-[80px] md:right-[-0px] md:z-[-1] md:w-[360px] lg:absolute lg:bottom-[-0px] lg:right-[-0px] lg:z-[-1] lg:w-[832px]'>
         <img
           src='/images/hero-car-full-tesla-model-s.png'
-          className='w-full py-[40px] md:w-[464px] lg:w-[960px]'
+          className='w-full py-[40px] md:w-[388px] md:overflow-hidden  lg:w-[960px]'
           alt='Hero Illustration'
         />
       </div>
