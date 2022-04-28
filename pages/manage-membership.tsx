@@ -36,7 +36,7 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      <div className='container flex gap-[48px] pt-[40px] pb-[40px] lg:pb-[80px]'>
+      <div className='container flex gap-[48px] py-[40px] md:pb-[80px]'>
         <div className='dashboard-menu hidden lg:flex'>
           <div className='w-full'>
             <DashboardMenu />
@@ -45,12 +45,12 @@ const Home: NextPage = () => {
 
         <div className='flex w-full flex-col'>
           <div>
-            <h4 className='text-h4 font-600 text-N-800'>Membership</h4>
+            <h4 className='pb-[24px] text-h4 font-600 text-N-800 md:pb-0'>Membership</h4>
           </div>
           <div className='flex flex-col-reverse justify-between md:flex-row lg:flex-row'>
             <div className='lg:w-full'>
               <div className='membership-details'>
-                <div className='md:pt-[40px] lg:pt-[32px]'>
+                <div className='pt-[24px] md:pt-[40px] lg:pt-[32px]'>
                   <div className='text-base font-500 text-N-800'>Membership details</div>
                   <div className='flex gap-[64px] pt-[16px] text-base lg:gap-[32px]'>
                     <div className='flex flex-col gap-[16px]'>
@@ -118,17 +118,19 @@ const Home: NextPage = () => {
                 type='Supporter membership'
                 expireDate='20/10/2021'
               />
-              <p className='py-[24px] text-center text-md text-N-600'>
-                Android? Install this{' '}
-                <a target='_blank' href='' className='underline'>
-                  app
-                </a>{' '}
-                & follow this{' '}
-                <a target='_blank' href='' className='underline'>
-                  guide
-                </a>
-                .
-              </p>
+              <div className='hidden md:inline'>
+                <p className='py-[24px] text-center text-md text-N-600'>
+                  Android? Install this{' '}
+                  <a target='_blank' href='' className='underline'>
+                    app
+                  </a>{' '}
+                  & follow this{' '}
+                  <a target='_blank' href='' className='underline'>
+                    guide
+                  </a>
+                  .
+                </p>
+              </div>
             </div>
           </div>
 
