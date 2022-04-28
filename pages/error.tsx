@@ -16,7 +16,7 @@ const Home: NextPage = () => {
       <Header className='py-[24px]' />
 
       <div className='container pt-[24px] md:pt-[40px] lg:pt-[40px]'>
-        <div className='flex flex-col items-center rounded-[12px] bg-white py-[48px] px-[16px] md:py-[132px] md:px-[64px] lg:py-[132px] lg:px-0'>
+        <div className='flex flex-col items-center rounded-[12px] bg-white py-[48px] px-[16px] md:py-[132px] md:px-[64px] lg:px-0'>
           <img src='/images/error-image.png' className='w-[312px] lg:w-[576px]' />
           <h2 className='pt-[20px] text-h3 font-700 text-N-800 md:text-h2 lg:text-h2'>
             Page not found

@@ -17,8 +17,12 @@ const Home: NextPage = () => {
       <Header className='py-[24px]' />
 
       <div className='container pt-[24px] md:pt-[40px] lg:pt-[40px]'>
-        <div className='flex flex-col items-center rounded-[12px] bg-[url(/images/hero-pattern.svg)] bg-no-repeat bg-cover py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[40px] lg:pb-[80px]'>
-          <SectionHeading heading='Tesla Owners UK Account' align='center' />
+        <div className='flex flex-col items-center rounded-[12px] bg-[url(/images/hero-pattern.svg)] bg-cover bg-no-repeat py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[40px] lg:pb-[80px]'>
+          <SectionHeading
+            heading='Tesla Owners UK Account'
+            align='center'
+            headingClassName='!mb-0'
+          />
 
           <div className='w-[90%] pt-[32px] md:w-[672px] md:pt-[32px] lg:w-[672px] lg:pt-[32px]'>
             <div className='w-full rounded-[8px] bg-white px-[16px] py-[32px] md:px-[40px] md:py-[32px] lg:px-[40px] lg:py-[32px]'>
@@ -58,7 +62,7 @@ const Home: NextPage = () => {
                   />
                 </div>
 
-                <div className='flex flex-col justify-between gap-[8px] lg:flex-row lg:gap-[48px]'>
+                <div className='flex flex-col justify-between gap-[8px] md:flex-row md:gap-[48px]'>
                   <div className='flex flex-col gap-[12px]'>
                     <TextField placeholder='Model 3' label='Tesla Model' required />
                     <p className='text-sm font-500 text-N-600'>

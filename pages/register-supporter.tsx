@@ -22,13 +22,13 @@ const Home: NextPage = () => {
           <SectionHeading
             heading='Tesla Owners UK Account'
             align='center'
-            headingClassName='mb-0'
+            headingClassName='!mb-0'
           />
 
           <div className='w-[90%] pt-[32px] md:w-[672px] lg:w-[672px]'>
             <div className='relative flex w-full justify-center rounded-t-[8px]'>
               <img src='/images/register-banner.png' className='w-full rounded-t-[8px]' />
-              <h4 className='absolute top-[16px] pb-[24px] text-center text-md font-600 text-N-800 lg:top-[32px] lg:text-h4'>
+              <h4 className='absolute top-[16px] pb-[24px] text-center text-md font-600 text-N-800 lg:top-[32px] md:text-h4'>
                 Register as a Supporter
               </h4>
             </div>
