@@ -13,6 +13,7 @@ import { useViewport } from '@/utils'
 const Home: NextPage = () => {
   const router = useRouter()
   const { isDesktop, isMobile, isTablet } = useViewport()
+
   const upcomingEventsList = [
     {
       id: '0',
@@ -155,9 +156,9 @@ const Home: NextPage = () => {
             </ul>
           </div>
 
-          <div className='w-full overflow-auto pt-[32px] scrollbar-thin scrollbar-thumb-N-300 scrollbar-track-N-100 overflow-y-scroll scrollbar-py-[12px] scrollbar-track-rounded-full scrollbar-thumb-rounded-full'>
+          <div className='scrollbar-py-[12px] scrollbar-track-rounded-full scrollbar-thumb-rounded-full w-full overflow-auto overflow-y-scroll pt-[32px] scrollbar-thin scrollbar-track-N-100 scrollbar-thumb-N-300'>
             <p className='mb-[16px] text-md text-N-600'>Recent orders</p>
-            <ul className='flex w-[600px] md:w-[unset] lg:w-[unset] flex-col gap-[16px] overflow-auto '>
+            <ul className='flex w-[600px] flex-col gap-[16px] overflow-auto pb-[24px] md:w-[unset] lg:w-[unset]'>
               {recentOrdersList.map(({ id, orderNumber, url, label, date, isCompleted }, index) => (
                 <li key={id || index} className='grid grid-cols-[0.75fr_1fr_3fr_1fr] gap-[24px]'>
                   <span className='text-base text-N-800'>{orderNumber}</span>
@@ -185,7 +186,7 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <div className='lg:flex lg:flex-col'>
+        <div className='justify-end md:flex md:flex-row-reverse md:gap-[24px] lg:flex lg:flex-col'>
           <div className='flex'>
             {!isMobile && (
               <div className='md:w-full'>
@@ -210,7 +211,7 @@ const Home: NextPage = () => {
             )}
           </div>
 
-          <div className='events w-full rounded-[12px] bg-N-50 px-[24px] py-[24px] lg:w-[368px] lg:px-[32px] lg:py-[32px]'>
+          <div className='events w-full rounded-[12px] bg-N-50 px-[24px] py-[24px] md:w-[340px] lg:w-[368px] lg:px-[32px] lg:py-[32px]'>
             <p className='mb-[16px] text-md text-N-600'>Upcoming events</p>
             <ul className='flex flex-col gap-[16px]'>
               {upcomingEventsList.map(({ id, url, label, date }, index) => (
