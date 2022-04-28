@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import CN from 'classnames'
 import Link from 'next/link'
 import type { NextPage } from 'next'
@@ -9,11 +10,13 @@ import { MemberCard } from '@/components/molecules/MemberCard'
 import { ArrowRightCircle } from 'react-feather'
 import { DashboardMenu } from '@/components/molecules/DashboardMenu'
 import { useViewport } from '@/utils'
+import { PurchasesOrders } from '@/components/sections/PurchasesOrders'
 
 const Home: NextPage = () => {
   const router = useRouter()
   const { isDesktop, isMobile, isTablet } = useViewport()
 
+  const [activeTab, setActiveTab] = useState('orders')
   const recentOrdersList = [
     {
       id: '0',
@@ -126,7 +129,7 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      <div className='container flex gap-[48px] pt-[40px] pb-[40px] md:pb-[80px] lg:pb-[80px]'>
+      <div className='container flex gap-[48px] py-[40px] md:pb-[80px] lg:pb-[80px]'>
         <div className='dashboard-menu hidden lg:flex'>
           <div className='w-full'>
             <DashboardMenu />
@@ -139,83 +142,26 @@ const Home: NextPage = () => {
             <Link href='#'>
               <Button
                 className='mb-[16px] h-0 px-0 py-0 text-base font-600'
-                isActive
-                appearance='ghost'>
+                view={activeTab === 'orders' ? 'outline' : 'solid'}
+                appearance='ghost'
+                onClick={() => setActiveTab('orders')}>
                 Orders
               </Button>
             </Link>
             <Link href='#'>
-              <Button className='mb-[16px] h-0 px-0 py-0 text-base font-600' appearance='ghost'>
+              <Button
+                className='mb-[16px] h-0 px-0 py-0 text-base font-600'
+                appearance='ghost'
+                onClick={() => setActiveTab('booking')}>
                 Booking
               </Button>
             </Link>
           </div>
-
-          <div className='scrollbar-py-[12px] scrollbar-track-rounded-full scrollbar-thumb-rounded-full w-full overflow-auto overflow-y-scroll pt-[24px]  scrollbar-thin scrollbar-track-N-100 scrollbar-thumb-N-300 md:pt-[24px] lg:pt-[16px]'>
-            <div className='flex w-[1000px] flex-col gap-[16px] overflow-auto md:w-[960px] lg:w-[unset]'>
-              <div className='grid grid-cols-[1.5fr_2fr_4fr_3fr_2fr_3fr] gap-[16px] bg-N-50 py-[4px] pl-[8px] text-md text-N-600'>
-                <div>Order ID</div>
-                <div>Date</div>
-                <div>Status</div>
-                <div>No. of items</div>
-                <div>Total</div>
-                <div>Actions</div>
-              </div>
-            </div>
-            <div>
-              <ul className='flex w-[1000px] flex-col gap-[16px] overflow-auto md:w-[960px] lg:w-[unset]'>
-                {recentOrdersList.map(
-                  (
-                    {
-                      id,
-                      orderNumber,
-                      url,
-                      label,
-                      itemsCount,
-                      price,
-                      date,
-                      isCompleted,
-                      isPending,
-                    },
-                    index
-                  ) => (
-                    <li
-                      key={id || index}
-                      className='grid grid-cols-[1.5fr_2fr_4fr_3fr_2fr_3fr] gap-[16px] pl-[8px]'>
-                      <span className='text-base text-N-800'>{orderNumber}</span>
-                      <p className='text-base font-400 text-N-600'>{date}</p>
-                      <p
-                        className={CN(`text-base font-400`, {
-                          'text-N-800': !isCompleted,
-                          'text-G-500': isCompleted,
-                        })}>
-                        {label}
-                      </p>
-                      <p>{itemsCount}</p>
-                      <p>{price}</p>
-                      <div className='flex gap-[16px]'>
-                        <a
-                          target='_blank'
-                          href={url}
-                          className='font-600 text-N-800 hover:text-B-500'>
-                          View
-                        </a>
-                        <a
-                          target='_blank'
-                          href={url}
-                          className={CN(`text-base font-600`, {
-                            'hidden': !isPending,
-                            'text-B-500 hover:text-B-600': isPending,
-                          })}>
-                          Pay
-                        </a>
-                      </div>
-                    </li>
-                  )
-                )}
-              </ul>
-            </div>
+          <div className='flex flex-col'>
+            {activeTab === 'orders' && <PurchasesOrders />}
+            {activeTab === 'booking' && <PurchasesOrders />}
           </div>
+
           <div className='pt-[24px] md:pt-[16px] lg:pt-[16px]'>
             <Link href='#'>
               <Button iconAfter={<i className='ri-arrow-right-line text-lg' />} appearance='link'>
