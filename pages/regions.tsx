@@ -141,7 +141,7 @@ const Home: NextPage = () => {
           </div>
         )}
 
-        <div className='region-list pt-[40px] md:pt-[80px] lg:pt-[80px]'>
+        <div className='region-list py-[40px] md:py-[80px]'>
           <ul className='flex flex-col gap-[24px] md:flex md:px-[88px] lg:grid lg:grid-cols-3 lg:gap-x-[48px] lg:gap-y-[24px] lg:px-0'>
             {regionLinks.map(({ id, url, label, isActive }, index) => (
               <li key={id || index}>
