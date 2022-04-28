@@ -22,21 +22,23 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      <div className='container flex pt-[20px] pb-[24px] md:pb-[80px] lg:pb-[80px]'>
+      <div className='container flex pt-[20px] pb-[24px] md:pb-[80px]'>
         <PageHeaderVariant
-          heading='Charity & Request a wish'
+          heading='Charity & <br class="hidden md:inline"/> Request a <br class="md:hidden" /> wish'
           image='/images/charity.png'
+          imageClassName='!h-[214px] md:!h-[248px] lg:!h-[423px]'
           description='A major part of being a member of Tesla Owners UK is the ability to attend events – both National and Regional. </br>
           From Track Days to Regional Meetups and visits to the Tesla facilities both in Europe and in the US we have you covered!'
+          descriptionClassName='md:!pt-[40px]'
         />
       </div>
 
       <div className='container'>
-        <div className='flex flex-col gap-[24px] pb-[24px] md:flex-row md:items-center md:justify-between md:pb-[40px] lg:flex-row lg:justify-between lg:pb-[40px]'>
+        <div className='flex flex-col gap-[24px] pb-[24px] md:flex-row md:items-center md:justify-between md:gap-0 md:pb-[40px] lg:flex-row lg:justify-between lg:pb-[40px]'>
           <h3 className='text-h4 font-700 text-N-800 md:w-[388px] md:text-h3 lg:w-[unset] lg:text-h3'>
             Tesla Owners UK Charity & Programmes
           </h3>
-          <div className='lg:w-[320px]'>
+          <div className='md:w-[252px] lg:w-[320px]'>
             <TextField placeholder='Filter by type' />
           </div>
         </div>
@@ -81,7 +83,7 @@ const Home: NextPage = () => {
             }}
           />
         </div>
-        <div className='w-full max-w-[784px] md:pt-[80px] lg:pt-[80px]'>
+        <div className='w-full max-w-[784px] pb-[40px] pt-[24px] md:py-[80px]'>
           <Pagination />
         </div>
       </div>

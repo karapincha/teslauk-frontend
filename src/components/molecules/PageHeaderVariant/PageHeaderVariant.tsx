@@ -6,13 +6,19 @@ export interface PageHeaderVariantProps {
   image?: string
   heading?: string
   description?: string
+  commonClassName?: string
+  imageClassName?: string
+  descriptionClassName?: string
 }
 
 export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
   className,
   image,
   heading,
+  commonClassName,
   description,
+  imageClassName,
+  descriptionClassName,
   ...restProps
 }: PageHeaderVariantProps) => {
   const PageHeaderVariantClasses = CN(
@@ -22,19 +28,26 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
 
   return (
     <div className={PageHeaderVariantClasses} {...restProps}>
-      <div className='flex w-full flex-shrink-0 flex-col lg:w-[25%] lg:gap-[28px]'>
+      <div
+        className={CN(
+          'flex w-full flex-shrink-0 flex-col lg:w-[25%] lg:gap-[28px]',
+          commonClassName
+        )}>
         <h1
           className='flex-shrink-0 overflow-auto text-h3 font-700 text-N-800 md:text-h2  lg:text-h1'
           dangerouslySetInnerHTML={{ __html: heading || '' }}
         />
         {description && (
           <p
-            className='flex-shrink-0 pt-[24px] text-base font-400 text-N-600 lg:pt-0'
+            className={CN(
+              'flex-shrink-0 pt-[24px] text-base font-400 text-N-600 lg:pt-0',
+              descriptionClassName
+            )}
             dangerouslySetInnerHTML={{ __html: description || '' }}
           />
         )}
       </div>
-      <div className='h-[178px] w-full md:h-[248px] lg:h-[407px]'>
+      <div className={CN('h-[178px] w-full md:h-[248px] lg:h-[407px]', imageClassName)}>
         <img src={image} className='h-full w-full rounded-[12px] object-cover object-center' />
       </div>
     </div>
