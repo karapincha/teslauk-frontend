@@ -10,7 +10,6 @@ import { DashboardMenu } from '@/components/molecules/DashboardMenu'
 const Home: NextPage = () => {
   const router = useRouter()
 
-
   return (
     <>
       <Head>
@@ -19,9 +18,9 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='py-[24px]'/>
+      <Header className='py-[24px]' />
 
-      <div className='container pt-[40px] pb-[40px] lg:flex lg:gap-[48px] lg:pb-[80px]'>
+      <div className='container pt-[40px] pb-[40px] lg:flex lg:gap-[48px] md:pb-[80px]'>
         <div className='dashboard-menu hidden lg:flex'>
           <div className='w-full'>
             <DashboardMenu />
@@ -38,22 +37,22 @@ const Home: NextPage = () => {
               <div className='flex w-full flex-col justify-between gap-[16px] md:flex-row lg:flex-row lg:gap-[48px]'>
                 <div className='flex w-full flex-col gap-[4px]'>
                   <p className='text-md text-N-600'>First Name</p>
-                  <TextField />
+                  <TextField placeholder='Enter first name' />
                 </div>
                 <div className='flex w-full flex-col gap-[4px]'>
                   <p className='text-md text-N-600'>Last Name</p>
-                  <TextField />
+                  <TextField placeholder='Enter last name' />
                 </div>
               </div>
 
               <div className='flex w-full flex-col gap-[4px]'>
                 <p className='text-md text-N-600'>Display name</p>
-                <TextField />
+                <TextField placeholder='Enter display name' />
               </div>
 
               <div className='flex w-full flex-col gap-[4px]'>
                 <p className='text-md text-N-600'>Email address</p>
-                <TextField />
+                <TextField placeholder='Enter email address' />
               </div>
             </div>
 
@@ -65,13 +64,13 @@ const Home: NextPage = () => {
                   <p className='text-md text-N-600'>
                     Current password (leave blank to leave unchanged)
                   </p>
-                  <TextField type='password' />
+                  <TextField type='password' placeholder='Enter current password here' />
                 </div>
                 <div className='flex flex-col gap-[4px]'>
                   <p className='text-md text-N-600'>
                     New password (leave blank to leave unchanged)
                   </p>
-                  <TextField type='password' />
+                  <TextField type='password' placeholder='Enter new password here' />
                 </div>
               </div>
 
