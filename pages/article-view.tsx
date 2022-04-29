@@ -168,7 +168,7 @@ const Home: NextPage = () => {
           <div className='article-view-right-bar'>
             <div className='flex flex-col gap-[40px] pt-[40px] md:grid md:grid-cols-2 md:justify-between md:gap-[24px] lg:flex lg:flex-col lg:gap-[40px]'>
               <div className='article-view-categories'>
-                <p className='text-base font-600 text-N-600 md:col-start-2 '>Categories</p>
+                <p className='text-base font-600 text-N-800 md:col-start-2 '>Categories</p>
                 <div className='cursor-pointer pt-[12px]'>
                   <Chip
                     className='mb-[16px]'
@@ -204,7 +204,7 @@ const Home: NextPage = () => {
               </div>
 
               <div className='most-accessed'>
-                <p className='text-base font-600 text-N-600'>Most Accessed...</p>
+                <p className='text-base font-600 text-N-800'>Most Usefull</p>
                 <ul className='flex flex-col gap-[8px] pt-[16px]'>
                   {(articleList || []).map(({ id, text, link }: any, index: number) => (
                     <li key={id || index}>
@@ -238,7 +238,6 @@ const Home: NextPage = () => {
                   onClick: () => {
                     console.log('Clicked')
                   },
-                  view: 'outline',
                 }}
               />
             </div>

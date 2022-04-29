@@ -27,7 +27,7 @@ export const ContactCard: FC<ContactCardProps> = ({
         dangerouslySetInnerHTML={{ __html: description }}
       />
       <Button
-        className={CN('rounded-[4px] bg-transparent w-full md:w-[unset] lg:w-[unset]')}
+        className={CN('rounded-[4px] w-full md:w-[unset] lg:w-[unset]')}
         {...restBtnProps}>
         {children || 'Contact Us'}
       </Button>

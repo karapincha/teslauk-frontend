@@ -16,7 +16,7 @@ export const InlineCTA: FC<InlineCTAProps> = ({
   ...restProps
 }: InlineCTAProps) => {
   const InlineCTAClasses = CN(
-    `inline-cta w-full h-[152px] md:h-[104px] lg:h-[104px] bg-[url('/images/004.svg')] bg-no-repeat bg-cover rounded-[12px] flex flex-col md:flex-row lg:flex-row items-center align-center md:px-[48px] lg:px-[52px] overflow-hidden bg-N-100 justify-between px-[16px] py-[16px] gap-[16px]`,
+    `inline-cta w-full bg-[url('/images/004.svg')] bg-no-repeat bg-cover rounded-[12px] flex flex-col md:flex-row lg:flex-row items-center align-center md:px-[48px] lg:px-[52px] overflow-hidden bg-N-100 justify-between px-[16px] py-[16px] md:py-[28px] gap-[16px]`,
     className
   )
 
