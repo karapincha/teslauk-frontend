@@ -14,7 +14,7 @@ export const ArticleCard: FC<ArticleCardProps> = ({
   ...restProps
 }: ArticleCardProps) => {
   const ArticleCardClasses = CN(
-    `article-card flex md:flex-row flex-col-reverse justify-between w-full gap-[24px] md:gap-[32px] lg:gap-[80px] group cursor-pointer md:items-end`,
+    `article-card flex md:flex-row flex-col-reverse items-center justify-between w-full gap-[24px] md:gap-[32px] lg:gap-[80px] group cursor-pointer md:items-end`,
     className
   )
   const { tags, heading, excerpt, image } = data

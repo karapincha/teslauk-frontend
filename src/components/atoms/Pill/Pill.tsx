@@ -36,7 +36,7 @@ export const Pill: FC<PillProps> = (
   /* General */
   const PillClasses = CN('pill', className, {
     /* Common */
-    'rounded-full font-500 flex items-center cursor-pointer': true,
+    'rounded-[12px] font-500 flex items-center cursor-pointer': true,
 
     /* Sizing */
     'px-[16px] h-[44px] flex items-center': size === 'default',
@@ -51,7 +51,7 @@ export const Pill: FC<PillProps> = (
       <span>{children}</span>
 
       {onClose && (
-        <span onClick={onClose} className='pill__icon ml-[12px]'>
+        <span onClick={onClose} className='pill__icon'>
           <X size={16} />
         </span>
       )}
