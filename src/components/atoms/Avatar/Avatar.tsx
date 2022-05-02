@@ -5,7 +5,8 @@ export interface AvatarProps {
   [x: string]: any
   image?: string
   onClick?: any
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'xl'
+  rounded?: 'full' | 'default'
 }
 
 export const Avatar: FC<AvatarProps> = ({
@@ -13,6 +14,7 @@ export const Avatar: FC<AvatarProps> = ({
   image,
   onClick,
   size,
+  rounded,
   ...restProps
 }: AvatarProps) => {
   const AvatarClasses = CN(`avatar flex`, className, {})
@@ -22,11 +24,15 @@ export const Avatar: FC<AvatarProps> = ({
       <img
         src={image}
         onClick={onClick}
-        className={CN('rounded-[50px]', {
-          'h-[76px] w-[76px]': size === 'lg',
-          'h-[56px] w-[56px]': size === 'md',
-          'h-[40px] w-[40px]': size === 'sm',
-        })}
+        className={CN('object-cover object-center',
+          { 'rounded-[50px]': rounded === 'default', 'rounded-full': rounded === 'full' },
+          {
+            'h-[200px] w-[200px]': size === 'xl',
+            'h-[76px] w-[76px]': size === 'lg',
+            'h-[56px] w-[56px]': size === 'md',
+            'h-[40px] w-[40px]': size === 'sm',
+          }
+        )}
       />
     </div>
   )
@@ -34,6 +40,7 @@ export const Avatar: FC<AvatarProps> = ({
 
 Avatar.defaultProps = {
   size: 'md',
+  rounded: 'default',
 }
 
 export default Avatar
