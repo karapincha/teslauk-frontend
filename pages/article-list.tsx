@@ -2,16 +2,13 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
-import { Button } from '@/components/atoms'
-import { PageHeader } from '@/components/molecules'
+import { PageHeader, ArticleCard, Pagination } from '@/components/molecules'
 import { useRouter } from 'next/router'
 import { useViewport } from '@/utils'
-import { searchResult } from '@/dummy-data/search-result'
+import { articleSearchResultA, articleSearchResultB } from '@/dummy-data/article-search-results'
 import articleList from '@/dummy-data/article-list'
-import { ArticleCard } from '@/components/molecules'
 import { ArrowRight } from 'react-feather'
 import { ContactCard } from '@/components/molecules/ContactCard'
-import { Pagination } from '@/components/molecules'
 import { InlineCTA } from '@/components/molecules/InlineCTA'
 
 const Home: NextPage = () => {
@@ -48,19 +45,20 @@ const Home: NextPage = () => {
         />
       </div>
 
-      <div className='container py-[80px]'>
-        <h3 className='pb-[40px] text-h3 font-700 text-N-800'>About the car</h3>
+      {/* Main div with all the content */}
+      <div className='container py-[48px] md:py-[80px]'>
+        <h3 className='pb-[24px] text-h3 font-700 text-N-800 md:pb-[40px]'>About the car</h3>
 
-        <div className='flex gap-[48px]'>
-          <div>
-            <div className='flex flex-col gap-[24px] md:gap-[46px]'>
-              {(searchResult || []).map((item: any, index: number) => (
-                <Link href={item?.permalink} passHref key={index}>
-                  <ArticleCard data={item} className='!gap-[64px]' />
-                </Link>
-              ))}
-            </div>
-            <div className='py-[80px]'>
+        <div className='flex flex-col lg:flex-row lg:gap-[48px]'>
+          {/* Article list */}
+          <div className='article_list flex flex-col gap-[24px] md:gap-[46px]'>
+            {(articleSearchResultA || []).map((item: any, index: number) => (
+              <Link href={item?.permalink} passHref key={index}>
+                <ArticleCard data={item} className='w-full items-center md:!gap-[64px]' />
+              </Link>
+            ))}
+
+            <div className='lg::py-[80px] py-[40px]'>
               <InlineCTA
                 heading='Do you have the experties?  Share your knowledge!'
                 btnProps={{
@@ -71,48 +69,61 @@ const Home: NextPage = () => {
                 }}
               />
             </div>
+            <div className='article_list flex flex-col gap-[24px] md:gap-[46px]'>
+              {(articleSearchResultB || []).map((item: any, index: number) => (
+                <Link href={item?.permalink} passHref key={index}>
+                  <ArticleCard data={item} className='w-full items-center md:!gap-[64px]' />
+                </Link>
+              ))}
+            </div>
+            <div className='w-full max-w-[784px] pt-[24px] md:pt-[80px]'>
+              <Pagination />
+            </div>
           </div>
 
-          <div className='flex flex-col gap-[40px]'>
-            <div className='most-accessed'>
-              <p className='text-h4 font-600 text-N-800'>Most Accessed...</p>
-              <ul className='flex flex-col gap-[8px] pt-[16px]'>
-                {(articleList || []).map(({ id, text, link }: any, index: number) => (
-                  <li key={id || index}>
-                    <a href={link} className='text-h5 font-500 text-N-600  hover:text-B-500'>
-                      {text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <p className='flex items-center gap-[4px] pt-[16px] text-B-500'>
-                <a href='#' className='text-base font-600 text-B-500 hover:text-B-600'>
-                  See all most accessed (30)
-                </a>
-                <span>
-                  <ArrowRight size={20} />
-                </span>
-              </p>
-            </div>
-            <div className='most-usefull'>
-              <p className='text-h4 font-600 text-N-800'>Most Usefull...</p>
-              <ul className='flex flex-col gap-[8px] pt-[16px]'>
-                {(articleList || []).map(({ id, text, link }: any, index: number) => (
-                  <li key={id || index}>
-                    <a href={link} className='text-h5 font-500 text-N-600  hover:text-B-500'>
-                      {text}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <p className='flex items-center gap-[4px] pt-[16px] text-B-500'>
-                <a href='#' className='text-base font-600 text-B-500 hover:text-B-600'>
-                  See all most usefull (25)
-                </a>
-                <span>
-                  <ArrowRight size={20} />
-                </span>
-              </p>
+          {/* Right side section with quick links */}
+          <div className='flex flex-col gap-[40px] pt-[48px] md:pt-[80px]'>
+            <div className='md:flex lg:flex-col lg:gap-[40px]'>
+              <div className='most-accessed'>
+                <p className='text-h4 font-600 text-N-800'>Most Accessed...</p>
+                <ul className='flex flex-col gap-[8px] pt-[16px]'>
+                  {(articleList || []).map(({ id, text, link }: any, index: number) => (
+                    <li key={id || index}>
+                      <a href={link} className='text-h5 font-500 text-N-600  hover:text-B-500'>
+                        {text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <p className='flex items-center gap-[4px] pt-[16px] text-B-500'>
+                  <a href='#' className='text-base font-600 text-B-500 hover:text-B-600'>
+                    See all most accessed (30)
+                  </a>
+                  <span>
+                    <ArrowRight size={20} />
+                  </span>
+                </p>
+              </div>
+              <div className='most-usefull'>
+                <p className='text-h4 font-600 text-N-800'>Most Usefull...</p>
+                <ul className='flex flex-col gap-[8px] pt-[16px]'>
+                  {(articleList || []).map(({ id, text, link }: any, index: number) => (
+                    <li key={id || index}>
+                      <a href={link} className='text-h5 font-500 text-N-600  hover:text-B-500'>
+                        {text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <p className='flex items-center gap-[4px] pt-[16px] text-B-500'>
+                  <a href='#' className='text-base font-600 text-B-500 hover:text-B-600'>
+                    See all most usefull (25)
+                  </a>
+                  <span>
+                    <ArrowRight size={20} />
+                  </span>
+                </p>
+              </div>
             </div>
             <div className='contact-card'>
               <ContactCard
@@ -132,10 +143,6 @@ const Home: NextPage = () => {
               />
             </div>
           </div>
-        </div>
-
-        <div className='w-full max-w-[784px] pt-[80px]'>
-          <Pagination />
         </div>
       </div>
 
