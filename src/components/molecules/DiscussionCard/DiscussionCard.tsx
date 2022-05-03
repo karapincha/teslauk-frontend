@@ -12,6 +12,7 @@ export interface DiscussionCardProps {
   subHeading?: string
   pillText?: string
   isWide?: boolean
+  cover?: any
 }
 
 export const DiscussionCard: FC<DiscussionCardProps> = ({
