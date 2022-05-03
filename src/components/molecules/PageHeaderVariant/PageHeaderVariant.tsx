@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
+import { useViewport } from '@/utils'
 
 export interface PageHeaderVariantProps {
   [x: string]: any
@@ -26,6 +27,18 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
     className
   )
 
+  const { isMobile, isTablet, isDesktop } = useViewport()
+
+  const renderGraphic = () => {
+    return (
+      <div className='pt-[40px] md:pt-0'>
+        <div className={CN('h-[178px] w-full md:h-[248px] lg:h-[407px]', imageClassName)}>
+          <img src={image} className='h-full w-full rounded-[12px] object-cover object-center' />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className={PageHeaderVariantClasses} {...restProps}>
       <div
@@ -37,6 +50,9 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
           className='flex-shrink-0 overflow-auto text-h3 font-700 text-N-800 md:text-h2  lg:text-h1'
           dangerouslySetInnerHTML={{ __html: heading || '' }}
         />
+
+        {isMobile && renderGraphic()}
+
         {description && (
           <p
             className={CN(
@@ -47,9 +63,7 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
           />
         )}
       </div>
-      <div className={CN('h-[178px] w-full md:h-[248px] lg:h-[407px]', imageClassName)}>
-        <img src={image} className='h-full w-full rounded-[12px] object-cover object-center' />
-      </div>
+      {!isMobile && renderGraphic()}
     </div>
   )
 }

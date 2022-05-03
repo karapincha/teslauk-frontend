@@ -8,7 +8,7 @@ export interface PillProps {
   isActive?: boolean
   onClick?: any
   onClose?: any
-  size?: 'default' | 'sm' | 'lg' | undefined
+  size?: 'default' | 'sm' | 'md' | 'lg' | undefined
 }
 
 export const Pill: FC<PillProps> = (
@@ -36,11 +36,12 @@ export const Pill: FC<PillProps> = (
   /* General */
   const PillClasses = CN('pill', className, {
     /* Common */
-    'rounded-[12px] font-500 flex items-center cursor-pointer': true,
+    'rounded-full font-600 text-white flex items-center cursor-pointer': true,
 
     /* Sizing */
     'px-[16px] h-[44px] flex items-center': size === 'default',
-    'px-[16px] h-[36px] flex items-center': size === 'sm',
+    'px-[16px] h-[28px] flex items-center': size === 'md',
+    'px-[12px] h-[24px] flex items-center': size === 'sm',
   })
 
   return (
