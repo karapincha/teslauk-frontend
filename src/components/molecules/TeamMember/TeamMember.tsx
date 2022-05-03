@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import CN from 'classnames'
 import { Avatar } from '@/components/atoms'
 import { LinkedIn, Mail } from '@/icons'
+import { useViewport } from '@/utils'
 
 export interface TeamMemberProps {
   [x: string]: any
@@ -22,16 +23,26 @@ export const TeamMember: FC<TeamMemberProps> = ({
   ...restProps
 }: TeamMemberProps) => {
   const TeamMemberClasses = CN(
-    `team-member bg-white border border-N-100 w-[368px] h-[440px] flex flex-col items-center pt-[42px] rounded-[12px]`,
+    `team-member bg-white border border-N-100 h-full pb-[12px] md:pb-[24px] lg:pb-[40px] lg:w-[368px] lg:h-[440px] flex flex-col items-center pt-[24px] lg:pt-[42px] rounded-[12px]`,
     className
   )
 
+  const { isMobile, isTablet, isDesktop } = useViewport()
+
   return (
     <div className={TeamMemberClasses} {...restProps}>
-      <Avatar image={image} size='xl' rounded='full' />
-      <div className='flex flex-col items-center gap-[12px] pt-[22px] px-[16px]'>
-        <h4 className='text-h4 font-600 text-N-800 text-center'>{name}</h4>
-        <h5 className='text-h5 font-500 text-N-500 text-center'>{role}</h5>
+      <img
+        src={image}
+        className='h-[100px] w-[100px] rounded-full object-cover object-center md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px]'
+        width={(isDesktop && 200) || (isTablet && 150) || 100}
+        height={(isDesktop && 200) || (isTablet && 150) || 100}
+      />
+
+      <div className='flex flex-col items-center px-[16px] pt-[12px] lg:pt-[22px]'>
+        <h4 className='pb-[4px] text-center text-base font-600 text-N-800 lg:pb-[12px] lg:text-h4'>
+          {name}
+        </h4>
+        <h5 className='pb-[12px] text-center text-base font-500 text-N-500 lg:text-h5'>{role}</h5>
         <div className='flex items-center gap-[16px]'>
           <a href={linkedIn} className='text-N-500'>
             <LinkedIn size={20} />
