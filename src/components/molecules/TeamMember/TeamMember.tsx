@@ -23,7 +23,7 @@ export const TeamMember: FC<TeamMemberProps> = ({
   ...restProps
 }: TeamMemberProps) => {
   const TeamMemberClasses = CN(
-    `team-member bg-white border border-N-100 h-full pb-[12px] md:pb-[24px] lg:pb-[40px] lg:w-[368px] lg:h-[440px] flex flex-col items-center pt-[24px] lg:pt-[42px] rounded-[12px]`,
+    `team-member bg-white border border-N-100 h-full pb-[12px] md:pb-[36px] lg:pb-[40px] lg:w-[368px] lg:h-[440px] flex flex-col items-center pt-[24px] md:pt-[36px] lg:pt-[42px] rounded-[12px]`,
     className
   )
 
