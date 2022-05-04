@@ -31,7 +31,7 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
 
   const renderGraphic = () => {
     return (
-      <div className='pt-[40px] md:pt-0'>
+      <div className='w-full pt-[40px] md:pt-0'>
         <div className={CN('h-[178px] w-full md:h-[248px] lg:h-[407px]', imageClassName)}>
           <img src={image} className='h-full w-full rounded-[12px] object-cover object-center' />
         </div>

@@ -44,7 +44,7 @@ const Home: NextPage = () => {
           description='The discussion groups are primarily on Facebook. Some are members only, but some are open to prospective owners.'
           commonClassName='lg:w-[30%]'
           descriptionClassName='!pt-[40px]'
-          imageClassName='!h-[205px] md:!h-[248px] lg:!h-[423px]'
+          imageClassName='!h-[205px] md:!h-[248px] lg:!h-[407px] w-full'
         />
       </div>
 
@@ -83,7 +83,7 @@ const Home: NextPage = () => {
         <SectionHeading
           overline='Official'
           heading='Facebook <br/> Discussion Groups'
-          headingClassName='text-display !text-h3 lg:!text-h2 font-700'
+          headingClassName='text-display !text-h3 lg:!text-h2 font-700 !mb-0'
           align='left'
         />
 

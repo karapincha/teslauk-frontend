@@ -42,15 +42,16 @@ export const DiscussionCard: FC<DiscussionCardProps> = ({
     <div className={DiscussionCardClasses} {...restProps}>
       {/* Background with image */}
       <div
-        className={CN(
-          `flex h-[292px] flex-shrink-0 rounded-t-[12px]  bg-cover bg-no-repeat lg:h-[unset] `,
-          {
-            'w-full md:w-[50%] md:rounded-l-[12px] md:rounded-tr-none': isWide,
-            'w-full lg:w-[258px]': !isWide,
-          }
-        )}
+        className={CN(`flex h-[292px] flex-shrink-0  bg-cover bg-no-repeat lg:h-[unset] `, {
+          'w-full rounded-t-[12px] md:w-[50%] md:rounded-l-[12px] md:rounded-tr-none': isWide,
+          'w-full rounded-t-[12px] lg:w-[258px] lg:rounded-tr-none lg:rounded-bl-[12px]': !isWide,
+        })}
         style={{ backgroundImage: `url('${cover || ''}')` }}>
-        <div className='flex w-full bg-gradient-to-t from-[#000000DE] to-[#00000000] md:rounded-bl-[12px]'>
+        <div
+          className={CN('flex w-full bg-gradient-to-t from-[#000000DE] to-[#00000000]', {
+            'md:rounded-bl-[12px]': isWide,
+            'lg:rounded-bl-[12px]': !isWide,
+          })}>
           <div className='flex flex-col justify-between px-[24px] pb-[24px]'>
             <div className='flex pt-[24px]'>
               {category && (
