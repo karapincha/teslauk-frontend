@@ -1,12 +1,16 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
 import { useViewport } from '@/utils'
+import { Button } from '@/components/atoms'
 
 export interface PageHeaderVariantProps {
   [x: string]: any
   image?: string
   heading?: string
+  btnProps?: any
   description?: string
+  metaData?: string
+  metaDataNumber?: string
   commonClassName?: string
   imageClassName?: string
   descriptionClassName?: string
@@ -18,6 +22,9 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
   heading,
   commonClassName,
   description,
+  btnProps,
+  metaData,
+  metaDataNumber,
   imageClassName,
   descriptionClassName,
   ...restProps
@@ -28,6 +35,7 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
   )
 
   const { isMobile, isTablet, isDesktop } = useViewport()
+  const { children, ...restBtnProps } = btnProps || {}
 
   const renderGraphic = () => {
     return (
@@ -46,13 +54,16 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
           'flex w-full flex-shrink-0 flex-col lg:w-[25%] lg:gap-[28px]',
           commonClassName
         )}>
+        {/* Heading */}
         <h1
           className='flex-shrink-0 overflow-auto text-h3 font-700 text-N-800 md:text-h2  lg:text-h1'
           dangerouslySetInnerHTML={{ __html: heading || '' }}
         />
 
+        {/* Image in mobile version */}
         {isMobile && renderGraphic()}
 
+        {/* Description */}
         {description && (
           <p
             className={CN(
@@ -62,7 +73,27 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
             dangerouslySetInnerHTML={{ __html: description || '' }}
           />
         )}
+
+        {/* MetaData */}
+
+        {metaData && (
+          <div className='flex items-center gap-[8px] pt-[32px]'>
+            <h3 className='text-h3 font-700'>{metaDataNumber}</h3>
+            <div className='h-[72px] w-[1px] border text-N-200' />
+            <p
+              className={CN('text-md font-400 text-N-600')}
+              dangerouslySetInnerHTML={{ __html: metaData || '' }}
+            />
+          </div>
+        )}
+
+        {btnProps && (
+          <div className='pt-[32px]'>
+            <Button {...restBtnProps}>{children || 'Search suppliers'}</Button>
+          </div>
+        )}
       </div>
+
       {!isMobile && renderGraphic()}
     </div>
   )
