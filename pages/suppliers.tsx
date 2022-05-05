@@ -3,13 +3,13 @@ import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useRouter } from 'next/router'
 import { PageHeaderVariant } from '@/components/molecules/PageHeaderVariant'
-import { Button } from '@/components/atoms'
+import { Button, TextField } from '@/components/atoms'
 import { InitiativeCard } from '@/components/molecules/InitiativeCard'
 import { ChartLine, Facebook, LinkedIn } from '@/icons'
 import { SectionHeading } from '@/components/molecules'
 import discussionList, { discussionCardList } from '@/dummy-data/discussion-list'
 import { DiscussionCard } from '@/components/molecules/DiscussionCard'
-import { ArrowLeft, ArrowRight } from 'react-feather'
+import { ArrowLeft, ArrowRight, Search } from 'react-feather'
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -110,6 +110,39 @@ const Home: NextPage = () => {
               Become a key partner
             </Button>
           </div>
+        </div>
+      </div>
+
+      {/* Verified */}
+      <div className='container flex items-center gap-[152px] py-[80px]'>
+        <div>
+          <img src='/images/verified-people.png' className='h-[576px] w-[576px]' />
+        </div>
+        <div className='flex flex-col gap-[24px]'>
+          <SectionHeading
+            overline='Supplier listings'
+            heading='Verified by Tesla <br/> owners'
+            description='Every listing has been verified by at least two independent Tesla <br/> Owners who are willing to vouch for the supplier.'
+            headingClassName='text-display !text-h3 lg:!text-h2 font-700'
+            align='left'
+          />
+          <div className='flex '>
+            <Button className='px-0' appearance='ghost' iconAfter={<ArrowRight size={20} />}>
+              Become an approved supplier
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Search suppliers */}
+      <div className='container flex flex-col gap-[40px] pb-[80px]'>
+        <h3 className='text-center text-h3 font-700'>Search suppliers</h3>
+        <div className='flex items-center gap-[24px] bg-N-50 px-[24px] py-[24px]'>
+          <TextField placeHolder='Select / filter by category' />
+          <TextField placeHolder='Location' />
+          <Button appearance='primary' iconAfter={<Search size={20} />}>
+            Search
+          </Button>
         </div>
       </div>
 
