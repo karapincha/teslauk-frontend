@@ -6,27 +6,17 @@ import { PageHeaderVariant } from '@/components/molecules/PageHeaderVariant'
 import { Button, TextField } from '@/components/atoms'
 import { InitiativeCard } from '@/components/molecules/InitiativeCard'
 import { ChartLine, Facebook, LinkedIn } from '@/icons'
-import { SectionHeading } from '@/components/molecules'
+import { Pagination, SectionHeading } from '@/components/molecules'
 import discussionList, { discussionCardList } from '@/dummy-data/discussion-list'
 import { DiscussionCard } from '@/components/molecules/DiscussionCard'
 import { ArrowLeft, ArrowRight, Search } from 'react-feather'
+import { SearchSuppliers } from '@/components/molecules/SearchSuppliers'
+import { supplierList } from '@/dummy-data/supplier-list'
+import { useViewport } from '@/utils'
 
 const Home: NextPage = () => {
   const router = useRouter()
-  const discussionList = [
-    {
-      id: 0,
-      label: 'An ideal place for potential owners to discuss before buying',
-    },
-    {
-      id: 1,
-      label: 'Open to all, ask lots of questions from the owners on here',
-    },
-    {
-      id: 2,
-      label: 'Created by owners for owners and prospective owners',
-    },
-  ]
+  const { isMobile, isTablet, isDesktop } = useViewport()
 
   return (
     <>
@@ -70,38 +60,54 @@ const Home: NextPage = () => {
           />
 
           {/* Partners */}
-          <div className='grid grid-cols-4 gap-x-[48px] gap-y-[40px] py-[48px]'>
+          <div className='grid grid-cols-2 justify-items-center gap-x-[12px] gap-y-[16px] py-[48px] md:gap-x-[48px] md:gap-y-[40px] lg:grid-cols-4'>
             <img
               src='/images/partners/partner-001.png'
-              className='h-[120px] w-[264px] object-cover object-center'
+              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
+              width={(isMobile && 165) || 264}
+              height={(isMobile && 75) || 120}
             />
             <img
               src='/images/partners/partner-002.png'
-              className='h-[120px] w-[264px] object-cover object-center'
+              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
+              width={(isMobile && 165) || 264}
+              height={(isMobile && 75) || 120}
             />
             <img
               src='/images/partners/partner-003.png'
-              className='h-[120px] w-[264px] object-cover object-center'
+              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
+              width={(isMobile && 165) || 264}
+              height={(isMobile && 75) || 120}
             />
             <img
               src='/images/partners/partner-004.png'
-              className='h-[120px] w-[264px] object-cover object-center'
+              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
+              width={(isMobile && 165) || 264}
+              height={(isMobile && 75) || 120}
             />
             <img
               src='/images/partners/partner-005.png'
-              className='h-[120px] w-[264px] object-cover object-center'
+              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
+              width={(isMobile && 165) || 264}
+              height={(isMobile && 75) || 120}
             />
             <img
               src='/images/partners/partner-004.png'
-              className='h-[120px] w-[264px] object-cover object-center'
+              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
+              width={(isMobile && 165) || 264}
+              height={(isMobile && 75) || 120}
             />
             <img
               src='/images/partners/partner-007.png'
-              className='h-[120px] w-[264px] object-cover object-center'
+              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
+              width={(isMobile && 165) || 264}
+              height={(isMobile && 75) || 120}
             />
             <img
               src='/images/partners/partner-008.png'
-              className='h-[120px] w-[264px] object-cover object-center'
+              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
+              width={(isMobile && 165) || 264}
+              height={(isMobile && 75) || 120}
             />
           </div>
 
@@ -114,9 +120,12 @@ const Home: NextPage = () => {
       </div>
 
       {/* Verified */}
-      <div className='container flex items-center gap-[152px] py-[80px]'>
-        <div>
-          <img src='/images/verified-people.png' className='h-[576px] w-[576px]' />
+      <div className='container flex flex-col md:flex-row items-center gap-[152px] py-[80px]'>
+        <div className='flex justify-center md:justify-start'>
+          <img
+            src='/images/verified-people.png'
+            className='h-[343px] w-[343px] lg:h-[576px] lg:w-[576px]'
+          />
         </div>
         <div className='flex flex-col gap-[24px]'>
           <SectionHeading
@@ -135,14 +144,63 @@ const Home: NextPage = () => {
       </div>
 
       {/* Search suppliers */}
-      <div className='container flex flex-col gap-[40px] pb-[80px]'>
-        <h3 className='text-center text-h3 font-700'>Search suppliers</h3>
-        <div className='flex items-center gap-[24px] bg-N-50 px-[24px] py-[24px]'>
-          <TextField placeHolder='Select / filter by category' />
-          <TextField placeHolder='Location' />
-          <Button appearance='primary' iconAfter={<Search size={20} />}>
-            Search
-          </Button>
+      <div className='container '>
+        <div className='flex flex-col gap-[40px]'>
+          <h3 className='text-center text-h3 font-700'>Search suppliers</h3>
+          <div className='flex items-center gap-[24px] bg-N-50 px-[24px] py-[24px]'>
+            <TextField placeHolder='Select / filter by category' />
+            <TextField placeHolder='Location' />
+            <Button appearance='primary' iconAfter={<Search size={20} />}>
+              Search
+            </Button>
+          </div>
+
+          {/* Search results */}
+          <div className='flex flex-col'>
+            <p className='text-base font-400 text-N-600'>57 search results</p>
+
+            <ul className='group flex flex-col'>
+              {(supplierList || []).map(
+                (
+                  {
+                    id,
+                    supplierName,
+                    category,
+                    reviewCount,
+                    isVerified,
+                    isFeatured,
+                    description,
+                    location,
+                    phone,
+                    mail,
+                    website,
+                    image,
+                  }: any,
+                  index: number
+                ) => (
+                  <li key={id || index} className='border-b border-N-200 last:border-b-0'>
+                    <SearchSuppliers
+                      supplierName={supplierName}
+                      category={category}
+                      reviewCount={reviewCount}
+                      isVerified={isVerified}
+                      isFeatured={isFeatured}
+                      description={description}
+                      location={location}
+                      phone={phone}
+                      mail={mail}
+                      website={website}
+                      image={image}
+                    />
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+        </div>
+
+        <div className=' w-full max-w-[784px] md:pt-[40px] md:pb-[80px]'>
+          <Pagination />
         </div>
       </div>
 

@@ -9,6 +9,8 @@ export interface PillProps {
   onClick?: any
   onClose?: any
   size?: 'default' | 'sm' | 'md' | 'lg' | undefined
+  iconBefore?: ReactNode | string | number
+  iconAfter?: ReactNode | string | number
 }
 
 export const Pill: FC<PillProps> = (
@@ -19,6 +21,8 @@ export const Pill: FC<PillProps> = (
     onClick,
     onClose,
     size,
+    iconBefore,
+    iconAfter,
     ...restProps
   }: PillProps,
   ref: any
@@ -30,8 +34,7 @@ export const Pill: FC<PillProps> = (
   })
 
   /* Size*/
-  const pillTextSize =
-    (size === 'default' && 'text-base') || (size === 'sm' && 'text-sm')
+  const pillTextSize = (size === 'default' && 'text-base') || (size === 'sm' && 'text-sm')
 
   /* General */
   const PillClasses = CN('pill', className, {
@@ -49,7 +52,10 @@ export const Pill: FC<PillProps> = (
       className={CN('pill', pillBGColor, pillTextSize, PillClasses)}
       onClick={onClick}
       {...restProps}>
+        
+      {iconBefore && <div className={CN('pr-[4px]')}>{iconBefore}</div>}
       <span>{children}</span>
+      {iconAfter && <div className={CN('pl-[4px]')}>{iconAfter}</div>}
 
       {onClose && (
         <span onClick={onClose} className='pill__icon'>
