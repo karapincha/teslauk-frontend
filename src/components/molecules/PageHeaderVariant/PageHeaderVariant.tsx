@@ -39,7 +39,7 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
 
   const renderGraphic = () => {
     return (
-      <div className='w-full pt-[40px] md:pt-0'>
+      <div className='w-full pt-[24px] md:pt-0'>
         <div className={CN('h-[178px] w-full md:h-[248px] lg:h-[407px]', imageClassName)}>
           <img src={image} className='h-full w-full rounded-[12px] object-cover object-center' />
         </div>
@@ -77,7 +77,7 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
         {/* MetaData */}
 
         {metaData && (
-          <div className='flex items-center gap-[8px] pt-[32px]'>
+          <div className='flex items-center justify-center gap-[8px] pt-[32px] md:justify-start'>
             <h3 className='text-h3 font-700'>{metaDataNumber}</h3>
             <div className='h-[72px] w-[1px] border text-N-200' />
             <p

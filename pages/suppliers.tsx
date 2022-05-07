@@ -28,13 +28,13 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      <div className='container flex pt-[20px] pb-[80px]'>
+      <div className='container flex pt-[20px] pb-[40px] md:pb-[80px]'>
         <PageHeaderVariant
           heading='Suppliers'
           image='https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-          description='The Tesla Owners UK Directory showcases the <br/> best Tesla related products and services from <br/> across the UK.'
+          description='The Tesla Owners UK Directory showcases the <br class="hidden md:inline"/> best Tesla related products and services from <br class="hidden md:inline"/> across the UK.'
           commonClassName='lg:w-[30%] !gap-0'
-          descriptionClassName='text-md !pt-[16px]'
+          descriptionClassName='text-md !pt-[16px] text-center md:text-left'
           imageClassName='!h-[205px] md:!h-[248px] lg:!h-[407px] w-full'
           metaData='Trusted suppliers <br/> network across United <br/> Kingdom'
           metaDataNumber='500+'
@@ -44,14 +44,14 @@ const Home: NextPage = () => {
               console.log('Clicked')
             },
             appearance: 'secondary',
-            className: 'w-[208px]',
+            className: 'w-full md:w-[208px]',
           }}
         />
       </div>
 
       {/* Partners Banner */}
       <div className='bg-[url("/images/patterns/003.svg")] bg-cover bg-no-repeat'>
-        <div className='container py-[80px]'>
+        <div className='container py-[32px] md:py-[48px] lg:py-[80px]'>
           <SectionHeading
             overline='tesla owners club uk'
             heading='Key Partners'
@@ -60,7 +60,7 @@ const Home: NextPage = () => {
           />
 
           {/* Partners */}
-          <div className='grid grid-cols-2 justify-items-center gap-x-[12px] gap-y-[16px] py-[48px] md:gap-x-[48px] md:gap-y-[40px] lg:grid-cols-4'>
+          <div className='grid grid-cols-2 justify-items-center gap-x-[12px] gap-y-[16px] py-[32px] md:gap-x-[48px] md:gap-y-[40px]  md:pt-[40px] md:pb-[24px] lg:grid-cols-4'>
             <img
               src='/images/partners/partner-001.png'
               className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
@@ -120,37 +120,57 @@ const Home: NextPage = () => {
       </div>
 
       {/* Verified */}
-      <div className='container flex flex-col md:flex-row items-center gap-[152px] py-[80px]'>
-        <div className='flex justify-center md:justify-start'>
-          <img
-            src='/images/verified-people.png'
-            className='h-[343px] w-[343px] lg:h-[576px] lg:w-[576px]'
-          />
-        </div>
+      <div className='container flex flex-col-reverse items-center py-[40px] md:flex-row md:gap-[24px] md:py-[80px] lg:gap-[152px] '>
+        {!isMobile && (
+          <div className='flex justify-start'>
+            <img
+              src='/images/verified-people.png'
+              className='h-[343px] w-[343px] lg:h-[576px] lg:w-[576px]'
+            />
+          </div>
+        )}
+
         <div className='flex flex-col gap-[24px]'>
           <SectionHeading
             overline='Supplier listings'
             heading='Verified by Tesla <br/> owners'
-            description='Every listing has been verified by at least two independent Tesla <br/> Owners who are willing to vouch for the supplier.'
-            headingClassName='text-display !text-h3 lg:!text-h2 font-700'
-            align='left'
+            headingClassName='text-display !text-h3 lg:!text-h2 font-700 !mb-0'
+            align={(isMobile && 'center') || 'left'}
           />
-          <div className='flex '>
-            <Button className='px-0' appearance='ghost' iconAfter={<ArrowRight size={20} />}>
-              Become an approved supplier
-            </Button>
-          </div>
+
+          {isMobile && (
+            <div className='flex justify-center'>
+              <img
+                src='/images/verified-people.png'
+                className='h-[343px] w-[343px] lg:h-[576px] lg:w-[576px]'
+              />
+            </div>
+          )}
+
+          <p className='text-center text-md font-500 text-N-600 md:text-left'>
+            Every listing has been verified by at least two independent Tesla{' '}
+            <br className='hidden' /> Owners who are willing to vouch for the supplier.
+          </p>
+          <Button
+            className='px-0 md:!justify-start'
+            appearance='ghost'
+            iconAfter={<ArrowRight size={20} />}>
+            Become an approved supplier
+          </Button>
         </div>
       </div>
 
       {/* Search suppliers */}
       <div className='container '>
-        <div className='flex flex-col gap-[40px]'>
+        <div className='flex flex-col gap-[24px] md:gap-[40px]'>
           <h3 className='text-center text-h3 font-700'>Search suppliers</h3>
-          <div className='flex items-center gap-[24px] bg-N-50 px-[24px] py-[24px]'>
-            <TextField placeHolder='Select / filter by category' />
+          <div className='flex flex-col items-center gap-[24px] bg-N-50 px-[24px] py-[24px] md:flex-row'>
+            <TextField placeHolder='Select / filter by category' /> {/* Change into dropdowns */}
             <TextField placeHolder='Location' />
-            <Button appearance='primary' iconAfter={<Search size={20} />}>
+            <Button
+              appearance='primary'
+              iconAfter={<Search size={20} />}
+              className='w-full md:w-[unset]'>
               Search
             </Button>
           </div>
@@ -178,7 +198,9 @@ const Home: NextPage = () => {
                   }: any,
                   index: number
                 ) => (
-                  <li key={id || index} className='border-b border-N-200 last:border-b-0'>
+                  <li
+                    key={id || index}
+                    className='border-b border-N-200 py-[24px] last:border-b-0 last:pb-0 md:py-[40px]'>
                     <SearchSuppliers
                       supplierName={supplierName}
                       category={category}
@@ -199,7 +221,7 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <div className=' w-full max-w-[784px] md:pt-[40px] md:pb-[80px]'>
+        <div className=' w-full max-w-[784px] py-[40px] md:py-[80px]'>
           <Pagination />
         </div>
       </div>

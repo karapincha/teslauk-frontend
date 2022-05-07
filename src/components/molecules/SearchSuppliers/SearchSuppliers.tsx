@@ -34,7 +34,10 @@ export const SearchSuppliers: FC<SearchSuppliersProps> = ({
   image,
   ...restProps
 }: SearchSuppliersProps) => {
-  const SearchSuppliersClasses = CN(`search-suppliers flex justify-between py-[40px]`, className)
+  const SearchSuppliersClasses = CN(
+    `search-suppliers flex flex-col-reverse md:flex-row gap-[24px] md:gap-0 justify-between`,
+    className
+  )
 
   return (
     <div className={SearchSuppliersClasses} {...restProps}>
@@ -49,22 +52,24 @@ export const SearchSuppliers: FC<SearchSuppliersProps> = ({
         )}
 
         {/* Rating */}
-        <div className='flex items-center pt-[16px]'>
+        <div className='flex flex-col pt-[16px] md:flex-row'>
           {/* Rating stars */}
-          <div className='flex'>
-            <i className='ri-star-fill text-[20px] text-[#ED920A]' />
-            <i className='ri-star-fill text-[20px] text-[#ED920A]' />
-            <i className='ri-star-fill text-[20px] text-[#ED920A]' />
-            <i className='ri-star-line text-[20px] text-N-300' />
-            <i className='ri-star-line text-[20px] text-N-300' />
+          <div className='flex items-center'>
+            <div className='flex'>
+              <i className='ri-star-fill text-[20px] text-[#ED920A]' />
+              <i className='ri-star-fill text-[20px] text-[#ED920A]' />
+              <i className='ri-star-fill text-[20px] text-[#ED920A]' />
+              <i className='ri-star-line text-[20px] text-N-300' />
+              <i className='ri-star-line text-[20px] text-N-300' />
+            </div>
+
+            <span className='flex gap-[8px] pl-[8px]'>
+              <p className='text-sm font-600 text-N-800'>4.0</p>
+              <p className='text-sm font-600 text-N-800'>( {reviewCount} reviews)</p>
+            </span>
           </div>
 
-          <span className='flex gap-[8px] pl-[8px]'>
-            <p className='text-sm font-600 text-N-800'>4.0</p>
-            <p className='text-sm font-600 text-N-800'>( {reviewCount} reviews)</p>
-          </span>
-
-          <div className='flex gap-[12px] pl-[12px]'>
+          <div className='flex gap-[12px] pt-[12px] md:pt-0 md:pl-[12px]'>
             {isVerified && (
               <Pill
                 className='!bg-G-10 !text-base !font-600 !text-G-600'
