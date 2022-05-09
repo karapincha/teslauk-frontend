@@ -82,7 +82,7 @@ const Home: NextPage = () => {
           <div>Add the widget</div>
         </div>
 
-        <div className='flex flex-col md:flex-row-reverse md:gap-[24px] lg:gap-0 lg:flex-col'>
+        <div className='flex flex-col md:flex-row-reverse md:gap-[24px] lg:flex-col lg:gap-0'>
           {/* Contact details */}
           <div className='flex flex-col gap-[16px]'>
             {/* Address */}
@@ -129,7 +129,8 @@ const Home: NextPage = () => {
             </div>
           </div>
 
-          <div className='flex flex-col gap-[24px] pt-[24px] lg:gap-[40px] md:pt-0 lg:pt-[40px]'>
+          {/* Map */}
+          <div className='flex flex-col gap-[24px] pt-[24px] md:pt-0 lg:gap-[40px] lg:pt-[40px]'>
             <img
               src='https://images.unsplash.com/photo-1461183479101-6c14cd5299c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
               className='h-[343px] w-full rounded-[12px] object-cover object-center md:h-[368px] md:w-[368px]'
