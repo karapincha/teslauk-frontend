@@ -7,6 +7,7 @@ import { InlineCTA } from '@/components/molecules/InlineCTA'
 import { useViewport } from '@/utils'
 import { SupplierAboutHeader } from '@/components/molecules/SupplierAboutHeader'
 import { Button } from '@/components/atoms'
+import { SupplierDetailsTabs } from '@/components/sections/SupplierDetailsTabs'
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -45,7 +46,7 @@ const Home: NextPage = () => {
             Back to Search results
           </Button>
         </div>
-        <div className='absolute bottom-0 h-[228px] w-full rounded-tl-[12px] bg-N-10 md:w-[75%] md:rounded-tl-none lg:bottom-0 lg:w-[904px]' />
+        <div className='absolute bottom-0 h-[228px] w-full rounded-tl-[12px] bg-N-10 md:w-[75%] md:rounded-tl-none lg:w-[904px]' />
         <div className='z-1 container relative py-[32px] pr-[32px]'>
           <SupplierAboutHeader
             icon={<Tag size={16} />}
@@ -58,8 +59,8 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className='container'>
-
+      <div className='container pt-[40px]'>
+        <SupplierDetailsTabs />
       </div>
 
       <SupplierRibbon />
