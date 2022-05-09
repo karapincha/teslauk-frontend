@@ -84,7 +84,7 @@ export const SupplierAboutHeader: FC<SupplierAboutHeaderProps> = ({
       </div>
 
       {image && (
-        <div className='flex items-center'>
+        <div className='flex items-center justify-center'>
           <img src={image} className='h-[164px] w-[164px] object-cover object-center' />
         </div>
       )}

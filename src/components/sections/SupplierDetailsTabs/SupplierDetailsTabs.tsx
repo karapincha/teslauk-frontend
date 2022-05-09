@@ -2,6 +2,8 @@ import React, { FC, useState } from 'react'
 import CN from 'classnames'
 import { Button } from '@/components/atoms'
 import { SupplierDetailsAbout } from '../SupplierDetailsAbout'
+import { SupplierDetailsRelatedListings } from '../SupplierDetailsRelatedListings'
+import { SupplierDetailsNearbyListings } from '../SupplierDetailsNearbyListings'
 
 export interface SupplierDetailsTabsProps {
   [x: string]: any
@@ -17,7 +19,7 @@ export const SupplierDetailsTabs: FC<SupplierDetailsTabsProps> = ({
 
   return (
     <div className={SupplierDetailsTabsClasses} {...restProps}>
-      <div className='tabs flex flex-col gap-[20px]'>
+      <div className='tabs flex flex-col'>
         <div className='flex items-center gap-[24px] border-b border-N-200'>
           <Button
             appearance={activeTab === 'about' ? 'ghost' : 'link'}
@@ -50,10 +52,9 @@ export const SupplierDetailsTabs: FC<SupplierDetailsTabsProps> = ({
 
         <div className='flex flex-col'>
           {activeTab === 'about' && <SupplierDetailsAbout />}
-          {activeTab === 'related listings' && <SupplierDetailsAbout />}
-          {activeTab === 'nearby listings' && <SupplierDetailsAbout />}
-          
-          </div>
+          {activeTab === 'related listings' && <SupplierDetailsRelatedListings />}
+          {activeTab === 'nearby listings' && <SupplierDetailsNearbyListings />}
+        </div>
       </div>
     </div>
   )

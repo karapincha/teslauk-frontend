@@ -2,11 +2,23 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useRouter } from 'next/router'
-import { Tag, ShoppingBag, ArrowRight, ArrowLeft } from 'react-feather'
+import {
+  Tag,
+  ShoppingBag,
+  ArrowRight,
+  ArrowLeft,
+  Globe,
+  Map,
+  MapPin,
+  Phone,
+  Mail,
+  Bookmark,
+  Compass,
+} from 'react-feather'
 import { InlineCTA } from '@/components/molecules/InlineCTA'
 import { useViewport } from '@/utils'
 import { SupplierAboutHeader } from '@/components/molecules/SupplierAboutHeader'
-import { Button } from '@/components/atoms'
+import { Button, TextField } from '@/components/atoms'
 import { SupplierDetailsTabs } from '@/components/sections/SupplierDetailsTabs'
 
 const Home: NextPage = () => {
@@ -42,7 +54,10 @@ const Home: NextPage = () => {
 
       <div className='header-surface relative min-h-[356px] bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
         <div className='container py-[50px]'>
-          <Button appearance='ghost' iconBefore={<ArrowLeft size={20} />} className='px-0 h-[unset]'>
+          <Button
+            appearance='ghost'
+            iconBefore={<ArrowLeft size={20} />}
+            className='h-[unset] px-0 hover:text-B-500'>
             Back to Search results
           </Button>
         </div>
@@ -59,8 +74,73 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className='container pt-[40px]'>
-        <SupplierDetailsTabs />
+      <div className='container flex gap-[48px] pt-[40px] pb-[80px]'>
+        <div className='w-[784px]'>
+          <div className='border-b border-b-N-200'>
+            <SupplierDetailsTabs />
+          </div>
+          <div>Add the widget</div>
+        </div>
+
+        <div className='flex flex-col'>
+          {/* Contact details */}
+          <div className='flex flex-col gap-[16px]'>
+            {/* Address */}
+            <div className='flex items-center gap-[8px]'>
+              <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
+                <MapPin size={16} />
+              </div>
+              <p className='text-md font-500 text-N-600'>
+                11 Phoenix Park Parkwood Industrial Estate Maidstone Kent ME15 9XN
+              </p>
+            </div>
+
+            {/* Phone number */}
+            <div className='flex items-center gap-[8px]'>
+              <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
+                <Phone size={16} />
+              </div>
+              <p className='text-md font-500 text-N-600'>0300 3033136</p>
+            </div>
+
+            {/* Email */}
+            <div className='flex items-center gap-[8px]'>
+              <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
+                <Mail size={16} />
+              </div>
+              <p className='text-md font-500 text-N-600'>enquiries@jpsgroup.uk</p>
+            </div>
+
+            {/* Website*/}
+            <div className='flex items-center gap-[8px]'>
+              <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
+                <Globe size={16} />
+              </div>
+              <p className='text-md font-500 text-N-600'>https://jpsrenewableenergy.co.uk</p>
+            </div>
+          </div>
+
+          <div className='pt-[40px]'>
+            <Button iconAfter={<Bookmark size={20} />} appearance='primary'>
+              Bookmark
+            </Button>
+          </div>
+
+          <div className='flex flex-col gap-[40px] pt-[40px]'>
+            <img
+              src='/images/map.png'
+              className='h-[368px] w-[368px] rounded-[12px] object-contain object-center'
+            />
+            <div className='flex flex-col gap-[16px]'>
+              <TextField placeHolder='Your location' />
+              <div className='flex'>
+                <Button iconAfter={<Compass size={20} />} appearance='primary'>
+                  Get directions
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <SupplierRibbon />
