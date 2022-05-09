@@ -2,20 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useRouter } from 'next/router'
-import {
-  Tag,
-  ShoppingBag,
-  ArrowRight,
-  ArrowLeft,
-  Globe,
-  Map,
-  MapPin,
-  Phone,
-  Mail,
-  Bookmark,
-  Compass,
-} from 'react-feather'
-import { InlineCTA } from '@/components/molecules/InlineCTA'
+import { Tag, ArrowLeft, Globe, MapPin, Phone, Mail, Bookmark, Compass } from 'react-feather'
 import { useViewport } from '@/utils'
 import { SupplierAboutHeader } from '@/components/molecules/SupplierAboutHeader'
 import { Button, TextField } from '@/components/atoms'
@@ -24,23 +11,6 @@ import { SupplierDetailsTabs } from '@/components/sections/SupplierDetailsTabs'
 const Home: NextPage = () => {
   const router = useRouter()
   const { isDesktop, isMobile, isTablet } = useViewport()
-
-  const renderGraphic = () => {
-    return (
-      <div className='flex md:w-full lg:w-[784px]'>
-        <InlineCTA
-          heading='Do you have the experties? Share your knowledge!'
-          btnProps={{
-            size: 'lg',
-            children: 'Submit an article',
-            onClick: () => {
-              console.log('Clicked')
-            },
-          }}
-        />
-      </div>
-    )
-  }
 
   return (
     <>
@@ -82,7 +52,7 @@ const Home: NextPage = () => {
           <div>Add the widget</div>
         </div>
 
-        <div className='flex flex-col md:flex-row-reverse md:gap-[24px] lg:flex-col lg:gap-0 lg:w-[368px]'>
+        <div className='flex flex-col md:flex-row-reverse md:gap-[24px] lg:w-[368px] lg:flex-col lg:gap-0'>
           {/* Contact details */}
           <div className='flex flex-col gap-[16px]'>
             {/* Address */}
