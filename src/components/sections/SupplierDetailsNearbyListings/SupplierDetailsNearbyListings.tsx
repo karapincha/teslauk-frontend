@@ -9,7 +9,7 @@ export const SupplierDetailsNearbyListings: FC<SupplierDetailsNearbyListingsProp
   className,
   ...restProps
 }: SupplierDetailsNearbyListingsProps) => {
-  const SupplierDetailsNearbyListingsClasses = CN(`supplier-details-nearby-listings py-[40px]`, className)
+  const SupplierDetailsNearbyListingsClasses = CN(`supplier-details-nearby-listings py-[24px] md:py-[40px]`, className)
 
   return (
     <div className={SupplierDetailsNearbyListingsClasses} {...restProps}>

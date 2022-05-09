@@ -52,7 +52,7 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      <div className='header-surface relative min-h-[356px] bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
+      {/* <div className='header-surface relative min-h-[356px] bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
         <div className='container py-[50px]'>
           <Button
             appearance='ghost'
@@ -72,17 +72,17 @@ const Home: NextPage = () => {
             image='/images/suppliers.png'
           />
         </div>
-      </div>
+      </div> */}
 
-      <div className='container flex gap-[48px] pt-[40px] pb-[80px]'>
-        <div className='w-[784px]'>
+      <div className='container flex flex-col gap-[24px] pt-[24px] pb-[40px] md:gap-[48px] md:pt-[40px] md:pb-[80px] lg:flex-row'>
+        <div className='lg:w-[784px]'>
           <div className='border-b border-b-N-200'>
             <SupplierDetailsTabs />
           </div>
           <div>Add the widget</div>
         </div>
 
-        <div className='flex flex-col'>
+        <div className='flex flex-col md:flex-row-reverse md:gap-[24px] lg:gap-0 lg:flex-col'>
           {/* Contact details */}
           <div className='flex flex-col gap-[16px]'>
             {/* Address */}
@@ -118,23 +118,29 @@ const Home: NextPage = () => {
               </div>
               <p className='text-md font-500 text-N-600'>https://jpsrenewableenergy.co.uk</p>
             </div>
+
+            <div className='pt-[8px] lg:pt-[40px]'>
+              <Button
+                iconAfter={<Bookmark size={20} />}
+                appearance='primary'
+                className='w-full lg:w-[unset]'>
+                Bookmark
+              </Button>
+            </div>
           </div>
 
-          <div className='pt-[40px]'>
-            <Button iconAfter={<Bookmark size={20} />} appearance='primary'>
-              Bookmark
-            </Button>
-          </div>
-
-          <div className='flex flex-col gap-[40px] pt-[40px]'>
+          <div className='flex flex-col gap-[24px] pt-[24px] lg:gap-[40px] md:pt-0 lg:pt-[40px]'>
             <img
-              src='/images/map.png'
-              className='h-[368px] w-[368px] rounded-[12px] object-contain object-center'
+              src='https://images.unsplash.com/photo-1461183479101-6c14cd5299c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+              className='h-[343px] w-full rounded-[12px] object-cover object-center md:h-[368px] md:w-[368px]'
             />
             <div className='flex flex-col gap-[16px]'>
               <TextField placeHolder='Your location' />
               <div className='flex'>
-                <Button iconAfter={<Compass size={20} />} appearance='primary'>
+                <Button
+                  iconAfter={<Compass size={20} />}
+                  appearance='primary'
+                  className='w-full lg:w-[unset]'>
                   Get directions
                 </Button>
               </div>

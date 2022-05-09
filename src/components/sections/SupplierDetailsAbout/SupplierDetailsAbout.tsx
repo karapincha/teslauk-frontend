@@ -9,7 +9,7 @@ export const SupplierDetailsAbout: FC<SupplierDetailsAboutProps> = ({
   className,
   ...restProps
 }: SupplierDetailsAboutProps) => {
-  const SupplierDetailsAboutClasses = CN(`supplier-details-about py-[40px]`, className)
+  const SupplierDetailsAboutClasses = CN(`supplier-details-about py-[24px] md:py-[40px]`, className)
 
   return (
     <div className={SupplierDetailsAboutClasses} {...restProps}>

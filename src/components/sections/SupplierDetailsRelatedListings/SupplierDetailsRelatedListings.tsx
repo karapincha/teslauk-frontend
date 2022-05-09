@@ -9,7 +9,7 @@ export const SupplierDetailsRelatedListings: FC<SupplierDetailsRelatedListingsPr
   className,
   ...restProps
 }: SupplierDetailsRelatedListingsProps) => {
-  const SupplierDetailsRelatedListingsClasses = CN(`supplier-details-related-listings py-[40px]`, className)
+  const SupplierDetailsRelatedListingsClasses = CN(`supplier-details-related-listings py-[24px] md:py-[40px]`, className)
 
   return (
     <div className={SupplierDetailsRelatedListingsClasses} {...restProps}>
