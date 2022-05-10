@@ -10,6 +10,7 @@ export interface RadioProps {
   id?: string | undefined
   indeterminate?: boolean
   labelClassName?: string | undefined
+  iconClassName?: string
   onChange?: any
   type?: 'radio' | undefined
 }
@@ -39,6 +40,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
       className,
       id,
       indeterminate,
+      iconClassName,
       labelClassName,
       onChange,
       type,
@@ -74,7 +76,7 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
           {...restProps}
         />
 
-        <span className='radio__checkmark w-[18px] h-[18px] bg-B-500 rounded-full left-0 top-[50%] absolute' />
+        <span className={CN('radio__checkmark w-[18px] h-[18px] bg-B-500 rounded-full left-0 top-[50%] absolute', iconClassName)} />
 
         {children && (
           <span

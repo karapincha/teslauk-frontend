@@ -7,53 +7,59 @@ import { SupplierDetailsNearbyListings } from '../SupplierDetailsNearbyListings'
 
 export interface SupplierDetailsTabsProps {
   [x: string]: any
+  onChange: any
 }
 
 export const SupplierDetailsTabs: FC<SupplierDetailsTabsProps> = ({
   className,
+  onChange,
   ...restProps
 }: SupplierDetailsTabsProps) => {
   const SupplierDetailsTabsClasses = CN(`supplier-details-tabs`, className)
-
   const [activeTab, setActiveTab] = useState('about')
+
+  const handleChange = (tab: any) => {
+    onChange && onChange(tab)
+    setActiveTab(tab)
+  }
 
   return (
     <div className={SupplierDetailsTabsClasses} {...restProps}>
       <div className='tabs flex flex-col'>
-        <div className='flex items-center gap-[24px] border-b border-N-200'>
+        <div className='flex w-[784px] items-center gap-[24px] border-b border-N-200'>
           <Button
             appearance={activeTab === 'about' ? 'ghost' : 'link'}
             className={CN('mb-[-1px] rounded-b-[0px] px-0', {
               ' text-N-500': activeTab !== 'about',
               'border-b-B-500': activeTab === 'about',
             })}
-            onClick={() => setActiveTab('about')}>
+            onClick={() => handleChange('about')}>
             About
           </Button>
           <Button
-            appearance={activeTab === 'related listings' ? 'ghost' : 'link'}
+            appearance={activeTab === 'related-listings' ? 'ghost' : 'link'}
             className={CN('mb-[-1px] rounded-b-[0px] px-0 ', {
-              ' text-N-500': activeTab !== 'related listings',
-              'border-b-B-500': activeTab === 'related listings',
+              ' text-N-500': activeTab !== 'related-listings',
+              'border-b-B-500': activeTab === 'related-listings',
             })}
-            onClick={() => setActiveTab('related listings')}>
+            onClick={() => handleChange('related-listings')}>
             Related listings
           </Button>
           <Button
-            appearance={activeTab === 'nearby listings' ? 'ghost' : 'link'}
+            appearance={activeTab === 'nearby-listings' ? 'ghost' : 'link'}
             className={CN('mb-[-1px] rounded-b-[0px] px-0', {
-              ' text-N-500': activeTab !== 'nearby listings',
-              'border-b-B-500': activeTab === 'nearby listings',
+              ' text-N-500': activeTab !== 'nearby-listings',
+              'border-b-B-500': activeTab === 'nearby-listings',
             })}
-            onClick={() => setActiveTab('nearby listings')}>
+            onClick={() => handleChange('nearby-listings')}>
             Nearby listings
           </Button>
         </div>
 
-        <div className='flex flex-col'>
+        <div className='flex'>
           {activeTab === 'about' && <SupplierDetailsAbout />}
-          {activeTab === 'related listings' && <SupplierDetailsRelatedListings />}
-          {activeTab === 'nearby listings' && <SupplierDetailsNearbyListings />}
+          {activeTab === 'related-listings' && <SupplierDetailsRelatedListings />}
+          {activeTab === 'nearby-listings' && <SupplierDetailsNearbyListings />}
         </div>
       </div>
     </div>
