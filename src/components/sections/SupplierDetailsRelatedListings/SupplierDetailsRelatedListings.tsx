@@ -5,7 +5,7 @@ import supplierList from '@/dummy-data/supplier-list'
 import { TextField } from '@/components/atoms'
 import { Pagination } from '@/components/molecules'
 import { Button } from '@/components/atoms'
-import { Bookmark, Compass, Globe, Mail, MapPin, Phone } from 'react-feather'
+import { Bookmark, Compass, Filter, Globe, Mail, MapPin, Phone } from 'react-feather'
 
 export interface SupplierDetailsRelatedListingsProps {
   [x: string]: any
@@ -16,18 +16,26 @@ export const SupplierDetailsRelatedListings: FC<SupplierDetailsRelatedListingsPr
   ...restProps
 }: SupplierDetailsRelatedListingsProps) => {
   const SupplierDetailsRelatedListingsClasses = CN(
-    `supplier-details-related-listings flex flex-col gap-[24px] pb-[40px] md:gap-[48px] md:pb-[80px] lg:flex-row`,
+    `supplier-details-related-listings flex flex-col gap-[24px]  md:gap-[48px]  lg:flex-row`,
     className
   )
 
   return (
     <div className={SupplierDetailsRelatedListingsClasses} {...restProps}>
       <div className='pt-[24px]  md:pt-[40px] '>
-        <div className='flex items-center justify-between'>
+        <div className='flex flex-col gap-[24px] md:flex-col-reverse lg:flex-row lg:items-center lg:justify-between lg:gap-0'>
           <div className='flex'>
             <p className='text-base text-N-600'>57 related listings</p>
           </div>
-          <div className='flex'>
+          <div className='flex flex-col items-center gap-[16px] border border-N-50 py-[24px] px-[16px] md:flex-row  md:justify-between md:gap-[236px] md:rounded-[12px] lg:border-none'>
+            <div className='w-full lg:hidden'>
+              <Button
+                appearance='secondary'
+                iconAfter={<Filter size={20} />}
+                className='w-full md:w-[210px]'>
+                Filters
+              </Button>
+            </div>
             {/* Add a dropdown here */}
             <TextField placeHolder='Sort by Relevance' />
           </div>
@@ -73,7 +81,7 @@ export const SupplierDetailsRelatedListings: FC<SupplierDetailsRelatedListingsPr
           )}
         </ul>
 
-        <div className='py-[80px]'>
+        <div className='pt-[40px] md:pt-[80px]'>
           <Pagination />
         </div>
       </div>

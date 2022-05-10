@@ -15,14 +15,14 @@ export const RelatedListingsSideBar: FC<RelatedListingsSideBarProps> = ({
   return (
     <div className={RelatedListingsSideBarClasses} {...restProps}>
       {/* Map */}
-      <div className='flex flex-col gap-[24px]  lg:gap-[40px]'>
+      <div className='flex flex-col gap-[40px] pt-[16px]'>
         <img
           src='https://images.unsplash.com/photo-1461183479101-6c14cd5299c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-          className='h-[343px] w-full rounded-[12px] object-cover object-center md:h-[368px] md:w-[368px]  '
+          className='h-[343px] w-full rounded-[12px] object-cover object-center md:h-[471px] lg:h-[368px] lg:w-[368px]  '
         />
       </div>
 
-      <div className='pt-[40px]'>
+      <div className='hidden pt-[40px] lg:flex lg:flex-col'>
         <p className='text-base font-600 text-N-500'>Filter by rating</p>
         <div className='flex flex-col gap-[8px] pt-[16px]'>
           <Radio iconClassName='bg-N-300'>

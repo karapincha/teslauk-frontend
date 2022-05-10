@@ -11,7 +11,10 @@ export const SupplierAboutSideBar: FC<SupplierAboutSideBarProps> = ({
   className,
   ...restProps
 }: SupplierAboutSideBarProps) => {
-  const SupplierAboutSideBarClasses = CN(`supplier-about-side-bar`, className)
+  const SupplierAboutSideBarClasses = CN(
+    `supplier-about-side-bar flex flex-col md:flex-row-reverse md:gap-[24px] lg:w-[368px] lg:flex-col lg:gap-0`,
+    className
+  )
 
   return (
     <div className={SupplierAboutSideBarClasses} {...restProps}>
