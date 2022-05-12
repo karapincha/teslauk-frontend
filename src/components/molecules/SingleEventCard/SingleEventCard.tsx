@@ -65,10 +65,13 @@ export const SingleEventCard: FC<SingleEventCardProps> = ({
           {eventTopic && (
             <div className='flex gap-[16px]'>
               <div
-                className={CN('flex h-[80px] w-[80px] flex-col items-center justify-center ', {
-                  'bg-N-800 text-N-10': appearance === 'default',
-                  'bg-N-500 text-N-10': appearance === 'gray',
-                })}>
+                className={CN(
+                  'flex h-[80px] w-[80px] flex-col items-center justify-center rounded-[2px]',
+                  {
+                    'bg-N-800 text-N-10': appearance === 'default',
+                    'bg-N-500 text-N-10': appearance === 'gray',
+                  }
+                )}>
                 <span className='text-md font-600'>{month}</span>
                 <span className='text-h3 font-700 leading-[1]'>{date}</span>
               </div>
