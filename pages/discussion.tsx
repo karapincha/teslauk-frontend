@@ -114,7 +114,7 @@ const Home: NextPage = () => {
           <ul className='flex grid-cols-2 flex-col gap-[24px] md:grid md:gap-y-[40px] lg:gap-x-[48px]'>
             {(discussionCardList || []).map(
               (
-                { id, heading, subHeading, category, pillText, cover, list, link }: any,
+                { id, heading, subHeading, category, pillText, cover, list }: any,
                 index: number
               ) => (
                 <li key={id || index}>
