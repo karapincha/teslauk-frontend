@@ -39,7 +39,7 @@ export const SingleEventCard: FC<SingleEventCardProps> = ({
       {/* Background with image */}
       <div
         className={CN(
-          'flex h-[207px] w-[368px] flex-shrink-0 rounded-t-[12px] bg-cover bg-no-repeat',
+          'flex h-[207px] w-full md:w-[340px] lg:w-[368px] flex-shrink-0 rounded-t-[12px] bg-cover bg-no-repeat',
           {
             'bg-N-300 mix-blend-luminosity': appearance === 'gray',
           }
@@ -55,7 +55,7 @@ export const SingleEventCard: FC<SingleEventCardProps> = ({
         )}
       </div>
 
-      <div className='w-[368px] rounded-b-[12px] bg-white px-[24px] py-[24px]'>
+      <div className='w-full md:w-[340px] lg:w-[368px] rounded-b-[12px] bg-white px-[24px] py-[24px]'>
         <div>
           {heading && <h5 className='text-h5 font-500 text-N-800'>{heading}</h5>}
           {description && (

@@ -1,13 +1,89 @@
 import type { NextPage } from 'next'
-import Link from 'next/link'
 import Head from 'next/head'
-import { Header, Footer, SupplierRibbon, EventCard } from '@/components/sections'
-import { Button, TextField } from '@/components/atoms'
-import { DateCard, Pagination } from '@/components/molecules'
+import { Header, Footer, SupplierRibbon } from '@/components/sections'
+import { TextField } from '@/components/atoms'
+import { Pagination } from '@/components/molecules'
 import { SingleEventCard } from '@/components/molecules/SingleEventCard'
 import { activeEventList, inactiveEventList } from '@/dummy-data/active-event-list'
+import { useViewport } from '@/utils'
 
 const Home: NextPage = () => {
+  const { isMobile, isTablet, isDesktop } = useViewport()
+
+  // show only two cards from active event card for mobile list
+  const renderEvents = () => {
+    const mobileList = activeEventList.filter((event: any, index: number) => {
+      if (index < 2) {
+        return event
+      }
+    })
+
+    const prepareComponent = (event: any, index: number) => {
+      const { id, cover, isFeatured, month, date, appearance, eventTopic, location } = event || {}
+
+      return (
+        <li key={id || index}>
+          <SingleEventCard
+            cover={cover}
+            isFeatured={isFeatured}
+            month={month}
+            date={date}
+            appearance={appearance}
+            eventTopic={eventTopic}
+            location={location}
+          />
+        </li>
+      )
+    }
+
+    if (isMobile) {
+      return mobileList.map((event: any, index: number) => {
+        return prepareComponent(event, index)
+      })
+    } else {
+      return activeEventList.map((event: any, index: number) => {
+        return prepareComponent(event, index)
+      })
+    }
+  }
+
+  // show only two cards from inactive event card for mobile list
+  const renderPastEvents = () => {
+    const pastMobileList = inactiveEventList.filter((event: any, index: number) => {
+      if (index < 2) {
+        return event
+      }
+    })
+
+    const prepareComponent = (event: any, index: number) => {
+      const { id, cover, isFeatured, month, date, appearance, eventTopic, location } = event || {}
+
+      return (
+        <li key={id || index}>
+          <SingleEventCard
+            cover={cover}
+            isFeatured={isFeatured}
+            month={month}
+            date={date}
+            appearance={appearance}
+            eventTopic={eventTopic}
+            location={location}
+          />
+        </li>
+      )
+    }
+
+    if (isMobile) {
+      return pastMobileList.map((event: any, index: number) => {
+        return prepareComponent(event, index)
+      })
+    } else {
+      return inactiveEventList.map((event: any, index: number) => {
+        return prepareComponent(event, index)
+      })
+    }
+  }
+
   return (
     <>
       <Head>
@@ -18,10 +94,10 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      <div className='container flex gap-[48px] pt-[24px] md:pt-[40px]'>
+      <div className='container flex flex-col gap-[24px] md:pt-[40px] lg:flex-row lg:gap-[48px]'>
         {/* Page heading */}
-        <div className='flex w-[372px] flex-col gap-[40px]'>
-          <h1 className='text-h1 font-700 text-N-800'>Events Calendar</h1>
+        <div className='flex w-full flex-col gap-[24px] md:gap-[40px] lg:w-[372px]'>
+          <h1 className='md:text=h2 text-h3 font-700  text-N-800 lg:text-h1'>Events Calendar</h1>
           <p className='text-N-00 text-base'>
             A major part of being a member of Tesla Owners UK is the ability to attend events – both
             National and Regional. From Track Days to Regional Meetups and visits to the Tesla
@@ -29,8 +105,19 @@ const Home: NextPage = () => {
           </p>
         </div>
 
+        {isMobile && (
+          <div className='flex flex-col gap-[24px]'>
+            <h3 className='text-h4 font-700 text-N-800 md:text-h3'>Upcoming events</h3>
+            <div className='flex flex-col gap-[16px]'>
+              <TextField placeHolder='Date range' />
+              <TextField placeHolder='Location' />
+              <TextField placeHolder='Event type' />
+            </div>
+          </div>
+        )}
+
         {/* Featured event cards */}
-        <div className='flex gap-[44px]'>
+        <div className='flex flex-col gap-[24px] md:flex-row lg:gap-[44px]'>
           <SingleEventCard
             cover='https://images.unsplash.com/photo-1541446654331-def41325e92c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
             isFeatured='Featured'
@@ -48,73 +135,41 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <div className='container pt-[80px]'>
+      <div className='container pt-[24px] md:pt-[80px]'>
         {/* Filters */}
-        <div className='flex items-center justify-between'>
-          <h3 className='text-h3 font-700 text-N-800'>Upcoming events</h3>
-          <div className='flex gap-[20px]'>
-            <TextField placeHolder='Date range' />
-            <TextField placeHolder='Location' />
-            <TextField placeHolder='Event type' />
+        {!isMobile && (
+          <div className='flex justify-between md:flex-col md:gap-[40px] lg:flex-row lg:items-center lg:gap-0'>
+            <h3 className='text-h3 font-700 text-N-800'>Upcoming events</h3>
+            <div className='flex gap-[20px]'>
+              <TextField placeHolder='Date range' />
+              <TextField placeHolder='Location' />
+              <TextField placeHolder='Event type' />
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Active events list */}
-        <div className='pt-[40px]'>
-          <ul className='grid grid-cols-3 gap-x-[48px] gap-y-[40px]'>
-            {(activeEventList || []).map(
-              (
-                { id, cover, isFeatured, month, date, appearance, eventTopic, location }: any,
-                index: number
-              ) => (
-                <li key={id || index}>
-                  <SingleEventCard
-                    cover={cover}
-                    isFeatured={isFeatured}
-                    month={month}
-                    date={date}
-                    appearance={appearance}
-                    eventTopic={eventTopic}
-                    location={location}
-                  />
-                </li>
-              )
-            )}
+        <div className='md:pt-[40px]'>
+          <ul className='flex flex-col gap-[24px] md:grid md:grid-cols-2 md:gap-y-[40px] md:gap-x-[24px] lg:grid lg:grid-cols-3 lg:gap-x-[48px]'>
+            {renderEvents()}
           </ul>
 
-          <div className='w-full pt-[24px] md:py-[80px]'>
+          <div className='w-full py-[40px] md:py-[80px]'>
             <Pagination />
           </div>
         </div>
       </div>
 
       {/* Past events list */}
-      <div className='container pb-[80px]'>
+      <div className='container pb-[40px] md:pb-[80px]'>
         <div className='flex'>
           <h3 className='text-h3 font-700 text-N-800'>Past events</h3>
         </div>
 
-        {/* Active events list */}
-        <div className='pt-[40px]'>
-          <ul className='grid grid-cols-3 gap-x-[48px] gap-y-[40px]'>
-            {(inactiveEventList || []).map(
-              (
-                { id, cover, isFeatured, month, date, appearance, eventTopic, location }: any,
-                index: number
-              ) => (
-                <li key={id || index}>
-                  <SingleEventCard
-                    cover={cover}
-                    isFeatured={isFeatured}
-                    month={month}
-                    date={date}
-                    appearance={appearance}
-                    eventTopic={eventTopic}
-                    location={location}
-                  />
-                </li>
-              )
-            )}
+        {/* Inactive events list */}
+        <div className='pt-[24px] md:pt-[40px]'>
+          <ul className='flex flex-col gap-[24px] md:grid md:grid-cols-2 md:gap-y-[40px] md:gap-x-[24px] lg:grid-cols-3 lg:gap-x-[48px]'>
+            {renderPastEvents()}
           </ul>
         </div>
       </div>
