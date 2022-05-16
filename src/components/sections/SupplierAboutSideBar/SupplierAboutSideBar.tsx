@@ -19,42 +19,44 @@ export const SupplierAboutSideBar: FC<SupplierAboutSideBarProps> = ({
   return (
     <div className={SupplierAboutSideBarClasses} {...restProps}>
       {/* Contact details */}
-      <div className='flex flex-col gap-[16px]'>
-        {/* Address */}
-        <div className='flex items-center gap-[8px]'>
-          <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
-            <MapPin size={16} />
+      <div className='flex flex-col gap-[24px] lg:gap-[40px]'>
+        <div className='flex flex-col gap-[16px]'>
+          {/* Address */}
+          <div className='flex items-center gap-[8px]'>
+            <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
+              <MapPin size={16} />
+            </div>
+            <p className='text-md font-500 text-N-600'>
+              11 Phoenix Park Parkwood Industrial Estate Maidstone Kent ME15 9XN
+            </p>
           </div>
-          <p className='text-md font-500 text-N-600'>
-            11 Phoenix Park Parkwood Industrial Estate Maidstone Kent ME15 9XN
-          </p>
+
+          {/* Phone number */}
+          <div className='flex items-center gap-[8px]'>
+            <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
+              <Phone size={16} />
+            </div>
+            <p className='text-md font-500 text-N-600'>0300 3033136</p>
+          </div>
+
+          {/* Email */}
+          <div className='flex items-center gap-[8px]'>
+            <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
+              <Mail size={16} />
+            </div>
+            <p className='text-md font-500 text-N-600'>enquiries@jpsgroup.uk</p>
+          </div>
+
+          {/* Website*/}
+          <div className='flex items-center gap-[8px]'>
+            <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
+              <Globe size={16} />
+            </div>
+            <p className='text-md font-500 text-N-600'>https://jpsrenewableenergy.co.uk</p>
+          </div>
         </div>
 
-        {/* Phone number */}
-        <div className='flex items-center gap-[8px]'>
-          <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
-            <Phone size={16} />
-          </div>
-          <p className='text-md font-500 text-N-600'>0300 3033136</p>
-        </div>
-
-        {/* Email */}
-        <div className='flex items-center gap-[8px]'>
-          <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
-            <Mail size={16} />
-          </div>
-          <p className='text-md font-500 text-N-600'>enquiries@jpsgroup.uk</p>
-        </div>
-
-        {/* Website*/}
-        <div className='flex items-center gap-[8px]'>
-          <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
-            <Globe size={16} />
-          </div>
-          <p className='text-md font-500 text-N-600'>https://jpsrenewableenergy.co.uk</p>
-        </div>
-
-        <div className='pt-[8px] lg:pt-[40px]'>
+        <div className='flex'>
           <Button
             iconAfter={<Bookmark size={20} />}
             appearance='primary'

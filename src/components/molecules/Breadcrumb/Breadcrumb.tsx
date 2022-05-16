@@ -19,7 +19,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
   links,
   ...restProps
 }: BreadcrumbProps) => {
-  const BreadcrumbClasses = CN(`breadcrumb`, className, {})
+  const BreadcrumbClasses = CN(`breadcrumb w-full`, className, {})
 
   const linksList = [
     {
@@ -55,7 +55,7 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
           return (
             <li className='group flex items-center' key={id || index}>
               <a
-                className={CN(`breadcrumb__item`, {
+                className={CN(`breadcrumb__item flex`, {
                   'text-N-500 hover:text-B-500': !isActive,
                   'text-B-500': isActive,
                 })}
