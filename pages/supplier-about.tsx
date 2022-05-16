@@ -10,6 +10,7 @@ import { Button, TextField } from '@/components/atoms'
 import { SupplierDetailsTabs } from '@/components/sections/SupplierDetailsTabs'
 import { SupplierAboutSideBar } from '@/components/sections/SupplierAboutSideBar'
 import { RelatedListingsSideBar } from '@/components/sections/RelatedListingsSideBar'
+import { Breadcrumb } from '@/components/molecules/Breadcrumb'
 
 const Home: NextPage = () => {
   const router = useRouter()
@@ -26,27 +27,56 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      {/* <div className='header-surface relative min-h-[356px] bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
-        <div className='container py-[50px]'>
-          <Button
-            appearance='ghost'
-            iconBefore={<ArrowLeft size={20} />}
-            className='h-[unset] px-0 hover:text-B-500'>
-            Back to Search results
-          </Button>
-        </div>
-        <div className='absolute bottom-0 h-[228px] w-full rounded-tl-[12px] bg-N-10 md:w-[75%] md:rounded-tl-none lg:w-[904px]' />
-        <div className='z-1 container relative py-[32px] pr-[32px]'>
+      <div className='header-surface relative bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
+        <div className='container flex h-full flex-col'>
+          <div className='flex py-[50px]'>
+            <Button
+              appearance='ghost'
+              iconBefore={<ArrowLeft size={20} />}
+              className='h-[unset] px-0 hover:text-B-500'>
+              Back to Search results
+            </Button>
+          </div>
+
           <SupplierAboutHeader
             icon={<Tag size={16} />}
-            category='Home & Work Charger Installer, Solar / Powerwall / Electrician'
+            breadcrumbLinks={
+              <Breadcrumb
+                links={[
+                  {
+                    id: 0,
+                    linkText: 'Home & Work Charger Installer',
+                    link: '/',
+                    isActive: false,
+                  },
+                  {
+                    id: 1,
+                    linkText: 'Solar',
+                    link: '/solar',
+                    isActive: false,
+                  },
+                  {
+                    id: 2,
+                    linkText: ' Powerwall',
+                    link: '/solar/powerwall',
+                    isActive: false,
+                  },
+                  {
+                    id: 3,
+                    linkText: 'Electrician',
+                    link: '/solar/powerwall/electrician',
+                    isActive: true,
+                  },
+                ]}
+              />
+            }
             heading='JPS Renewable Energy'
             isVerified={true}
             isFeatured={true}
             image='/images/suppliers.png'
           />
         </div>
-      </div> */}
+      </div>
 
       <div className='container flex flex-col gap-[24px] pt-[24px] pb-[40px] md:gap-[48px] md:pt-[40px] md:pb-[80px] lg:flex-row'>
         <div className='lg:w-[784px]'>

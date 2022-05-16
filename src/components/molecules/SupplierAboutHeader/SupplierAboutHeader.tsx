@@ -2,11 +2,12 @@ import React, { FC, ReactNode } from 'react'
 import CN from 'classnames'
 import { Pill } from '@/components/atoms'
 import { CheckCircle, Award } from 'react-feather'
+import { Breadcrumb } from '@/components/molecules/Breadcrumb'
 
 export interface SupplierAboutHeaderProps {
   [x: string]: any
   icon?: ReactNode | string
-  category?: string
+  breadcrumbLinks?: any
   heading?: string
   isFeatured?: boolean
   isVerified?: boolean
@@ -17,7 +18,7 @@ export interface SupplierAboutHeaderProps {
 export const SupplierAboutHeader: FC<SupplierAboutHeaderProps> = ({
   className,
   icon,
-  category,
+  breadcrumbLinks,
   heading,
   isFeatured,
   isVerified,
@@ -26,18 +27,18 @@ export const SupplierAboutHeader: FC<SupplierAboutHeaderProps> = ({
   ...restProps
 }: SupplierAboutHeaderProps) => {
   const SupplierAboutHeaderClasses = CN(
-    `supplier-about-header flex justify-between gap-[84px] max-w-[784px] items-left`,
+    `supplier-about-header relative flex justify-between md:gap-[84px] md:max-w-[784px] w-full md:items-left bg-N-10 mt-auto h-full pt-[32px] md:pt-[40px] pb-[32px] before:content-[''] before:absolute before:h-full before:bg-N-10 before:top-0 before:bottom-0 before:w-screen before:right-[100%] md:pr-[32px] rounded-tr-[12px] lg:rounded-tr-none`,
     className
   )
 
   return (
     <div className={SupplierAboutHeaderClasses} {...restProps}>
       <div className='flex w-full flex-col'>
-        {/* Category */}
-        {category && (
+        {/* breadcrumbLinks */}
+        {breadcrumbLinks && (
           <div className='flex items-center gap-[12px] text-base font-600 text-N-500'>
             <span>{icon}</span>
-            <p>{category}</p>
+            <div>{breadcrumbLinks}</div>
           </div>
         )}
         {/* Heading */}
@@ -58,7 +59,7 @@ export const SupplierAboutHeader: FC<SupplierAboutHeaderProps> = ({
 
           {isFeatured && (
             <Pill
-              className='!bg-Y-10 !text-Y-800 !text-base !font-600'
+              className='!bg-Y-10 !text-base !font-600 !text-Y-800'
               children='Featured'
               size='md'
               iconBefore={<Award size={16} />}
@@ -84,8 +85,8 @@ export const SupplierAboutHeader: FC<SupplierAboutHeaderProps> = ({
       </div>
 
       {image && (
-        <div className='flex items-center justify-center'>
-          <img src={image} className='h-[164px] w-[164px] object-cover object-center' />
+        <div className='flex h-[164px] w-[164px] flex-shrink-0 items-center justify-center border border-N-50 shadow-[0px_1px_2px_rgba(0,0,0,0.05)]'>
+          <img src={image} className='h-full w-full object-cover object-center' />
         </div>
       )}
     </div>
