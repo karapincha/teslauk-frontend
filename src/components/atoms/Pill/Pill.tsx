@@ -34,7 +34,7 @@ export const Pill: FC<PillProps> = (
   })
 
   /* Size*/
-  const pillTextSize = (size === 'default' && 'text-base') || (size === 'sm' && 'text-sm')
+  const pillTextSize = (size === 'default' && 'text-base') || (size === 'md' && 'text-sm')
 
   /* General */
   const PillClasses = CN('pill', className, {
@@ -52,7 +52,6 @@ export const Pill: FC<PillProps> = (
       className={CN('pill', pillBGColor, pillTextSize, PillClasses)}
       onClick={onClick}
       {...restProps}>
-        
       {iconBefore && <div className={CN('pr-[4px]')}>{iconBefore}</div>}
       <span>{children}</span>
       {iconAfter && <div className={CN('pl-[4px]')}>{iconAfter}</div>}
