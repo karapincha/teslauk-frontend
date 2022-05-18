@@ -7,6 +7,8 @@ import { PageHeader } from '@/components/molecules'
 import { PageHeaderVariant } from '@/components/molecules/PageHeaderVariant'
 import { ShopCategories } from '@/components/sections/ShopCategories'
 import { useState } from 'react'
+import { VehicleCard } from '@/components/molecules/VehicleCard'
+import { modelS, model3 } from '@/dummy-data/vehicle-list'
 
 const Home: NextPage = () => {
   const [activeTab, setActiveTab] = useState('accessories')
@@ -69,6 +71,21 @@ const Home: NextPage = () => {
               className='h-[368px] w-[368px] rounded-[12px] object-cover object-center'
             />
           )}
+        </div>
+      </div>
+
+      {/* Shop by model */}
+      <div className='bg-N-50'>
+        <div className='container py-[80px]'>
+          <div className='flex flex-col gap-[40px]'>
+            <h3 className='text-h3 font-700 text-N-800'>Shop by model</h3>
+            <div className='flex justify-center gap-[48px]'>
+              <VehicleCard image='/cars/model-s.png' model='Model S' list={modelS} />
+              <VehicleCard image='/cars/model-s.png' model='Model S' list={model3} />
+              <VehicleCard image='/cars/model-s.png' model='Model S' list={modelS} />
+              <VehicleCard image='/cars/model-s.png' model='Model S' list={modelS} />
+            </div>
+          </div>
         </div>
       </div>
 
