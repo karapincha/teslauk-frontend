@@ -1,14 +1,14 @@
 import type { NextPage } from 'next'
-import Link from 'next/link'
 import Head from 'next/head'
+import Link from 'next/link'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
-import { Button } from '@/components/atoms'
-import { PageHeader } from '@/components/molecules'
-import { PageHeaderVariant } from '@/components/molecules/PageHeaderVariant'
 import { ShopCategories } from '@/components/sections/ShopCategories'
 import { useState } from 'react'
 import { VehicleCard } from '@/components/molecules/VehicleCard'
 import { modelS, model3 } from '@/dummy-data/vehicle-list'
+import { ShopCard } from '@/components/molecules/ShopCard'
+import { Button } from '@/components/atoms'
+import { ArrowRight } from 'react-feather'
 
 const Home: NextPage = () => {
   const [activeTab, setActiveTab] = useState('accessories')
@@ -81,11 +81,46 @@ const Home: NextPage = () => {
             <h3 className='text-h3 font-700 text-N-800'>Shop by model</h3>
             <div className='flex justify-center gap-[48px]'>
               <VehicleCard image='/cars/model-s.png' model='Model S' list={modelS} />
-              <VehicleCard image='/cars/model-s.png' model='Model S' list={model3} />
-              <VehicleCard image='/cars/model-s.png' model='Model S' list={modelS} />
-              <VehicleCard image='/cars/model-s.png' model='Model S' list={modelS} />
+              <VehicleCard image='/cars/car-01.png' model='Model S' list={model3} />
+              <VehicleCard image='/cars/car-02.png' model='Model S' list={modelS} />
+              <VehicleCard image='/cars/car-02.png' model='Model S' list={modelS} />
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className='container py-[80px]'>
+        <div className='flex items-center justify-between'>
+          <h4 className='text-h4 font-600 text-N-800'>New arrivals</h4>
+          <Button appearance='ghost' iconAfter={<ArrowRight size={20} />}>
+            View more
+          </Button>
+        </div>
+        <div className='flex gap-[48px] pt-[40px]'>
+          <ShopCard
+            image='/shop-item.png'
+            heading='Charging Cable (EU+UK) Rental Set'
+            price='£6.00'
+            shopName='Milton Keynes Team'
+          />
+          <ShopCard
+            image='/shop-item.png'
+            heading='Charging Cable (EU+UK) Rental Set'
+            price='£6.00'
+            shopName='Milton Keynes Team'
+          />
+          <ShopCard
+            image='/shop-item.png'
+            heading='Charging Cable (EU+UK) Rental Set'
+            price='£6.00'
+            shopName='Milton Keynes Team'
+          />
+          <ShopCard
+            image='/shop-item.png'
+            heading='Charging Cable (EU+UK) Rental Set'
+            price='£6.00'
+            shopName='Milton Keynes Team'
+          />
         </div>
       </div>
 
