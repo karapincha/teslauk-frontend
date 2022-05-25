@@ -205,7 +205,7 @@ const Home: NextPage = () => {
 
             <div className='rounded-[6px] bg-[white] px-[24px] py-[38px] lg:absolute lg:right-0 lg:top-[-80px] lg:w-[576px] lg:px-[32px]'>
               <div className='input-field flex flex-col gap-[16px] pt-[16px]'>
-                <div className='flex flex-col justify-between gap-[16px] md:flex-row lg:gap-0'>
+                <div className='flex flex-col justify-between gap-[16px] md:flex-row '>
                   <div className='flex w-full flex-col gap-[4px]'>
                     <p className='text-md text-N-600'>First Name</p>
                     <TextField placeholder='Enter first name' />
