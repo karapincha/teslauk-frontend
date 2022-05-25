@@ -27,7 +27,7 @@ export const MembershipCardPreview: FC<MembershipCardPreviewProps> = ({
             'Access to some club events',
           ]}
           ctaBtnText='Join'
-          onClickCtaBtn={() => {}}
+          onClickCtaBtn={() => {'/login'}}
           className='w-full flex-shrink-0 md:w-[unset] lg:w-[368px]'
         />
         <MembershipCard

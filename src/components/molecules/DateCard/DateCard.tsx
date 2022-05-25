@@ -44,12 +44,12 @@ export const DateCard: FC<DateCardProps> = ({
       </div>
 
       <div className='date-card__content'>
-        <h4 className='text-h5 date-card__heading mb-[4px]'>{heading}</h4>
-        <p className='date-card__location mb-[16px] flex items-center font-500 text-N-500 text-md'>
+        <h4 className='date-card__heading mb-[4px] text-h5'>{heading}</h4>
+        <p className='date-card__location mb-[16px] flex items-center text-md font-500 text-N-500'>
           <MapPin size={16} />
           <span className='pl-[8px]'>{location}</span>
         </p>
-        <p className='date-card__description mb-[16px] text-N-600 text-md'>{description}</p>
+        <p className='date-card__description mb-[16px] text-md text-N-600'>{description}</p>
 
         <Button
           appearance='link'

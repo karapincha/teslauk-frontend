@@ -40,7 +40,7 @@ export const MembershipCard: FC<MembershipCardProps> = ({
       'bg-white text-N-700': type === 'secondary',
     }
   )
-  
+
   const { isDesktop, isMobile, isTablet } = useViewport()
 
   return (
@@ -48,14 +48,14 @@ export const MembershipCard: FC<MembershipCardProps> = ({
       <div className='flex h-full w-full'>
         <div className='flex h-full w-full flex-col'>
           <h3
-            className={CN('mb-[12px] lg:mb-[0] text-h4 lg:text-h3', {
+            className={CN('mb-[12px] text-h4 lg:mb-[0] lg:text-h3', {
               'text-white': type === 'primary',
               'text-N-700': type === 'secondary',
             })}>
             {heading}
           </h3>
 
-          <div className='flex lg:gap-[8px] mb-[48px] flex-col items-start lg:flex lg:flex-row lg:items-center'>
+          <div className='mb-[48px] flex flex-col items-start lg:flex lg:flex-row lg:items-center lg:gap-[8px]'>
             <p
               className={CN('text-h5 font-500 lg:text-h4', {
                 'text-white': type === 'primary',
@@ -78,8 +78,10 @@ export const MembershipCard: FC<MembershipCardProps> = ({
           </ul>
         </div>
 
-        <div className='ml-auto flex md:h-[unset] absolute right-[24px] lg:static'>
-          {type === 'primary' && <Logo size={(!isDesktop && 120) || 160} className='mt-[-8px] mr-[-8px]' />}
+        <div className='absolute right-[24px] ml-auto flex md:h-[unset] lg:static'>
+          {type === 'primary' && (
+            <Logo size={(!isDesktop && 120) || 160} className='mt-[-8px] mr-[-8px]' />
+          )}
         </div>
       </div>
 

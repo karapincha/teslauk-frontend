@@ -26,7 +26,7 @@ export const EventCard: FC<EventCardProps> = ({ className, ...restProps }: Event
             onClickLink={() => {}}
             description='Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.'
             cta={
-              <Link href='/guides'>
+              <Link href='/event-home'>
                 <Button iconAfter={<i className='ri-arrow-right-line text-lg' />} appearance='link'>
                   View all events
                 </Button>
@@ -35,7 +35,7 @@ export const EventCard: FC<EventCardProps> = ({ className, ...restProps }: Event
           />
         </div>
 
-        <div className='flex flex-col gap-[40px] md:flex md:flex-col lg:flex lg:flex-row md:gap-[32px] lg:gap-[64px]'>
+        <div className='flex flex-col gap-[40px] md:flex md:flex-col md:gap-[32px] lg:flex lg:flex-row lg:gap-[64px]'>
           <DateCard appearance='primary' className='!w-[calc(100%-16px)]' />
           <DateCard month='Jul' date='12' className='!w-[calc(100%-16px)]' />
           <DateCard month='Aug' date='26' className='!w-[calc(100%-16px)]' />
