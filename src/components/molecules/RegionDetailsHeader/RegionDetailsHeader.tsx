@@ -13,13 +13,13 @@ export const RegionDetailsHeader: FC<RegionDetailsHeaderProps> = ({
   ...restProps
 }: RegionDetailsHeaderProps) => {
   const RegionDetailsHeaderClasses = CN(
-    `region-details-header flex gap-[48px] rounded-t-[12px] bg-N-10 px-[56px] pt-[60px]`,
+    `region-details-header flex flex-col-reverse lg:flex-row gap-[40px] md:gap-[48px] rounded-t-[12px] bg-N-10 px-[16px] lg:px-[56px] pt-[60px]`,
     className
   )
 
   return (
     <div className={RegionDetailsHeaderClasses} {...restProps}>
-      <div className='w-[416px]'>
+      <div className='w-full lg:w-[416px]'>
         <h3 className='text-h3 font-700 text-N-800'>Scotland</h3>
         <p className='pt-[28px] text-base font-400 text-N-600'>
           A major part of being a member of Tesla Owners UK is the ability to attend events – both
@@ -35,7 +35,7 @@ export const RegionDetailsHeader: FC<RegionDetailsHeaderProps> = ({
         </div>
 
         <div className='pt-[20px]'>
-          <Button appearance='secondary' className='w-[unset]'>
+          <Button appearance='secondary' className='w-full lg:w-[unset]'>
             Contact Organiser
           </Button>
         </div>
@@ -50,7 +50,7 @@ export const RegionDetailsHeader: FC<RegionDetailsHeaderProps> = ({
         </div>
       </div>
 
-      <div className='h-[409px] w-[624px] '>
+      <div className='h-[203px] w-full lg:h-[409px] lg:w-[624px]'>
         <img
           src='https://images.unsplash.com/photo-1617704548623-340376564e68?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470'
           className='h-full w-full rounded-[12px] object-cover object-center'

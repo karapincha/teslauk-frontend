@@ -118,7 +118,7 @@ const Home: NextPage = () => {
 
       <div className='header-surface relative h-[356px] bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
         <div className='container flex h-full flex-col'>
-          <div className='flex py-[50px]'>
+          <div className='flex py-[24px] lg:py-[50px]'>
             <Button
               appearance='ghost'
               iconBefore={<ArrowLeft size={20} />}
@@ -126,16 +126,16 @@ const Home: NextPage = () => {
               Back to Search results
             </Button>
           </div>
-          <div className='container absolute top-[132px]'>
+          <div className='top-[132px] lg:absolute'>
             <RegionDetailsHeader />
           </div>
         </div>
       </div>
 
-      <div className='container pt-[380px]'>
-        <div className='flex justify-between pb-[40px] md:flex-col md:gap-[40px] lg:flex-row lg:items-center lg:gap-0'>
+      <div className='container pt-[500px] lg:pt-[380px]'>
+        <div className='flex flex-col justify-between gap-[24px] pb-[40px] md:flex-col md:gap-[40px] lg:flex-row lg:items-center lg:gap-0'>
           <h4 className='text-h4 font-500 text-N-800'>Upcoming events</h4>
-          <div className='flex gap-[20px]'>
+          <div className='flex flex-col gap-[20px] md:flex-row'>
             <TextField placeHolder='Date range' />
             <TextField placeHolder='Event type' />
           </div>
@@ -162,8 +162,8 @@ const Home: NextPage = () => {
         </ul>
       </div>
 
-      <div className='container py-[80px]'>
-        <div className='flex justify-between pb-[40px] md:flex-col md:gap-[40px] lg:flex-row lg:items-center lg:gap-0'>
+      <div className='container pt-[40px] lg:py-[80px]'>
+        <div className='flex justify-between pb-[24px] md:flex-col md:gap-[40px] md:pb-[40px] lg:flex-row lg:items-center lg:gap-0'>
           <h4 className='text-h4 font-500 text-N-800'>News</h4>
         </div>
         <ul className='flex flex-col gap-[24px] md:grid md:grid-cols-2 md:gap-y-[40px] md:gap-x-[24px] lg:grid lg:grid-cols-3 lg:gap-x-[48px]'>
@@ -188,12 +188,14 @@ const Home: NextPage = () => {
       </div>
 
       {/* CTA bar with contact form */}
-      <div className='py-[160px]'>
-        <div className='h-[352px] bg-N-50'>
-          <div className='container relative flex justify-between'>
-            <div className=' pt-[64px]'>
-              <div className='flex w-[452px] flex-col gap-[24px]'>
-                <h2 className=' text-h2'>Contact the regional leader</h2>
+      <div className='pt-[40px] md:pt-[80px] lg:py-[160px]'>
+        <div className='bg-N-50 pb-[40px] md:pb-[80px] lg:h-[352px] lg:pb-0'>
+          <div className='container relative flex flex-col gap-[24px] lg:flex-row lg:justify-between lg:gap-0'>
+            <div className='pt-[40px] md:pt-[80px] lg:pt-[64px]'>
+              <div className='flex w-full flex-col gap-[24px] lg:w-[452px]'>
+                <h2 className='text-h3 font-700 text-N-800 lg:text-h2'>
+                  Contact the regional leader
+                </h2>
                 <p className='text-base font-500 text-N-600'>
                   Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit
                   officia consequat duis enim velit mollit.{' '}
@@ -201,14 +203,14 @@ const Home: NextPage = () => {
               </div>
             </div>
 
-            <div className=' absolute right-0 top-[-80px] w-[576px] rounded-[6px] bg-[white] px-[32px] py-[38px]'>
+            <div className='rounded-[6px] bg-[white] px-[24px] py-[38px] lg:absolute lg:right-0 lg:top-[-80px] lg:w-[576px] lg:px-[32px]'>
               <div className='input-field flex flex-col gap-[16px] pt-[16px]'>
-                <div className='flex justify-between'>
-                  <div className='flex flex-col gap-[4px]'>
+                <div className='flex flex-col justify-between gap-[16px] md:flex-row lg:gap-0'>
+                  <div className='flex w-full flex-col gap-[4px]'>
                     <p className='text-md text-N-600'>First Name</p>
                     <TextField placeholder='Enter first name' />
                   </div>
-                  <div className='flex flex-col gap-[4px]'>
+                  <div className='flex w-full flex-col gap-[4px]'>
                     <p className='text-md text-N-600'>Last Name</p>
                     <TextField placeholder='Enter last name' />
                   </div>
