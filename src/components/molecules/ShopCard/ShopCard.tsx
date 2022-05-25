@@ -22,17 +22,22 @@ export const ShopCard: FC<ShopCardProps> = ({
   return (
     <div className={ShopCardClasses} {...restProps}>
       {image && (
-        <div className='flex'>
-          <img src={image} className='h-[264px] w-[264px] rounded-[12px] border border-N-300' />
+        <div className='md:flex'>
+          <img
+            src={image}
+            className='h-full w-full rounded-[12px] border border-N-300 md:h-[224px] md:w-[224px] lg:h-[264px] lg:w-[264px]'
+          />
         </div>
       )}
 
-      <div className='flex w-[264px] flex-col items-center'>
+      <div className='flex w-full flex-col items-center md:w-[224px] lg:w-[264px]'>
         {heading && (
-          <p className='w-[240px] text-center text-base font-500 text-N-800'>{heading}</p>
+          <p className='w-full text-center text-md font-500 text-N-800 md:text-base lg:w-[240px]'>
+            {heading}
+          </p>
         )}
-        {price && <p className='text-base font-600 text-B-500'>From: {price} </p>}
-        {shopName && <p className='text-md font-400 text-N-600'>{shopName}</p>}
+        {price && <p className='text-md font-600 text-B-500 md:text-base'>From: {price} </p>}
+        {shopName && <p className='text-sm font-400 text-N-600 md:text-md'>{shopName}</p>}
       </div>
     </div>
   )

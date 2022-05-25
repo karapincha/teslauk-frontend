@@ -9,9 +9,11 @@ import { ShopCard } from '@/components/molecules/ShopCard'
 import { Button, CheckBox, TextField } from '@/components/atoms'
 import shopList from '@/dummy-data/shop-list'
 import { Pagination } from '@/components/molecules'
+import { useViewport } from '@/utils'
+import { Filter } from 'react-feather'
 
 const Home: NextPage = () => {
-  const [activeTab, setActiveTab] = useState('accessories')
+  const { isMobile, isTablet, isDesktop } = useViewport()
   return (
     <>
       <Head>
@@ -22,8 +24,9 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      <div className='container flex justify-between'>
-        <div className='flex flex-col gap-[40px]'>
+      <div className='container md:flex md:justify-between'>
+        {/* Filter Desktop version */}
+        <div className='hidden flex-col gap-[40px] lg:flex'>
           {/* Categories */}
           <div className='flex flex-col gap-[16px]'>
             <h4 className='text-h4 font-600 text-N-800'>Categories</h4>
@@ -72,19 +75,39 @@ const Home: NextPage = () => {
 
         <div className='flex flex-col'>
           <div className='flex flex-col'>
-            <h3 className='text-h3 font-600 text-N-800'>Accessories</h3>
+            <h3 className='pb-[24px] text-h3 font-600 text-N-800 md:pb-[40px] lg:pb-0'>
+              Accessories
+            </h3>
 
-            <div className='flex justify-between py-[40px]'>
-              <p className='text-base font-400 text-N-600'>57 related listings</p>
-              <div className='w-[210px]'>
-                <TextField placeHolder='Sort by Relevance' />
+            {/* Filter button */}
+            {!isDesktop && (
+              <div className='flex flex-col gap-[16px] rounded-[12px] border border-N-100 bg-white px-[16px] py-[24px] md:flex-row md:items-center md:justify-between md:bg-transparent md:px-[24px]'>
+                <Button
+                  appearance='secondary'
+                  size={(isMobile && 'md') || (isTablet && 'sm')}
+                  iconAfter={<Filter size={20} />}
+                  className='w-full md:w-[210px]'>
+                  Filters
+                </Button>
+                <div className='w-full md:w-[210px]'>
+                  <TextField placeHolder='Sort by Relevance' />
+                </div>
               </div>
+            )}
+
+            <div className='flex justify-between py-[24px] md:py-[40px]'>
+              <p className='text-base font-400 text-N-600'>57 related listings</p>
+              {isDesktop && (
+                <div className='w-[210px]'>
+                  <TextField placeHolder='Sort by Relevance' />
+                </div>
+              )}
             </div>
           </div>
 
           {/* Shop list */}
           <div className=''>
-            <ul className='grid grid-cols-3 gap-x-[48px] gap-y-[52px]'>
+            <ul className='grid grid-cols-2 gap-x-[16px] gap-y-[24px] md:grid-cols-3 md:gap-x-[16px] md:gap-y-[40px] lg:gap-x-[48px] lg:gap-y-[52px]'>
               {(shopList || []).map(
                 ({ id, image, heading, price, shopName, url }: any, index: number) => (
                   <li key={id || index}>
@@ -96,7 +119,7 @@ const Home: NextPage = () => {
               )}
             </ul>
 
-            <div className='w-full max-w-[784px] py-[80px]'>
+            <div className='w-full max-w-[784px] py-[40px] md:py-[80px]'>
               <Pagination />
             </div>
           </div>
