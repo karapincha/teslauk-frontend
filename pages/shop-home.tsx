@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { ShopCategories } from '@/components/sections/ShopCategories'
 import { useState } from 'react'
@@ -33,14 +32,14 @@ const Home: NextPage = () => {
       </div>
 
       {/* Shop categories */}
-      <div className='container flex justify-between py-[80px]'>
+      <div className='container flex flex-col justify-between py-[80px] md:flex-row'>
         <div className='flex flex-col gap-[32px]'>
           <h3 className='text-h3 font-700 text-N-800'>Categories</h3>
           <ShopCategories onChange={(tab: any) => setActiveTab(tab)} />
         </div>
 
         {/* Category images */}
-        <div className='flex'>
+        <div className='flex pt-[24px] md:pt-0'>
           {activeTab === 'accessories' && (
             <img
               src='https://images.unsplash.com/photo-1453491945771-a1e904948959?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
