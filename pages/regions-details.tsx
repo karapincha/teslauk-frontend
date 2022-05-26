@@ -3,33 +3,13 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useRouter } from 'next/router'
-import {
-  Tag,
-  ArrowLeft,
-  Globe,
-  MapPin,
-  Phone,
-  Mail,
-  Bookmark,
-  Compass,
-  Users,
-  Link,
-} from 'react-feather'
+import { ArrowLeft } from 'react-feather'
 import { useViewport } from '@/utils'
-import { SupplierAboutHeader } from '@/components/molecules/SupplierAboutHeader'
 import { Button, TextArea, TextField } from '@/components/atoms'
-import { SupplierDetailsTabs } from '@/components/sections/SupplierDetailsTabs'
-import { SupplierAboutSideBar } from '@/components/sections/SupplierAboutSideBar'
-import { RelatedListingsSideBar } from '@/components/sections/RelatedListingsSideBar'
-import { Breadcrumb } from '@/components/molecules/Breadcrumb'
-import { Facebook, Instagram, Twitter } from '@/icons'
 import { RegionDetailsHeader } from '@/components/molecules/RegionDetailsHeader'
 import { SingleEventCard } from '@/components/molecules/SingleEventCard'
 
 const Home: NextPage = () => {
-  const router = useRouter()
-  const { isDesktop, isMobile, isTablet } = useViewport()
-  const [activeTab, setActiveTab] = useState('about')
   const eventList = [
     {
       id: 0,
