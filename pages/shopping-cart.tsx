@@ -58,7 +58,14 @@ const Home: NextPage = () => {
           </div>
 
           <div className='flex h-full'>
-            <PriceCard />
+            <PriceCard
+              subTotal='£35.00'
+              shippingCost='£10.00'
+              discount='£0.00'
+              gst='£60.50'
+              total='£12,231.76'
+              isDiscount={true}
+            />
           </div>
         </div>
       </div>
