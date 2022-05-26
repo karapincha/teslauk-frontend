@@ -24,7 +24,7 @@ export const PriceCard: FC<PriceCardProps> = ({
   ...restProps
 }: PriceCardProps) => {
   const PriceCardClasses = CN(
-    `price-card shadow-card w-[368px] rounded-[12px] border border-N-200 bg-white px-[24px] py-[24px]`,
+    `price-card shadow-card lg:w-[368px] rounded-[12px] border border-N-200 bg-white px-[24px] py-[24px] w-full`,
     className
   )
 

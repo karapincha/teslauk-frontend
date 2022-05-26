@@ -22,11 +22,11 @@ const Home: NextPage = () => {
 
       <Header className='py-[24px]' />
 
-      <div className='container pt-[16px] pb-[80px]'>
-        <h1 className='text-h3 font-700 text-N-800'>Shopping Cart (3)</h1>
+      <div className='container pt-[16px] pb-[40px] md:pb-[80px]'>
+        <h1 className='text-h4 font-600 text-N-800 md:text-h3 md:font-700'>Shopping Cart (3)</h1>
 
-        <div className='flex justify-between'>
-          <div className='flex flex-col gap-[96px] pt-[40px]'>
+        <div className='flex flex-col justify-between gap-[24px] md:gap-[40px] lg:flex-row lg:gap-0'>
+          <div className='flex flex-col gap-[48px] pt-[24px] md:pt-[40px] lg:gap-[96px]'>
             <ShoppingCard
               image='/shop-item.png'
               heading='CHAdeMO adapter rental - Available for paid supporters only (Model S/X only)'
