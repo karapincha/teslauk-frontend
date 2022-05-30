@@ -1,9 +1,7 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
-import { Button, FieldGroup, Radio } from '@/components/atoms'
-import { ArrowRight, Check, ShoppingBag } from 'react-feather'
-import { PriceCard } from '../PriceCard'
-import { ShoppingCard } from '../ShoppingCard'
+import { Button } from '@/components/atoms'
+import { CheckoutProductCard } from '../CheckoutProductCard'
 
 export interface CheckoutCardProps {
   [x: string]: any
@@ -32,12 +30,32 @@ export const CheckoutCard: FC<CheckoutCardProps> = ({
 
   return (
     <div className={CheckoutCardClasses} {...restProps}>
-      <div>
-        
+      <div className='flex flex-col'>
+        <p className='pb-[24px] text-base font-500 text-N-800'>Your order</p>
+        <div className='flex flex-col gap-[32px]'>
+          <CheckoutProductCard
+            image='/shop-item.png'
+            heading='CHAdeMO adapter rental - Available for paid supporters only (Model S/X only)'
+            shopName='England - Milton Keynes'
+            price='£35.00'
+            priceDetails='1X £35.00 / year'
+          />
+          <CheckoutProductCard
+            image='/shop-item.png'
+            heading='CHAdeMO adapter rental - Available for paid supporters only (Model S/X only)'
+            shopName='England - Milton Keynes'
+            price='£35.00'
+            priceDetails='1X £35.00 / year'
+          />
+        </div>
+        <div className='py-[24px]'>
+          <Button appearance='ghost' className='px-0 !font-600 !text-B-500'>
+            See more
+          </Button>
+        </div>
       </div>
 
-
-      <div className='flex flex-col gap-[8px] border-b border-N-200 pb-[8px]'>
+      <div className='flex flex-col gap-[8px] border-b border-t border-N-200 pt-[24px] pb-[8px]'>
         <div className='flex justify-between'>
           <p className='text-md font-500 text-N-600'>Subtotal</p>
           <p className='text-md font-500 text-N-700'>{subTotal}</p>

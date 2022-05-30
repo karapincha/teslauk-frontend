@@ -6,6 +6,7 @@ import { ShoppingCard } from '@/components/molecules/ShoppingCard'
 import { PriceCard } from '@/components/molecules/PriceCard'
 import { CheckBox, TextField } from '@/components/atoms'
 import { CheckoutCard } from '@/components/molecules/CheckoutCard'
+import { CheckoutProductCard } from '@/components/molecules/CheckoutProductCard'
 
 const Home: NextPage = () => {
   const { isMobile, isTablet, isDesktop } = useViewport()
@@ -25,13 +26,13 @@ const Home: NextPage = () => {
           <h2 className='text-h4 font-600 text-N-800'>Billing details</h2>
         </div>
 
-        <div className='flex justify-between'>
-          <div className='pb-[80px]'>
+        <div className='flex justify-between gap-[48px]'>
+          <div className='w-full pb-[80px]'>
             <h5 className='text-h5 font-500 text-N-800'>Billing address</h5>
 
             {/* Address details form */}
-            <div className='input-field flex flex-col gap-[16px] pt-[16px] lg:w-[600px]'>
-              <div className='flex w-full flex-col justify-between gap-[16px] md:flex-row lg:flex-row lg:gap-[48px]'>
+            <div className='input-field flex w-full flex-col gap-[16px] pt-[40px]'>
+              <div className='flex w-full flex-col justify-between gap-[16px] md:flex-row lg:flex-row'>
                 <div className='flex w-full flex-col gap-[4px]'>
                   <p className='text-md text-N-600'>First Name</p>
                   <TextField placeholder='Enter first name' />
