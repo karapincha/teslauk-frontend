@@ -4,7 +4,7 @@ import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useViewport } from '@/utils'
 import { ShoppingCard } from '@/components/molecules/ShoppingCard'
 import { PriceCard } from '@/components/molecules/PriceCard'
-import { CheckBox, TextField } from '@/components/atoms'
+import { Button, CheckBox, TextField } from '@/components/atoms'
 import { CheckoutCard } from '@/components/molecules/CheckoutCard'
 import { CheckoutProductCard } from '@/components/molecules/CheckoutProductCard'
 import { PaymentGateway } from '@/components/sections/PaymentGateway'
@@ -107,13 +107,36 @@ const Home: NextPage = () => {
         </div>
       </div>
 
+      {/* Bank details, Payment methods */}
       <div className='container border-t border-N-200 py-[80px]'>
         <h4 className='text-h4 font-600 text-N-800'>Payment method</h4>
 
         <div className='flex gap-[48px] pt-[40px]'>
+          {/* Payment method */}
           <PaymentGateway />
 
-          <div>hi</div>
+          {/* Place order button */}
+          <div className='flex flex-col gap-[24px]'>
+            <div className='flex flex-col gap-[16px]'>
+              <p className='text-base font-400 text-N-800'>
+                Your personal data will be used to process your order, support your experience
+                throughout this website, and for other purposes described in our privacy policy.
+              </p>
+              <div className='flex items-center gap-[12px]'>
+                <CheckBox />
+                <p className='text-base font-400'>
+                  I have read and agree to the website {''}
+                  <a href='#' target='_blank' className='text-base font-600'>
+                    terms and conditions {''}
+                  </a>
+                  <span className='text-base text-B-500'>*</span>
+                </p>
+              </div>
+            </div>
+            <div className='flex'>
+              <Button>Place order</Button>
+            </div>
+          </div>
         </div>
       </div>
 
