@@ -22,7 +22,10 @@ export const PayWithStripe: FC<PayWithStripeProps> = ({
           <TextField label='Expiry' placeHolder='MM / YY' />
           <TextField label='CVC' placeHolder='XXX' />
         </div>
-        <CheckBox children='Save payment information to my account for future purchases.' labelClassName='!text-N-600' />
+        <CheckBox
+          children='Save payment information to my account for future purchases.'
+          labelClassName='!text-N-600'
+        />
       </div>
     </div>
   )

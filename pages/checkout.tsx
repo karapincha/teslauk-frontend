@@ -2,11 +2,8 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useViewport } from '@/utils'
-import { ShoppingCard } from '@/components/molecules/ShoppingCard'
-import { PriceCard } from '@/components/molecules/PriceCard'
 import { Button, CheckBox, TextField } from '@/components/atoms'
 import { CheckoutCard } from '@/components/molecules/CheckoutCard'
-import { CheckoutProductCard } from '@/components/molecules/CheckoutProductCard'
 import { PaymentGateway } from '@/components/sections/PaymentGateway'
 
 const Home: NextPage = () => {

@@ -1,7 +1,5 @@
 import React, { FC, useState } from 'react'
 import CN from 'classnames'
-import { SupplierDetailsAbout } from '../SupplierDetailsAbout'
-import { SupplierDetailsRelatedListings } from '../SupplierDetailsRelatedListings'
 import { PayWithStripe } from '../PayWithStripe'
 import { PayWithDirect } from '../PayWithDirect'
 

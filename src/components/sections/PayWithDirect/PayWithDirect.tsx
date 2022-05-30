@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
-import { CheckBox, TextField } from '@/components/atoms'
+import { CheckBox } from '@/components/atoms'
 
 export interface PayWithDirectProps {
   [x: string]: any
