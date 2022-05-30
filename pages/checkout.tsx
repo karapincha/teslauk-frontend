@@ -7,6 +7,7 @@ import { PriceCard } from '@/components/molecules/PriceCard'
 import { CheckBox, TextField } from '@/components/atoms'
 import { CheckoutCard } from '@/components/molecules/CheckoutCard'
 import { CheckoutProductCard } from '@/components/molecules/CheckoutProductCard'
+import { PaymentGateway } from '@/components/sections/PaymentGateway'
 
 const Home: NextPage = () => {
   const { isMobile, isTablet, isDesktop } = useViewport()
@@ -103,6 +104,16 @@ const Home: NextPage = () => {
               isDiscount={true}
             />
           </div>
+        </div>
+      </div>
+
+      <div className='container border-t border-N-200 py-[80px]'>
+        <h4 className='text-h4 font-600 text-N-800'>Payment method</h4>
+
+        <div className='flex gap-[48px] pt-[40px]'>
+          <PaymentGateway />
+
+          <div>hi</div>
         </div>
       </div>
 

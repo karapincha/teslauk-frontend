@@ -1,0 +1,43 @@
+import dedent from 'ts-dedent'
+import {
+  ArgsTable,
+  Canvas,
+  Description,
+  Meta,
+  Preview,
+  Source,
+  Story,
+} from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { PaymentGateway } from './PaymentGateway'
+
+<Meta title='01. Atoms / PaymentGateway' component={PaymentGateway} />
+
+# PaymentGateway
+
+`import { PaymentGateway } from '@karapincha/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <PaymentGateway />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<PaymentGateway />`} />
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={PaymentGateway} />
