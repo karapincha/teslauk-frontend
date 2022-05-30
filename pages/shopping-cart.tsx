@@ -1,12 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
-import { ShopCard } from '@/components/molecules/ShopCard'
-import { Button, CheckBox, FieldGroup, Radio, TextField } from '@/components/atoms'
-import shopList from '@/dummy-data/shop-list'
-import { Pagination } from '@/components/molecules'
 import { useViewport } from '@/utils'
-import { ArrowRight, Delete, Filter, ShoppingBag, Trash } from 'react-feather'
 import { ShoppingCard } from '@/components/molecules/ShoppingCard'
 import { PriceCard } from '@/components/molecules/PriceCard'
 
