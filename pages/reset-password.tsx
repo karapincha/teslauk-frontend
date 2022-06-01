@@ -31,7 +31,7 @@ const Home: NextPage = () => {
           <div
             className={CN('w-full px-[16px] pt-[32px] md:w-[448px] md:px-0 lg:w-[448px]', {
               '': activeTab === 'password-reset',
-              'hidden': activeTab !== 'password-reset',
+              'flex': activeTab !== 'password-reset',
             })}>
             <PasswordReset />
           </div>

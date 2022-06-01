@@ -15,7 +15,7 @@ export const ApprovalPopup: FC<ApprovalPopupProps> = ({
   ...restProps
 }: ApprovalPopupProps) => {
   const ApprovalPopupClasses = CN(
-    `approval-popup w-[448px] bg-white rounded-[8px] px-[40px] flex flex-col items-center py-[105px] gap-[48px]`,
+    `approval-popup shadow-card w-[448px] bg-white rounded-[8px] px-[16px] md:px-[40px] flex flex-col items-center py-[56px] md:py-[64px] lg:py-[105px] gap-[24px] lg:gap-[48px]`,
     className
   )
 
@@ -25,7 +25,9 @@ export const ApprovalPopup: FC<ApprovalPopupProps> = ({
     <div className={ApprovalPopupClasses} {...restProps}>
       <div className='flex flex-col items-center gap-[32px]'>
         <img src='/check-circle.svg' className='h-[100px] w-[100px]' />
-        <h4 className='text-center text-h4 font-600 text-N-800'>{description}</h4>
+        <h4 className='text-center text-h5 font-500 text-N-800 md:text-h4 md:font-600'>
+          {description}
+        </h4>
       </div>
 
       {btnProps && (

@@ -9,7 +9,7 @@ export interface LoginProps {
 
 export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) => {
   const LoginClasses = CN(
-    `login bg-white rounded-[8px] px-[16px] md:px-[40px] lg:px-[40px] py-[24px] md:py-[32px] lg:py-[32px] w-full`,
+    `login bg-white shadow-card rounded-[8px] px-[16px] md:px-[40px] lg:px-[40px] py-[24px] md:py-[32px] lg:py-[32px] w-full`,
     className
   )
 
