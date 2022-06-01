@@ -1,11 +1,15 @@
+import { useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 
 import { SectionHeading } from '@/components/molecules'
 import { PasswordReset } from '@/components/forms/PasswordReset'
+import { ApprovalPopup } from '@/components/molecules/ApprovalPopup'
+import CN from 'classnames'
 
 const Home: NextPage = () => {
+  const [activeTab, setActiveTab] = useState('password-reset')
   return (
     <>
       <Head>
@@ -24,8 +28,20 @@ const Home: NextPage = () => {
             align='center'
           />
 
-          <div className='g:w-[448px] w-full px-[16px] pt-[32px] md:w-[448px] md:px-0'>
+          <div
+            className={CN('w-full px-[16px] pt-[32px] md:w-[448px] md:px-0 lg:w-[448px]', {
+              '': activeTab === 'password-reset',
+              'hidden': activeTab !== 'password-reset',
+            })}>
             <PasswordReset />
+          </div>
+
+          <div
+            className={CN('w-full px-[16px] pt-[32px] md:w-[448px] md:px-0 lg:w-[448px]', {
+              '': activeTab === 'pop-up',
+              'hidden': activeTab !== 'pop-up',
+            })}>
+            <ApprovalPopup description='We have sent password reset link. Check your email' />
           </div>
         </div>
       </div>
