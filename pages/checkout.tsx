@@ -5,6 +5,7 @@ import { useViewport } from '@/utils'
 import { Button, CheckBox, TextField } from '@/components/atoms'
 import { CheckoutCard } from '@/components/molecules/CheckoutCard'
 import { PaymentGateway } from '@/components/sections/PaymentGateway'
+import { AddressCard } from '@/components/molecules/AddressCard'
 
 const Home: NextPage = () => {
   const { isMobile, isTablet, isDesktop } = useViewport()
@@ -27,6 +28,33 @@ const Home: NextPage = () => {
           <div className='w-full pb-[40px] md:pb-[80px]'>
             <h2 className='pb-[24px] text-h4 font-600 text-N-800 md:pb-[40px]'>Billing details</h2>
             <h5 className='text-h5 font-500 text-N-800'>Billing address</h5>
+
+            {/* Addresses */}
+            <div className='flex flex-col gap-[24px] md:pt-[40px]'>
+              <div className='flex'>
+                <AddressCard
+                  name='Frank Owen'
+                  address='Midlothian, 94 Northfield Broadway, Edinburgh, United Kingdom <br /> EH8 7RU'
+                  phoneNumber='0131 669 0462'
+                  email='frank@example.com'
+                />
+              </div>
+
+              <div className='border-N-200 md:border-t md:pt-[24px]'>
+                <h5 className='pb-[16px] text-h5 font-500 text-N-800'>Shipping address</h5>
+                <AddressCard
+                  name='Frank Owen'
+                  address='Midlothian, 94 Northfield Broadway, Edinburgh, United Kingdom <br /> EH8 7RU'
+                  phoneNumber='0131 669 0462'
+                  email='frank@example.com'
+                />
+                {/* This checkbox does not appear in stripe version design */}
+                <div className='flex items-center gap-[12px] pt-[40px]'>
+                  <CheckBox />
+                  <p className='text-base font-600'>Ship to a different shipping address</p>
+                </div>
+              </div>
+            </div>
 
             {/* Address details form */}
             <div className='input-field flex w-full flex-col gap-[16px] pt-[24px] md:pt-[40px]'>
@@ -120,6 +148,8 @@ const Home: NextPage = () => {
                   Your personal data will be used to process your order, support your experience
                   throughout this website, and for other purposes described in our privacy policy.
                 </p>
+
+                {/* This checkbox does not appear in the direct debit page version */}
                 <div className='flex items-center gap-[12px]'>
                   <CheckBox />
                   <p className='text-base font-400'>
