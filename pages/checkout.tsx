@@ -31,14 +31,12 @@ const Home: NextPage = () => {
 
             {/* Addresses */}
             <div className='flex flex-col gap-[24px] md:pt-[40px]'>
-              <div className='flex'>
-                <AddressCard
-                  name='Frank Owen'
-                  address='Midlothian, 94 Northfield Broadway, Edinburgh, United Kingdom <br /> EH8 7RU'
-                  phoneNumber='0131 669 0462'
-                  email='frank@example.com'
-                />
-              </div>
+              <AddressCard
+                name='Frank Owen'
+                address='Midlothian, 94 Northfield Broadway, Edinburgh, United Kingdom <br /> EH8 7RU'
+                phoneNumber='0131 669 0462'
+                email='frank@example.com'
+              />
 
               <div className='border-N-200 md:border-t md:pt-[24px]'>
                 <h5 className='pb-[16px] text-h5 font-500 text-N-800'>Shipping address</h5>
