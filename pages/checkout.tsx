@@ -19,17 +19,17 @@ const Home: NextPage = () => {
       <Header className='py-[24px]' />
 
       <div className='container'>
-        <div className='flex flex-col gap-[48px] pb-[40px]'>
+        <div className='flex flex-col pb-[24px] md:pb-[40px]'>
           <h1 className='text-h4 font-600 text-N-800 md:text-h3 md:font-700'>Checkout</h1>
-          <h2 className='text-h4 font-600 text-N-800'>Billing details</h2>
         </div>
 
-        <div className='flex justify-between gap-[48px]'>
-          <div className='w-full pb-[80px]'>
+        <div className='flex flex-col-reverse justify-between gap-[48px] lg:flex-row'>
+          <div className='w-full pb-[40px] md:pb-[80px]'>
+            <h2 className='pb-[24px] text-h4 font-600 text-N-800 md:pb-[40px]'>Billing details</h2>
             <h5 className='text-h5 font-500 text-N-800'>Billing address</h5>
 
             {/* Address details form */}
-            <div className='input-field flex w-full flex-col gap-[16px] pt-[40px]'>
+            <div className='input-field flex w-full flex-col gap-[16px] pt-[24px] md:pt-[40px]'>
               <div className='flex w-full flex-col justify-between gap-[16px] md:flex-row lg:flex-row'>
                 <div className='flex w-full flex-col gap-[4px]'>
                   <p className='text-md text-N-600'>First Name</p>
@@ -105,33 +105,35 @@ const Home: NextPage = () => {
       </div>
 
       {/* Bank details, Payment methods */}
-      <div className='container border-t border-N-200 py-[80px]'>
-        <h4 className='text-h4 font-600 text-N-800'>Payment method</h4>
+      <div className='container'>
+        <div className='border-t border-N-200 py-[40px] md:py-[80px]'>
+          <h4 className='text-h4 font-600 text-N-800'>Payment method</h4>
 
-        <div className='flex gap-[48px] pt-[40px]'>
-          {/* Payment method */}
-          <PaymentGateway />
+          <div className='flex flex-col gap-[16px] pt-[24px] md:grid md:grid-cols-2 md:gap-[24px] lg:flex lg:flex-row lg:gap-[48px] lg:pt-[40px]'>
+            {/* Payment method */}
+            <PaymentGateway />
 
-          {/* Place order button */}
-          <div className='flex flex-col gap-[24px]'>
-            <div className='flex flex-col gap-[16px]'>
-              <p className='text-base font-400 text-N-800'>
-                Your personal data will be used to process your order, support your experience
-                throughout this website, and for other purposes described in our privacy policy.
-              </p>
-              <div className='flex items-center gap-[12px]'>
-                <CheckBox />
-                <p className='text-base font-400'>
-                  I have read and agree to the website {''}
-                  <a href='#' target='_blank' className='text-base font-600'>
-                    terms and conditions {''}
-                  </a>
-                  <span className='text-base text-B-500'>*</span>
+            {/* Place order button */}
+            <div className='flex flex-col gap-[24px]'>
+              <div className='flex flex-col gap-[16px]'>
+                <p className='text-base font-400 text-N-800'>
+                  Your personal data will be used to process your order, support your experience
+                  throughout this website, and for other purposes described in our privacy policy.
                 </p>
+                <div className='flex items-center gap-[12px]'>
+                  <CheckBox />
+                  <p className='text-base font-400'>
+                    I have read and agree to the website {''}
+                    <a href='#' target='_blank' className='text-base font-600'>
+                      terms and conditions {''}
+                    </a>
+                    <span className='text-base text-B-500'>*</span>
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className='flex'>
-              <Button>Place order</Button>
+              <div className='flex'>
+                <Button className='w-full lg:w-[unset]'>Place order</Button>
+              </div>
             </div>
           </div>
         </div>

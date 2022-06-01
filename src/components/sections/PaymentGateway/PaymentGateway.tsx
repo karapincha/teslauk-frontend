@@ -17,11 +17,11 @@ export const PaymentGateway: FC<PaymentGatewayProps> = ({
 
   return (
     <div className={PaymentGatewayClasses} {...restProps}>
-      <div className='flex gap-[48px]'>
+      <div className='flex flex-col gap-[24px] lg:flex-row lg:gap-[48px]'>
         {/* Stripe */}
         <a className='cursor-pointer' onClick={() => setActiveTab('stripe')}>
           <div
-            className={CN('w-[264px] rounded-[6px]  bg-white py-[16px] pl-[16px]', {
+            className={CN('w-full rounded-[6px] bg-white  py-[16px] pl-[16px] lg:w-[264px]', {
               'border-[2px] border-B-500': activeTab === 'stripe',
               'border border-N-300': activeTab !== 'stripe',
             })}>
@@ -33,7 +33,7 @@ export const PaymentGateway: FC<PaymentGatewayProps> = ({
         {/* Direct debit */}
         <a className='cursor-pointer' onClick={() => setActiveTab('direct')}>
           <div
-            className={CN('w-[264px] rounded-[6px]  bg-white py-[16px] pl-[16px]', {
+            className={CN('w-full rounded-[6px] bg-white  py-[16px] pl-[16px] lg:w-[264px]', {
               'border-[2px] border-B-500': activeTab === 'direct',
               'border border-N-300': activeTab !== 'direct',
             })}>
