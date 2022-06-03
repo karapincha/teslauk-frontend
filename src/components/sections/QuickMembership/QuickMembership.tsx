@@ -9,6 +9,7 @@ export interface QuickMembershipProps {
 
 export const QuickMembership: FC<QuickMembershipProps> = ({
   className,
+  data,
   ...restProps
 }: QuickMembershipProps) => {
   const QuickMembershipClasses = CN(
@@ -16,19 +17,21 @@ export const QuickMembership: FC<QuickMembershipProps> = ({
     className
   )
 
+  const { description, subHeading, heading, freeMemberBlock, supporterMemberBlock } = data
+
   return (
     <div className={QuickMembershipClasses} {...restProps}>
       <div className='container flex flex-col items-center'>
         <div className='mb-[40px] flex items-center justify-between'>
           <SectionHeading
-            overline='Membership'
-            heading='Join the club'
-            description='Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet'
+            overline={subHeading}
+            heading={heading}
+            description={description}
             align='center'
           />
         </div>
 
-        <MembershipCardPreview />
+        <MembershipCardPreview data={{ supporterMemberBlock, freeMemberBlock }} />
       </div>
     </div>
   )

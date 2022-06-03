@@ -48,6 +48,7 @@ module.exports = {
     dropShadow: {
       'DEFAULT': '0px_3px_12px_rgba(1,56,106,0.08)',
       '3xl': '0 35px 35px rgba(0, 0, 0, 0.25)',
+      'icon-bg-shadow': ['0px -1px 1px #D8E1EC', '0px 1px 1px #C2D0DE'],
     },
     extend: {
       colors: {
@@ -96,6 +97,7 @@ module.exports = {
       backgroundImage: {
         'page-lock-bg':
           'linear-gradient(180deg, rgba(248, 251, 253, 0) 0%, red 40.39%, #F8FBFD 100%)',
+        'icon-bg': 'linear-gradient(180deg, #ECF2F7 0%, #D8E1EC 100%)',
       },
     },
   },

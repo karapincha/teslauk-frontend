@@ -11,8 +11,28 @@ import {
   CallToAction,
   SupplierRibbon,
 } from '@/components/sections'
+import {
+  getHeroBlock,
+  getFeaturedEventsBlock,
+  getMembershipBlock,
+  getTestimonialBlock,
+  getGuidesBlock,
+  getCtaBlock,
+  getSupplierBlock,
+  getFooterBlock,
+} from '../lib/graphql'
 
-const Home: NextPage = () => {
+const Home: NextPage = ({
+  heroBlock,
+  featuredEventsBlock,
+  membershipBlock,
+  testimonialBlock,
+  guidesBlock,
+  ctaBlock,
+  suppliersBlock,
+  footerBlock,
+  preview,
+}: any) => {
   return (
     <>
       <Head>
@@ -22,16 +42,60 @@ const Home: NextPage = () => {
       </Head>
 
       <Header className='pt-[16px] md:pt-[24px] md:pb-[8px] lg:py-[24px]' />
-      <Hero className='pt-[20px] pb-[24px] lg:pb-[40px]' />
-      <EventCard className='py-[24px] md:py-[80px] lg:py-[80px]' />
-      <QuickMembership className='py-[24px] md:py-[80px] lg:py-[80px]' />
-      <QuickTestimonials className='py-[24px] md:py-[80px] lg:py-[80px]' />
-      <GuidesQuickAccess className='pb-[24px] lg:pt-[20px] md:pb-[80px] lg:pb-[128px]' />
-      <CallToAction />
-      <SupplierRibbon className='!pt-0'/>
-      <Footer />
+
+      <Hero data={heroBlock.block.blockHero} className='pt-[20px] pb-[24px] lg:pb-[40px]' />
+
+      <EventCard
+        data={featuredEventsBlock.block.blockFeaturedEvents}
+        className='py-[24px] md:py-[80px] lg:py-[80px]'
+      />
+
+      <QuickMembership
+        data={membershipBlock.block.blockMembership}
+        className='py-[24px] md:py-[80px] lg:py-[80px]'
+      />
+
+      <QuickTestimonials
+        data={testimonialBlock.block.blockTestimonials}
+        className='py-[24px] md:py-[80px] lg:py-[80px]'
+      />
+
+      <GuidesQuickAccess
+        data={guidesBlock.block.blockGuides}
+        className='pb-[24px] md:pb-[80px] lg:pt-[20px] lg:pb-[128px]'
+      />
+
+      <CallToAction data={ctaBlock.block.blockCta} />
+
+      <SupplierRibbon data={suppliersBlock.block.blockSuppliers} className='!pt-0' />
+
+      <Footer data={footerBlock.block.blockFooter} />
     </>
   )
+}
+
+export async function getStaticProps({ preview = false }) {
+  const heroBlock = await getHeroBlock()
+  const featuredEventsBlock = await getFeaturedEventsBlock()
+  const membershipBlock = await getMembershipBlock()
+  const testimonialBlock = await getTestimonialBlock()
+  const guidesBlock = await getGuidesBlock()
+  const ctaBlock = await getCtaBlock()
+  const suppliersBlock = await getSupplierBlock()
+  const footerBlock = await getFooterBlock()
+
+  return {
+    props: {
+      heroBlock,
+      featuredEventsBlock,
+      membershipBlock,
+      testimonialBlock,
+      guidesBlock,
+      ctaBlock,
+      suppliersBlock,
+      footerBlock,
+    },
+  }
 }
 
 export default Home

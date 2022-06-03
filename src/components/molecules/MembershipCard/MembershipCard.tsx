@@ -67,12 +67,12 @@ export const MembershipCard: FC<MembershipCardProps> = ({
           </div>
 
           <ul className='group mt-auto md:mt-[unset]'>
-            {list?.map((item, index) => (
+            {list?.map(({ feature }, index) => (
               <li
                 key={index}
                 className='flex items-center gap-[8px] border-b py-[12px] text-md font-500 last:border-b-0'>
                 <Check size={16} />
-                <span>{item}</span>
+                <span>{feature}</span>
               </li>
             ))}
           </ul>

@@ -22,13 +22,13 @@ export const LinkList: FC<LinkListProps> = ({
   return (
     <div className={LinkListClasses} {...restProps}>
       <ul className={CN('link-list__items', DirectionClassName)}>
-        {(list || []).map(({ id, url, label }, index) => {
+        {(list || []).map(({ id, link, name }, index) => {
           return (
             <li
               className='mb-[16px] cursor-pointer text-base text-N-600 hover:text-B-500'
               key={id || index}>
-              <Link href={url || ''}>
-                <a>{label}</a>
+              <Link href={link || ''}>
+                <a>{name}</a>
               </Link>
             </li>
           )
