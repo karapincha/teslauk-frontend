@@ -19,7 +19,7 @@ export const SupplierRibbon: FC<SupplierRibbonProps> = ({
   return (
     <div className={SupplierRibbonClasses} {...restProps}>
       <div className='container border-t border-N-100 py-[24px] lg:pt-[40px] lg:pb-[20px]'>
-        <LogoBlock data={data.logos || []} />
+        <LogoBlock data={data?.logos || []} />
       </div>
     </div>
   )

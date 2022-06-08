@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import CN from 'classnames'
 import { Award, CheckCircle, Globe, Mail, MapPin, Phone, PhoneCall, Tag } from 'react-feather'
 import { Chip, Pill } from '@/components/atoms'
-import { PN } from 'country-flag-icons/react/3x2'
+import Link from 'next/link'
 
 export interface SearchSuppliersProps {
   [x: string]: any
@@ -32,6 +32,7 @@ export const SearchSuppliers: FC<SearchSuppliersProps> = ({
   isVerified,
   isFeatured,
   image,
+  slug,
   ...restProps
 }: SearchSuppliersProps) => {
   const SearchSuppliersClasses = CN(
@@ -42,7 +43,9 @@ export const SearchSuppliers: FC<SearchSuppliersProps> = ({
   return (
     <div className={SearchSuppliersClasses} {...restProps}>
       <div className='flex flex-col'>
-        <h5 className='text-h5 font-500 text-N-800'>{supplierName}</h5>
+        <Link href={`/suppliers/${slug}` || ''} passHref>
+          <h5 className='text-h5 font-500 text-N-800 cursor-pointer hover:text-B-400'>{supplierName}</h5>
+        </Link>
 
         {category && category?.length && (
           <div className='flex items-center gap-[10px] pt-[8px] text-N-500'>

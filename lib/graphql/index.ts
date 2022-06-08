@@ -10,3 +10,8 @@ export * from './blocks/suppliersHeader'
 
 export * from './pages/home'
 export * from './pages/suppliers'
+
+export * from './queries/getCommon'
+export * from './queries/getSupplier'
+export * from './queries/getAllSuppliersWithSlug'
+export * from './queries/searchSuppliers'

@@ -5,7 +5,8 @@ import { Button, TextField } from '@/components/atoms'
 import { Pagination, SectionHeading } from '@/components/molecules'
 import { ArrowRight, Search } from 'react-feather'
 import { SearchSuppliers } from '@/components/molecules'
-import { supplierList } from '@/dummy-data/supplier-list'
+
+import { SEARCH_SUPPLIERS } from '../../../../lib/graphql'
 
 export interface SuppliersSearchProps {
   [x: string]: any
@@ -19,49 +20,9 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
   const [searchString, setSearchString] = useState('')
   const [searchLocation, setSearchLocation] = useState('')
 
-  const QUERY = gql`
-    {
-      suppliers(where: { search: "${searchString}" }) {
-        nodes {
-          id
-          title
-          slug
-          supplierTags {
-            edges {
-              node {
-                slug
-                name
-              }
-            }
-          }
-          pageSupplier {
-            address
-            description
-            email
-            isFeatured
-            isVerified
-            location {
-              latitude
-              longitude
-            }
-            name
-            phone
-            rating
-            website
-            logo {
-              mediaItemUrl
-            }
-          }
-        }
-      }
-    }
-  `
-
-  const { data, loading, error, refetch } = useQuery(QUERY)
-
-  useEffect(() => {
-    console.log(data?.suppliers?.nodes)
-  }, [data])
+  const { data, loading, error, refetch } = useQuery(SEARCH_SUPPLIERS, {
+    variables: { string: searchString },
+  })
 
   return (
     <div className={SuppliersSearchClasses} {...restProps}>
@@ -105,7 +66,7 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
 
             <ul className='group flex flex-col'>
               {(data?.suppliers?.nodes || []).map(
-                ({ id, title, pageSupplier, supplierTags }: any, index: number) => {
+                ({ id, title, pageSupplier, supplierTags, slug }: any, index: number) => {
                   const {
                     address,
                     phone,
@@ -134,6 +95,7 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
                         mail={email}
                         website={website}
                         image={logo?.mediaItemUrl}
+                        slug={slug}
                       />
                     </li>
                   )

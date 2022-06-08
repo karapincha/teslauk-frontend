@@ -26,7 +26,7 @@ export const Footer: FC<FooterProps> = ({ className, data, ...restProps }: Foote
     linkBlock3Heading,
     linkBlock3Links,
     phone,
-  } = data
+  } = data || {}
 
   const socialLinks = [
     {
@@ -93,7 +93,7 @@ export const Footer: FC<FooterProps> = ({ className, data, ...restProps }: Foote
               <div className='flex flex-col gap-[16px]'>
                 <a href={`mailto:${email}`}>{email}</a>
                 <a href={`tel:${phone}`}>{phone}</a>
-                <span>{parse(address)}</span>
+                <span>{parse(address || '')}</span>
               </div>
 
               <ul className='flex gap-[16px]'>
