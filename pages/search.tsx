@@ -24,12 +24,12 @@ const Home: NextPage = () => {
           headingClassName='text-N-800'
           descriptionClassName='text-N-600'
           btnProps={{
-            onClick: (e: any) => console.log(e),
+            // onClick: (e: any) => console.log(e),
             children: 'Search',
             appearance: 'primary',
           }}
           inputProps={{
-            onChange: (e: any) => console.log(e.target.value),
+            // onChange: (e: any) => console.log(e.target.value),
             placeholder: 'Search your question here?',
             defaultValue: 'Tesla',
           }}

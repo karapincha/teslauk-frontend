@@ -79,14 +79,14 @@ export const PriceCard: FC<PriceCardProps> = ({
               btnProps={{
                 children: 'Apply',
                 onClick: (e: any) => {
-                  console.log('Clicked', e)
+                  // console.log('Clicked', e)
                 },
                 appearance: 'secondary',
                 size: 'sm',
               }}
               inputProps={{
                 onChange: (e: any) => {
-                  console.log(e.target.value)
+                  // console.log(e.target.value)
                 },
               }}
             />

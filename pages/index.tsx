@@ -11,8 +11,12 @@ import {
   CallToAction,
   SupplierRibbon,
 } from '@/components/sections'
+import { getHomePage } from '../lib/graphql'
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ pageData, countries }: any) => {
+  const { hero, featuredEvents, membership, testimonials, guides, cta, supplierBar, footer } =
+    pageData
+
   return (
     <>
       <Head>
@@ -22,16 +26,45 @@ const Home: NextPage = () => {
       </Head>
 
       <Header className='pt-[16px] md:pt-[24px] md:pb-[8px] lg:py-[24px]' />
-      <Hero className='pt-[20px] pb-[24px] lg:pb-[40px]' />
-      <EventCard className='py-[24px] md:py-[80px] lg:py-[80px]' />
-      <QuickMembership className='py-[24px] md:py-[80px] lg:py-[80px]' />
-      <QuickTestimonials className='py-[24px] md:py-[80px] lg:py-[80px]' />
-      <GuidesQuickAccess className='pb-[24px] lg:pt-[20px] md:pb-[80px] lg:pb-[128px]' />
-      <CallToAction />
-      <SupplierRibbon className='!pt-0'/>
-      <Footer />
+
+      <Hero data={hero.blockHero} className='pt-[20px] pb-[24px] lg:pb-[40px]' />
+
+      <EventCard
+        data={featuredEvents.blockFeaturedEvents}
+        className='py-[24px] md:py-[80px] lg:py-[80px]'
+      />
+
+      <QuickMembership
+        data={membership.blockMembership}
+        className='py-[24px] md:py-[80px] lg:py-[80px]'
+      />
+
+      <QuickTestimonials
+        data={testimonials.blockTestimonials}
+        className='py-[24px] md:py-[80px] lg:py-[80px]'
+      />
+
+      <GuidesQuickAccess
+        data={guides.blockGuides}
+        className='pb-[24px] md:pb-[80px] lg:pt-[20px] lg:pb-[128px]'
+      />
+
+      <CallToAction data={cta.blockCta} />
+
+      <SupplierRibbon data={supplierBar.blockSuppliersBar} className='!pt-0' />
+      <Footer data={footer.blockFooter} />
     </>
   )
+}
+
+export async function getStaticProps({ preview = false }) {
+  const pageData = await getHomePage()
+
+  return {
+    props: {
+      pageData,
+    },
+  }
 }
 
 export default Home

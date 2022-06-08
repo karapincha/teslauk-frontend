@@ -1,22 +1,23 @@
+import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useRouter } from 'next/router'
 import { PageHeaderVariant } from '@/components/molecules/PageHeaderVariant'
 import { Button, TextField } from '@/components/atoms'
-import { InitiativeCard } from '@/components/molecules/InitiativeCard'
-import { ChartLine, Facebook, LinkedIn } from '@/icons'
 import { Pagination, SectionHeading } from '@/components/molecules'
-import discussionList, { discussionCardList } from '@/dummy-data/discussion-list'
-import { DiscussionCard } from '@/components/molecules/DiscussionCard'
-import { ArrowLeft, ArrowRight, Search } from 'react-feather'
-import { SearchSuppliers } from '@/components/molecules/SearchSuppliers'
+import { ArrowRight, Search } from 'react-feather'
+import { SearchSuppliers, SuppliersSearch } from '@/components/molecules'
 import { supplierList } from '@/dummy-data/supplier-list'
 import { useViewport } from '@/utils'
+import parseHTML from 'html-react-parser'
 
-const Home: NextPage = () => {
+import { getSuppliersPage } from '../lib/graphql'
+
+const Home: NextPage = ({ pageData }: any) => {
   const router = useRouter()
   const { isMobile, isTablet, isDesktop } = useViewport()
+  const { header, keyPartners, verifiedSuppliers, supplierBar, footer } = pageData
 
   return (
     <>
@@ -30,18 +31,18 @@ const Home: NextPage = () => {
 
       <div className='container flex pt-[20px] pb-[40px] md:pb-[80px]'>
         <PageHeaderVariant
-          heading='Suppliers'
-          image='https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-          description='The Tesla Owners UK Directory showcases the <br class="hidden md:inline"/> best Tesla related products and services from <br class="hidden md:inline"/> across the UK.'
+          heading={header.blockSuppliersHeader.heading}
+          image={header.blockSuppliersHeader.image.mediaItemUrl}
+          description={header.blockSuppliersHeader.description}
           commonClassName='lg:w-[30%] !gap-0'
           descriptionClassName='text-md !pt-[16px] text-center md:text-left'
           imageClassName='!h-[205px] md:!h-[248px] lg:!h-[407px] w-full'
-          metaData='Trusted suppliers <br/> network across United <br/> Kingdom'
+          metaData={header.blockSuppliersHeader.tagline}
           metaDataNumber='500+'
           btnProps={{
-            label: 'Search suppliers',
+            label: header.blockSuppliersHeader.primaryButtonText,
             onClick: () => {
-              console.log('Clicked')
+              // console.log('Clicked')
             },
             appearance: 'secondary',
             className: 'w-full md:w-[208px]',
@@ -53,67 +54,28 @@ const Home: NextPage = () => {
       <div className='bg-[url("/images/patterns/003.svg")] bg-cover bg-no-repeat'>
         <div className='container py-[32px] md:py-[48px] lg:py-[80px]'>
           <SectionHeading
-            overline='tesla owners club uk'
-            heading='Key Partners'
+            overline={keyPartners.blockPartners.subHeading}
+            heading={keyPartners.blockPartners.heading}
             headingClassName='text-display !text-h3 lg:!text-h2 font-700 !mb-0'
             align='center'
           />
 
           {/* Partners */}
           <div className='grid grid-cols-2 justify-items-center gap-x-[12px] gap-y-[16px] py-[32px] md:gap-x-[48px] md:gap-y-[40px]  md:pt-[40px] md:pb-[24px] lg:grid-cols-4'>
-            <img
-              src='/images/partners/partner-001.png'
-              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
-              width={(isMobile && 165) || 264}
-              height={(isMobile && 75) || 120}
-            />
-            <img
-              src='/images/partners/partner-002.png'
-              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
-              width={(isMobile && 165) || 264}
-              height={(isMobile && 75) || 120}
-            />
-            <img
-              src='/images/partners/partner-003.png'
-              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
-              width={(isMobile && 165) || 264}
-              height={(isMobile && 75) || 120}
-            />
-            <img
-              src='/images/partners/partner-004.png'
-              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
-              width={(isMobile && 165) || 264}
-              height={(isMobile && 75) || 120}
-            />
-            <img
-              src='/images/partners/partner-005.png'
-              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
-              width={(isMobile && 165) || 264}
-              height={(isMobile && 75) || 120}
-            />
-            <img
-              src='/images/partners/partner-004.png'
-              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
-              width={(isMobile && 165) || 264}
-              height={(isMobile && 75) || 120}
-            />
-            <img
-              src='/images/partners/partner-007.png'
-              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
-              width={(isMobile && 165) || 264}
-              height={(isMobile && 75) || 120}
-            />
-            <img
-              src='/images/partners/partner-008.png'
-              className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
-              width={(isMobile && 165) || 264}
-              height={(isMobile && 75) || 120}
-            />
+            {keyPartners.blockPartners.partners.map(({ name, link, image }: any, index: number) => (
+              <img
+                src={image.mediaItemUrl}
+                className='h-[75px] w-[165px] object-cover object-center md:h-[120px] md:w-[264px]'
+                alt={name}
+                width={(isMobile && 165) || 264}
+                height={(isMobile && 75) || 120}
+              />
+            ))}
           </div>
 
           <div className='flex justify-center'>
             <Button appearance='ghost' iconAfter={<ArrowRight size={20} />}>
-              Become a key partner
+              {keyPartners.blockPartners.primaryButtonText}
             </Button>
           </div>
         </div>
@@ -132,8 +94,8 @@ const Home: NextPage = () => {
 
         <div className='flex flex-col gap-[24px]'>
           <SectionHeading
-            overline='Supplier listings'
-            heading='Verified by Tesla <br/> owners'
+            overline={verifiedSuppliers.blockVerifiedSuppliers.subHeading}
+            heading={verifiedSuppliers.blockVerifiedSuppliers.heading}
             headingClassName='text-display !text-h3 lg:!text-h2 font-700 !mb-0'
             align={(isMobile && 'center') || 'left'}
           />
@@ -148,88 +110,33 @@ const Home: NextPage = () => {
           )}
 
           <p className='text-center text-md font-500 text-N-600 md:text-left'>
-            Every listing has been verified by at least two independent Tesla{' '}
-            <br className='hidden' /> Owners who are willing to vouch for the supplier.
+            {parseHTML(verifiedSuppliers.blockVerifiedSuppliers.description)}
           </p>
           <Button
             className='px-0 md:!justify-start'
             appearance='ghost'
             iconAfter={<ArrowRight size={20} />}>
-            Become an approved supplier
+            {verifiedSuppliers.blockVerifiedSuppliers.primaryButtonText}
           </Button>
         </div>
       </div>
 
-      {/* Search suppliers */}
-      <div className='container '>
-        <div className='flex flex-col gap-[24px] md:gap-[40px]'>
-          <h3 className='text-center text-h3 font-700'>Search suppliers</h3>
-          <div className='flex flex-col items-center gap-[24px] bg-N-50 px-[24px] py-[24px] md:flex-row'>
-            <TextField placeHolder='Select / filter by category' /> {/* Change into dropdowns */}
-            <TextField placeHolder='Location' />
-            <Button
-              appearance='primary'
-              iconAfter={<Search size={20} />}
-              className='w-full md:w-[unset]'>
-              Search
-            </Button>
-          </div>
+      <SuppliersSearch />
 
-          {/* Search results */}
-          <div className='flex flex-col'>
-            <p className='text-base font-400 text-N-600'>57 search results</p>
-
-            <ul className='group flex flex-col'>
-              {(supplierList || []).map(
-                (
-                  {
-                    id,
-                    supplierName,
-                    category,
-                    reviewCount,
-                    isVerified,
-                    isFeatured,
-                    description,
-                    location,
-                    phone,
-                    mail,
-                    website,
-                    image,
-                  }: any,
-                  index: number
-                ) => (
-                  <li
-                    key={id || index}
-                    className='border-b border-N-200 py-[24px] last:border-b-0 last:pb-0 md:py-[40px]'>
-                    <SearchSuppliers
-                      supplierName={supplierName}
-                      category={category}
-                      reviewCount={reviewCount}
-                      isVerified={isVerified}
-                      isFeatured={isFeatured}
-                      description={description}
-                      location={location}
-                      phone={phone}
-                      mail={mail}
-                      website={website}
-                      image={image}
-                    />
-                  </li>
-                )
-              )}
-            </ul>
-          </div>
-        </div>
-
-        <div className=' w-full max-w-[784px] py-[40px] md:py-[80px]'>
-          <Pagination />
-        </div>
-      </div>
-
-      <SupplierRibbon />
-      <Footer />
+      <SupplierRibbon data={supplierBar.blockSuppliersBar} className='!pt-0' />
+      <Footer data={footer.blockFooter} />
     </>
   )
+}
+
+export async function getStaticProps({ preview = false }) {
+  const pageData = await getSuppliersPage()
+
+  return {
+    props: {
+      pageData,
+    },
+  }
 }
 
 export default Home

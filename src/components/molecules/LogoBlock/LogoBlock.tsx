@@ -11,14 +11,13 @@ export interface LogoItemProps {
 
 export interface LogoBlockProps {
   [x: string]: any
-  logoList: LogoItemProps[]
 }
 
 const LogoImage = ({ image, imageGrey }: any) => {
   const [logo, setLogo] = useState(imageGrey)
   return (
     <img
-    className='max-w-[120px] max-h-[48px] md:max-w-[120px] md:max-h-[60px] lg:max-w-[unset] lg:max-h-[unset]'
+      className='max-h-[48px] max-w-[120px] md:max-h-[60px] md:max-w-[120px]'
       src={logo}
       /* onMouseOver={() => setLogo(image)}  */
       /* onMouseOut={() => setLogo(imageGrey)} */
@@ -28,7 +27,7 @@ const LogoImage = ({ image, imageGrey }: any) => {
 
 export const LogoBlock: FC<LogoBlockProps> = ({
   className,
-  logoList,
+  data,
   ...restProps
 }: LogoBlockProps) => {
   const LogoBlockClasses = CN(
@@ -38,13 +37,13 @@ export const LogoBlock: FC<LogoBlockProps> = ({
 
   return (
     <div className={LogoBlockClasses} {...restProps}>
-      {logoList.map(({ id, link, image, imageGrey, ...restProps }: any, index: number) => (
+      {data.map(({ id, link, name, image, imageGrey, ...restProps }: any, index: number) => (
         <a
           className='logo-block__logo inline-flex justify-center'
           href={link}
           key={id || index}
           {...restProps}>
-          <LogoImage image={image} imageGrey={imageGrey} />
+          <LogoImage image={image?.mediaItemUrl} imageGrey={image?.mediaItemUrl} />
         </a>
       ))}
     </div>

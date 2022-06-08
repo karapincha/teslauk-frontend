@@ -7,8 +7,8 @@ import { PN } from 'country-flag-icons/react/3x2'
 export interface SearchSuppliersProps {
   [x: string]: any
   supplierName?: string
-  category?: string
-  reviewCount?: string | number
+  category?: any
+  reviewCount?: any
   description?: string
   location?: string
   phone?: string
@@ -44,10 +44,15 @@ export const SearchSuppliers: FC<SearchSuppliersProps> = ({
       <div className='flex flex-col'>
         <h5 className='text-h5 font-500 text-N-800'>{supplierName}</h5>
 
-        {category && (
+        {category && category?.length && (
           <div className='flex items-center gap-[10px] pt-[8px] text-N-500'>
             <Tag size={20} />
-            <p className='max-w-[348px] text-sm font-600'>{category}</p>
+
+            {(category || [])?.map((category: any, index: number) => (
+              <p className='max-w-[348px] text-sm font-600 after:content-["/"] last:after:content-[""]'>
+                {category?.node?.name} <span className='last:hidden'>/</span>
+              </p>
+            ))}
           </div>
         )}
 
@@ -55,17 +60,18 @@ export const SearchSuppliers: FC<SearchSuppliersProps> = ({
         <div className='flex flex-col pt-[16px] md:flex-row'>
           {/* Rating stars */}
           <div className='flex items-center'>
-            <div className='flex'>
-              <i className='ri-star-fill text-[20px] text-[#ED920A]' />
-              <i className='ri-star-fill text-[20px] text-[#ED920A]' />
-              <i className='ri-star-fill text-[20px] text-[#ED920A]' />
-              <i className='ri-star-line text-[20px] text-N-300' />
-              <i className='ri-star-line text-[20px] text-N-300' />
+            <div className='relative flex'>
+              {Array.from({ length: 5 }, (_, index) => {
+                if (index < reviewCount) {
+                  return <i className='ri-star-fill text-[20px] text-[#ED920A]' />
+                }
+
+                return <i className='ri-star-line text-[20px] text-N-300' />
+              })}
             </div>
 
             <span className='flex gap-[8px] pl-[8px]'>
-              <p className='text-sm font-600 text-N-800'>4.0</p>
-              <p className='text-sm font-600 text-N-800'>( {reviewCount} reviews)</p>
+              <p className='text-sm font-600 text-N-800'>{reviewCount} Stars</p>
             </span>
           </div>
 
@@ -81,7 +87,7 @@ export const SearchSuppliers: FC<SearchSuppliersProps> = ({
 
             {isFeatured && (
               <Pill
-                className='!bg-Y-10 !text-Y-800 !text-base !font-600'
+                className='!bg-Y-10 !text-base !font-600 !text-Y-800'
                 children='Featured'
                 size='md'
                 iconBefore={<Award size={16} />}
@@ -130,8 +136,8 @@ export const SearchSuppliers: FC<SearchSuppliersProps> = ({
       </div>
 
       {image && (
-        <div className='flex'>
-          <img src={image} className='h-[100px] w-[100px] object-cover object-center' />
+        <div className='flex h-[100px] w-[100px] flex-shrink-0 items-center justify-center bg-white'>
+          <img src={image} className='h-[80%] w-[80%] object-contain object-center' />
         </div>
       )}
     </div>

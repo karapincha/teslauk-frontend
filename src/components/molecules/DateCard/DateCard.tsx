@@ -2,6 +2,8 @@ import React, { FC } from 'react'
 import CN from 'classnames'
 import { MapPin } from 'react-feather'
 import { Button } from '@/components/atoms'
+import { format, formatDistance, formatRelative, subDays } from 'date-fns'
+import parseHTML from 'html-react-parser'
 
 export interface DateCardProps {
   [x: string]: any
@@ -16,11 +18,6 @@ export interface DateCardProps {
 
 export const DateCard: FC<DateCardProps> = ({
   className,
-  date,
-  description,
-  heading,
-  location,
-  month,
   appearance,
   ...restProps
 }: DateCardProps) => {
@@ -28,6 +25,8 @@ export const DateCard: FC<DateCardProps> = ({
     `date-card bg-white relative pt-[24px] px-[24px] pb-[16px] rounded-[12px] w-full mt-[16px] shadow-[0px_25px_50px_-12px_rgba(95,111,140,0.1)] group hover:cursor-pointer transition-all duration-200`,
     className
   )
+
+  const { title, date, month, location, excerpt } = restProps
 
   return (
     <div className={DateCardClasses} {...restProps}>
@@ -44,12 +43,14 @@ export const DateCard: FC<DateCardProps> = ({
       </div>
 
       <div className='date-card__content'>
-        <h4 className='date-card__heading mb-[4px] text-h5'>{heading}</h4>
+        <h4 className='date-card__heading mb-[4px] text-h5'>{title}</h4>
         <p className='date-card__location mb-[16px] flex items-center text-md font-500 text-N-500'>
           <MapPin size={16} />
           <span className='pl-[8px]'>{location}</span>
         </p>
-        <p className='date-card__description mb-[16px] text-md text-N-600'>{description}</p>
+        <div className='date-card__description mb-[16px] text-md text-N-600'>
+          {parseHTML(excerpt || '')}
+        </div>
 
         <Button
           appearance='link'

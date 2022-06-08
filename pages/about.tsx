@@ -159,7 +159,7 @@ const Home: NextPage = () => {
             btnProps={{
               children: 'Sign up',
               onClick: () => {
-                console.log('Clicked')
+                // console.log('Clicked')
               },
               appearance: 'primary',
             }}

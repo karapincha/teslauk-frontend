@@ -43,7 +43,7 @@ export const Pill: FC<PillProps> = (
 
     /* Sizing */
     'px-[16px] h-[44px] flex items-center': size === 'default',
-    'px-[16px] h-[28px] flex items-center': size === 'md',
+    'px-[12px] h-[28px] flex items-center': size === 'md',
     'px-[12px] h-[24px] flex items-center': size === 'sm',
   })
 
@@ -53,7 +53,7 @@ export const Pill: FC<PillProps> = (
       onClick={onClick}
       {...restProps}>
       {iconBefore && <div className={CN('pr-[4px]')}>{iconBefore}</div>}
-      <span>{children}</span>
+      <span className='text-sm'>{children}</span>
       {iconAfter && <div className={CN('pl-[4px]')}>{iconAfter}</div>}
 
       {onClose && (

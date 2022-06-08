@@ -3,15 +3,30 @@ import CN from 'classnames'
 import { Logo, FieldGroup } from '@/components/atoms'
 import { LinkList } from '@/components/molecules'
 import { Facebook, Instagram, Twitter, LinkedIn, YouTube } from '@/icons'
+import parse from 'html-react-parser'
+import Link from 'next/link'
 
 export interface FooterProps {
   [x: string]: any
 }
 
-export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps) => {
+export const Footer: FC<FooterProps> = ({ className, data, ...restProps }: FooterProps) => {
   const FooterClasses = CN(`footer w-full`, className, {})
-
   const copyrightDate = new Date().getFullYear()
+
+  const {
+    address,
+    bottomLinks,
+    description,
+    email,
+    linkBlock1Heading,
+    linkBlock1Links,
+    linkBlock2Heading,
+    linkBlock2Links,
+    linkBlock3Heading,
+    linkBlock3Links,
+    phone,
+  } = data
 
   const socialLinks = [
     {
@@ -70,22 +85,15 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
         <div className='footer__top flex flex-col justify-between pt-[24px] pb-[44px] lg:flex-row lg:pt-[40px]'>
           <div className='footer__about max-w-[400px]'>
             <Logo className='mb-[32px]' />
-            <p className='text-sm font-500 text-N-500'>
-              Tesla Owners United Kingdom is the official UK Tesla Owners Club, and is operated by
-              Tesla Owners UK Limited, a company limited by guarantee (registration number 12049084)
-              with registered office at Oaklands, St Clere Hill Road, Sevenoaks, TN15 6AH
-            </p>
+            <p className='text-sm font-500 text-N-500'>{description}</p>
           </div>
 
           <div className='footer__social flex-shrink-0 pt-[24px] lg:pt-0'>
             <div className='flex flex-shrink-0 flex-col gap-[24px] text-md text-N-600'>
               <div className='flex flex-col gap-[16px]'>
-                <a href='mailto:hello@Tesla Owners UK.com'>hello@teslaowners.org.uk</a>
-                <span>+1 312 219 8691</span>
-                <span>
-                  United Kingdom <br /> The Terrace <br />
-                  Grantham St, Lincoln LN2 1lW
-                </span>
+                <a href={`mailto:${email}`}>{email}</a>
+                <a href={`tel:${phone}`}>{phone}</a>
+                <span>{parse(address)}</span>
               </div>
 
               <ul className='flex gap-[16px]'>
@@ -101,42 +109,18 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
           </div>
 
           <div className='footer__link-list flex flex-col gap-[16px] pt-[32px] lg:pt-0'>
-            <p className='text-md font-500 text-N-500'>About the club</p>
-            <LinkList
-              direction='vertical'
-              list={[
-                { id: 0, label: 'About Us', url: '/about' },
-                { id: 1, label: 'Club Rules', url: '/club-rules' },
-                { id: 2, label: 'Articles of Association', url: '/articles-of-association' },
-                { id: 3, label: 'Meeting Minutes' },
-              ]}
-            />
+            <p className='text-md font-500 text-N-500'>{linkBlock1Heading}</p>
+            <LinkList direction='vertical' list={linkBlock1Links} />
           </div>
 
           <div className='footer__link-list flex flex-col gap-[16px]'>
-            <p className='text-md font-500 text-N-500'>Solutions</p>
-            <LinkList
-              direction='vertical'
-              list={[
-                { id: 0, label: 'Marketing' },
-                { id: 1, label: 'Analytics' },
-                { id: 2, label: 'Commerce' },
-                { id: 3, label: 'Insights' },
-              ]}
-            />
+            <p className='text-md font-500 text-N-500'>{linkBlock2Heading}</p>
+            <LinkList direction='vertical' list={linkBlock2Links} />
           </div>
 
           <div className='footer__link-list flex flex-col gap-[16px]'>
-            <p className='text-md font-500 text-N-500'>Solutions</p>
-            <LinkList
-              direction='vertical'
-              list={[
-                { id: 0, label: 'Marketing' },
-                { id: 1, label: 'Analytics' },
-                { id: 2, label: 'Commerce' },
-                { id: 3, label: 'Insights' },
-              ]}
-            />
+            <p className='text-md font-500 text-N-500'>{linkBlock3Heading}</p>
+            <LinkList direction='vertical' list={linkBlock3Links} />
           </div>
         </div>
       </div>
@@ -153,17 +137,18 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
           className='w-full lg:w-[unset]'
           placeholder='Enter email address'
           btnProps={{
-            label: 'Subscribe',
+            children: 'Subscribe',
             onClick: (e: any) => {
-              console.log('Clicked', e)
+              // console.log('Clicked', e)
             },
             appearance: 'primary',
             size: 'sm',
           }}
           inputProps={{
             onChange: (e: any) => {
-              console.log(e.target.value)
+              // console.log(e.target.value)
             },
+            placeholder: 'joe@example.com',
           }}
         />
       </div>
@@ -175,18 +160,15 @@ export const Footer: FC<FooterProps> = ({ className, ...restProps }: FooterProps
           </span>
 
           <ul className='flex gap-[24px] lg:gap-[50px]'>
-            {(footerBottomLinks || []).map(
-              ({ id, link, label, ...restProps }: any, index: number) => (
-                <li key={id || index}>
-                  <a
-                    href={link}
-                    {...restProps}
-                    className='text-sm font-500 text-N-600 hover:text-B-500'>
-                    {label}
+            {(bottomLinks || []).map(({ id, link, name, ...restProps }: any, index: number) => (
+              <li key={id || index}>
+                <Link href={link}>
+                  <a {...restProps} className='text-sm font-500 text-N-600 hover:text-B-500'>
+                    {name}
                   </a>
-                </li>
-              )
-            )}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
