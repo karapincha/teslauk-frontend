@@ -3,8 +3,8 @@ import { fetchAPI } from '../../api'
 export async function getSupplierBlock() {
   const data = await fetchAPI(
     `query getSupplierBlock {
-      block(id: "suppliers", idType: SLUG) {
-        blockSuppliers {
+      block(id: "suppliers-bar", idType: SLUG) {
+        blockSuppliersBar {
           logos {
             image {
               mediaItemUrl

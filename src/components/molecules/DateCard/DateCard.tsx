@@ -26,7 +26,7 @@ export const DateCard: FC<DateCardProps> = ({
     className
   )
 
-  const { title, excerpt, meta, id } = restProps
+  const { title, date, month, location, excerpt } = restProps
 
   return (
     <div className={DateCardClasses} {...restProps}>
@@ -38,19 +38,15 @@ export const DateCard: FC<DateCardProps> = ({
             'bg-N-100 text-N-700': appearance === 'default',
           }
         )}>
-        <span className='text-md font-600'>
-          {format(new Date(meta?.date || '1/1/2050'), 'LLL')}
-        </span>
-        <span className='text-h3 font-700 leading-[1]'>
-          {format(new Date(meta?.date || '1/1/2050'), 'd')}
-        </span>
+        <span className='text-md font-600'>{month}</span>
+        <span className='text-h3 font-700 leading-[1]'>{date}</span>
       </div>
 
       <div className='date-card__content'>
         <h4 className='date-card__heading mb-[4px] text-h5'>{title}</h4>
         <p className='date-card__location mb-[16px] flex items-center text-md font-500 text-N-500'>
           <MapPin size={16} />
-          <span className='pl-[8px]'>{meta?.location}</span>
+          <span className='pl-[8px]'>{location}</span>
         </p>
         <div className='date-card__description mb-[16px] text-md text-N-600'>
           {parseHTML(excerpt || '')}

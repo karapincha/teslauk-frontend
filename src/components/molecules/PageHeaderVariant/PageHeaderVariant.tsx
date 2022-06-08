@@ -77,9 +77,9 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
         {/* MetaData */}
 
         {metaData && (
-          <div className='flex items-center justify-center gap-[8px] pt-[32px] md:justify-start'>
+          <div className='flex items-center justify-center gap-[16px] pt-[32px] md:justify-start'>
             <h3 className='text-h3 font-700'>{metaDataNumber}</h3>
-            <div className='h-[72px] w-[1px] border text-N-200' />
+            <div className='h-[72px] w-[1px] bg-N-200' />
             <p
               className={CN('text-md font-400 text-N-600')}
               dangerouslySetInnerHTML={{ __html: metaData || '' }}

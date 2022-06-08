@@ -19,8 +19,6 @@ export const GuidesQuickAccess: FC<GuidesQuickAccessProps> = ({
 
   const { heading, subHeading, description, hint, primaryButtonText, categories } = data
 
-  console.log(categories)
-
   return (
     <div className={GuidesQuickAccessClasses} {...restProps}>
       <div className='container'>

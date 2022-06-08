@@ -28,8 +28,6 @@ export const Footer: FC<FooterProps> = ({ className, data, ...restProps }: Foote
     phone,
   } = data
 
-  console.log(linkBlock1Links)
-
   const socialLinks = [
     {
       id: '0',
@@ -141,14 +139,14 @@ export const Footer: FC<FooterProps> = ({ className, data, ...restProps }: Foote
           btnProps={{
             children: 'Subscribe',
             onClick: (e: any) => {
-              console.log('Clicked', e)
+              // console.log('Clicked', e)
             },
             appearance: 'primary',
             size: 'sm',
           }}
           inputProps={{
             onChange: (e: any) => {
-              console.log(e.target.value)
+              // console.log(e.target.value)
             },
             placeholder: 'joe@example.com',
           }}
