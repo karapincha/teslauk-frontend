@@ -37,7 +37,7 @@ export const SupplierDetailsRelatedListings: FC<SupplierDetailsRelatedListingsPr
               </Button>
             </div>
             {/* Add a dropdown here */}
-            <TextField placeHolder='Sort by Relevance' />
+            <TextField placeholder='Sort by Relevance' />
           </div>
         </div>
 

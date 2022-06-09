@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
@@ -35,8 +35,6 @@ const Page: NextPage = ({ supplier }: any) => {
     website,
   } = pageSupplier || {}
 
-  console.log(supplier)
-
   return (
     <>
       <Head>
@@ -60,25 +58,24 @@ const Page: NextPage = ({ supplier }: any) => {
 
           <SupplierAboutHeader
             icon={<Tag size={16} />}
-            breadcrumbLinks={<Breadcrumb links={supplierTags} />}
+            breadcrumbLinks={<Breadcrumb links={supplierTags?.nodes} />}
             heading={title}
             isVerified={isVerified}
             isFeatured={isFeatured}
             image={logo?.mediaItemUrl}
+            rating={rating}
           />
         </div>
       </div>
 
       <div className='container flex flex-col gap-[24px] pt-[24px] pb-[40px] md:gap-[48px] md:pt-[40px] md:pb-[80px] lg:flex-row'>
         <div className='lg:w-[784px]'>
-          <div className=''>
-            <SupplierDetailsTabs onChange={(tab: any) => setActiveTab(tab)} />
-          </div>
+          <SupplierDetailsTabs data={supplier} onChange={(tab: any) => setActiveTab(tab)} />
         </div>
 
         <div className='flex'>
-          {activeTab === 'about' && <SupplierAboutSideBar />}
-          {activeTab === 'related-listings' && <RelatedListingsSideBar />}
+          {activeTab === 'about' && <SupplierAboutSideBar data={supplier} />}
+          {/* {activeTab === 'related-listings' && <RelatedListingsSideBar data={supplier} />} */}
         </div>
       </div>
     </>

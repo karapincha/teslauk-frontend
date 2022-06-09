@@ -24,6 +24,7 @@ export const SupplierAboutHeader: FC<SupplierAboutHeaderProps> = ({
   isVerified,
   reviewCount,
   image,
+  rating,
   ...restProps
 }: SupplierAboutHeaderProps) => {
   const SupplierAboutHeaderClasses = CN(
@@ -47,46 +48,49 @@ export const SupplierAboutHeader: FC<SupplierAboutHeaderProps> = ({
         </h1>
 
         {/* Verified / Featured */}
-        <div className='flex gap-[12px] pt-[16px]'>
-          {isVerified && (
-            <Pill
-              className='!bg-G-10 !text-base !font-600 !text-G-600'
-              children='Verified'
-              size='md'
-              iconBefore={<CheckCircle size={16} />}
-            />
-          )}
+        {(isVerified || isFeatured) && (
+          <div className='flex gap-[12px] pt-[16px]'>
+            {isVerified && (
+              <Pill
+                className='!bg-G-10 !text-base !font-600 !text-G-600'
+                children='Verified'
+                size='md'
+                iconBefore={<CheckCircle size={16} />}
+              />
+            )}
 
-          {isFeatured && (
-            <Pill
-              className='!bg-Y-10 !text-base !font-600 !text-Y-800'
-              children='Featured'
-              size='md'
-              iconBefore={<Award size={16} />}
-            />
-          )}
-        </div>
+            {isFeatured && (
+              <Pill
+                className='!bg-Y-10 !text-base !font-600 !text-Y-800'
+                children='Featured'
+                size='md'
+                iconBefore={<Award size={16} />}
+              />
+            )}
+          </div>
+        )}
 
         {/* Ratings */}
         <div className='flex items-center pt-[8px]'>
-          <div className='flex'>
-            <i className='ri-star-fill text-[20px] text-B-500' />
-            <i className='ri-star-fill text-[20px] text-B-500' />
-            <i className='ri-star-fill text-[20px] text-B-500' />
-            <i className='ri-star-fill text-[20px] text-B-500' />
-            <i className='ri-star-line text-[20px] text-N-300' />
+          <div className='relative flex'>
+            {Array.from({ length: 5 }, (_, index) => {
+              if (index < rating) {
+                return <i key={index} className='ri-star-fill text-[20px] text-[#ED920A]' />
+              }
+
+              return <i key={index} className='ri-star-line text-[20px] text-N-300' />
+            })}
           </div>
 
           <span className='flex gap-[8px] pl-[8px]'>
-            <p className='text-sm font-600 text-N-800'>4.0</p>
-            <p className='text-sm font-600 text-N-800'>( {reviewCount} reviews)</p>
+            <p className='text-sm font-600 text-N-800'>{rating} Star(s)</p>
           </span>
         </div>
       </div>
 
       {image && (
         <div className='flex h-[164px] w-[164px] flex-shrink-0 items-center justify-center border border-N-50 shadow-[0px_1px_2px_rgba(0,0,0,0.05)]'>
-          <img src={image} className='h-full w-full object-cover object-center' />
+          <img src={image} className='h-[80%] w-[80%] object-contain object-center' />
         </div>
       )}
     </div>

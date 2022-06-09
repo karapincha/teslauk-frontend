@@ -44,16 +44,20 @@ export const SearchSuppliers: FC<SearchSuppliersProps> = ({
     <div className={SearchSuppliersClasses} {...restProps}>
       <div className='flex flex-col'>
         <Link href={`/suppliers/${slug}` || ''} passHref>
-          <h5 className='text-h5 font-500 text-N-800 cursor-pointer hover:text-B-400'>{supplierName}</h5>
+          <h5 className='cursor-pointer text-h5 font-500 text-N-800 hover:text-B-400'>
+            {supplierName}
+          </h5>
         </Link>
 
         {category && category?.length && (
           <div className='flex items-center gap-[10px] pt-[8px] text-N-500'>
             <Tag size={20} />
 
-            {(category || [])?.map((category: any, index: number) => (
-              <p className='max-w-[348px] text-sm font-600 after:content-["/"] last:after:content-[""]'>
-                {category?.node?.name} <span className='last:hidden'>/</span>
+            {category?.map((item: any, index: number) => (
+              <p
+                key={index}
+                className='max-w-[348px] text-sm font-600 after:content-["/"] last:after:content-[""]'>
+                {item?.node?.name} <span className='last:hidden'>/</span>
               </p>
             ))}
           </div>
@@ -74,7 +78,7 @@ export const SearchSuppliers: FC<SearchSuppliersProps> = ({
             </div>
 
             <span className='flex gap-[8px] pl-[8px]'>
-              <p className='text-sm font-600 text-N-800'>{reviewCount} Stars</p>
+              <p className='text-sm font-600 text-N-800'>{reviewCount} Star(s)</p>
             </span>
           </div>
 

@@ -1,8 +1,8 @@
 import { useQuery, gql } from '@apollo/client'
 
 export const SEARCH_SUPPLIERS = gql`
-  query searchSuppliers($string: String!) {
-    suppliers(where: { search: $string }) {
+  query SearchSuppliers($search: String) {
+    suppliers(where: { search: $search }) {
       nodes {
         id
         title

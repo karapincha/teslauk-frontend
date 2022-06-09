@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
+import Link from 'next/link'
 
 export interface BreadcrumbItemProps {
   [x: string]: any
@@ -21,47 +22,21 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({
 }: BreadcrumbProps) => {
   const BreadcrumbClasses = CN(`breadcrumb w-full`, className, {})
 
-  const linksList = [
-    {
-      id: 0,
-      linkText: 'Home',
-      link: '/',
-      isActive: false,
-    },
-    {
-      id: 1,
-      linkText: 'Sample',
-      link: '/sample',
-      isActive: false,
-    },
-    {
-      id: 2,
-      linkText: 'Facility',
-      link: '/facility',
-      isActive: false,
-    },
-    {
-      id: 3,
-      linkText: 'Wardrobes',
-      link: '/wardrobes',
-      isActive: true,
-    },
-  ]
-
   return (
     <div className={BreadcrumbClasses} {...restProps}>
-      <ul className='flex text-base font-600'>
-        {(links || linksList).map(({ id, linkText, link, isActive }, index) => {
+      <ul className='flex text-base font-500'>
+        {(links || []).map(({ id, name, slug, isActive }, index) => {
           return (
             <li className='group flex items-center' key={id || index}>
-              <a
-                className={CN(`breadcrumb__item flex`, {
-                  'text-N-500 hover:text-B-500': !isActive,
-                  'text-B-500': isActive,
-                })}
-                href={link}>
-                {linkText}
-              </a>
+              <Link href={`/suppliers/tag/${slug}`}>
+                <a
+                  className={CN(`breadcrumb__item flex text-md`, {
+                    'text-N-500 hover:text-B-500': !isActive,
+                    'text-B-500': isActive,
+                  })}>
+                  {name}
+                </a>
+              </Link>
               <span className='px-[4px] text-N-500 group-last:hidden'>/</span>
             </li>
           )

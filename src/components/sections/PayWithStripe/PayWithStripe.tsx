@@ -17,10 +17,10 @@ export const PayWithStripe: FC<PayWithStripeProps> = ({
       <p className='text-base font-400 text-N-800'>Pay with your Credit/Debit card via Stripe.</p>
 
       <div className='flex flex-col gap-[24px]'>
-        <TextField label='Card number' placeHolder='1234 1234 1234 1234' />
+        <TextField label='Card number' placeholder='1234 1234 1234 1234' />
         <div className='flex gap-[16px]'>
-          <TextField label='Expiry' placeHolder='MM / YY' />
-          <TextField label='CVC' placeHolder='XXX' />
+          <TextField label='Expiry' placeholder='MM / YY' />
+          <TextField label='CVC' placeholder='XXX' />
         </div>
         <CheckBox
           children='Save payment information to my account for future purchases.'

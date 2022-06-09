@@ -39,8 +39,9 @@ const Home: NextPage = ({ pageData }: any) => {
           metaDataNumber='500+'
           btnProps={{
             label: header.blockSuppliersHeader.primaryButtonText,
-            onClick: () => {
-              // console.log('Clicked')
+            onClick: (e: any) => {
+              e.preventDefault();
+              router.push('#search-block');
             },
             appearance: 'secondary',
             className: 'w-full md:w-[208px]',
@@ -119,7 +120,7 @@ const Home: NextPage = ({ pageData }: any) => {
         </div>
       </div>
 
-      <SuppliersSearch />
+      <SuppliersSearch id='search-block' />
     </>
   )
 }

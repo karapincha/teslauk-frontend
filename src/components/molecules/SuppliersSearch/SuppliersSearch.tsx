@@ -21,7 +21,7 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
   const [searchLocation, setSearchLocation] = useState('')
 
   const { data, loading, error, refetch } = useQuery(SEARCH_SUPPLIERS, {
-    variables: { string: searchString },
+    variables: { search: searchString || '' },
   })
 
   return (
@@ -32,7 +32,7 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
           <h3 className='text-center text-h3 font-700'>Search suppliers</h3>
           <div className='flex flex-col items-center gap-[24px] bg-N-50 px-[24px] py-[24px] md:flex-row'>
             <TextField
-              placeHolder='Enter name'
+              placeholder='Enter name'
               onChange={(e: any) => {
                 setSearchString(e.target.value)
               }}
@@ -40,7 +40,7 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
 
             {/* Change into dropdowns */}
             <TextField
-              placeHolder='Enter location'
+              placeholder='Enter location'
               onChange={(e: any) => {
                 setSearchLocation(e.target.value)
               }}

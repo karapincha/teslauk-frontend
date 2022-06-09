@@ -21,3 +21,10 @@ img {
   -webkit-appearance: none !important;
   -webkit-overflow-scrolling: auto;
 }
+
+#map {
+  height: 343px;
+  width: 368px;
+  border-radius: 12px;
+  overflow: hidden;
+}

@@ -13,6 +13,7 @@ export interface SupplierDetailsTabsProps {
 export const SupplierDetailsTabs: FC<SupplierDetailsTabsProps> = ({
   className,
   onChange,
+  data,
   ...restProps
 }: SupplierDetailsTabsProps) => {
   const SupplierDetailsTabsClasses = CN(`supplier-details-tabs`, className)
@@ -36,7 +37,7 @@ export const SupplierDetailsTabs: FC<SupplierDetailsTabsProps> = ({
             onClick={() => handleChange('about')}>
             About
           </Button>
-          <Button
+          {/* <Button
             appearance={activeTab === 'related-listings' ? 'ghost' : 'link'}
             className={CN('mb-[-1px] rounded-b-[0px] px-0 ', {
               ' text-N-500': activeTab !== 'related-listings',
@@ -53,13 +54,13 @@ export const SupplierDetailsTabs: FC<SupplierDetailsTabsProps> = ({
             })}
             onClick={() => handleChange('nearby-listings')}>
             Nearby listings
-          </Button>
+          </Button> */}
         </div>
 
         <div className='flex'>
-          {activeTab === 'about' && <SupplierDetailsAbout />}
-          {activeTab === 'related-listings' && <SupplierDetailsRelatedListings />}
-          {activeTab === 'nearby-listings' && <SupplierDetailsNearbyListings />}
+          {activeTab === 'about' && <SupplierDetailsAbout data={data} />}
+          {/* {activeTab === 'related-listings' && <SupplierDetailsRelatedListings data={data} />} */}
+          {/* {activeTab === 'nearby-listings' && <SupplierDetailsNearbyListings data={data} />} */}
         </div>
       </div>
     </div>

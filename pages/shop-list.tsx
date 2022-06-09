@@ -86,7 +86,7 @@ const Home: NextPage = () => {
                   Filters
                 </Button>
                 <div className='w-full md:w-[210px]'>
-                  <TextField placeHolder='Sort by Relevance' />
+                  <TextField placeholder='Sort by Relevance' />
                 </div>
               </div>
             )}
@@ -95,7 +95,7 @@ const Home: NextPage = () => {
               <p className='text-base font-400 text-N-600'>57 related listings</p>
               {isDesktop && (
                 <div className='w-[210px]'>
-                  <TextField placeHolder='Sort by Relevance' />
+                  <TextField placeholder='Sort by Relevance' />
                 </div>
               )}
             </div>

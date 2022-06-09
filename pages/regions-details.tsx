@@ -113,8 +113,8 @@ const Home: NextPage = () => {
         <div className='flex flex-col justify-between gap-[24px] pb-[40px] md:flex-col md:gap-[40px] lg:flex-row lg:items-center lg:gap-0'>
           <h4 className='text-h4 font-500 text-N-800'>Upcoming events</h4>
           <div className='flex flex-col gap-[20px] md:flex-row'>
-            <TextField placeHolder='Date range' />
-            <TextField placeHolder='Event type' />
+            <TextField placeholder='Date range' />
+            <TextField placeholder='Event type' />
           </div>
         </div>
         <ul className='flex flex-col gap-[24px] md:grid md:grid-cols-2 md:gap-y-[40px] md:gap-x-[24px] lg:grid lg:grid-cols-3 lg:gap-x-[48px]'>

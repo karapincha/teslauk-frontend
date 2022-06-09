@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { Suspense } from 'react'
 import type { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client'
@@ -14,6 +15,15 @@ import '@/styles/overrides.scss'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
+      <Head>
+        <title>My page title</title>
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <script src='https://polyfill.io/v3/polyfill.min.js?features=default'></script>
+        <script
+          src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBlPs-kgyXJNDZuMJ36LsVIL4ahfUjrWtI'
+          defer></script>
+      </Head>
+
       <ApolloProvider client={client}>
         <CommonLayout>
           <Component {...pageProps} />
