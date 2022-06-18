@@ -1,3 +1,4 @@
+import App from 'next/app'
 import Head from 'next/head'
 import { Suspense } from 'react'
 import type { AppProps } from 'next/app'
@@ -16,11 +17,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>My page title</title>
+        <title>Tesla Owners UK</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <script src='https://polyfill.io/v3/polyfill.min.js?features=default'></script>
         <script
-          src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBlPs-kgyXJNDZuMJ36LsVIL4ahfUjrWtI'
+          src='https://maps.googleapis.com/maps/api/js?key=AIzaSyDZg69S5y7fCcl0iiDqd_Q_Vvi_F213OKw'
           defer></script>
       </Head>
 
@@ -31,6 +32,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       </ApolloProvider>
     </>
   )
+}
+
+MyApp.getInitialProps = async (appContext: any) => {
+  // calls page's `getInitialProps` and fills `appProps.pageProps`
+  const appProps = await App.getInitialProps(appContext)
+
+  return { ...appProps }
 }
 
 export default MyApp

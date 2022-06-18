@@ -39,44 +39,43 @@ export async function getSuppliersPage() {
           subHeading
         } 
       }
-      supplierBar: block(id: "suppliers-bar", idType: SLUG) {
-        blockSuppliersBar {
-          logos {
-            image {
+      supplierTags(first: 100) {
+        nodes {
+          name
+          slug
+        }
+      }
+      suppliers(first: 100) {
+        nodes {
+          id
+          title
+          slug
+          supplierTags {
+            edges {
+              node {
+                slug
+                name
+              }
+            }
+          }
+          pageSupplier {
+            address
+            description
+            email
+            isFeatured
+            isVerified
+            location {
+              latitude
+              longitude
+            }
+            name
+            phone
+            excerpt
+            website
+            logo {
               mediaItemUrl
             }
-            link
-            name
           }
-        }
-        slug
-      }
-      footer: block(id: "footer", idType: SLUG) {
-        slug
-        blockFooter {
-          address
-          bottomLinks {
-            link
-            name
-          }
-          description
-          email
-          linkBlock1Heading
-          linkBlock1Links {
-            link
-            name
-          }
-          linkBlock2Heading
-          linkBlock2Links {
-            link
-            name
-          }
-          linkBlock3Heading
-          linkBlock3Links {
-            link
-            name
-          }
-          phone
         }
       }
     }

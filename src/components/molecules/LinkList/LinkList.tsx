@@ -25,7 +25,7 @@ export const LinkList: FC<LinkListProps> = ({
         {(list || []).map(({ id, link, name }, index) => {
           return (
             <li
-              className='mb-[16px] cursor-pointer text-base text-N-600 hover:text-B-500'
+              className='mb-[16px] cursor-pointer text-md text-N-600 hover:text-B-500'
               key={id || index}>
               <Link href={link || ''}>
                 <a>{name}</a>

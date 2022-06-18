@@ -76,7 +76,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         'bg-transparent text-white': appearance === 'ghost-invert' && view === 'solid',
 
         /* View */
-        'bg-transparent text-N-800 border-N-800': appearance === 'primary' && view === 'outline',
+        'bg-transparent text-N-800 border-N-800 hover:bg-N-800 hover:text-white': appearance === 'primary' && view === 'outline',
         'bg-transparent text-N-700 !border-N-400': appearance === 'secondary' && view === 'outline',
         'bg-transparent text-N-800 !border-N-800': appearance === 'neutral' && view === 'outline',
         'bg-transparent text-N-800 hover:border-N-800':

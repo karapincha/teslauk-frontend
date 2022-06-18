@@ -28,3 +28,37 @@ img {
   border-radius: 12px;
   overflow: hidden;
 }
+
+.guide-content {
+  img {
+    position: relative;
+    left: -104px;
+    width: calc(104px + 100%);
+    border-radius: 12px;
+  }
+}
+
+.pagination {
+  display: flex;
+
+  li {
+    display: flex;
+    height: 48px;
+    width: 48px;
+    border-radius: 4px;
+    overflow: hidden;
+
+    a {
+      display: inline-flex;
+      height: 100%;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      @apply bg-transparent text-N-800 hover:bg-N-100;
+    }
+
+    &.selected a {
+      @apply bg-N-800 text-white;
+    }
+  }
+}

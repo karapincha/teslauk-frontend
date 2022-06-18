@@ -5,7 +5,7 @@ import { Clock, Tag } from 'react-feather'
 export interface ArticleViewTopicProps {
   [x: string]: any
   icon?: ReactNode | string
-  tagText?: string
+  tagText?: any
   heading?: string
   date?: string | number
   readingTime?: string
@@ -24,17 +24,20 @@ export const ArticleViewTopic: FC<ArticleViewTopicProps> = ({
 
   return (
     <div className={ArticleViewTopicClasses} {...restProps}>
-      <div className='flex items-center gap-[12px] pt-[64px] text-base font-600 text-N-500'>
+      <div className='flex items-center gap-[12px] pt-[64px] pb-[8px] text-md font-600 text-N-500'>
         <span>{icon}</span>
-        <p>{tagText}</p>
+        <p>{tagText?.name}</p>
       </div>
+
       <h1 className='text-h4 font-500 md:w-[70%] md:text-h3 md:font-700 lg:w-1/2 lg:text-h2 lg:font-700'>
         {heading}
       </h1>
-      <div className='flex items-center gap-[8px] pt-[16px]'>
+
+      <div className='flex items-center gap-[16px] pt-[16px]'>
         <p className='text-md text-N-600'>
           Last modified: <span className='text-N-800'>{date}</span>
         </p>
+
         {readingTime && (
           <span className='flex items-center gap-[4px] text-N-500'>
             <Clock size={16} />

@@ -70,8 +70,8 @@ export const MembershipCard: FC<MembershipCardProps> = ({
             {list?.map(({ feature }, index) => (
               <li
                 key={index}
-                className='flex items-center gap-[8px] border-b py-[12px] text-md font-500 last:border-b-0'>
-                <Check size={16} />
+                className='flex items-center gap-[8px] border-b py-[12px] text-md font-500 last:border-b-0 max-w-[320px]'>
+                <Check size={16} className='flex-shrink-0' />
                 <span>{feature}</span>
               </li>
             ))}

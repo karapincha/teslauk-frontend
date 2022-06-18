@@ -55,7 +55,7 @@ export const GuidesQuickAccess: FC<GuidesQuickAccessProps> = ({
           <div className='mx-auto block pt-[60px] md:mx-[unset] md:px-[80px] lg:ml-auto lg:max-w-[576px] lg:px-0 lg:pt-0'>
             <div className='grid gap-x-[48px] gap-y-[36px] md:grid-cols-2 md:justify-between lg:grid-cols-2'>
               {categories.map(({ description, name, taxonomyIcon, slug }: any, index: number) => (
-                <Link href={slug} key={index}>
+                <Link href={`guides/category/${slug}`} key={index}>
                   <FeatureCard
                     heading={name}
                     description={description}

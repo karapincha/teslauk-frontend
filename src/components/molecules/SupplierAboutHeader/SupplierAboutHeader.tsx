@@ -71,7 +71,7 @@ export const SupplierAboutHeader: FC<SupplierAboutHeaderProps> = ({
         )}
 
         {/* Ratings */}
-        <div className='flex items-center pt-[8px]'>
+        {/* <div className='flex items-center pt-[8px]'>
           <div className='relative flex'>
             {Array.from({ length: 5 }, (_, index) => {
               if (index < rating) {
@@ -85,7 +85,7 @@ export const SupplierAboutHeader: FC<SupplierAboutHeaderProps> = ({
           <span className='flex gap-[8px] pl-[8px]'>
             <p className='text-sm font-600 text-N-800'>{rating} Star(s)</p>
           </span>
-        </div>
+        </div> */}
       </div>
 
       {image && (

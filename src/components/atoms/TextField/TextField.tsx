@@ -82,7 +82,7 @@ export const TextField: FC<TextFieldProps> = forwardRef(
     /* Inner Input Field */
     const TextFieldClasses = CN('text-field', className, inputTextColor, {
       /* Input Field Common */
-      'appearance-none h-full w-full outline-none text-md font-400 flex items-center bg-[transparent] placeholder:text-N-300':
+      'appearance-none h-full w-full outline-none text-md font-400 flex items-center bg-[transparent] placeholder:text-N-400':
         true,
 
       /* Disabled */

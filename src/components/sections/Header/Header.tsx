@@ -21,11 +21,11 @@ export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps
           <Hamburger className='mr-[32px]' />
 
           <div className='hidden items-center gap-[32px] lg:flex'>
-            <Link href='/event-home' passHref>
+            {/* <Link href='/event-home' passHref>
               <Button appearance='link' view='outline'>
                 Events
               </Button>
-            </Link>
+            </Link> */}
 
             <Link href='/suppliers' passHref>
               <Button appearance='link' view='outline'>

@@ -14,18 +14,16 @@ const Page: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='py-[24px]' />
-
-      <div className='container flex pt-[20px]'>
+      <div className='container flex pt-[20px] pb-[24px] md:pt-[40px] md:pb-[80px]'>
         <PageHeader
           heading='Pass on your expertise <br />and experiences'
-          headingClassName='text-N-800'
+          headingClassName='text-N-800 !font-600'
           icon={<i className='ri-edit-box-line text-[40px] text-B-500' />}
         />
       </div>
 
       <div className='container flex flex-col'>
-        <article className='prose mx-auto max-w-[782px] py-[80px]'>
+        <article className='prose mx-auto max-w-[782px] pt-[24px] md:py-[80px]'>
           <p>
             Thank you for offering to pass on your expertise and experiences by writing content for
             other owners in the UK, it’s really appreciated by not only the Tesla Owners UK team but
@@ -109,23 +107,15 @@ const Page: NextPage = () => {
           <p>
             Thank you, if you have any questions please <a>contact the team.</a>
           </p>
-          <div className='pt-[32px]'>
-            <Button iconAfter={<i className='ri-arrow-right-line text-lg' />}>
+          <div className='pb-[40px] md:pb-0 md:pt-[40px] lg:pt-[32px]'>
+            <Button
+              iconAfter={<i className='ri-arrow-right-line text-lg' />}
+              className='w-full md:w-[unset]'>
               Proceed to submission
             </Button>
           </div>
         </article>
       </div>
-
-      <PageLock
-        heading='You are one step away...'
-        description='You have to be a supporter of Tesla Owners Club UK in order to submit content. Become a member and enjoy full access to our extensive resources,  club events, various discussion groups and more.'
-        cta={
-          <Button iconAfter={<i className='ri-arrow-right-line text-lg' />}>Get Membership</Button>
-        }
-      />
-      <SupplierRibbon />
-      <Footer />
     </>
   )
 }

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import CN from 'classnames'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
-import { getHomePage, GET_COMMON } from '../../../../lib/graphql'
+import { GET_COMMON } from '../../../../lib/graphql'
 import { useQuery, gql } from '@apollo/client'
 
 export interface CommonProps {
@@ -30,7 +30,7 @@ export const Common: FC<CommonProps> = ({ className, children, ...restProps }: C
           <main className={CommonClasses} {...restProps}>
             {children}
           </main>
-          <SupplierRibbon data={layoutData?.supplierBar?.blockSuppliersBar} className='!pt-0' />
+          <SupplierRibbon data={layoutData?.suppliers?.nodes} className='!pt-0' />
           <Footer data={layoutData?.footer?.blockFooter} />
         </>
       )}

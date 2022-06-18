@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react'
 import CN from 'classnames'
+import Link from 'next/link'
 
 export interface LogoItemProps {
   [x: string]: any
@@ -37,15 +38,25 @@ export const LogoBlock: FC<LogoBlockProps> = ({
 
   return (
     <div className={LogoBlockClasses} {...restProps}>
-      {data.map(({ id, link, name, image, imageGrey, ...restProps }: any, index: number) => (
-        <a
-          className='logo-block__logo inline-flex justify-center'
-          href={link}
-          key={id || index}
-          {...restProps}>
-          <LogoImage image={image?.mediaItemUrl} imageGrey={image?.mediaItemUrl} />
-        </a>
-      ))}
+      {data.map(({ id, pageSupplier, slug, title, ...restProps }: any, index: number) => {
+        const { isFeatured, logoInverted } = pageSupplier || {}
+
+        if (isFeatured && isFeatured === true && logoInverted) {
+          return (
+            <Link href={`/suppliers/${slug}`} key={id || index}>
+              <a
+                className='logo-block__logo inline-flex justify-center'
+                key={id || index}
+                {...restProps}>
+                <LogoImage
+                  image={logoInverted?.mediaItemUrl}
+                  imageGrey={logoInverted?.mediaItemUrl}
+                />
+              </a>
+            </Link>
+          )
+        }
+      })}
     </div>
   )
 }

@@ -85,11 +85,14 @@ export const Footer: FC<FooterProps> = ({ className, data, ...restProps }: Foote
         <div className='footer__top flex flex-col justify-between pt-[24px] pb-[44px] lg:flex-row lg:pt-[40px]'>
           <div className='footer__about max-w-[400px]'>
             <Logo className='mb-[32px]' />
-            <p className='text-sm font-500 text-N-500'>{description}</p>
+            <p
+              className='text-sm font-500 text-N-500'
+              dangerouslySetInnerHTML={{ __html: description || '' }}
+            />
           </div>
 
           <div className='footer__social flex-shrink-0 pt-[24px] lg:pt-0'>
-            <div className='flex flex-shrink-0 flex-col gap-[24px] text-md text-N-600'>
+            <div className='flex flex-shrink-0 flex-col gap-[24px] text-md'>
               <div className='flex flex-col gap-[16px]'>
                 <a href={`mailto:${email}`}>{email}</a>
                 <a href={`tel:${phone}`}>{phone}</a>
@@ -128,7 +131,7 @@ export const Footer: FC<FooterProps> = ({ className, data, ...restProps }: Foote
       <div className='container flex flex-col items-center justify-between border-t border-N-100 pb-[24px] md:flex-row md:gap-[76px] md:pb-0 lg:flex-row lg:pb-0'>
         <div className='flex flex-col gap-[8px] pt-[32px] md:py-[48px] lg:py-[32px]'>
           <p className='text-md font-600 text-N-600'>Subscribe to newsletter</p>
-          <p className='pb-[24px] text-sm text-N-600 md:pb-0 lg:pb-0'>
+          <p className='pb-[24px] text-md text-N-600 md:pb-0 lg:pb-0'>
             Our weekly newsletter will keep you updated on all you need to know as a tesla owner.
           </p>
         </div>

@@ -2,7 +2,7 @@ import { useQuery, gql } from '@apollo/client'
 
 export const SEARCH_SUPPLIERS = gql`
   query SearchSuppliers($search: String) {
-    suppliers(where: { search: $search }) {
+    suppliers(first: 100, where: { search: $search }) {
       nodes {
         id
         title
@@ -27,7 +27,7 @@ export const SEARCH_SUPPLIERS = gql`
           }
           name
           phone
-          rating
+          excerpt
           website
           logo {
             mediaItemUrl

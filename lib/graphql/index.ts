@@ -12,6 +12,11 @@ export * from './pages/home'
 export * from './pages/suppliers'
 
 export * from './queries/getCommon'
-export * from './queries/getSupplier'
+
 export * from './queries/getAllSuppliersWithSlug'
+export * from './queries/getSupplier'
 export * from './queries/searchSuppliers'
+
+export * from './queries/getAllGuidesWithSlug'
+export * from './queries/getGuide'
+export * from './queries/getAllGuidesCategories'

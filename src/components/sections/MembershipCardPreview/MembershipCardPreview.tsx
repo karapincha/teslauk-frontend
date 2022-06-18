@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
 import { MembershipCard } from '@/components/molecules'
+import { useRouter } from 'next/router'
 
 export interface MembershipCardPreviewProps {
   [x: string]: any
@@ -12,7 +13,25 @@ export const MembershipCardPreview: FC<MembershipCardPreviewProps> = ({
   ...restProps
 }: MembershipCardPreviewProps) => {
   const MembershipCardPreviewClasses = CN(`membership-card-preview`, className)
+  const router = useRouter()
   const { supporterMemberBlock, freeMemberBlock } = data
+
+  const freeList = freeMemberBlock?.features.filter((item: any, index: number) => {
+    if (index < 5) {
+      return item
+    }
+  })
+
+  const supporterList = supporterMemberBlock?.features.filter((item: any, index: number) => {
+    if (index < 7) {
+      return item
+    }
+  })
+
+  const handleClick = (e: any) => {
+    e.preventDefault()
+    router.push('/members')
+  }
 
   return (
     <div className={MembershipCardPreviewClasses} {...restProps}>
@@ -21,11 +40,9 @@ export const MembershipCardPreview: FC<MembershipCardPreviewProps> = ({
           type='secondary'
           heading={freeMemberBlock?.heading}
           price={freeMemberBlock?.price}
-          list={freeMemberBlock?.features}
+          list={freeList}
           ctaBtnText={freeMemberBlock?.primaryButtonText}
-          onClickCtaBtn={() => {
-            '/login'
-          }}
+          onClickCtaBtn={handleClick}
           className='w-full flex-shrink-0 md:w-[unset] lg:w-[368px]'
         />
         <MembershipCard
@@ -33,11 +50,11 @@ export const MembershipCardPreview: FC<MembershipCardPreviewProps> = ({
           heading={supporterMemberBlock?.heading}
           description='Annual subscription'
           price={supporterMemberBlock?.price}
-          list={supporterMemberBlock?.features}
+          list={supporterList}
           ctaBtnText={supporterMemberBlock?.primaryButtonText}
-          onClickCtaBtn={() => {}}
+          onClickCtaBtn={handleClick}
           secondaryCTABtnText={supporterMemberBlock?.secondaryButtonText}
-          onClickSecondaryCtaBtn={() => {}}
+          onClickSecondaryCtaBtn={handleClick}
         />
       </div>
     </div>

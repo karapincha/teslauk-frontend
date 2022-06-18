@@ -27,7 +27,7 @@ export async function getSupplier(slug: any) {
         }
         name
         phone
-        rating
+        excerpt
         website
       }
     }

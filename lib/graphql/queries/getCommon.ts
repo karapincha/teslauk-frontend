@@ -1,18 +1,19 @@
-import { useQuery, gql } from '@apollo/client'
+import { gql } from '@apollo/client'
 
 export const GET_COMMON = gql`
   query getCommon {
-    supplierBar: block(id: "suppliers-bar", idType: SLUG) {
-      blockSuppliersBar {
-        logos {
-          image {
+    suppliers(first: 100) {
+      nodes {
+        id
+        title
+        slug
+        pageSupplier {
+          logoInverted {
             mediaItemUrl
           }
-          link
-          name
+          isFeatured
         }
       }
-      slug
     }
     footer: block(id: "footer", idType: SLUG) {
       slug
