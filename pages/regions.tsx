@@ -8,6 +8,7 @@ import { PageHeader, SectionHeading } from '@/components/molecules'
 import { ArrowRight, ChevronRight } from 'react-feather'
 import { Chip } from '@/components/atoms'
 import { useViewport } from '@/utils'
+import { Common as CommonLayout } from '@/components/layouts'
 
 const Page: NextPage = () => {
   const { isDesktop, isMobile, isTablet } = useViewport()
@@ -123,52 +124,49 @@ const Page: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='py-[24px]' />
-
-      <div className='container pt-[24px] md:pt-[40px] lg:pt-[40px]'>
-        <div className='h-[114px] justify-center bg-none bg-cover bg-no-repeat md:flex md:bg-[url(/images/regions-md.png)] lg:flex lg:h-[272px] lg:bg-[url(/images/regions.png)]'>
-          <div className='flex flex-col items-center justify-center gap-[16px] text-center'>
-            <h1 className='text-h3 font-700 text-N-800 md:text-h2 lg:text-h1'>Regions</h1>
-            <p className='text-md font-500 text-N-600 md:w-[368px] lg:w-[368px]'>
-              Regions allow owners to meet up and discuss on a more local level, all region groups
-              are supported by Tesla Owners UK and Tesla.
-            </p>
+      <CommonLayout>
+        <div className='container pt-[24px] md:pt-[40px] lg:pt-[40px]'>
+          <div className='h-[114px] justify-center bg-none bg-cover bg-no-repeat md:flex md:bg-[url(/images/regions-md.png)] lg:flex lg:h-[272px] lg:bg-[url(/images/regions.png)]'>
+            <div className='flex flex-col items-center justify-center gap-[16px] text-center'>
+              <h1 className='text-h3 font-700 text-N-800 md:text-h2 lg:text-h1'>Regions</h1>
+              <p className='text-md font-500 text-N-600 md:w-[368px] lg:w-[368px]'>
+                Regions allow owners to meet up and discuss on a more local level, all region groups
+                are supported by Tesla Owners UK and Tesla.
+              </p>
+            </div>
           </div>
-        </div>
-        {isMobile && (
-          <div className='pt-[40px]'>
-            <img src='/images/regions-small.png' className='w-full' />
-          </div>
-        )}
+          {isMobile && (
+            <div className='pt-[40px]'>
+              <img src='/images/regions-small.png' className='w-full' />
+            </div>
+          )}
 
-        <div className='region-list py-[40px] md:py-[80px]'>
-          <ul className='flex flex-col gap-[24px] md:flex md:px-[88px] lg:grid lg:grid-cols-3 lg:gap-x-[48px] lg:gap-y-[24px] lg:px-0'>
-            {regionLinks.map(({ id, url, label, isActive }, index) => (
-              <li key={id || index}>
-                <a
-                  target='_blank'
-                  href={url}
-                  className={CN(`flex items-center justify-between `, {
-                    'text-N-800': !isActive,
-                    'text-B-500': isActive,
-                  })}>
-                  <h5
-                    className={CN(`text-h5 hover:text-B-500`, {
+          <div className='region-list py-[40px] md:py-[80px]'>
+            <ul className='flex flex-col gap-[24px] md:flex md:px-[88px] lg:grid lg:grid-cols-3 lg:gap-x-[48px] lg:gap-y-[24px] lg:px-0'>
+              {regionLinks.map(({ id, url, label, isActive }, index) => (
+                <li key={id || index}>
+                  <a
+                    target='_blank'
+                    href={url}
+                    className={CN(`flex items-center justify-between `, {
                       'text-N-800': !isActive,
                       'text-B-500': isActive,
                     })}>
-                    {label}
-                  </h5>
-                  <span>{<ChevronRight size={24} />}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+                    <h5
+                      className={CN(`text-h5 hover:text-B-500`, {
+                        'text-N-800': !isActive,
+                        'text-B-500': isActive,
+                      })}>
+                      {label}
+                    </h5>
+                    <span>{<ChevronRight size={24} />}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </div>
-
-      <SupplierRibbon />
-      <Footer />
+      </CommonLayout>
     </>
   )
 }

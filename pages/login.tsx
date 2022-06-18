@@ -1,16 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import {
-  Header,
-  Footer,
-  Hero,
-  EventCard,
-  QuickMembership,
-  QuickTestimonials,
-  GuidesQuickAccess,
-  CallToAction,
-  SupplierRibbon,
-} from '@/components/sections'
 
 import { Login } from '@/components/forms'
 import { SectionHeading } from '@/components/molecules'

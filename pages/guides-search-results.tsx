@@ -5,6 +5,7 @@ import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { PageHeader, ArticleCard, Pagination } from '@/components/molecules'
 import { searchResult } from '@/dummy-data/search-result'
 import { ProductCard } from '@/components/molecules/ProductCard'
+import { Common as CommonLayout } from '@/components/layouts'
 
 const Page: NextPage = () => {
   return (
@@ -15,70 +16,67 @@ const Page: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='py-[24px]' />
+      <CommonLayout>
+        <div className='container flex pt-[20px] pb-[24px] md:pb-0'>
+          <PageHeader
+            hasSearch
+            heading='Written by Tesla Owners <br />for Tesla Owners'
+            description='Search through over 120 guides'
+            headingClassName='text-N-800'
+            descriptionClassName='text-N-600'
+            btnProps={{
+              onClick: (e: any) => console.log(e),
+              children: 'Search',
+              appearance: 'primary',
+            }}
+            inputProps={{
+              onChange: (e: any) => console.log(e.target.value),
+              placeholder: 'Search your question here?',
+              defaultValue: 'Tesla',
+              size: 'lg',
+            }}
+          />
+        </div>
 
-      <div className='container flex pt-[20px] pb-[24px] md:pb-0'>
-        <PageHeader
-          hasSearch
-          heading='Written by Tesla Owners <br />for Tesla Owners'
-          description='Search through over 120 guides'
-          headingClassName='text-N-800'
-          descriptionClassName='text-N-600'
-          btnProps={{
-            onClick: (e: any) => console.log(e),
-            children: 'Search',
-            appearance: 'primary',
-          }}
-          inputProps={{
-            onChange: (e: any) => console.log(e.target.value),
-            placeholder: 'Search your question here?',
-            defaultValue: 'Tesla',
-            size: 'lg',
-          }}
-        />
-      </div>
+        <div className='container flex flex-col pt-[24px] pb-[40px] md:py-[80px]'>
+          <div className='mx-auto flex w-full max-w-[784px] flex-col'>
+            <div className='lg::mb-[48px] mb-[24px] text-h5 text-N-700 md:mb-[40px]'>
+              Results <span className='font-500 text-N-800'>1-10</span> of{' '}
+              <span className='font-500 text-N-800'>57</span> search results for{' '}
+              <span className='font-500 text-B-500'>“Tesla”</span>
+            </div>
 
-      <div className='container flex flex-col pt-[24px] pb-[40px] md:py-[80px]'>
-        <div className='mx-auto flex w-full max-w-[784px] flex-col'>
-          <div className='lg::mb-[48px] mb-[24px] text-h5 text-N-700 md:mb-[40px]'>
-            Results <span className='font-500 text-N-800'>1-10</span> of{' '}
-            <span className='font-500 text-N-800'>57</span> search results for{' '}
-            <span className='font-500 text-B-500'>“Tesla”</span>
-          </div>
+            <div className='flex flex-col gap-[24px] md:gap-[40px] lg:gap-[32px]'>
+              {(searchResult || []).map((item: any, index: number) => (
+                <Link href={item?.permalink} passHref key={index}>
+                  <ArticleCard data={item} />
+                </Link>
+              ))}
 
-          <div className='flex flex-col gap-[24px] md:gap-[40px] lg:gap-[32px]'>
-            {(searchResult || []).map((item: any, index: number) => (
-              <Link href={item?.permalink} passHref key={index}>
-                <ArticleCard data={item} />
-              </Link>
-            ))}
-
-            <ProductCard
-              tagName='Charging cables'
-              image='https://digitalassets-shop.tesla.com/image/upload/f_auto,q_auto/v1/content/dam/tesla/CAR_ACCESSORIES/MODEL_S/INTERIOR/1047942-00-B_0_2000.jpg'
-              heading='Model S All-Weather Interior Liners'
-              subHeading='Available for paid supporters only'
-              description='Model S All-Weather Interior Liners are made from a thermoplastic elastomer material with
+              <ProductCard
+                tagName='Charging cables'
+                image='https://digitalassets-shop.tesla.com/image/upload/f_auto,q_auto/v1/content/dam/tesla/CAR_ACCESSORIES/MODEL_S/INTERIOR/1047942-00-B_0_2000.jpg'
+                heading='Model S All-Weather Interior Liners'
+                subHeading='Available for paid supporters only'
+                description='Model S All-Weather Interior Liners are made from a thermoplastic elastomer material with
               a strong rigid core for extreme-duty protection and spatial coverage. '
-              price='£35.99'
-            />
-            <ProductCard
-              tagName='Stickers'
-              image='https://teslaowners.org.uk/wp-content/uploads/2020/12/129728424_10164341099305231_3387852862111460851_o-530x530.jpg'
-              heading='2 x Silverstone Lapland Tesla Owners UK Takeover Stickers '
-              description='Model S All-Weather Interior Liners are made from a thermoplastic elastomer material with a strong rigid core for extreme-duty protection and spatial coverage.'
-              price='£18.50'
-            />
+                price='£35.99'
+              />
+              <ProductCard
+                tagName='Stickers'
+                image='https://teslaowners.org.uk/wp-content/uploads/2020/12/129728424_10164341099305231_3387852862111460851_o-530x530.jpg'
+                heading='2 x Silverstone Lapland Tesla Owners UK Takeover Stickers '
+                description='Model S All-Weather Interior Liners are made from a thermoplastic elastomer material with a strong rigid core for extreme-duty protection and spatial coverage.'
+                price='£18.50'
+              />
+            </div>
+          </div>
+
+          <div className='mx-auto w-full max-w-[784px] pt-[24px] md:pt-[80px]'>
+            <Pagination />
           </div>
         </div>
-
-        <div className='mx-auto w-full max-w-[784px] pt-[24px] md:pt-[80px]'>
-          <Pagination />
-        </div>
-      </div>
-
-      <SupplierRibbon />
-      <Footer />
+      </CommonLayout>
     </>
   )
 }

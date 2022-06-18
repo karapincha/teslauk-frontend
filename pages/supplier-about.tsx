@@ -11,6 +11,7 @@ import { SupplierDetailsTabs } from '@/components/sections/SupplierDetailsTabs'
 import { SupplierAboutSideBar } from '@/components/sections/SupplierAboutSideBar'
 import { RelatedListingsSideBar } from '@/components/sections/RelatedListingsSideBar'
 import { Breadcrumb } from '@/components/molecules/Breadcrumb'
+import { Common as CommonLayout } from '@/components/layouts'
 
 const Page: NextPage = () => {
   const router = useRouter()
@@ -25,74 +26,71 @@ const Page: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='py-[24px]' />
+      <CommonLayout>
+        <div className='header-surface relative bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
+          <div className='container flex h-full flex-col'>
+            <div className='flex py-[50px]'>
+              <Button
+                appearance='ghost'
+                iconBefore={<ArrowLeft size={20} />}
+                className='h-[unset] px-0 hover:text-B-500'>
+                Back to Search results
+              </Button>
+            </div>
 
-      <div className='header-surface relative bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
-        <div className='container flex h-full flex-col'>
-          <div className='flex py-[50px]'>
-            <Button
-              appearance='ghost'
-              iconBefore={<ArrowLeft size={20} />}
-              className='h-[unset] px-0 hover:text-B-500'>
-              Back to Search results
-            </Button>
-          </div>
-
-          <SupplierAboutHeader
-            icon={<Tag size={16} />}
-            breadcrumbLinks={
-              <Breadcrumb
-                links={[
-                  {
-                    id: 0,
-                    linkText: 'Home & Work Charger Installer',
-                    link: '/',
-                    isActive: false,
-                  },
-                  {
-                    id: 1,
-                    linkText: 'Solar',
-                    link: '/solar',
-                    isActive: false,
-                  },
-                  {
-                    id: 2,
-                    linkText: ' Powerwall',
-                    link: '/solar/powerwall',
-                    isActive: false,
-                  },
-                  {
-                    id: 3,
-                    linkText: 'Electrician',
-                    link: '/solar/powerwall/electrician',
-                    isActive: true,
-                  },
-                ]}
-              />
-            }
-            heading='JPS Renewable Energy'
-            isVerified={true}
-            isFeatured={true}
-            image='/images/suppliers.png'
-          />
-        </div>
-      </div>
-
-      <div className='container flex flex-col gap-[24px] pt-[24px] pb-[40px] md:gap-[48px] md:pt-[40px] md:pb-[80px] lg:flex-row'>
-        <div className='lg:w-[784px]'>
-          <div className=''>
-            <SupplierDetailsTabs onChange={(tab: any) => setActiveTab(tab)} />
+            <SupplierAboutHeader
+              icon={<Tag size={16} />}
+              breadcrumbLinks={
+                <Breadcrumb
+                  links={[
+                    {
+                      id: 0,
+                      linkText: 'Home & Work Charger Installer',
+                      link: '/',
+                      isActive: false,
+                    },
+                    {
+                      id: 1,
+                      linkText: 'Solar',
+                      link: '/solar',
+                      isActive: false,
+                    },
+                    {
+                      id: 2,
+                      linkText: ' Powerwall',
+                      link: '/solar/powerwall',
+                      isActive: false,
+                    },
+                    {
+                      id: 3,
+                      linkText: 'Electrician',
+                      link: '/solar/powerwall/electrician',
+                      isActive: true,
+                    },
+                  ]}
+                />
+              }
+              heading='JPS Renewable Energy'
+              isVerified={true}
+              isFeatured={true}
+              image='/images/suppliers.png'
+            />
           </div>
         </div>
 
-        <div className='flex'>
-          {activeTab === 'about' && <SupplierAboutSideBar />}
-          {activeTab === 'related-listings' && <RelatedListingsSideBar />}
-        </div>
-      </div>
+        <div className='container flex flex-col gap-[24px] pt-[24px] pb-[40px] md:gap-[48px] md:pt-[40px] md:pb-[80px] lg:flex-row'>
+          <div className='lg:w-[784px]'>
+            <div className=''>
+              <SupplierDetailsTabs onChange={(tab: any) => setActiveTab(tab)} />
+            </div>
+          </div>
 
-      <SupplierRibbon />
-      <Footer />
+          <div className='flex'>
+            {activeTab === 'about' && <SupplierAboutSideBar />}
+            {activeTab === 'related-listings' && <RelatedListingsSideBar />}
+          </div>
+        </div>
+      </CommonLayout>
     </>
   )
 }

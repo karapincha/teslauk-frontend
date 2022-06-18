@@ -7,6 +7,7 @@ import shopList from '@/dummy-data/shop-list'
 import { Pagination } from '@/components/molecules'
 import { useViewport } from '@/utils'
 import { Filter } from 'react-feather'
+import { Common as CommonLayout } from '@/components/layouts'
 
 const Page: NextPage = () => {
   const { isMobile, isTablet, isDesktop } = useViewport()
@@ -18,112 +19,114 @@ const Page: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='py-[24px]' />
-
-      <div className='container md:flex md:justify-between'>
-        {/* Filter Desktop version */}
-        <div className='hidden flex-col gap-[40px] lg:flex'>
-          {/* Categories */}
-          <div className='flex flex-col gap-[16px]'>
-            <h4 className='text-h4 font-600 text-N-800'>Categories</h4>
-            <div className='flex flex-col gap-[8px]'>
-              <CheckBox children='Accessories' labelClassName='!text-base !pl-[12px]' />
-              <CheckBox children='Charging cables' labelClassName='!text-base !pl-[12px]' />
-              <CheckBox children='Packs & Lanyards' labelClassName='!text-base !pl-[12px]' />
-              <CheckBox children='Renewals' labelClassName='!text-base !pl-[12px]' />
-              <CheckBox children='Stickers' labelClassName='!text-base !pl-[12px]' />
-            </div>
-          </div>
-
-          {/* Model */}
-          <div className='flex flex-col gap-[16px]'>
-            <h4 className='text-h4 font-600 text-N-800'>Model</h4>
-            <div className='flex flex-col gap-[8px]'>
-              <CheckBox children='Model S' labelClassName='!text-base !pl-[12px]' />
-              <CheckBox children='Model 3' labelClassName='!text-base !pl-[12px]' />
-              <CheckBox children='Model X' labelClassName='!text-base !pl-[12px]' />
-              <CheckBox children='Model y' labelClassName='!text-base !pl-[12px]' />
-            </div>
-          </div>
-
-          {/* Membership */}
-          <div className='flex flex-col gap-[16px]'>
-            <h4 className='text-h4 font-600 text-N-800'>Membership</h4>
-            <div className='flex flex-col gap-[8px]'>
-              <CheckBox children='For Free members' labelClassName='!text-base !pl-[12px]' />
-              <CheckBox children='For Paid supporters' labelClassName='!text-base !pl-[12px]' />
-            </div>
-          </div>
-
-          {/* Provided by */}
-          <div className='flex flex-col gap-[16px]'>
-            <h4 className='text-h4 font-600 text-N-800'>Provided by</h4>
-            <div className='flex flex-col gap-[8px]'>
-              <CheckBox children='Tesla Members UK' labelClassName='!text-base !pl-[12px]' />
-              <CheckBox children='Milton Keynes Team' labelClassName='!text-base !pl-[12px]' />
-            </div>
-          </div>
-
-          <div className='flex'>
-            <Button appearance='secondary'>Apply filters</Button>
-          </div>
-        </div>
-
-        <div className='flex flex-col'>
-          <div className='flex flex-col'>
-            <h3 className='pb-[24px] text-h3 font-600 text-N-800 md:pb-[40px] lg:pb-0'>
-              Accessories
-            </h3>
-
-            {/* Filter button */}
-            {!isDesktop && (
-              <div className='flex flex-col gap-[16px] rounded-[12px] border border-N-100 bg-white px-[16px] py-[24px] md:flex-row md:items-center md:justify-between md:bg-transparent md:px-[24px]'>
-                <Button
-                  appearance='secondary'
-                  size={(isMobile && 'md') || (isTablet && 'sm')}
-                  iconAfter={<Filter size={20} />}
-                  className='w-full md:w-[210px]'>
-                  Filters
-                </Button>
-                <div className='w-full md:w-[210px]'>
-                  <TextField placeholder='Sort by Relevance' />
-                </div>
+      <CommonLayout>
+        <div className='container md:flex md:justify-between'>
+          {/* Filter Desktop version */}
+          <div className='hidden flex-col gap-[40px] lg:flex'>
+            {/* Categories */}
+            <div className='flex flex-col gap-[16px]'>
+              <h4 className='text-h4 font-600 text-N-800'>Categories</h4>
+              <div className='flex flex-col gap-[8px]'>
+                <CheckBox children='Accessories' labelClassName='!text-base !pl-[12px]' />
+                <CheckBox children='Charging cables' labelClassName='!text-base !pl-[12px]' />
+                <CheckBox children='Packs & Lanyards' labelClassName='!text-base !pl-[12px]' />
+                <CheckBox children='Renewals' labelClassName='!text-base !pl-[12px]' />
+                <CheckBox children='Stickers' labelClassName='!text-base !pl-[12px]' />
               </div>
-            )}
+            </div>
 
-            <div className='flex justify-between py-[24px] md:py-[40px]'>
-              <p className='text-base font-400 text-N-600'>57 related listings</p>
-              {isDesktop && (
-                <div className='w-[210px]'>
-                  <TextField placeholder='Sort by Relevance' />
-                </div>
-              )}
+            {/* Model */}
+            <div className='flex flex-col gap-[16px]'>
+              <h4 className='text-h4 font-600 text-N-800'>Model</h4>
+              <div className='flex flex-col gap-[8px]'>
+                <CheckBox children='Model S' labelClassName='!text-base !pl-[12px]' />
+                <CheckBox children='Model 3' labelClassName='!text-base !pl-[12px]' />
+                <CheckBox children='Model X' labelClassName='!text-base !pl-[12px]' />
+                <CheckBox children='Model y' labelClassName='!text-base !pl-[12px]' />
+              </div>
+            </div>
+
+            {/* Membership */}
+            <div className='flex flex-col gap-[16px]'>
+              <h4 className='text-h4 font-600 text-N-800'>Membership</h4>
+              <div className='flex flex-col gap-[8px]'>
+                <CheckBox children='For Free members' labelClassName='!text-base !pl-[12px]' />
+                <CheckBox children='For Paid supporters' labelClassName='!text-base !pl-[12px]' />
+              </div>
+            </div>
+
+            {/* Provided by */}
+            <div className='flex flex-col gap-[16px]'>
+              <h4 className='text-h4 font-600 text-N-800'>Provided by</h4>
+              <div className='flex flex-col gap-[8px]'>
+                <CheckBox children='Tesla Members UK' labelClassName='!text-base !pl-[12px]' />
+                <CheckBox children='Milton Keynes Team' labelClassName='!text-base !pl-[12px]' />
+              </div>
+            </div>
+
+            <div className='flex'>
+              <Button appearance='secondary'>Apply filters</Button>
             </div>
           </div>
 
-          {/* Shop list */}
-          <div className=''>
-            <ul className='grid grid-cols-2 gap-x-[16px] gap-y-[24px] md:grid-cols-3 md:gap-x-[16px] md:gap-y-[40px] lg:gap-x-[48px] lg:gap-y-[52px]'>
-              {(shopList || []).map(
-                ({ id, image, heading, price, shopName, url }: any, index: number) => (
-                  <li key={id || index}>
-                    <a target='_blank' href={url}>
-                      <ShopCard image={image} heading={heading} price={price} shopName={shopName} />
-                    </a>
-                  </li>
-                )
-              )}
-            </ul>
+          <div className='flex flex-col'>
+            <div className='flex flex-col'>
+              <h3 className='pb-[24px] text-h3 font-600 text-N-800 md:pb-[40px] lg:pb-0'>
+                Accessories
+              </h3>
 
-            <div className='w-full max-w-[784px] py-[40px] md:py-[80px]'>
-              <Pagination />
+              {/* Filter button */}
+              {!isDesktop && (
+                <div className='flex flex-col gap-[16px] rounded-[12px] border border-N-100 bg-white px-[16px] py-[24px] md:flex-row md:items-center md:justify-between md:bg-transparent md:px-[24px]'>
+                  <Button
+                    appearance='secondary'
+                    size={(isMobile && 'md') || (isTablet && 'sm')}
+                    iconAfter={<Filter size={20} />}
+                    className='w-full md:w-[210px]'>
+                    Filters
+                  </Button>
+                  <div className='w-full md:w-[210px]'>
+                    <TextField placeholder='Sort by Relevance' />
+                  </div>
+                </div>
+              )}
+
+              <div className='flex justify-between py-[24px] md:py-[40px]'>
+                <p className='text-base font-400 text-N-600'>57 related listings</p>
+                {isDesktop && (
+                  <div className='w-[210px]'>
+                    <TextField placeholder='Sort by Relevance' />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Shop list */}
+            <div className=''>
+              <ul className='grid grid-cols-2 gap-x-[16px] gap-y-[24px] md:grid-cols-3 md:gap-x-[16px] md:gap-y-[40px] lg:gap-x-[48px] lg:gap-y-[52px]'>
+                {(shopList || []).map(
+                  ({ id, image, heading, price, shopName, url }: any, index: number) => (
+                    <li key={id || index}>
+                      <a target='_blank' href={url}>
+                        <ShopCard
+                          image={image}
+                          heading={heading}
+                          price={price}
+                          shopName={shopName}
+                        />
+                      </a>
+                    </li>
+                  )
+                )}
+              </ul>
+
+              <div className='w-full max-w-[784px] py-[40px] md:py-[80px]'>
+                <Pagination />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <SupplierRibbon />
-      <Footer />
+      </CommonLayout>
     </>
   )
 }

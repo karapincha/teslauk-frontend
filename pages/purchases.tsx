@@ -11,6 +11,7 @@ import { ArrowRightCircle } from 'react-feather'
 import { DashboardMenu } from '@/components/molecules/DashboardMenu'
 import { useViewport } from '@/utils'
 import { PurchasesOrders } from '@/components/sections/PurchasesOrders'
+import { Common as CommonLayout } from '@/components/layouts'
 
 const Page: NextPage = () => {
   const router = useRouter()
@@ -127,53 +128,50 @@ const Page: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='py-[24px]' />
+      <CommonLayout>
+        <div className='container flex gap-[48px] py-[40px] md:pb-[80px] lg:pb-[80px]'>
+          <div className='dashboard-menu hidden lg:flex'>
+            <div className='w-full'>
+              <DashboardMenu />
+            </div>
+          </div>
 
-      <div className='container flex gap-[48px] py-[40px] md:pb-[80px] lg:pb-[80px]'>
-        <div className='dashboard-menu hidden lg:flex'>
-          <div className='w-full'>
-            <DashboardMenu />
+          <div className='flex w-full flex-col'>
+            <h4 className='pb-[24px] text-h4 font-600 text-N-800'>Purchases</h4>
+            <div className='flex gap-[12px] border-b-[1px]'>
+              <Link href='#'>
+                <Button
+                  className='mb-[16px] h-0 px-0 py-0 text-base font-600'
+                  view={activeTab === 'orders' ? 'outline' : 'solid'}
+                  appearance='ghost'
+                  onClick={() => setActiveTab('orders')}>
+                  Orders
+                </Button>
+              </Link>
+              <Link href='#'>
+                <Button
+                  className='mb-[16px] h-0 px-0 py-0 text-base font-600'
+                  appearance='ghost'
+                  onClick={() => setActiveTab('booking')}>
+                  Booking
+                </Button>
+              </Link>
+            </div>
+            <div className='flex flex-col'>
+              {activeTab === 'orders' && <PurchasesOrders />}
+              {activeTab === 'booking' && <PurchasesOrders />}
+            </div>
+
+            <div className='pt-[24px] md:pt-[16px] lg:pt-[16px]'>
+              <Link href='#'>
+                <Button iconAfter={<i className='ri-arrow-right-line text-lg' />} appearance='link'>
+                  Load more
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
-
-        <div className='flex w-full flex-col'>
-          <h4 className='pb-[24px] text-h4 font-600 text-N-800'>Purchases</h4>
-          <div className='flex gap-[12px] border-b-[1px]'>
-            <Link href='#'>
-              <Button
-                className='mb-[16px] h-0 px-0 py-0 text-base font-600'
-                view={activeTab === 'orders' ? 'outline' : 'solid'}
-                appearance='ghost'
-                onClick={() => setActiveTab('orders')}>
-                Orders
-              </Button>
-            </Link>
-            <Link href='#'>
-              <Button
-                className='mb-[16px] h-0 px-0 py-0 text-base font-600'
-                appearance='ghost'
-                onClick={() => setActiveTab('booking')}>
-                Booking
-              </Button>
-            </Link>
-          </div>
-          <div className='flex flex-col'>
-            {activeTab === 'orders' && <PurchasesOrders />}
-            {activeTab === 'booking' && <PurchasesOrders />}
-          </div>
-
-          <div className='pt-[24px] md:pt-[16px] lg:pt-[16px]'>
-            <Link href='#'>
-              <Button iconAfter={<i className='ri-arrow-right-line text-lg' />} appearance='link'>
-                Load more
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      <SupplierRibbon />
-      <Footer />
+      </CommonLayout>
     </>
   )
 }
