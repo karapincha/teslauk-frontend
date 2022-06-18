@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useRouter } from 'next/router'
 import { PageHeaderVariant } from '@/components/molecules/PageHeaderVariant'
 import { Button } from '@/components/atoms'
 import { InitiativeCard } from '@/components/molecules/InitiativeCard'
 import { ChartLine } from '@/icons'
 import { SectionHeading } from '@/components/molecules'
+import { Common as CommonLayout } from '@/components/layouts'
 
 const Page: NextPage = () => {
   const router = useRouter()
@@ -19,7 +19,7 @@ const Page: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='py-[24px]' />
+      <CommonLayout>
 
       <div className='container flex pt-[20px]'>
         <PageHeaderVariant
@@ -237,8 +237,7 @@ const Page: NextPage = () => {
         </div>
       </div>
 
-      <SupplierRibbon />
-      <Footer />
+      </CommonLayout>
     </>
   )
 }

@@ -9,6 +9,8 @@ import { ChartLine } from '@/icons'
 import { SectionHeading, Pagination } from '@/components/molecules'
 import { ProgrammeCard } from '@/components/molecules/ProgrammeCard'
 
+import { Common as CommonLayout } from '@/components/layouts'
+
 const Page: NextPage = () => {
   const router = useRouter()
 
@@ -20,76 +22,73 @@ const Page: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Header className='py-[24px]' />
-
-      <div className='container flex pt-[20px] pb-[24px] md:pb-[80px]'>
-        <PageHeaderVariant
-          heading='Charity & <br class="hidden md:inline"/> Request a <br class="md:hidden" /> wish'
-          image='/images/charity.png'
-          imageClassName='!h-[214px] md:!h-[248px] lg:!h-[423px]'
-          description='A major part of being a member of Tesla Owners UK is the ability to attend events – both National and Regional. </br>
+      <CommonLayout>
+        <div className='container flex pt-[20px] pb-[24px] md:pb-[80px]'>
+          <PageHeaderVariant
+            heading='Charity & <br class="hidden md:inline"/> Request a <br class="md:hidden" /> wish'
+            image='/images/charity.png'
+            imageClassName='!h-[214px] md:!h-[248px] lg:!h-[423px]'
+            description='A major part of being a member of Tesla Owners UK is the ability to attend events – both National and Regional. </br>
           From Track Days to Regional Meetups and visits to the Tesla facilities both in Europe and in the US we have you covered!'
-          descriptionClassName='md:!pt-[40px]'
-        />
-      </div>
-
-      <div className='container'>
-        <div className='flex flex-col gap-[24px] pb-[24px] md:flex-row md:items-center md:justify-between md:gap-0 md:pb-[40px] lg:flex-row lg:justify-between lg:pb-[40px]'>
-          <h3 className='text-h4 font-700 text-N-800 md:w-[388px] md:text-h3 lg:w-[unset] lg:text-h3'>
-            Tesla Owners UK Charity & Programmes
-          </h3>
-          <div className='md:w-[252px] lg:w-[320px]'>
-            <TextField placeholder='Filter by type' />
-          </div>
+            descriptionClassName='md:!pt-[40px]'
+          />
         </div>
-        <div className='flex flex-col gap-[24px] md:gap-[40px] lg:gap-[40px]'>
-          <ProgrammeCard
-            heading='Radio Flyer Programme'
-            description={`This world is a cruel place sometimes so if we can put a smile on someone’s face we will do our best. Tesla Owners UK have a ongoing programme of procuring “Radio Flyer” children’s ride on cars for donation to Hospitals, Hospices and similar.
+
+        <div className='container'>
+          <div className='flex flex-col gap-[24px] pb-[24px] md:flex-row md:items-center md:justify-between md:gap-0 md:pb-[40px] lg:flex-row lg:justify-between lg:pb-[40px]'>
+            <h3 className='text-h4 font-700 text-N-800 md:w-[388px] md:text-h3 lg:w-[unset] lg:text-h3'>
+              Tesla Owners UK Charity & Programmes
+            </h3>
+            <div className='md:w-[252px] lg:w-[320px]'>
+              <TextField placeholder='Filter by type' />
+            </div>
+          </div>
+          <div className='flex flex-col gap-[24px] md:gap-[40px] lg:gap-[40px]'>
+            <ProgrammeCard
+              heading='Radio Flyer Programme'
+              description={`This world is a cruel place sometimes so if we can put a smile on someone’s face we will do our best. Tesla Owners UK have a ongoing programme of procuring “Radio Flyer” children’s ride on cars for donation to Hospitals, Hospices and similar.
             <br/> <br/>
             So far, over 170 of these have been donated – sourced from Tesla Owners UK Members, but also donated by Radioflyer, and even by direct donation by Elon Musk!    There is a stock of more waiting for homes!. We req...`}
-            image='/images/charity/charity-001.png'
-            descriptionCTA='See more'
-            btnProps={{
-              children: 'Request a Radio Flyer',
-              onClick: () => {
-                console.log('Clicked')
-              },
-              appearance: 'primary',
-            }}
-          />
-          <ProgrammeCard
-            heading='Bondh E Shams (The Solar Water Charity)'
-            description={`Our chosen charity for 2021/22 – This charity was chosen in memory of our much loved member Nagib Hussain Ali (Naj) who sadly passed away in 2020.
+              image='/images/charity/charity-001.png'
+              descriptionCTA='See more'
+              btnProps={{
+                children: 'Request a Radio Flyer',
+                onClick: () => {
+                  console.log('Clicked')
+                },
+                appearance: 'primary',
+              }}
+            />
+            <ProgrammeCard
+              heading='Bondh E Shams (The Solar Water Charity)'
+              description={`Our chosen charity for 2021/22 – This charity was chosen in memory of our much loved member Nagib Hussain Ali (Naj) who sadly passed away in 2020.
             <br/> <br/>
             Bondh E Shams develops and deploys affordable, scalable and locally-led water solutions in support of UN Sustainable Development Goals.  They believe clean water is a right, not a privilege, and with 1 in 10 people without safe water, there is an urgent need for ground-breaking innovations. 
             <br/> <br/>
             Their award-winning signature solution, the OASIS Box, has already provided 36 Million cups of clean water.  Through the support of our members during 2021 we hope to help Bondh E Shams deliver millions more.`}
-            image='/images/charity/charity-002.png'
-            link='https://www.bondheshams.org/ & https://justgiving.com/fundraising/teslaownersuk'
-          />
-          <ProgrammeCard
-            heading='Experience a day as an owner (Adults with life threatening or debilitating conditions)'
-            description={`For many owning a Tesla is one of their lifetime goals but when a life threatening illness or debilitating  condition takes that away from you or a loved one it’s heartbreaking, we will try our best to give you or that Tesla fan a day/afternoon/morning to remember. 
+              image='/images/charity/charity-002.png'
+              link='https://www.bondheshams.org/ & https://justgiving.com/fundraising/teslaownersuk'
+            />
+            <ProgrammeCard
+              heading='Experience a day as an owner (Adults with life threatening or debilitating conditions)'
+              description={`For many owning a Tesla is one of their lifetime goals but when a life threatening illness or debilitating  condition takes that away from you or a loved one it’s heartbreaking, we will try our best to give you or that Tesla fan a day/afternoon/morning to remember. 
             <br/> <br/>
             It could be as simple as going out for a drive and grabbing some lunch to a full day out at one of our events. We will do our best to help.`}
-            image='/images/charity/charity-003.png'
-            btnProps={{
-              children: 'Request a Wish',
-              onClick: () => {
-                console.log('Clicked')
-              },
-              appearance: 'primary',
-            }}
-          />
+              image='/images/charity/charity-003.png'
+              btnProps={{
+                children: 'Request a Wish',
+                onClick: () => {
+                  console.log('Clicked')
+                },
+                appearance: 'primary',
+              }}
+            />
+          </div>
+          <div className='w-full max-w-[784px] pb-[40px] pt-[24px] md:py-[80px]'>
+            <Pagination />
+          </div>
         </div>
-        <div className='w-full max-w-[784px] pb-[40px] pt-[24px] md:py-[80px]'>
-          <Pagination />
-        </div>
-      </div>
-
-      <SupplierRibbon />
-      <Footer />
+      </CommonLayout>
     </>
   )
 }
