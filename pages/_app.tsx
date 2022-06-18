@@ -26,9 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <ApolloProvider client={client}>
-        <CommonLayout>
-          <Component {...pageProps} />
-        </CommonLayout>
+        <Component {...pageProps} />
       </ApolloProvider>
     </>
   )

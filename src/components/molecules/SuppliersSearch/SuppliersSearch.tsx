@@ -34,12 +34,12 @@ function Items({ currentItems, allItems, selectedTag }: any) {
 
   return (
     <>
-      <ul className='group flex flex-col'>
+      <p className='text-base font-400 text-N-600'>{items?.length || 0} suppliers found</p>
+
+      <ul className='group flex flex-col pt-[12px]'>
         {(items || []).map((data: any, index: number) => {
           return (
-            <li
-              key={index}
-              className='border-b border-N-200 py-[24px] last:border-b-0 last:pb-0 md:py-[40px]'>
+            <li key={index} className='border-b border-N-200 py-[24px]  last:border-b-0 last:pb-0 '>
               <SearchSuppliers data={data} />
             </li>
           )
@@ -110,7 +110,9 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
                 placeholder='Enter supplier name'
                 onChange={(e: any) => {
                   setSearchString(e.target.value)
+                  setSelectedTag('')
                 }}
+                value={searchString}
                 wrapperClassName='h-[48px]'
               />
               <Button
@@ -134,6 +136,7 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
                     isSelected={slug === selectedTag}
                     onClick={() => {
                       setSelectedTag(slug)
+                      setSearchString('')
                     }}
                     iconAfter={
                       slug === selectedTag && (
@@ -156,10 +159,6 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
 
           {/* Search results */}
           <div className='flex flex-col'>
-            <p className='text-base font-400 text-N-600'>
-              {suppliers?.nodes?.length || 0} suppliers found
-            </p>
-
             <Items
               currentItems={currentItems}
               selectedTag={selectedTag}

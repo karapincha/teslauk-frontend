@@ -7,7 +7,9 @@ import {
   QuickTestimonials,
   GuidesQuickAccess,
   CallToAction,
+  Header,
 } from '@/components/sections'
+import { Common as CommonLayout } from '@/components/layouts'
 
 import { getHomePage } from '../lib/graphql'
 
@@ -23,29 +25,31 @@ const Page: NextPage = ({ pageData, countries }: any) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Hero data={hero.blockHero} className='pt-[20px] pb-[24px] lg:pb-[40px]' />
+      <CommonLayout>
+        <Hero data={hero.blockHero} className='pt-[20px] pb-[24px] lg:pb-[40px]' />
 
-      <EventCard
-        data={featuredEvents.blockFeaturedEvents}
-        className='py-[24px] md:py-[80px] lg:py-[80px]'
-      />
+        <EventCard
+          data={featuredEvents.blockFeaturedEvents}
+          className='py-[24px] md:py-[80px] lg:py-[80px]'
+        />
 
-      <QuickMembership
-        data={membership.blockMembership}
-        className='py-[24px] md:py-[80px] lg:py-[80px]'
-      />
+        <QuickMembership
+          data={membership.blockMembership}
+          className='py-[24px] md:py-[80px] lg:py-[80px]'
+        />
 
-      <QuickTestimonials
-        data={testimonials.blockTestimonials}
-        className='py-[24px] md:py-[80px] lg:py-[80px]'
-      />
+        <QuickTestimonials
+          data={testimonials.blockTestimonials}
+          className='py-[24px] md:py-[80px] lg:py-[80px]'
+        />
 
-      <GuidesQuickAccess
-        data={guides.blockGuides}
-        className='pb-[24px] md:pb-[80px] lg:pt-[20px] lg:pb-[128px]'
-      />
+        <GuidesQuickAccess
+          data={guides.blockGuides}
+          className='pb-[24px] md:pb-[80px] lg:pt-[20px] lg:pb-[128px]'
+        />
 
-      <CallToAction data={cta.blockCta} />
+        <CallToAction data={cta.blockCta} />
+      </CommonLayout>
     </>
   )
 }

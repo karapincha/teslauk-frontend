@@ -14,6 +14,7 @@ import { Breadcrumb } from '@/components/molecules/Breadcrumb'
 
 import { getAllSuppliersWithSlug, getSupplier } from '../../lib/graphql'
 import Link from 'next/link'
+import { Common as CommonLayout } from '@/components/layouts'
 
 const Page: NextPage = ({ supplier }: any) => {
   const router = useRouter()
@@ -43,41 +44,43 @@ const Page: NextPage = ({ supplier }: any) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div className='header-surface relative bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
-        <div className='container flex h-full flex-col'>
-          <div className='flex py-[50px]'>
-            <Link href='/suppliers' passHref>
-              <Button
-                appearance='ghost'
-                iconBefore={<ArrowLeft size={20} />}
-                className='h-[unset] px-0 hover:text-B-500'>
-                Back to Search results
-              </Button>
-            </Link>
+      <CommonLayout>
+        <div className='header-surface relative bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
+          <div className='container flex h-full flex-col'>
+            <div className='flex py-[50px]'>
+              <Link href='/suppliers' passHref>
+                <Button
+                  appearance='ghost'
+                  iconBefore={<ArrowLeft size={20} />}
+                  className='h-[unset] px-0 hover:text-B-500'>
+                  Back to Search results
+                </Button>
+              </Link>
+            </div>
+
+            <SupplierAboutHeader
+              icon={<Tag size={16} />}
+              breadcrumbLinks={<Breadcrumb links={supplierTags?.nodes} />}
+              heading={title}
+              isVerified={isVerified}
+              isFeatured={isFeatured}
+              image={logo?.mediaItemUrl}
+              rating={rating}
+            />
+          </div>
+        </div>
+
+        <div className='container flex flex-col gap-[24px] pt-[24px] pb-[40px] md:gap-[48px] md:pt-[40px] md:pb-[80px] lg:flex-row'>
+          <div className='lg:w-[784px]'>
+            <SupplierDetailsTabs data={supplier} onChange={(tab: any) => setActiveTab(tab)} />
           </div>
 
-          <SupplierAboutHeader
-            icon={<Tag size={16} />}
-            breadcrumbLinks={<Breadcrumb links={supplierTags?.nodes} />}
-            heading={title}
-            isVerified={isVerified}
-            isFeatured={isFeatured}
-            image={logo?.mediaItemUrl}
-            rating={rating}
-          />
+          <div className='flex'>
+            {activeTab === 'about' && <SupplierAboutSideBar data={supplier} />}
+            {/* {activeTab === 'related-listings' && <RelatedListingsSideBar data={supplier} />} */}
+          </div>
         </div>
-      </div>
-
-      <div className='container flex flex-col gap-[24px] pt-[24px] pb-[40px] md:gap-[48px] md:pt-[40px] md:pb-[80px] lg:flex-row'>
-        <div className='lg:w-[784px]'>
-          <SupplierDetailsTabs data={supplier} onChange={(tab: any) => setActiveTab(tab)} />
-        </div>
-
-        <div className='flex'>
-          {activeTab === 'about' && <SupplierAboutSideBar data={supplier} />}
-          {/* {activeTab === 'related-listings' && <RelatedListingsSideBar data={supplier} />} */}
-        </div>
-      </div>
+      </CommonLayout>
     </>
   )
 }

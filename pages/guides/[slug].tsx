@@ -14,6 +14,7 @@ import { getAllGuidesWithSlug, getGuide, GUIDES_CATEGORIES } from '../../lib/gra
 import { useQuery, gql } from '@apollo/client'
 
 import parse from 'html-react-parser'
+import { Common as CommonLayout } from '@/components/layouts'
 
 const Page: NextPage = ({ guide, guideCategories }: any) => {
   const router = useRouter()
@@ -111,93 +112,95 @@ const Page: NextPage = ({ guide, guideCategories }: any) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div className='header-surface relative min-h-[358px] bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
-        <div className='absolute bottom-0 h-[240px] w-full rounded-tl-[12px] rounded-tr-[12px] bg-white md:w-[75%] md:rounded-tl-none lg:bottom-0 lg:w-[60%]' />
-        <div className='z-1 relative top-[116px]'>
-          <ArticleViewTopic
-            icon={<Tag size={16} />}
-            tagText={guide?.guideCategories?.edges[0]?.node}
-            heading={guide?.title}
-            date={guide?.modified?.substring(0, guide?.modified?.indexOf('T'))}
-            readingTime='1 min'
-          />
+      <CommonLayout>
+        <div className='header-surface relative min-h-[358px] bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
+          <div className='absolute bottom-0 h-[240px] w-full rounded-tl-[12px] rounded-tr-[12px] bg-white md:w-[75%] md:rounded-tl-none lg:bottom-0 lg:w-[60%]' />
+          <div className='z-1 relative top-[116px]'>
+            <ArticleViewTopic
+              icon={<Tag size={16} />}
+              tagText={guide?.guideCategories?.edges[0]?.node}
+              heading={guide?.title}
+              date={guide?.modified?.substring(0, guide?.modified?.indexOf('T'))}
+              readingTime='1 min'
+            />
+          </div>
         </div>
-      </div>
 
-      <div className='bg-white'>
-        <div className='container flex flex-col lg:grid lg:grid-cols-[680px_367px] lg:gap-[150px]'>
-          <div className='lg:pt-[48px]'>
-            <div className='relative flex flex-col md:gap-0 lg:gap-[48px] lg:pl-[104px]'>
-              <div className='hidden lg:absolute lg:top-[12px] lg:left-0 lg:flex lg:h-[4px] lg:w-[56px] lg:bg-B-500' />
+        <div className='bg-white'>
+          <div className='container flex flex-col lg:grid lg:grid-cols-[680px_367px] lg:gap-[150px]'>
+            <div className='lg:pt-[48px]'>
+              <div className='relative flex flex-col md:gap-0 lg:gap-[48px] lg:pl-[104px]'>
+                <div className='hidden lg:absolute lg:top-[12px] lg:left-0 lg:flex lg:h-[4px] lg:w-[56px] lg:bg-B-500' />
 
-              <article className='guide-content prose'>{prepareGuide()}</article>
+                <article className='guide-content prose'>{prepareGuide()}</article>
+              </div>
+
+              <div className='py-[32px]'>{!isDesktop && renderCTA()}</div>
             </div>
 
-            <div className='py-[32px]'>{!isDesktop && renderCTA()}</div>
-          </div>
+            <div className='article-view-right-bar'>
+              <div className='flex flex-col gap-[40px] pt-[40px] md:grid md:grid-cols-2 md:justify-between md:gap-[24px] lg:flex lg:flex-col lg:gap-[40px]'>
+                <div className='article-view-categories'>
+                  <p className='text-base font-600 text-N-800 md:col-start-2 '>Categories</p>
+                  <div className='pt-[12px]'>
+                    {categories?.guideCategories?.edges?.map(({ node }: any) => {
+                      return (
+                        <Chip
+                          key={node?.slug}
+                          className='mb-[16px]'
+                          iconClassName='text-N-400'
+                          label={node?.name}
+                          icon={<Tag size={20} />}
+                        />
+                      )
+                    })}
+                  </div>
+                </div>
 
-          <div className='article-view-right-bar'>
-            <div className='flex flex-col gap-[40px] pt-[40px] md:grid md:grid-cols-2 md:justify-between md:gap-[24px] lg:flex lg:flex-col lg:gap-[40px]'>
-              <div className='article-view-categories'>
-                <p className='text-base font-600 text-N-800 md:col-start-2 '>Categories</p>
-                <div className='pt-[12px]'>
-                  {categories?.guideCategories?.edges?.map(({ node }: any) => {
-                    return (
-                      <Chip
-                        key={node?.slug}
-                        className='mb-[16px]'
-                        iconClassName='text-N-400'
-                        label={node?.name}
-                        icon={<Tag size={20} />}
-                      />
-                    )
-                  })}
+                <div className='most-accessed'>
+                  <p className='text-base font-600 text-N-800'>Most Usefull</p>
+                  <ul className='flex flex-col gap-[8px] pt-[16px]'>
+                    {(articleList || []).map(({ id, text, link }: any, index: number) => (
+                      <li key={id || index}>
+                        <a href={link} className='text-md font-500  text-N-800 hover:text-B-500'>
+                          {text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className='flex items-center gap-[4px] pt-[32px] text-B-500'>
+                    <a href='#' className='text-md font-600 text-B-500 hover:text-B-600'>
+                      See all most accessed (30)
+                    </a>
+                    <span>
+                      <ArrowRight size={20} />
+                    </span>
+                  </p>
                 </div>
               </div>
-
-              <div className='most-accessed'>
-                <p className='text-base font-600 text-N-800'>Most Usefull</p>
-                <ul className='flex flex-col gap-[8px] pt-[16px]'>
-                  {(articleList || []).map(({ id, text, link }: any, index: number) => (
-                    <li key={id || index}>
-                      <a href={link} className='font-500 text-N-800  hover:text-B-500 text-md'>
-                        {text}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-                <p className='flex items-center gap-[4px] pt-[32px] text-B-500'>
-                  <a href='#' className='text-md font-600 text-B-500 hover:text-B-600'>
-                    See all most accessed (30)
-                  </a>
-                  <span>
-                    <ArrowRight size={20} />
-                  </span>
-                </p>
-              </div>
-            </div>
-            <div className='contact-card pt-[32px] lg:pt-[48px]'>
-              <ContactCard
-                description='Remember modifying your vehicle may invalidate part of 
+              <div className='contact-card pt-[32px] lg:pt-[48px]'>
+                <ContactCard
+                  description='Remember modifying your vehicle may invalidate part of 
                 your vehicle’s warranty.<br/>
                 Therefore,  be careful and check with Tesla if unsure. Also any modifications will most likely need to be 
                 OK’d with your car insurance company.<br/><br/>
                 To the best of our knowledge, these guides are correct and factual.
                 However we take no responsibility if something does go wrong.<br/><br/>
                 If you spot a mistake please ensure you alert us.'
-                btnProps={{
-                  label: 'Contact Us',
-                  onClick: () => {
-                    console.log('Clicked')
-                  },
-                }}
-              />
+                  btnProps={{
+                    label: 'Contact Us',
+                    onClick: () => {
+                      console.log('Clicked')
+                    },
+                  }}
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className='container pb-[100px]'>{isDesktop && renderCTA()}</div>
-      </div>
+          <div className='container pb-[100px]'>{isDesktop && renderCTA()}</div>
+        </div>
+      </CommonLayout>
     </>
   )
 }
