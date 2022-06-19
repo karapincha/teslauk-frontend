@@ -4,6 +4,7 @@ import { Bookmark, Compass, Globe, Mail, MapPin, Phone } from 'react-feather'
 import { Button, TextField, GoogleMap } from '@/components/atoms'
 import { Wrapper, Status } from '@googlemaps/react-wrapper'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 export interface SupplierAboutSideBarProps {
   [x: string]: any
@@ -34,48 +35,64 @@ export const SupplierAboutSideBar: FC<SupplierAboutSideBarProps> = ({
     }
   }, [data])
 
-  useEffect(() => {
-    if (mapData !== undefined) {
-      console.log(mapData)
-    }
-  }, [mapData])
-
   return (
     <div className={SupplierAboutSideBarClasses} {...restProps}>
       {/* Contact details */}
       <div className='flex flex-col gap-[24px] lg:gap-[40px]'>
         <div className='flex flex-col gap-[16px]'>
           {/* Address */}
-          <div className='flex items-center gap-[8px]'>
-            <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
-              <MapPin size={16} />
+          {data?.pageSupplier?.address && (
+            <div className='flex items-center gap-[8px]'>
+              <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
+                <MapPin size={16} />
+              </div>
+              <Link href={`http://maps.google.com/?q=${data?.pageSupplier?.address}`} passHref>
+                <p className='cursor-pointer text-md font-500 text-N-600 hover:text-R-400'>
+                  {data?.pageSupplier?.address || ''}
+                </p>
+              </Link>
             </div>
-            <p className='text-md font-500 text-N-600'>{data?.pageSupplier?.address || ''}</p>
-          </div>
+          )}
 
           {/* Phone number */}
-          <div className='flex items-center gap-[8px]'>
-            <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
-              <Phone size={16} />
+          {data?.pageSupplier?.phone && (
+            <div className='flex items-center gap-[8px]'>
+              <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
+                <Phone size={16} />
+              </div>
+              <a href={`tel:${data?.pageSupplier?.phone}`} target='_blank'>
+                <p className='cursor-pointer text-md font-500 text-N-600 hover:text-R-400'>
+                  {data?.pageSupplier?.phone || ''}
+                </p>
+              </a>
             </div>
-            <p className='text-md font-500 text-N-600'>{data?.pageSupplier?.phone || ''}</p>
-          </div>
+          )}
 
           {/* Email */}
-          <div className='flex items-center gap-[8px]'>
-            <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
-              <Mail size={16} />
+          {data?.pageSupplier?.email && (
+            <div className='flex items-center gap-[8px]'>
+              <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
+                <Mail size={16} />
+              </div>
+              <a href={`mailto:${data?.pageSupplier?.email}`} target='_blank'>
+                <p className='cursor-pointer text-md font-500 text-N-600 hover:text-R-400'>
+                  {data?.pageSupplier?.email || ''}
+                </p>
+              </a>
             </div>
-            <p className='text-md font-500 text-N-600'>{data?.pageSupplier?.email || ''}</p>
-          </div>
+          )}
 
           {/* Website*/}
-          <div className='flex items-center gap-[8px]'>
-            <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
-              <Globe size={16} />
+          {data?.pageSupplier?.website && (
+            <div className='flex items-center gap-[8px]'>
+              <div className='h-[32px] w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
+                <Globe size={16} />
+              </div>
+              <a href={data?.pageSupplier?.website} target='_blank'>
+                <p className='hover:text-R-400 cursor-pointer text-md font-500 text-N-600'>{data?.pageSupplier?.website || ''}</p>
+              </a>
             </div>
-            <p className='text-md font-500 text-N-600'>{data?.pageSupplier?.website || ''}</p>
-          </div>
+          )}
         </div>
 
         <div className='flex'>

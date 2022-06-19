@@ -9,7 +9,7 @@ export interface CommonProps {
 }
 
 export const Common: FC<CommonProps> = ({ className, children, ...restProps }: CommonProps) => {
-  const CommonClasses = CN(`common`, className)
+  const CommonClasses = CN(`common pb-[40px]`, className)
   const [layoutData, setLayoutData] = useState<any>({})
 
   const { data, loading, error, refetch } = useQuery(GET_COMMON)
@@ -31,7 +31,7 @@ export const Common: FC<CommonProps> = ({ className, children, ...restProps }: C
             {children}
           </main>
           <SupplierRibbon data={layoutData?.suppliers?.nodes} className='!pt-0' />
-          <Footer data={layoutData?.footer?.blockFooter} />
+          <Footer data={layoutData?.footer?.blockFooter}/>
         </>
       )}
     </>

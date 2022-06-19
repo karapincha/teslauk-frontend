@@ -3,6 +3,7 @@ import Head from 'next/head'
 
 import { Login } from '@/components/forms'
 import { SectionHeading } from '@/components/molecules'
+import { Common as CommonLayout } from '@/components/layouts'
 
 const Page: NextPage = () => {
   return (
@@ -13,17 +14,19 @@ const Page: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <div className='container flex flex-col items-center rounded-[12px] bg-[url(/images/patterns/background.svg)] bg-cover bg-no-repeat py-[32px] lg:pt-[40px] lg:pb-[80px]'>
-        <SectionHeading
-          headingClassName='md:!text-h3 !text-h4 !font-600 md:!font-700'
-          heading='Tesla Owners UK Account'
-          align='center'
-        />
+      <CommonLayout>
+        <div className='container flex flex-col items-center rounded-[12px] bg-[url(/images/patterns/background.svg)] bg-cover bg-no-repeat py-[32px] lg:pt-[40px] lg:pb-[80px]'>
+          <SectionHeading
+            headingClassName='md:!text-h3 !text-h4 !font-600 md:!font-700'
+            heading='Tesla Owners UK Account'
+            align='center'
+          />
 
-        <div className='w-full pt-[8px] md:w-[448px] md:pt-[16px] lg:w-[448px] lg:pt-[16px]'>
-          <Login />
+          <div className='w-full pt-[8px] md:w-[448px] md:pt-[16px] lg:w-[448px] lg:pt-[16px]'>
+            <Login />
+          </div>
         </div>
-      </div>
+      </CommonLayout>
     </>
   )
 }

@@ -67,7 +67,7 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
         {description && (
           <p
             className={CN(
-              'flex-shrink-0 pt-[24px] text-base font-400 text-N-600 lg:pt-0',
+              'flex-shrink-0 pt-[24px] text-base font-500 text-N-600 lg:pt-0',
               descriptionClassName
             )}
             dangerouslySetInnerHTML={{ __html: description || '' }}

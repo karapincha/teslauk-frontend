@@ -178,7 +178,8 @@ const Page: NextPage = ({ guide, guideCategories }: any) => {
                   </p>
                 </div>
               </div>
-              <div className='contact-card pt-[32px] lg:pt-[48px]'>
+
+              <div className='contact-card sticky top-[20px] pt-[32px] lg:pt-[48px]'>
                 <ContactCard
                   description='Remember modifying your vehicle may invalidate part of 
                 your vehicle’s warranty.<br/>
@@ -190,7 +191,7 @@ const Page: NextPage = ({ guide, guideCategories }: any) => {
                   btnProps={{
                     label: 'Contact Us',
                     onClick: () => {
-                      console.log('Clicked')
+                      router.push('/contact')
                     },
                   }}
                 />

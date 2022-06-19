@@ -7,6 +7,10 @@ export async function getStaticPage(slug: any) {
       id
       slug
       title
+      pageStatic {
+        content
+        excerpt
+      }
     }
   }
   `)

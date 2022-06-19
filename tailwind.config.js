@@ -88,8 +88,8 @@ module.exports = {
             },
 
             'li': {
-              marginTop: em(1, 14),
-              marginBottom: em(1, 14),
+              marginTop: em(0, 14),
+              marginBottom: em(16, 14),
             },
           },
         },

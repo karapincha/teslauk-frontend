@@ -38,7 +38,7 @@ export const Hero: FC<HeroProps> = ({ className, data, ...restProps }: HeroProps
             <h1 className='mb-[16px] text-center text-h3 md:w-1/2 md:text-left md:text-h2 lg:w-full lg:text-left lg:text-display'>
               {heading}
             </h1>
-            <p className='max-w-[288px] text-center text-md text-N-600 md:text-left lg:text-left'>
+            <p className='max-w-[288px] text-center text-md text-N-600 md:text-left lg:text-left font-500'>
               {description}
             </p>
 

@@ -13,7 +13,7 @@ export interface SuppliersSearchProps {
   [x: string]: any
 }
 
-function Items({ currentItems, allItems, selectedTag }: any) {
+function Items({ currentItems, searchString, allItems, selectedTag }: any) {
   const [items, setItems] = useState(currentItems || [])
 
   useEffect(() => {
@@ -32,9 +32,17 @@ function Items({ currentItems, allItems, selectedTag }: any) {
     }
   }, [selectedTag])
 
+  const renderLength = () => {
+    if (searchString || selectedTag) {
+      return `${items.length} ${items.length === 1 ? `supplier found` : `suppliers found`}`
+    }
+
+    return `${allItems.length} ${allItems.length === 1 ? `supplier found` : `suppliers found`}`
+  }
+
   return (
     <>
-      <p className='text-base font-400 text-N-600'>{items?.length || 0} suppliers found</p>
+      <p className='text-base font-400 text-N-600'>{renderLength()}</p>
 
       <ul className='group flex flex-col pt-[12px]'>
         {(items || []).map((data: any, index: number) => {
@@ -57,7 +65,6 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
 }: SuppliersSearchProps) => {
   const SuppliersSearchClasses = CN(`suppliers-search`, className)
   const [searchString, setSearchString] = useState('')
-  const [searchLocation, setSearchLocation] = useState('')
 
   const { data, loading, error, refetch } = useQuery(SEARCH_SUPPLIERS, {
     variables: { search: searchString || '' },
@@ -70,10 +77,6 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
   const [pageCount, setPageCount] = useState(0)
   const [itemOffset, setItemOffset] = useState(0)
   const itemsPerPage = 5
-
-  useEffect(() => {
-    console.log(selectedTag)
-  }, [selectedTag])
 
   useEffect(() => {
     if (data && data?.suppliers?.nodes) {
@@ -101,7 +104,7 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
   return (
     <div className={SuppliersSearchClasses} {...restProps}>
       {/* Search suppliers */}
-      <div className='container pb-[80px]'>
+      <div className='container'>
         <div className='flex flex-col gap-[24px] md:gap-[40px]'>
           <h3 className='text-center text-h3 font-700'>Search suppliers</h3>
           <div className='flex flex-col rounded-[8px] bg-N-50 px-[24px] py-[32px]'>
@@ -162,6 +165,7 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
             <Items
               currentItems={currentItems}
               selectedTag={selectedTag}
+              searchString={searchString}
               allItems={suppliers.nodes || data?.suppliers?.nodes}
             />
           </div>

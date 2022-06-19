@@ -23,7 +23,7 @@ export const ContactCard: FC<ContactCardProps> = ({
   return (
     <div className={ContactCardClasses} {...restProps}>
       <p
-        className='contact-card__description font-400 text-base text-N-600 pb-[24px]'
+        className='contact-card__description font-400 text-md text-N-700 pb-[24px]'
         dangerouslySetInnerHTML={{ __html: description }}
       />
       <Button

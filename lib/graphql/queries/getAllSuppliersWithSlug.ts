@@ -3,7 +3,7 @@ import { fetchAPI } from '../../api'
 export async function getAllSuppliersWithSlug() {
   const data = await fetchAPI(`
     {
-      suppliers(first: 10000) {
+      suppliers(first: 70) {
         edges {
           node {
             slug
