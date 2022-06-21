@@ -1,35 +1,36 @@
 import { useEffect, useState, useRef } from 'react'
 import parse from 'html-react-parser'
+import Link from 'next/link'
+import { Button } from '@/components/atoms'
 
-export function replaceStringWithComponent(content: any, string: string, Component: any) {
-  function flatMap(array: any, fn: any) {
-    let result: any = []
-    for (var i = 0; i < array.length; i++) {
-      var mapping = fn(array[i])
-      result = result.concat(mapping)
-    }
-    return result
-  }
+export function replaceStringWithComponent(content: any, stringType: string, Component: any) {
+  if (content && stringType === 'CTA') {
+    const encodedContent = parse(content, {
+      replace: (domNode: any) => {
+        if (domNode && domNode.type === 'text') {
+          const CTA = domNode.data.match(/\[CTA.*?\]/)
 
-  if (content) {
-    const prep = parse(content)
+          if (CTA) {
+            const encoded: any = parse(CTA[0])
+            const quotesReplaced = encoded.replace(/[”]+/g, '"')
+            const getCTALink = quotesReplaced.match(/\link="(.*?)\"/)
+            const getCTAText = quotesReplaced.match(/text=(["\'])?((?:.(?!\1|>))*.?)\1?/)
+            const CTAElement = (
+              <Link href={getCTALink[1] || ''} passHref>
+                <a target='__blank' className='no-underline'>
+                  <Button>{getCTAText[2] || 'Click here'}</Button>
+                </a>
+              </Link>
+            )
 
-    const result = flatMap(content.split(string), function (part: any) {
-      return [part, Component]
+            return CTAElement
+          }
+        }
+      },
     })
 
-    result.pop()
-
-    const processed = result?.map((item: any, index: number) => {
-      if (item && typeof item === 'string') {
-        return parse(item)
-      } else {
-        return item
-      }
-    })
-
-    return processed
+    return encodedContent
   }
 
-  return []
+  return parse(content)
 }
