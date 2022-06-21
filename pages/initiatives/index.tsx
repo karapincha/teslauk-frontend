@@ -150,4 +150,5 @@ export async function getStaticProps({ preview = false, previewData }: any) {
     revalidate: 10,
   }
 }
+
 export default Page

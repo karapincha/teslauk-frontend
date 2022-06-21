@@ -27,3 +27,5 @@ export * from './queries/getAllStaticPagesWithSlug'
 
 export * from './queries/getAllInitiativesWithSlug'
 export * from './queries/getInitiative'
+
+export * from './queries/getAllTeam'

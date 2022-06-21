@@ -8,14 +8,14 @@ export interface TeamTagProps {
 
 export const TeamTag: FC<TeamTagProps> = ({ className, name, ...restProps }: TeamTagProps) => {
   const TeamTagClasses = CN(
-    `team-tag flex bg-white gap-[12px] rounded-[4px] py-[8px] px-[8px]`,
+    `team-tag flex items-center bg-N-50 gap-[8px] rounded-full py-[4px] pl-[12px] pr-[16px] cursor-default`,
     className
   )
 
   return (
     <div className={TeamTagClasses} {...restProps}>
-      <i className='ri-user-3-line text-[24px] text-N-400'></i>
-      <h5 className='text-h5 font-500 text-N-800'>{name}</h5>
+      <i className='ri-user-3-line text-[16px] text-N-500' />
+      <h5 className='text-md font-500 text-N-800'>{name}</h5>
     </div>
   )
 }
