@@ -26,3 +26,4 @@ export * from './queries/getStaticPage'
 export * from './queries/getAllStaticPagesWithSlug'
 
 export * from './queries/getAllInitiativesWithSlug'
+export * from './queries/getInitiative'

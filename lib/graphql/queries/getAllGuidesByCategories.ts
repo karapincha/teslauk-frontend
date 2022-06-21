@@ -3,11 +3,11 @@ import { fetchAPI } from '../../api'
 export async function getAllGuidesByCategories() {
   const data = await fetchAPI(`
   {
-    guideCategories(first: 100) {
+    guideCategories(first: 5000) {
       nodes {
         slug
         name
-        guides {
+        guides(first: 1000) {
           nodes {
             slug
             title

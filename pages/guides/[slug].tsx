@@ -29,7 +29,7 @@ const Page: NextPage = ({ guide, guides }: any) => {
 
   const renderCTA = () => {
     return (
-      <div className='flex md:w-full lg:w-[784px]'>
+      <div className='flex md:w-full lg:w-[738px]'>
         <InlineCTA
           heading='Do you have the expertise? Share your knowledge!'
           btnProps={{
