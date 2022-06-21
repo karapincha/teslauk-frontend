@@ -18,7 +18,7 @@ export const RelatedListingsSideBar: FC<RelatedListingsSideBarProps> = ({
       <div className='flex flex-col gap-[40px] pt-[16px]'>
         <img
           src='https://images.unsplash.com/photo-1461183479101-6c14cd5299c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-          className='h-[343px] w-full rounded-[12px] object-cover object-center md:h-[471px] lg:h-[368px] lg:w-[368px]  '
+          className='h-[343px] w-full rounded-[8px] object-cover object-center md:h-[471px] lg:h-[368px] lg:w-[368px]  '
         />
       </div>
 

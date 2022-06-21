@@ -15,7 +15,7 @@ const Page: NextPage = () => {
       </Head>
 
       <CommonLayout>
-        <div className='container flex flex-col items-center rounded-[12px] bg-[url(/images/patterns/background.svg)] bg-cover bg-no-repeat py-[32px] lg:pt-[40px] lg:pb-[80px]'>
+        <div className='container flex flex-col items-center rounded-[8px] bg-[url(/images/patterns/background.svg)] bg-cover bg-no-repeat py-[32px] lg:pt-[40px] lg:pb-[80px]'>
           <SectionHeading
             headingClassName='md:!text-h3 !text-h4 !font-600 md:!font-700'
             heading='Tesla Owners UK Account'

@@ -33,7 +33,7 @@ export const MembershipCard: FC<MembershipCardProps> = ({
   ...restProps
 }: MembershipCardProps) => {
   const MembershipCardClasses = CN(
-    `membership-card shadow pb-[48px] pt-[32px] px-[28px] rounded-[12px] w-full flex flex-col shadow-[0px_25px_50px_-12px_rgba(95,111,140,0.1)] relative`,
+    `membership-card shadow pb-[48px] pt-[32px] px-[28px] rounded-[8px] w-full flex flex-col shadow-[0px_25px_50px_-12px_rgba(95,111,140,0.1)] relative`,
     className,
     {
       'bg-N-600 text-white': type === 'primary',

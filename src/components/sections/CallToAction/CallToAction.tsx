@@ -24,7 +24,7 @@ export const CallToAction: FC<CallToActionProps> = ({
 
   return (
     <div className={CallToActionClasses} {...restProps}>
-      <div className='container relative flex min-h-[482px] w-[calc(100%-20px)] flex-col-reverse items-center gap-[48px] rounded-[12px] bg-white py-[24px] md:relative md:min-h-[562px] lg:relative lg:min-h-[400px] lg:justify-center lg:py-[72px] lg:px-[100px]'>
+      <div className='container relative flex min-h-[482px] w-[calc(100%-20px)] flex-col-reverse items-center gap-[48px] rounded-[8px] bg-white py-[24px] md:relative md:min-h-[562px] lg:relative lg:min-h-[400px] lg:justify-center lg:py-[72px] lg:px-[100px]'>
         <div className='absolute top-[-40px] left-auto right-auto flex h-[264px] w-[340px] md:absolute md:top-[-42px] md:left-auto md:right-auto md:h-[324px] md:w-[424px] lg:absolute lg:bottom-0 lg:left-0 lg:h-[442px] lg:w-[576px]'>
           <img
             src={image?.mediaItemUrl}

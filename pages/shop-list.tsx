@@ -77,7 +77,7 @@ const Page: NextPage = () => {
 
               {/* Filter button */}
               {!isDesktop && (
-                <div className='flex flex-col gap-[16px] rounded-[12px] border border-N-100 bg-white px-[16px] py-[24px] md:flex-row md:items-center md:justify-between md:bg-transparent md:px-[24px]'>
+                <div className='flex flex-col gap-[16px] rounded-[8px] border border-N-100 bg-white px-[16px] py-[24px] md:flex-row md:items-center md:justify-between md:bg-transparent md:px-[24px]'>
                   <Button
                     appearance='secondary'
                     size={(isMobile && 'md') || (isTablet && 'sm')}

@@ -24,7 +24,7 @@ export const ProductCard: FC<ProductCardProps> = ({
   ...restProps
 }: ProductCardProps) => {
   const ProductCardClasses = CN(
-    `product-card flex flex-col md:flex-row md:h-[256px] lg:h-[264px] bg-white rounded-b-[12px] rounded-[12px] shadow-[0px_4px_4px_#D8E1EC33]`,
+    `product-card flex flex-col md:flex-row md:h-[256px] lg:h-[264px] bg-white rounded-b-[12px] rounded-[8px] shadow-[0px_4px_4px_#D8E1EC33]`,
     className
   )
   const { isMobile, isTablet, isDesktop } = useViewport()
@@ -33,7 +33,7 @@ export const ProductCard: FC<ProductCardProps> = ({
       {/* Product card image */}
       <img
         src={image}
-        className='h-[260px] w-full rounded-[12px] object-cover object-center md:h-full md:w-[334px] md:rounded-l-[12px] md:rounded-r-none lg:w-[264px]'
+        className='h-[260px] w-full rounded-[8px] object-cover object-center md:h-full md:w-[334px] md:rounded-l-[12px] md:rounded-r-none lg:w-[264px]'
       />
 
       <div className='flex w-full flex-col justify-center rounded-b-[12px] px-[16px] pt-[16px] pb-[24px] md:py-[8px] lg:px-[32px] lg:py-[30px]'>

@@ -43,31 +43,31 @@ const Page: NextPage = () => {
             {activeTab === 'accessories' && (
               <img
                 src='https://images.unsplash.com/photo-1453491945771-a1e904948959?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-                className='h-[368px] w-[368px] rounded-[12px] object-cover object-center'
+                className='h-[368px] w-[368px] rounded-[8px] object-cover object-center'
               />
             )}
             {activeTab === 'charging-cables' && (
               <img
                 src='https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472'
-                className='h-[368px] w-[368px] rounded-[12px] object-cover object-center'
+                className='h-[368px] w-[368px] rounded-[8px] object-cover object-center'
               />
             )}
             {activeTab === 'packs-and-lanyards' && (
               <img
                 src='https://images.unsplash.com/photo-1541253380987-542438384eec?ixlib=rb-1.2.1&raw_url=true&q=80&fm=jpg&crop=entropy&cs=tinysrgb&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687'
-                className='h-[368px] w-[368px] rounded-[12px] object-cover object-center'
+                className='h-[368px] w-[368px] rounded-[8px] object-cover object-center'
               />
             )}
             {activeTab === 'renewals' && (
               <img
                 src='https://images.unsplash.com/photo-1491921125492-f0b9c835b699?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687'
-                className='h-[368px] w-[368px] rounded-[12px] object-cover object-center'
+                className='h-[368px] w-[368px] rounded-[8px] object-cover object-center'
               />
             )}
             {activeTab === 'stickers' && (
               <img
                 src='https://images.unsplash.com/photo-1612810806695-30f7a8258391?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074'
-                className='h-[368px] w-[368px] rounded-[12px] object-cover object-center'
+                className='h-[368px] w-[368px] rounded-[8px] object-cover object-center'
               />
             )}
           </div>

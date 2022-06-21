@@ -87,7 +87,7 @@ const Page: NextPage = () => {
           <div className='flex h-[204px] w-full md:h-[418px] lg:h-[711px]'>
             <img
               src='/images/banners/002.jpg'
-              className='h-full w-full rounded-[12px] object-cover object-center'
+              className='h-full w-full rounded-[8px] object-cover object-center'
             />
           </div>
         </div>
@@ -221,17 +221,17 @@ const Page: NextPage = () => {
             <img
               src='https://images.unsplash.com/photo-1634988115790-d00c024dfac0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
               height={276}
-              className='w-full rounded-[12px] object-cover object-center md:w-[220px] lg:w-[368px]'
+              className='w-full rounded-[8px] object-cover object-center md:w-[220px] lg:w-[368px]'
             />
             <img
               src='https://images.unsplash.com/photo-1635777076167-58f70b261f2b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
               height={276}
-              className='w-full rounded-[12px] object-cover object-center md:w-[220px] lg:w-[368px]'
+              className='w-full rounded-[8px] object-cover object-center md:w-[220px] lg:w-[368px]'
             />
             <img
               src='https://images.unsplash.com/photo-1617704548623-340376564e68?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
               height={276}
-              className='w-full rounded-[12px] object-cover object-center md:w-[220px] lg:w-[368px]'
+              className='w-full rounded-[8px] object-cover object-center md:w-[220px] lg:w-[368px]'
             />
           </div>
         </div>

@@ -16,10 +16,18 @@ import { PageHeader } from '@/components/molecules'
 import { getAllSuppliersWithSlug, getSupplier, getInitiative } from '../../lib/graphql'
 import Link from 'next/link'
 import { Common as CommonLayout } from '@/components/layouts'
+import { replaceStringWithComponent } from '@/utils'
 
 const Page: NextPage = ({ initiative }: any) => {
   const router = useRouter()
   const { isDesktop, isMobile, isTablet } = useViewport()
+
+  const prepareArticle = () => {
+    const content = initiative?.content || ''
+    const processed = replaceStringWithComponent(content, 'CTA', <Button>Yo Yo!</Button>)
+
+    return processed
+  }
 
   return (
     <>
@@ -31,15 +39,19 @@ const Page: NextPage = ({ initiative }: any) => {
 
       <CommonLayout>
         <div className='container flex pt-[40px] pb-[24px]'>
-          <div className='mx-auto flex max-w-[782px] flex-col items-center gap-[20px] text-center'>
-            <Badge>Tesla Owners UK Initiative</Badge>
-            <h1 className='text-h1'>{initiative?.title}</h1>
+          <div className='mx-auto flex w-full max-w-[782px] flex-col items-center gap-[40px] text-center'>
+            <div className='flex w-full flex-col gap-[20px]'>
+              <div className='flex justify-center'>
+                <Badge>Tesla Owners UK Initiative</Badge>
+              </div>
+              <h1 className='text-h1'>{initiative?.title}</h1>
+            </div>
 
             <div className='banner-image flex w-full'>
               <img
                 src={initiative?.pageInitiativeSidebar?.thumbnail?.mediaItemUrl}
                 alt={initiative?.title}
-                className='rounded-[12px] max-w-[100%]'
+                className='w-[100%] rounded-[8px]'
               />
             </div>
           </div>
@@ -47,7 +59,8 @@ const Page: NextPage = ({ initiative }: any) => {
 
         <div className='container flex flex-col'>
           <article className='article prose mx-auto max-w-[782px] md:pb-[80px]'>
-            <div dangerouslySetInnerHTML={{ __html: initiative?.content }} />
+            {prepareArticle()}
+            {/* <div dangerouslySetInnerHTML={{ __html: initiative?.content }} /> */}
           </article>
         </div>
       </CommonLayout>

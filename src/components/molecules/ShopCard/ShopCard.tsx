@@ -25,7 +25,7 @@ export const ShopCard: FC<ShopCardProps> = ({
         <div className='md:flex'>
           <img
             src={image}
-            className='h-full w-full rounded-[12px] border border-N-300 md:h-[224px] md:w-[224px] lg:h-[264px] lg:w-[264px]'
+            className='h-full w-full rounded-[8px] border border-N-300 md:h-[224px] md:w-[224px] lg:h-[264px] lg:w-[264px]'
           />
         </div>
       )}

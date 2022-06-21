@@ -53,7 +53,7 @@ export const RegionDetailsHeader: FC<RegionDetailsHeaderProps> = ({
       <div className='h-[203px] w-full lg:h-[409px] lg:w-[624px]'>
         <img
           src='https://images.unsplash.com/photo-1617704548623-340376564e68?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470'
-          className='h-full w-full rounded-[12px] object-cover object-center'
+          className='h-full w-full rounded-[8px] object-cover object-center'
         />
       </div>
     </div>

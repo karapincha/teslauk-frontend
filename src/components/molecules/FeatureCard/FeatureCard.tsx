@@ -22,7 +22,7 @@ export const FeatureCard: FC<FeatureCardProps> = ({
 
   return (
     <div className={FeatureCardClasses} {...restProps}>
-      <div className='relative flex h-[48px] w-[48px] items-center justify-center rounded-[12px] bg-icon-bg drop-shadow-icon-bg-shadow lg:h-[48px] lg:w-[48px] flex-shrink-0'>
+      <div className='relative flex h-[48px] w-[48px] items-center justify-center rounded-[8px] bg-icon-bg drop-shadow-icon-bg-shadow lg:h-[48px] lg:w-[48px] flex-shrink-0'>
         <img src={icon} width={(isDesktop && 24) || 24} height={(isDesktop && 24) || 24} />
       </div>
 

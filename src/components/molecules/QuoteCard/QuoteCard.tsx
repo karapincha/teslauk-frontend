@@ -19,7 +19,7 @@ export const QuoteCard: FC<QuoteCardProps> = ({
   ...restProps
 }: QuoteCardProps) => {
   const QuoteCardClasses = CN(
-    `quote-card flex flex-col gap-[32px] py-[32px] px-[24px] rounded-[12px] shadow-[0px_25px_50px_-12px_rgba(95,111,140,0.1)] relative bg-white flex-shrink-0`,
+    `quote-card flex flex-col gap-[32px] py-[32px] px-[24px] rounded-[8px] shadow-[0px_25px_50px_-12px_rgba(95,111,140,0.1)] relative bg-white flex-shrink-0`,
     className
   )
 

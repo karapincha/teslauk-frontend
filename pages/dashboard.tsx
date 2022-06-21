@@ -218,7 +218,7 @@ const Page: NextPage = () => {
               )}
             </div>
 
-            <div className='events w-full rounded-[12px] bg-N-50 px-[24px] py-[24px] md:w-[340px] lg:w-[368px] lg:px-[32px] lg:py-[32px]'>
+            <div className='events w-full rounded-[8px] bg-N-50 px-[24px] py-[24px] md:w-[340px] lg:w-[368px] lg:px-[32px] lg:py-[32px]'>
               <p className='mb-[16px] text-md text-N-600'>Upcoming events</p>
               <ul className='flex flex-col gap-[16px]'>
                 {upcomingEventsList.map(({ id, url, label, date }, index) => (

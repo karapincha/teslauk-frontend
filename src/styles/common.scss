@@ -25,7 +25,7 @@ img {
 #map {
   height: 343px;
   width: 368px;
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
 }
 
@@ -35,7 +35,7 @@ img {
     // left: -104px;
     // width: calc(104px + 100%);
     max-width: calc(100%);
-    border-radius: 12px;
+    border-radius: 8px;
   }
 }
 
@@ -68,6 +68,77 @@ article.prose {
   iframe {
     width: 100%;
     min-height: 400px;
-    border-radius: 12px;
+    border-radius: 8px;
+  }
+}
+
+.gallery {
+  display: grid;
+  gap: 12px;
+
+  br {
+    display: none !important;
+  }
+
+  img {
+    border: 0 solid #fff !important;
+  }
+
+  &.gallery-columns-6 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  &.gallery-columns-5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  &.gallery-columns-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  &.gallery-columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &.gallery-columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .gallery-item {
+    display: flex !important;
+    flex-direction: column;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-align: left !important;
+    margin-block-start: 0 !important;
+    margin-block-end: 0 !important;
+
+    .gallery-icon {
+      width: 100%;
+
+      a {
+        width: 100%;
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.wp-caption {
+  max-width: 100%;
+}
+
+article.prose {
+  .alignleft {
+    float: left;
+    margin-right: 1.5em;
+  }
+  .alignright {
+    float: right;
+    margin-left: 1.5em;
   }
 }

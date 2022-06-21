@@ -22,7 +22,7 @@ export const DateCard: FC<DateCardProps> = ({
   ...restProps
 }: DateCardProps) => {
   const DateCardClasses = CN(
-    `date-card bg-white relative pt-[24px] px-[24px] pb-[16px] rounded-[12px] w-full mt-[16px] shadow-[0px_25px_50px_-12px_rgba(95,111,140,0.1)] group hover:cursor-pointer transition-all duration-200`,
+    `date-card bg-white relative pt-[24px] px-[24px] pb-[16px] rounded-[8px] w-full mt-[16px] shadow-[0px_25px_50px_-12px_rgba(95,111,140,0.1)] group hover:cursor-pointer transition-all duration-200`,
     className
   )
 
@@ -32,7 +32,7 @@ export const DateCard: FC<DateCardProps> = ({
     <div className={DateCardClasses} {...restProps}>
       <div
         className={CN(
-          'date-card__date absolute right-[-16px] top-[-16px] flex h-[80px] w-[80px] flex-col items-center justify-center rounded-[12px]',
+          'date-card__date absolute right-[-16px] top-[-16px] flex h-[80px] w-[80px] flex-col items-center justify-center rounded-[8px]',
           {
             'bg-B-500 text-white': appearance === 'primary',
             'bg-N-100 text-N-700': appearance === 'default',

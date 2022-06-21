@@ -53,7 +53,7 @@ const Page: NextPage = () => {
           {/* Regions */}
           <div className='flex flex-col items-center gap-[40px] py-[40px] md:py-[80px] lg:flex-row lg:gap-[48px]'>
             {/* image */}
-            <div className='h-[200px] w-full rounded-[12px] bg-[url("https://images.unsplash.com/photo-1589718539308-169369696599?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80")] bg-cover bg-no-repeat lg:w-[576px]'>
+            <div className='h-[200px] w-full rounded-[8px] bg-[url("https://images.unsplash.com/photo-1589718539308-169369696599?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80")] bg-cover bg-no-repeat lg:w-[576px]'>
               <div className='flex h-full flex-col justify-end rounded-b-[12px] bg-gradient-to-t from-[#000000DE] to-[#00000000] px-[28px] pb-[24px] md:flex-row md:items-end md:justify-between md:pb-[28px]'>
                 <div className='flex flex-col gap-[4px]'>
                   <h3 className='text-h3 font-700 text-white'>Regions</h3>

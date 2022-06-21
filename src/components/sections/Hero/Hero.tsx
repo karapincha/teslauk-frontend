@@ -30,7 +30,7 @@ export const Hero: FC<HeroProps> = ({ className, data, ...restProps }: HeroProps
   return (
     <div className={HeroClasses} {...restProps}>
       <div className='container'>
-        <div className="hero__inner relative z-[0] rounded-[12px] bg-N-50 bg-[url('/images/hero-pattern.svg')] bg-cover bg-no-repeat py-[24px] px-[16px] md:py-[56px] md:px-[32px] lg:py-[118px] lg:px-[80px]">
+        <div className="hero__inner relative z-[0] rounded-[8px] bg-N-50 bg-[url('/images/hero-pattern.svg')] bg-cover bg-no-repeat py-[24px] px-[16px] md:py-[56px] md:px-[32px] lg:py-[118px] lg:px-[80px]">
           <div className='hero__content flex max-w-full flex-col items-center md:items-start lg:max-w-[496px] lg:items-start'>
             <h4 className='mb-[16px] text-center text-h5 md:text-left md:text-h4 lg:text-left lg:text-h4'>
               {subHeading}

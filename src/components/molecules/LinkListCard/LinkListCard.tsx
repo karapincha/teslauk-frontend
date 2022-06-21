@@ -28,7 +28,7 @@ export const LinkListCard: FC<LinkListCardProps> = ({
   ...restProps
 }: LinkListCardProps) => {
   const LinkListCardClasses = CN(
-    `list-card break-inside bg-N-50 rounded-[12px] py-[24px] md:py-[24px] lg:py-[40px] px-[24px] text-N-800 flex flex-col gap-[24px]`,
+    `list-card break-inside bg-N-50 rounded-[8px] py-[24px] md:py-[24px] lg:py-[40px] px-[24px] text-N-800 flex flex-col gap-[24px]`,
     className
   )
 

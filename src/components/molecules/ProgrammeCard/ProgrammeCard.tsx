@@ -25,7 +25,7 @@ export const ProgrammeCard: FC<ProgrammeCardProps> = ({
   ...restProps
 }: ProgrammeCardProps) => {
   const ProgrammeCardClasses = CN(
-    `programme-card flex flex-col lg:flex-row w-full rounded-[12px] bg-white px-[16px] lg:pl-[20px] lg:pr-[32px] py-[20px] gap-[24px] shadow-card-shadow group items-center relative`,
+    `programme-card flex flex-col lg:flex-row w-full rounded-[8px] bg-white px-[16px] lg:pl-[20px] lg:pr-[32px] py-[20px] gap-[24px] shadow-card-shadow group items-center relative`,
     className
   )
   const { children, ...restBtnProps } = btnProps || {}

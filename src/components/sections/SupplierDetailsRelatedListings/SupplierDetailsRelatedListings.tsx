@@ -27,7 +27,7 @@ export const SupplierDetailsRelatedListings: FC<SupplierDetailsRelatedListingsPr
           <div className='flex'>
             <p className='text-base text-N-600'>57 related listings</p>
           </div>
-          <div className='flex flex-col items-center gap-[16px] border border-N-50 py-[24px] lg:py-0 lg:px-0 px-[16px] md:flex-row  md:justify-between md:gap-[236px] md:rounded-[12px] lg:border-none'>
+          <div className='flex flex-col items-center gap-[16px] border border-N-50 py-[24px] lg:py-0 lg:px-0 px-[16px] md:flex-row  md:justify-between md:gap-[236px] md:rounded-[8px] lg:border-none'>
             <div className='w-full lg:hidden'>
               <Button
                 appearance='secondary'

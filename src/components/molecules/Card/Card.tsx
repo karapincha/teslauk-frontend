@@ -47,7 +47,7 @@ export const Card: FC<CardProps> = ({
     <div className={CardClasses} {...restProps}>
       {!isDesktop && renderGraphic()}
 
-      <div className='card__image h-[214px] w-full flex-shrink-0 overflow-hidden rounded-[12px] md:h-[424px] lg:h-[424px] lg:w-[680px]'>
+      <div className='card__image h-[214px] w-full flex-shrink-0 overflow-hidden rounded-[8px] md:h-[424px] lg:h-[424px] lg:w-[680px]'>
         <img src={image} alt={imageAlt} className='h-full w-full object-cover' />
       </div>
 

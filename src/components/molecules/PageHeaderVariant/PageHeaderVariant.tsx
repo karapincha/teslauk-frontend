@@ -41,7 +41,7 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
     return (
       <div className='w-full pt-[24px] md:pt-0'>
         <div className={CN('h-[178px] w-full md:h-[248px] lg:h-[407px]', imageClassName)}>
-          <img src={image} className='h-full w-full rounded-[12px] object-cover object-center' />
+          <img src={image} className='h-full w-full rounded-[8px] object-cover object-center' />
         </div>
       </div>
     )

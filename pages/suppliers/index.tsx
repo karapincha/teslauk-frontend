@@ -73,7 +73,7 @@ const Page: NextPage = ({ pageData, isServer }: any) => {
                     <Link href={`${link}`} passHref key={index}>
                       <span
                         key={index}
-                        className='h-[75px] w-[165px] cursor-pointer overflow-hidden rounded-[12px] md:h-[120px] md:w-[264px]'>
+                        className='h-[75px] w-[165px] cursor-pointer overflow-hidden rounded-[8px] md:h-[120px] md:w-[264px]'>
                         <img
                           src={image.mediaItemUrl}
                           className='h-[75px] w-[165px] md:h-[120px] md:w-[264px]'

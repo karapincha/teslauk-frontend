@@ -18,7 +18,7 @@ const Page: NextPage = () => {
 
       <CommonLayout>
         <div className='container pt-[24px] md:pt-[40px] lg:pt-[40px]'>
-          <div className='flex flex-col items-center rounded-[12px] bg-[url(/images/hero-pattern.svg)] bg-cover bg-no-repeat py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[40px] lg:pb-[80px]'>
+          <div className='flex flex-col items-center rounded-[8px] bg-[url(/images/hero-pattern.svg)] bg-cover bg-no-repeat py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[40px] lg:pb-[80px]'>
             <SectionHeading
               heading='Tesla Owners UK Account'
               align='center'
