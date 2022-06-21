@@ -42,8 +42,9 @@ module.exports = {
       ...appTypography.body.fontWeight,
     },
     boxShadow: {
-      DEFAULT: '0px_25px_50px_-12px_rgba(95,111,140,0.1)',
-      none: 'none',
+      'DEFAULT': '0px_25px_50px_-12px_rgba(95,111,140,0.1)',
+      'card-shadow': '0px 25px 50px -12px rgba(95,111,140,0.1)',
+      'none': 'none',
     },
     dropShadow: {
       'DEFAULT': '0px_3px_12px_rgba(1,56,106,0.08)',
@@ -64,25 +65,25 @@ module.exports = {
             },
 
             'h1': {
-              fontSize: theme('fontSize.h1'),
+              fontSize: theme('fontSize.h3'),
               marginTop: em(14, 14),
               marginBottom: em(14, 14),
             },
 
             'h2': {
-              fontSize: theme('fontSize.h2'),
+              fontSize: theme('fontSize.h4'),
               marginTop: em(10, 14),
               marginBottom: em(10, 14),
             },
 
             'h3': {
-              fontSize: theme('fontSize.h3'),
+              fontSize: theme('fontSize.h5'),
               marginTop: em(10, 14),
               marginBottom: em(10, 14),
             },
 
             'h4': {
-              fontSize: theme('fontSize.h4'),
+              fontSize: theme('fontSize.h6'),
               marginTop: em(14, 14),
               marginBottom: em(14, 14),
             },

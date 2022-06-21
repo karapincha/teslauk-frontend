@@ -7,10 +7,17 @@ export async function getAllGuidesWithSlug() {
         edges {
           node {
             slug
+            title
+            guideCategories {
+              nodes {
+                name
+                slug
+              }
+            }
           }
         }
       }
     }
   `)
-  return data?.posts
+  return data?.guides
 }

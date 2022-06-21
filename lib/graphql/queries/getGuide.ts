@@ -17,6 +17,16 @@ export async function getGuide(slug: any) {
         }
       }
     }
+    guides(first: 5, where: {status: PUBLISH}) {
+      nodes {
+        id
+        slug
+        title
+      }
+      pageInfo {
+        total
+      }
+    }
   }
   `)
   return data

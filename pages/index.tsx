@@ -25,13 +25,10 @@ const Page: NextPage = ({ pageData, countries }: any) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <CommonLayout>
-        <Hero data={hero.blockHero} className='pt-[20px] pb-[24px] lg:pb-[40px]' />
+      <CommonLayout className='!pb-0'>
+        <Hero data={hero.blockHero} className='pb-[24px]' />
 
-        <EventCard
-          data={featuredEvents.blockFeaturedEvents}
-          className='py-[24px] md:py-[80px] lg:py-[80px]'
-        />
+        <EventCard data={featuredEvents.blockFeaturedEvents} className='py-[24px] md:pt-[40px] md:pb-[80px]' />
 
         <QuickMembership
           data={membership.blockMembership}
@@ -45,7 +42,7 @@ const Page: NextPage = ({ pageData, countries }: any) => {
 
         <GuidesQuickAccess
           data={guides.blockGuides}
-          className='pb-[24px] md:pb-[80px] lg:pt-[20px] lg:pb-[128px]'
+          className='pb-[24px] md:pb-[80px] lg:pt-[20px]'
         />
 
         <CallToAction data={cta.blockCta} />

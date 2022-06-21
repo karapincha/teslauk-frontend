@@ -46,7 +46,7 @@ module.exports = {
         '52px',
         {
           label: 'H1',
-          lineHeight: '72px',
+          lineHeight: '64px',
           letterSpacing: '-1.25px',
         },
       ],

@@ -51,12 +51,12 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
     <div className={PageHeaderVariantClasses} {...restProps}>
       <div
         className={CN(
-          'flex w-full flex-shrink-0 flex-col lg:w-[25%] lg:gap-[28px]',
+          'flex w-full flex-shrink-0 flex-col lg:w-[400px] lg:gap-[28px] lg:pr-[20px]',
           commonClassName
         )}>
         {/* Heading */}
         <h1
-          className='flex-shrink-0 overflow-auto text-h3 font-700 text-N-800 md:text-h2  lg:text-h1'
+          className='flex-shrink-0 overflow-auto text-h3 font-700 text-N-800 md:text-h2 lg:text-h1'
           dangerouslySetInnerHTML={{ __html: heading || '' }}
         />
 
@@ -67,7 +67,7 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
         {description && (
           <p
             className={CN(
-              'flex-shrink-0 pt-[24px] text-base font-500 text-N-600 lg:pt-0',
+              'flex-shrink-0 pt-[24px] text-md font-500 text-N-600 lg:pt-0',
               descriptionClassName
             )}
             dangerouslySetInnerHTML={{ __html: description || '' }}

@@ -12,11 +12,12 @@ import { ContactCard } from '@/components/molecules/ContactCard'
 import { useViewport } from '@/utils'
 import { getAllGuidesWithSlug, getGuide, GUIDES_CATEGORIES } from '../../lib/graphql'
 import { useQuery, gql } from '@apollo/client'
+import Link from 'next/link'
 
 import parse from 'html-react-parser'
 import { Common as CommonLayout } from '@/components/layouts'
 
-const Page: NextPage = ({ guide, guideCategories }: any) => {
+const Page: NextPage = ({ guide, guides }: any) => {
   const router = useRouter()
   const { isDesktop, isMobile, isTablet } = useViewport()
 
@@ -45,7 +46,7 @@ const Page: NextPage = ({ guide, guideCategories }: any) => {
 
   const renderProducts = () => {
     return (
-      <div className='amazon-products not-prose relative left-[-104px] w-[calc(104px+100%)] py-[32px]'>
+      <div className='amazon-products not-prose relative w-[calc(100%)] py-[32px]'>
         <LinkListCard
           heading='Products you may like on Amazon'
           headingClassName='!text-sm !text-N-600 !font-500'
@@ -114,64 +115,69 @@ const Page: NextPage = ({ guide, guideCategories }: any) => {
 
       <CommonLayout>
         <div className='header-surface relative min-h-[358px] bg-[url(/images/004.svg)] bg-cover bg-no-repeat'>
-          <div className='absolute bottom-0 h-[240px] w-full rounded-tl-[12px] rounded-tr-[12px] bg-white md:w-[75%] md:rounded-tl-none lg:bottom-0 lg:w-[60%]' />
-          <div className='z-1 relative top-[116px]'>
-            <ArticleViewTopic
-              icon={<Tag size={16} />}
-              tagText={guide?.guideCategories?.edges[0]?.node}
-              heading={guide?.title}
-              date={guide?.modified?.substring(0, guide?.modified?.indexOf('T'))}
-              readingTime='1 min'
-            />
-          </div>
+          <div className='absolute bottom-0 h-[240px] w-full rounded-tl-[12px] rounded-tr-[12px] bg-N-10 md:w-[75%] md:rounded-tl-none lg:bottom-0 lg:w-[60%]' />
         </div>
 
-        <div className='bg-white'>
-          <div className='container flex flex-col lg:grid lg:grid-cols-[680px_367px] lg:gap-[150px]'>
-            <div className='lg:pt-[48px]'>
-              <div className='relative flex flex-col md:gap-0 lg:gap-[48px] lg:pl-[104px]'>
-                <div className='hidden lg:absolute lg:top-[12px] lg:left-0 lg:flex lg:h-[4px] lg:w-[56px] lg:bg-B-500' />
+        <div className='relative mt-[-260px]'>
+          <ArticleViewTopic
+            icon={<Tag size={16} />}
+            tagText={guide?.guideCategories?.edges[0]?.node}
+            heading={guide?.title}
+            date={guide?.modified?.substring(0, guide?.modified?.indexOf('T'))}
+            readingTime='1 min'
+          />
 
-                <article className='guide-content prose'>{prepareGuide()}</article>
+          <div className='container flex flex-col lg:grid lg:grid-cols-[738px_auto] lg:gap-[92px]'>
+            <div className='lg:pt-[48px]'>
+              <div className='relative flex flex-col md:gap-0 lg:gap-[20px]'>
+                <div className='hidden lg:flex lg:h-[4px] lg:w-[56px] lg:bg-B-500' />
+
+                <article className='guide-content prose max-w-full'>{prepareGuide()}</article>
               </div>
 
               <div className='py-[32px]'>{!isDesktop && renderCTA()}</div>
             </div>
 
             <div className='article-view-right-bar'>
-              <div className='flex flex-col gap-[40px] pt-[40px] md:grid md:grid-cols-2 md:justify-between md:gap-[24px] lg:flex lg:flex-col lg:gap-[40px]'>
+              <div className='flex flex-col gap-[24px] pt-[40px] md:grid md:grid-cols-2 md:justify-between md:gap-[24px] lg:flex lg:flex-col lg:gap-[24px]'>
                 <div className='article-view-categories'>
                   <p className='text-base font-600 text-N-800 md:col-start-2 '>Categories</p>
                   <div className='pt-[12px]'>
                     {categories?.guideCategories?.edges?.map(({ node }: any) => {
                       return (
-                        <Chip
-                          key={node?.slug}
-                          className='mb-[16px]'
-                          iconClassName='text-N-400'
-                          label={node?.name}
-                          icon={<Tag size={20} />}
-                        />
+                        <Link key={node?.slug} href={`/guides/category/${node?.slug}`}>
+                          <Chip
+                            key={node?.slug}
+                            className='mb-[16px]'
+                            iconClassName='text-N-400'
+                            label={node?.name}
+                            icon={<Tag size={20} />}
+                          />
+                        </Link>
                       )
                     })}
                   </div>
                 </div>
 
                 <div className='most-accessed'>
-                  <p className='text-base font-600 text-N-800'>Most Usefull</p>
+                  <p className='text-base font-600 text-N-800'>Most recent guides</p>
                   <ul className='flex flex-col gap-[8px] pt-[16px]'>
-                    {(articleList || []).map(({ id, text, link }: any, index: number) => (
+                    {(guides?.nodes || []).map(({ id, slug, title }: any, index: number) => (
                       <li key={id || index}>
-                        <a href={link} className='text-md font-500  text-N-800 hover:text-B-500'>
-                          {text}
+                        <a
+                          href={`/guides/${slug}`}
+                          className='text-md font-500  text-N-800 hover:text-B-500'>
+                          {title}
                         </a>
                       </li>
                     ))}
                   </ul>
                   <p className='flex items-center gap-[4px] pt-[32px] text-B-500'>
-                    <a href='#' className='text-md font-600 text-B-500 hover:text-B-600'>
-                      See all most accessed (30)
-                    </a>
+                    <Link href={`/guides`} passHref>
+                      <a className='cursor-pointer text-md font-600 text-B-500 hover:text-B-600'>
+                        See all guides ({guides?.pageInfo?.total})
+                      </a>
+                    </Link>
                     <span>
                       <ArrowRight size={20} />
                     </span>
@@ -213,6 +219,7 @@ export async function getStaticProps({ params, preview = false, previewData }: a
     props: {
       preview,
       guide: data.guide,
+      guides: data.guides,
     },
     revalidate: 10,
   }

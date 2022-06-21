@@ -20,6 +20,9 @@ export * from './queries/searchSuppliers'
 export * from './queries/getAllGuidesWithSlug'
 export * from './queries/getGuide'
 export * from './queries/getAllGuidesCategories'
+export * from './queries/getAllGuidesByCategories'
 
 export * from './queries/getStaticPage'
 export * from './queries/getAllStaticPagesWithSlug'
+
+export * from './queries/getAllInitiativesWithSlug'

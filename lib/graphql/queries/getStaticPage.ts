@@ -11,6 +11,13 @@ export async function getStaticPage(slug: any) {
         content
         excerpt
       }
+      staticPageHeader {
+        banner {
+          mediaItemUrl
+        }
+        description
+        heading
+      }
     }
   }
   `)

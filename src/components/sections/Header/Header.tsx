@@ -38,6 +38,12 @@ export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps
                 Guides
               </Button>
             </Link>
+
+            <Link href='/initiatives' passHref>
+              <Button appearance='link' view='outline'>
+                Initiatives
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -48,6 +54,24 @@ export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps
         </div>
 
         <div className='header__right relative z-10 flex items-center gap-[28px]'>
+          <Link href='/team' passHref>
+            <Button appearance='link' view='outline'>
+              Team
+            </Button>
+          </Link>
+
+          <Link href='/discussion' passHref>
+            <Button appearance='link' view='outline'>
+              Discussion
+            </Button>
+          </Link>
+
+          <Link href='/shop' passHref>
+            <Button appearance='link' view='outline'>
+              Shop
+            </Button>
+          </Link>
+
           <Button icon={<i className='ri-search-2-line text-lg' />} appearance='link' />
 
           <Link href='/login'>

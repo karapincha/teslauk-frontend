@@ -32,8 +32,9 @@ img {
 .guide-content {
   img {
     position: relative;
-    left: -104px;
-    width: calc(104px + 100%);
+    // left: -104px;
+    // width: calc(104px + 100%);
+    max-width: calc(100%);
     border-radius: 12px;
   }
 }

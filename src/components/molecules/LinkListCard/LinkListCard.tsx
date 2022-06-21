@@ -3,6 +3,7 @@ import CN from 'classnames'
 import { ArrowRight } from 'react-feather'
 import { Button } from '@/components/atoms'
 import Link from 'next/link'
+import { FileText, Mail } from 'react-feather'
 
 export interface LinkListCardProps {
   [x: string]: any
@@ -33,23 +34,27 @@ export const LinkListCard: FC<LinkListCardProps> = ({
 
   return (
     <div className={LinkListCardClasses} {...restProps}>
-      <h4 className={CN('list-card__heading text-h4 font-500 text-N-800', headingClassName)}>
+      <h4 className={CN('list-card__heading text-h5 font-500 text-N-800', headingClassName)}>
         {heading}
       </h4>
 
-      <ul className='list-card__list flex flex-col gap-[24px]'>
-        {(list || []).map(({ id, textIcon, text }: any, index: number) => {
+      <ul className='list-card__list flex flex-col gap-[12px]'>
+        {(list || []).map(({ id, slug, title }: any, index: number) => {
           return (
             <li className='flex items-center gap-[8px] text-N-400' key={id || index}>
-              {textIcon && <span className={CN('flex', iconClassName)}>{textIcon}</span>}
+              <span className={CN('flex flex-shrink-0', iconClassName)}>
+                <FileText size={20} />
+              </span>
 
-              <a
-                className={CN(
-                  'cursor-pointer truncate text-base font-400 text-N-700 hover:text-B-500',
-                  textClassName
-                )}>
-                {text}
-              </a>
+              <Link href={`/guides/${slug}`}>
+                <a
+                  className={CN(
+                    'cursor-pointer truncate text-base font-400 text-N-700 hover:text-B-500',
+                    textClassName
+                  )}>
+                  {title}
+                </a>
+              </Link>
             </li>
           )
         })}
