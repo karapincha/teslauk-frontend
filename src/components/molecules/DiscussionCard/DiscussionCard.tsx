@@ -29,7 +29,7 @@ export const DiscussionCard: FC<DiscussionCardProps> = ({
   ...restProps
 }: DiscussionCardProps) => {
   const DiscussionCardClasses = CN(
-    `discussion-card lg:h-[292px] w-full flex flex-col lg:flex-row`,
+    `discussion-card lg:h-[292px] w-full flex flex-col lg:flex-row shadow-card-shadow`,
     {
       'md:flex-row': isWide,
       'md:flex-col': !isWide,

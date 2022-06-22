@@ -51,7 +51,7 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
     <div className={PageHeaderVariantClasses} {...restProps}>
       <div
         className={CN(
-          'flex w-full flex-shrink-0 flex-col lg:w-[400px] lg:gap-[28px] lg:pr-[20px]',
+          'flex w-full flex-shrink-0 flex-col lg:w-[400px] lg:gap-[28px] lg:pr-[40px]',
           commonClassName
         )}>
         {/* Heading */}

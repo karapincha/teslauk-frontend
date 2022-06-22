@@ -12,11 +12,7 @@ import { ProgrammeCard } from '@/components/molecules/ProgrammeCard'
 import { Common as CommonLayout } from '@/components/layouts'
 import ReactPaginate from 'react-paginate'
 
-import {
-  getAllStaticPagesWithSlug,
-  getAllInitiativesWithSlug,
-  getStaticPage,
-} from '../../lib/graphql'
+import { getAllInitiativesWithSlug, getStaticPage } from '../../lib/graphql'
 import Link from 'next/link'
 
 const Page: NextPage = ({ page, initiatives, tags }: any) => {

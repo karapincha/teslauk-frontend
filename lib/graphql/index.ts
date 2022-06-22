@@ -29,3 +29,5 @@ export * from './queries/getAllInitiativesWithSlug'
 export * from './queries/getInitiative'
 
 export * from './queries/getAllTeam'
+
+export * from './queries/getAllDiscussionGroupsWithSlug'

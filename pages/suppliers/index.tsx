@@ -87,7 +87,7 @@ const Page: NextPage = ({ pageData, isServer }: any) => {
             </div>
 
             <div className='flex justify-center'>
-              <Link passHref href={`become-a-key-partner`}>
+              <Link passHref href={`/suppliers/become-a-key-partner`}>
                 <Button
                   appearance='ghost'
                   iconAfter={<ArrowRight size={20} />}
@@ -131,7 +131,7 @@ const Page: NextPage = ({ pageData, isServer }: any) => {
               {parseHTML(verifiedSuppliers?.blockVerifiedSuppliers?.description || '')}
             </p>
 
-            <Link href={`become-an-approved-partner`} passHref>
+            <Link href={`/suppliers/become-an-approved-partner`} passHref>
               <Button
                 className='px-0 hover:text-B-400 md:!justify-start'
                 appearance='ghost'

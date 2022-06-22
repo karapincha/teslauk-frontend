@@ -37,7 +37,7 @@ const Page: NextPage = ({ team }: any) => {
             headingClassName='!text-h1 !mb-[16px]'
             align='center'
             description='As per our club rules and articles of association our volunteer executive committee <br />team run the day-to-day management of the club.'
-            descriptionClassName='max-w-[782px] !text-base'
+            descriptionClassName='max-w-[782px] !text-md !font-500'
           />
         </div>
 
@@ -66,10 +66,10 @@ const Page: NextPage = ({ team }: any) => {
           </div>
 
           <div className='pb-[40px] md:pb-[80px]'>
-            <h3 className='text-h4 font-700 md:text-h3'>Volunteer Moderation Team</h3>
+            <h3 className='text-h4 text-center font-700 md:text-h3'>Volunteer Moderation Team</h3>
 
             <div className='pt-[24px] md:pt-[48px]'>
-              <ul className='flex flex-wrap gap-[16px]'>
+              <ul className='flex flex-wrap justify-center gap-[16px]'>
                 {(volunteerTeamList || []).map(({ id, name }: any, index: number) => (
                   <li key={id || index}>
                     <TeamTag name={name} />

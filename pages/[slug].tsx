@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { PageHeader } from '@/components/molecules'
-import { Button } from '@/components/atoms'
+import { Button, Badge } from '@/components/atoms'
 import { PageLock } from '@/components/molecules/PageLock'
 import { Common as CommonLayout } from '@/components/layouts'
 
@@ -24,6 +24,25 @@ const Page: NextPage = ({ isServer, page }: any) => {
       </Head>
 
       <CommonLayout>
+        <div className='container flex pt-[40px] pb-[24px]'>
+          <div className='mx-auto flex w-full max-w-[782px] flex-col items-center gap-[40px] text-center'>
+            <div className='flex w-full flex-col gap-[20px]'>
+              <div className='flex justify-center'>
+                <Badge>Tesla Owners UK Initiative</Badge>
+              </div>
+              <h1 className='text-h1'>{page?.title}</h1>
+            </div>
+
+            <div className='banner-image flex w-full'>
+              {/* <img
+                src={initiative?.pageInitiativeSidebar?.thumbnail?.mediaItemUrl}
+                alt={initiative?.title}
+                className='w-[100%] rounded-[8px]'
+              /> */}
+            </div>
+          </div>
+        </div>
+
         <div className='container flex pt-[20px] pb-[24px]'>
           <PageHeader
             heading={page?.title}
