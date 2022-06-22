@@ -1,0 +1,43 @@
+import dedent from 'ts-dedent'
+import {
+  ArgsTable,
+  Canvas,
+  Description,
+  Meta,
+  Preview,
+  Source,
+  Story,
+} from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { ShopReviews } from './ShopReviews'
+
+<Meta title='01. Atoms / ShopReviews' component={ShopReviews} />
+
+# ShopReviews
+
+`import { ShopReviews } from '@karapincha/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <ShopReviews />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<ShopReviews />`} />
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={ShopReviews} />

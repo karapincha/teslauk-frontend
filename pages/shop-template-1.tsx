@@ -1,20 +1,47 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import {
-  Header,
-  Footer,
-  Hero,
-  EventCard,
-  QuickMembership,
-  QuickTestimonials,
-  GuidesQuickAccess,
-  CallToAction,
-  SupplierRibbon,
-} from '@/components/sections'
 import { ExpandedProductDetails } from '@/components/sections/ExpandedProductDetails'
 import { Common as CommonLayout } from '@/components/layouts'
+import { ShopDetails } from '@/components/sections/ShopDetails'
+import { Button } from '@/components/atoms'
+import { ArrowRight } from 'react-feather'
+import { ShopCard } from '@/components/molecules/ShopCard'
 
 const Page: NextPage = () => {
+  const shopListA = [
+    {
+      id: 0,
+      image: '/shop-item.png',
+      heading: 'Charging Cable (EU+UK) Rental Set',
+      price: '£6.00',
+      shopName: 'Milton Keynes Team',
+      url: '#',
+    },
+    {
+      id: 1,
+      image: '/shop-item.png',
+      heading: 'Charging Cable (EU+UK) Rental Set',
+      price: '£6.00',
+      shopName: 'Milton Keynes Team',
+      url: '#',
+    },
+    {
+      id: 2,
+      image: '/shop-item.png',
+      heading: 'Charging Cable (EU+UK) Rental Set',
+      price: '£6.00',
+      shopName: 'Milton Keynes Team',
+      url: '#',
+    },
+    {
+      id: 3,
+      image: '/shop-item.png',
+      heading: 'Charging Cable (EU+UK) Rental Set',
+      price: '£6.00',
+      shopName: 'Milton Keynes Team',
+      url: '#',
+    },
+  ]
   return (
     <>
       <Head>
@@ -24,7 +51,7 @@ const Page: NextPage = () => {
       </Head>
 
       <CommonLayout>
-        <div className='container pt-[40px] pb-[80px]'>
+        <div className='container pt-[40px] md:pb-[80px]'>
           <ExpandedProductDetails
             image='/shop-item.png'
             productName='Tesla Owners UK Yeti Rambler 12oz (355ml) with 100% leakproof HotShot Lid'
@@ -33,6 +60,81 @@ const Page: NextPage = () => {
             category='Accessories'
             stockAmount={296}
           />
+
+          <div className='pt-[40px] md:pt-[80px]'>
+            <ShopDetails />
+          </div>
+
+          {/* Images */}
+          <div className='flex flex-col gap-[24px] pt-[80px] md:gap-[40px]'>
+            <div className='flex justify-between'>
+              <h4 className='text-h4 font-600 text-N-800'>Image gallery</h4>
+              <Button className='px-0' appearance='ghost' iconAfter={<ArrowRight size={20} />}>
+                View 3 more
+              </Button>
+            </div>
+            <div className='flex flex-col gap-[24px] md:flex-row md:gap-[48px]'>
+              <img
+                src='https://teslaowners.org.uk/wp-content/uploads/2021/09/IMG_1887-scaled.jpg'
+                className='h-[258px] w-[368px] md:h-[276px]'
+              />
+              <img
+                src='https://teslaowners.org.uk/wp-content/uploads/2021/09/model-3-flask.jpg'
+                className='h-[258px] w-[368px] md:h-[276px]'
+              />
+              <img
+                src='https://teslaowners.org.uk/wp-content/uploads/2021/09/FFxO5sxXMAYvZ-n.jpeg'
+                className='h-[258px] w-[368px] md:h-[276px]'
+              />
+            </div>
+          </div>
+
+          {/* Videos */}
+          <div className='flex flex-col gap-[24px] pt-[40px] md:gap-[40px] md:pt-[80px]'>
+            <div className='flex justify-between'>
+              <h4 className='text-h4 font-600 text-N-800'>Videos</h4>
+              <Button className='px-0' appearance='ghost' iconAfter={<ArrowRight size={20} />}>
+                View more
+              </Button>
+            </div>
+            <div>
+              <iframe
+                width='500'
+                height='281'
+                src='https://www.youtube.com/embed/vIMxxL2jww8'
+                title='Yeti Rambler Hot Shot Cap - Benefits & Features Explained'
+                frameBorder={0}
+                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'></iframe>
+            </div>
+          </div>
+
+          {/* Shop items */}
+          <div className='flex flex-col gap-[24px] pt-[40px] md:gap-[40px] md:pt-[80px]'>
+            <div className='flex justify-between'>
+              <h4 className='text-h4 font-600 text-N-800'>You may also like</h4>
+              <Button className='px-0' appearance='ghost' iconAfter={<ArrowRight size={20} />}>
+                View more
+              </Button>
+            </div>
+            <div className='flex gap-[48px]'>
+              <ul className='grid grid-cols-2 gap-x-[16px] gap-y-[24px] md:grid-cols-4 md:gap-x-[16px] md:gap-y-[40px] lg:gap-x-[48px] lg:gap-y-[52px]'>
+                {(shopListA || []).map(
+                  ({ id, image, heading, price, shopName, url }: any, index: number) => (
+                    <li key={id || index}>
+                      <a target='_blank' href={url}>
+                        <ShopCard
+                          image={image}
+                          heading={heading}
+                          price={price}
+                          shopName={shopName}
+                        />
+                      </a>
+                    </li>
+                  )
+                )}
+              </ul>
+            </div>
+          </div>
         </div>
       </CommonLayout>
     </>

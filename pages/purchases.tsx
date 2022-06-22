@@ -141,7 +141,7 @@ const Page: NextPage = () => {
             <div className='flex gap-[12px] border-b-[1px]'>
               <Link href='#'>
                 <Button
-                  className='mb-[16px] h-0 px-0 py-0 text-base font-600'
+                  className='mb-[16px] text-base font-600'
                   view={activeTab === 'orders' ? 'outline' : 'solid'}
                   appearance='ghost'
                   onClick={() => setActiveTab('orders')}>
@@ -150,7 +150,7 @@ const Page: NextPage = () => {
               </Link>
               <Link href='#'>
                 <Button
-                  className='mb-[16px] h-0 px-0 py-0 text-base font-600'
+                  className='mb-[16px] text-base font-600'
                   appearance='ghost'
                   onClick={() => setActiveTab('booking')}>
                   Booking
