@@ -8,6 +8,7 @@ import { SearchSuppliers } from '@/components/molecules'
 import ReactPaginate from 'react-paginate'
 
 import { SEARCH_SUPPLIERS } from '../../../../lib/graphql'
+import { useViewport } from '@/utils'
 
 export interface SuppliersSearchProps {
   [x: string]: any
@@ -64,6 +65,8 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
   ...restProps
 }: SuppliersSearchProps) => {
   const SuppliersSearchClasses = CN(`suppliers-search`, className)
+  const { isMobile, isTablet, isDesktop } = useViewport()
+
   const [searchString, setSearchString] = useState('')
 
   const { data, loading, error, refetch } = useQuery(SEARCH_SUPPLIERS, {
@@ -105,8 +108,14 @@ export const SuppliersSearch: FC<SuppliersSearchProps> = ({
     <div className={SuppliersSearchClasses} {...restProps}>
       {/* Search suppliers */}
       <div className='container'>
-        <div className='flex flex-col gap-[24px] md:gap-[40px]'>
-          <h3 className='text-center text-h3 font-700'>Search suppliers</h3>
+        <div className='flex flex-col gap-[24px] md:gap-[60px]'>
+          <SectionHeading
+            overline='Directory'
+            heading={`Search Suppliers`}
+            headingClassName='!text-h3 lg:!text-h2 font-700 !mb-0'
+            align={'center'}
+          />
+
           <div className='flex flex-col rounded-[8px] bg-N-50 px-[24px] py-[32px]'>
             <div className='flex flex-col items-center gap-[12px] md:flex-row'>
               <TextField

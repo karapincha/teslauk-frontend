@@ -38,9 +38,9 @@ const Page: NextPage = ({ pageData, isServer }: any) => {
             heading={header?.blockSuppliersHeader?.heading}
             image={header?.blockSuppliersHeader?.image.mediaItemUrl}
             description={header?.blockSuppliersHeader?.description}
-            commonClassName='lg:w-[30%] !gap-0'
-            descriptionClassName='text-md !pt-[16px] text-center md:text-left'
-            imageClassName='!h-[205px] md:!h-[248px] lg:!h-[407px] w-full'
+            // commonClassName='lg:w-[30%] !gap-0'
+            // descriptionClassName='text-md !pt-[16px] text-center md:text-left'
+            // imageClassName='!h-[205px] md:!h-[248px] lg:!h-[407px] w-full'
             metaData={header?.blockSuppliersHeader?.tagline}
             metaDataNumber={`${suppliers?.nodes?.length}+`}
             btnProps={{
@@ -87,7 +87,7 @@ const Page: NextPage = ({ pageData, isServer }: any) => {
             </div>
 
             <div className='flex justify-center'>
-              <Link passHref href={`/suppliers/become-a-key-partner`}>
+              <Link passHref href={`/suppliers/become-an-approved-partner`}>
                 <Button
                   appearance='ghost'
                   iconAfter={<ArrowRight size={20} />}
@@ -114,7 +114,7 @@ const Page: NextPage = ({ pageData, isServer }: any) => {
             <SectionHeading
               overline={verifiedSuppliers?.blockVerifiedSuppliers?.subHeading}
               heading={verifiedSuppliers?.blockVerifiedSuppliers?.heading}
-              headingClassName='text-display !text-h3 lg:!text-h2 font-700 !mb-0'
+              headingClassName='!text-h3 lg:!text-h2 font-700 !mb-0'
               align={(isMobile && 'center') || 'left'}
             />
 
