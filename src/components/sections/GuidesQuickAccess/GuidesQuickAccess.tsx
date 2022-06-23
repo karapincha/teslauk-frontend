@@ -38,14 +38,14 @@ export const GuidesQuickAccess: FC<GuidesQuickAccessProps> = ({
         />
 
         <div className='flex flex-col lg:flex-row'>
-          <div className='flex w-full flex-col items-center lg:w-auto'>
+          <div className='flex w-full flex-col items-center lg:w-auto mt-[-80px]'>
             <img
               src='/images/section-img-001.png'
               width={(isMobile && 286) || (isTablet && 486) || 576}
               height={(isMobile && 124) || (isTablet && 212) || 460}
             />
 
-            <div className='mt-[-40px] flex gap-[8px]'>
+            <div className='mt-[-20px] flex gap-[8px]'>
               <span className='text-h3 font-600 text-N-800'>120+</span>
               <span className='h-[48px] w-[1px] bg-N-300' />
               <span className='w-[192px] text-md text-N-600'>{hint}</span>
