@@ -23,17 +23,22 @@ export const MembershipCard: FC<MembershipCardProps> = ({
   className,
   type,
   heading,
+  headingClassName,
   description,
   price,
+  priceClassName,
   list,
+  listClassName,
+  listItemClassName,
   ctaBtnText,
   onClickCtaBtn,
   secondaryCTABtnText,
   onClickSecondaryCtaBtn,
+  ctaBtnAppearance,
   ...restProps
 }: MembershipCardProps) => {
   const MembershipCardClasses = CN(
-    `membership-card shadow pb-[48px] pt-[32px] px-[28px] rounded-[8px] w-full flex flex-col shadow-[0px_25px_50px_-12px_rgba(95,111,140,0.1)] relative`,
+    `membership-card pb-[48px] pt-[32px] px-[28px] rounded-[8px] w-full flex flex-col shadow-card-shadow relative`,
     className,
     {
       'bg-N-600 text-white': type === 'primary',
@@ -45,34 +50,45 @@ export const MembershipCard: FC<MembershipCardProps> = ({
 
   return (
     <div className={MembershipCardClasses} {...restProps}>
-      <div className='flex h-full w-full'>
+      <div className='flex w-full'>
         <div className='flex h-full w-full flex-col'>
           <h3
-            className={CN('mb-[12px] text-h4 lg:mb-[0] lg:text-h3', {
-              'text-white': type === 'primary',
-              'text-N-700': type === 'secondary',
-            })}>
+            className={CN(
+              'mb-[12px] text-h4 lg:mb-[0] lg:text-h3',
+              {
+                'text-white': type === 'primary',
+                'text-N-700': type === 'secondary',
+              },
+              headingClassName
+            )}>
             {heading}
           </h3>
 
-          <div className='mb-[48px] flex flex-col items-start lg:flex lg:flex-row lg:items-center lg:gap-[8px]'>
+          <div className='flex flex-col items-start lg:flex lg:flex-row lg:items-center lg:gap-[8px]'>
             <p
-              className={CN('text-h5 font-500 lg:text-h4', {
-                'text-white': type === 'primary',
-                'text-N-500': type === 'secondary',
-              })}>
-              {price}
-            </p>
+              className={CN(
+                'text-h5 font-500 lg:text-h4',
+                {
+                  'text-white': type === 'primary',
+                  'text-N-500': type === 'secondary',
+                },
+                priceClassName
+              )}
+              dangerouslySetInnerHTML={{ __html: price || '' }}
+            />
             {description && <p className='text-md lg:text-base'>({description})</p>}
           </div>
 
-          <ul className='group mt-auto md:mt-[unset]'>
-            {list?.map(({ feature }, index) => (
+          <ul className={CN('group mt-auto pt-[32px] md:mt-[unset]', listClassName)}>
+            {list?.map(({ feature, label, name }, index) => (
               <li
                 key={index}
-                className='flex items-center gap-[8px] border-b py-[12px] text-md font-500 last:border-b-0 max-w-[320px]'>
+                className={CN(
+                  'flex items-center gap-[8px] border-b py-[12px] text-md font-500 last:border-b-0',
+                  listItemClassName
+                )}>
                 <Check size={16} className='flex-shrink-0' />
-                <span>{feature}</span>
+                <span>{label || feature || name}</span>
               </li>
             ))}
           </ul>
@@ -88,7 +104,10 @@ export const MembershipCard: FC<MembershipCardProps> = ({
       {(ctaBtnText || secondaryCTABtnText) && (
         <div className='membership-card__actions flex flex-col items-center gap-[24px] pt-[24px] lg:flex lg:flex-row'>
           {ctaBtnText && (
-            <Button appearance='secondary' onClick={onClickCtaBtn} className='w-full lg:w-auto'>
+            <Button
+              appearance={ctaBtnAppearance || 'secondary'}
+              onClick={onClickCtaBtn}
+              className='w-full lg:w-auto'>
               {ctaBtnText}
             </Button>
           )}

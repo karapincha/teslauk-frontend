@@ -11,9 +11,6 @@ import { getAllStaticPagesWithSlug, getStaticPage } from '../lib/graphql'
 
 const Page: NextPage = ({ isServer, page }: any) => {
   const router = useRouter()
-  console.log(`${router.pathname} - Is this page on the server? - ${isServer ? 'YES' : 'NO'}`)
-
-  console.log(page)
 
   return (
     <>

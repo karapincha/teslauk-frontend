@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Header, Footer, SupplierRibbon } from '@/components/sections'
+import { Faq, QuickTestimonials } from '@/components/sections'
 import { useRouter } from 'next/router'
 import { PageHeaderVariant } from '@/components/molecules/PageHeaderVariant'
 import { Button, TextField, Badge } from '@/components/atoms'
-import { Pagination, SectionHeading } from '@/components/molecules'
+import { Pagination, SectionHeading, FeatureCard, MembershipCard } from '@/components/molecules'
 import { ArrowRight, Search } from 'react-feather'
 import { SearchSuppliers, SuppliersSearch } from '@/components/molecules'
 import { supplierList } from '@/dummy-data/supplier-list'
@@ -13,14 +13,16 @@ import { useViewport } from '@/utils'
 import parseHTML from 'html-react-parser'
 import { useQuery, gql } from '@apollo/client'
 
-import { getSuppliersPage, getStaticPage } from '../../lib/graphql'
+import { getBlockTestimonial, getStaticPage } from '../../lib/graphql'
 import Link from 'next/link'
 import { Common as CommonLayout } from '@/components/layouts'
+import CN from 'classnames'
 
 const Page: NextPage = ({ page }: any) => {
   const router = useRouter()
-
   const { isMobile, isTablet, isDesktop } = useViewport()
+  const { staticPage, testimonials } = page
+
   console.log(page)
 
   return (
@@ -34,61 +36,178 @@ const Page: NextPage = ({ page }: any) => {
       </Head>
 
       <CommonLayout>
-        <div className='container flex pt-[20px] pb-[40px] md:pb-[80px]'>
+        <div className='container flex pt-[20px] pb-[40px] md:pb-[60px]'>
           <PageHeaderVariant
-            heading={page.title}
-            image={page?.staticPageHeader?.banner?.mediaItemUrl}
-            description={page?.staticPageHeader?.description}
-            // commonClassName='lg:w-[30%] !gap-0'
-            // descriptionClassName='text-md !pt-[16px] text-center md:text-left'
-            // imageClassName='!h-[205px] md:!h-[248px] lg:!h-[407px] w-full'
-            // metaData={header?.blockSuppliersHeader?.tagline}
-            // metaDataNumber={`${suppliers?.nodes?.length}+`}
-            // btnProps={{
-            //   label: header?.blockSuppliersHeader?.primaryButtonText,
-            //   onClick: (e: any) => {
-            //     e.preventDefault()
-            //     router.push('#search-block')
-            //   },
-            //   appearance: 'secondary',
-            //   className: 'w-full md:w-[208px]',
-            // }}
+            heading={staticPage?.staticPageHeader?.heading}
+            image={staticPage?.staticPageHeader?.banner?.mediaItemUrl}
+            description={staticPage?.staticPageHeader?.description}
+            descriptionClassName='!mb-0'
+            btnProps={{
+              children: 'See partnership plans',
+              onClick: (e: any) => {
+                e.preventDefault()
+                router.push('#partnership-plans')
+              },
+              appearance: 'primary',
+            }}
           />
         </div>
 
-        <div className='container flex pt-[40px] pb-[24px]'>
-          <div className='mx-auto flex w-full max-w-[782px] flex-col items-center gap-[40px] text-center'>
-            <div className='flex w-full flex-col gap-[20px]'>
-              <div className='flex justify-center'>
-                <Badge>Tesla Owners UK Partners</Badge>
-              </div>
-              <h1 className='text-h1'>
-                Become a partner <br />
-                supplier
-              </h1>
-            </div>
+        <div className='flex w-full bg-N-50 bg-cover bg-center bg-no-repeat py-[80px]'>
+          <div className='container flex flex-col gap-[80px]'>
+            <SectionHeading
+              overline={staticPage?.pageBecomeAnApprovedPartner?.benefits?.tag}
+              heading={staticPage?.pageBecomeAnApprovedPartner?.benefits?.heading}
+              headingClassName='!mb-0'
+              align={'center'}
+              className='mx-auto max-w-[472px]'
+            />
 
-            <div className='banner-image flex w-full'>
-              <img
-                src={page.staticPageHeader.banner.mediaItemUrl}
-                alt={page.title}
-                className='w-[100%] rounded-[8px]'
-              />
+            <div className='mx-auto grid w-full max-w-[992px] grid-cols-2 gap-y-[40px] gap-x-[80px]'>
+              {staticPage?.pageBecomeAnApprovedPartner?.benefits?.benefitsList?.map(
+                ({ icon, description, name }: any, index: number) => {
+                  return (
+                    <FeatureCard
+                      key={index}
+                      isLarge
+                      heading={name}
+                      headingClassName='!text-base !leading-[1.5]'
+                      description={description}
+                      descriptionClassName='!text-sm !text-N-700'
+                      icon={parseHTML(icon)}
+                    />
+                  )
+                }
+              )}
             </div>
           </div>
         </div>
+
+        <div className='flex w-full py-[80px]' id='partnership-plans'>
+          <div className='container flex flex-col gap-[80px]'>
+            <SectionHeading
+              overline={staticPage?.pageBecomeAnApprovedPartner?.partnershipPlans?.overline}
+              heading={staticPage?.pageBecomeAnApprovedPartner?.partnershipPlans?.heading}
+              description={staticPage?.pageBecomeAnApprovedPartner?.partnershipPlans?.description}
+              align={'center'}
+            />
+
+            <div className='mx-auto grid w-full grid-cols-4 gap-[20px]'>
+              {staticPage?.pageBecomeAnApprovedPartner?.partnershipPlans?.plans?.map(
+                ({ name, price, benefits }: any, index: number) => {
+                  return (
+                    <div className='block' key={index}>
+                      <MembershipCard
+                        type='secondary'
+                        heading={name}
+                        headingClassName='!text-h5 !pb-[8px]'
+                        price={price === 'CONTACT' ? 'Contact for price' : `£${price}`}
+                        priceClassName={CN('!font-600', {
+                          '!text-N-700 !text-base': price === 'CONTACT',
+                          '!text-R-400': price !== 'CONTACT',
+                        })}
+                        list={benefits}
+                        listClassName='!pt-[20px]'
+                        listItemClassName='!text-sm'
+                        ctaBtnText='Apply for this plan'
+                        ctaBtnAppearance='primary'
+                        onClickCtaBtn={() => {}}
+                        className='w-full flex-shrink-0'
+                      />
+                    </div>
+                  )
+                }
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className='flex w-full bg-N-50 bg-cover bg-center bg-no-repeat py-[80px]'>
+          <div className='container'>
+            <Faq
+              className='mx-auto max-w-[992px]'
+              list={staticPage?.pageBecomeAnApprovedPartner?.faq?.faqList}
+            />
+          </div>
+        </div>
+
+        <QuickTestimonials
+          data={testimonials?.blockTestimonials}
+          className='py-[24px] md:py-[80px] lg:py-[80px]'
+        />
       </CommonLayout>
     </>
   )
 }
 
 export async function getStaticProps({ preview = false }) {
-  const data = await getStaticPage('become-an-approved-partner')
+  const data = await getStaticPage(
+    'become-an-approved-partner',
+    `pageBecomeAnApprovedPartner {
+      benefits {
+        benefitsList {
+          description
+          icon
+          name
+        }
+        heading
+        tag
+        description
+      }
+      faq {
+        heading
+        overline
+        faqList {
+          answer
+          question
+        }
+      }
+      partnershipPlans {
+        heading
+        overline
+        description
+        plans {
+          description
+          footNote
+          isFeatured
+          isKeyPartner
+          name
+          price
+          benefits {
+            label
+          }
+        }
+      }
+    }`,
+    `testimonials: block(id: "testimonials", idType: SLUG) {
+      blockTestimonials {
+        description
+        heading
+        primaryButtonText
+        subHeading
+        featuredTestimonial {
+          ... on Testimonial {
+            id
+            title
+            pageTestimonial {
+              author
+              role
+              testimonial
+              image {
+                mediaItemUrl
+              }
+            }
+          }
+        }
+      }
+      slug
+    }`
+  )
 
   return {
     props: {
       preview,
-      page: data.staticPage,
+      page: data,
     },
     revalidate: 10,
   }

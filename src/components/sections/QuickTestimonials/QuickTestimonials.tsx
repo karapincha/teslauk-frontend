@@ -16,8 +16,8 @@ export const QuickTestimonials: FC<QuickTestimonialsProps> = ({
   const QuickTestimonialsClasses = CN(`quick-testimonials`, className, {})
   const { isDesktop, isMobile, isTablet } = useViewport()
 
-  const {description, heading,subHeading,featuredTestimonial, primaryButtonText } = data
-  const {pageTestimonial} =featuredTestimonial
+  const { description, heading, subHeading, featuredTestimonial, primaryButtonText } = data
+  const { pageTestimonial } = featuredTestimonial
 
   const renderCTA = () => {
     return <Button className='w-full md:w-[unset] lg:w-[unset]'>{primaryButtonText}</Button>

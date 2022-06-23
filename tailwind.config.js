@@ -99,6 +99,7 @@ module.exports = {
         'page-lock-bg':
           'linear-gradient(180deg, rgba(248, 251, 253, 0) 0%, red 40.39%, #F8FBFD 100%)',
         'icon-bg': 'linear-gradient(180deg, #ECF2F7 0%, #D8E1EC 100%)',
+        'icon-bg-hover': 'linear-gradient(180deg, #FCE8EB 0%, #F7BAC3 100%)',
       },
     },
   },

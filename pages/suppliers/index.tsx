@@ -19,7 +19,6 @@ import { Common as CommonLayout } from '@/components/layouts'
 
 const Page: NextPage = ({ pageData, isServer }: any) => {
   const router = useRouter()
-  console.log(`${router.pathname} - Is this page on the server? - ${isServer ? 'YES' : 'NO'}`)
 
   const { isMobile, isTablet, isDesktop } = useViewport()
   const { header, keyPartners, verifiedSuppliers, suppliers, footer } = pageData || {}
@@ -44,7 +43,7 @@ const Page: NextPage = ({ pageData, isServer }: any) => {
             metaData={header?.blockSuppliersHeader?.tagline}
             metaDataNumber={`${suppliers?.nodes?.length}+`}
             btnProps={{
-              label: header?.blockSuppliersHeader?.primaryButtonText,
+              children: header?.blockSuppliersHeader?.primaryButtonText,
               onClick: (e: any) => {
                 e.preventDefault()
                 router.push('#search-block')

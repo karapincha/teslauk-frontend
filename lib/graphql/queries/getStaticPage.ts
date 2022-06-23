@@ -1,6 +1,6 @@
 import { fetchAPI } from '../../api'
 
-export async function getStaticPage(slug: any) {
+export async function getStaticPage(slug: any, optionalQuery?: string, secondaryQuery?: string) {
   const data = await fetchAPI(`
   {
     staticPage(id: "${slug}", idType: SLUG) {
@@ -18,7 +18,9 @@ export async function getStaticPage(slug: any) {
         description
         heading
       }
+      ${optionalQuery ? optionalQuery : ''}
     }
+    ${secondaryQuery ? secondaryQuery : ''}
   }
   `)
   return data

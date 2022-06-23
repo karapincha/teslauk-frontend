@@ -78,7 +78,7 @@ module.exports = {
         '20px',
         {
           label: 'H5',
-          lineHeight: '32px',
+          lineHeight: '28px',
           letterSpacing: '-0.26px',
         },
       ],
@@ -86,7 +86,7 @@ module.exports = {
         '18px',
         {
           label: 'H6',
-          lineHeight: '32px',
+          lineHeight: '26px',
           letterSpacing: '-0.26px',
         },
       ],

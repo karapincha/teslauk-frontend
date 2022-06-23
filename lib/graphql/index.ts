@@ -31,3 +31,6 @@ export * from './queries/getInitiative'
 export * from './queries/getAllTeam'
 
 export * from './queries/getAllDiscussionGroupsWithSlug'
+
+export * from './queries/getBlockTestimonial'
+export * from './queries/getAllTestimonials'
