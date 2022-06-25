@@ -34,3 +34,8 @@ export * from './queries/getAllDiscussionGroupsWithSlug'
 
 export * from './queries/getBlockTestimonial'
 export * from './queries/getAllTestimonials'
+
+export * from './queries/getAllFormsWithSlug'
+export * from './queries/getFormPage'
+
+export * from './mutations/sendmail'

@@ -1,10 +1,9 @@
 import App from 'next/app'
 import Head from 'next/head'
-import { Suspense } from 'react'
 import type { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client'
 import client from '../apollo-client'
-import { Common as CommonLayout } from '@/components/layouts'
+import { ToastContainer } from '@/components/molecules'
 
 import 'remixicon/fonts/remixicon.css'
 import '@/styles/tailwind.scss'
@@ -27,15 +26,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
       <ApolloProvider client={client}>
         <Component {...pageProps} />
+        <ToastContainer />
       </ApolloProvider>
     </>
   )
 }
 
 MyApp.getInitialProps = async (appContext: any) => {
-  // calls page's `getInitialProps` and fills `appProps.pageProps`
   const appProps = await App.getInitialProps(appContext)
-
   return { ...appProps }
 }
 

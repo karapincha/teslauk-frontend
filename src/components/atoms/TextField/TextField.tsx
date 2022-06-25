@@ -56,6 +56,7 @@ export const TextField: FC<TextFieldProps> = forwardRef(
       required,
       size,
       type,
+      name,
       wrapperClassName,
       ...restProps
     }: TextFieldProps,
@@ -113,12 +114,13 @@ export const TextField: FC<TextFieldProps> = forwardRef(
           {label && (
             <label
               className={CN(
-                'text-field__label absolute top-[-28px] left-[-2px] !text-md font-500 text-N-600 after:absolute after:left-0 after:right-0 after:bottom-[2px] after:z-[0] after:h-[9px] after:content-[""]',
+                'text-field__label absolute top-[-28px] left-[-2px] !text-md font-500 text-N-600 after:absolute after:left-0 after:right-0 after:bottom-[2px] after:z-[0] after:h-[9px] after:content-[""] z-10',
                 {
                   'after:bg-white': !disabled,
                   'after:bg-N-50': disabled,
                 }
-              )}>
+              )}
+              htmlFor={name}>
               <span className='relative z-[1]'>
                 {label} {required && <span className='text-R-400'>*</span>}
               </span>
@@ -142,6 +144,7 @@ export const TextField: FC<TextFieldProps> = forwardRef(
             readOnly={readOnly}
             ref={ref}
             type={inputType}
+            name={name}
             {...restProps}
           />
 

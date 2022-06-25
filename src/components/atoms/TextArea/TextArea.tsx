@@ -57,11 +57,11 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     const wrapperBorderColor =
       (!disabled &&
         !isError &&
-        'border-N-200 outline-none focus-within:border-B-400 focus-within:shadow-[0px_0px_0px_1px_#2492F6]') ||
+        'border-N-300 outline-none focus-within:border-B-400 focus-within:shadow-[inset_0px_0px_0px_1px_#E31937]') ||
       (disabled && 'border-N-200') ||
       (!disabled &&
         isError &&
-        '!border-R-100 focus-within:!border-B-400 focus-within:!shadow-[0px_0px_0px_1px_#2492F6]')
+        '!border-R-100 focus-within:!border-B-400 focus-within:!shadow-[0px_0px_0px_1px_#E31937]')
 
     /* Text Color */
     const inputTextColor = (!disabled && 'text-N-800') || (disabled && 'text-N-400')
@@ -69,7 +69,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     /* Inner Input Field */
     const TextAreaClasses = CN('text-field', className, inputTextColor, {
       /* Input Field Common */
-      'appearance-none h-full w-full outline-none text-md font-400 flex items-center bg-[transparent] placeholder:text-N-300 min-h-[80px] pt-[12px] px-[16px]':
+      'appearance-none h-full w-full outline-none text-md font-400 flex items-center bg-[transparent] placeholder:text-N-400 min-h-[80px] pt-[12px] px-[16px]':
         true,
 
       /* Disabled */
@@ -80,16 +80,16 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     const TextAreaWrapperClasses = CN(wrapperClassName, wrapperBGColor, wrapperBorderColor, {
       /* Input Field Wrapper Common */
       'border flex items-start rounded-[4px] w-full group ease-in-out duration-[50] relative': true,
-      'mt-[11px]': label,
+      'mt-[28px]': label,
     })
 
     return (
-      <div className='flex flex-col w-full text-field__container'>
+      <div className='text-field__container flex w-full flex-col'>
         <div className={TextAreaWrapperClasses}>
           {label && (
             <label
               className={CN(
-                'absolute !text-sm text-N-700 text-field__label top-[-11px] left-[12px] px-[4px] after:content-[""] after:absolute after:left-0 after:right-0 after:h-[9px] after:bottom-[2px] after:z-[0]',
+                'text-field__label absolute top-[-28px] left-[-2px] !text-md font-500 text-N-600 after:absolute after:left-0 after:right-0 after:bottom-[2px] after:z-[0] after:h-[9px] after:content-[""]',
                 {
                   'after:bg-white': !disabled,
                   'after:bg-N-50': disabled,
@@ -112,7 +112,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 
         {hint && (
           <span
-            className={CN('text-sm pt-[2px]', hintClassName, {
+            className={CN('pt-[2px] text-sm', hintClassName, {
               'text-R-400': isError,
               'text-G-500': isSuccess,
             })}>

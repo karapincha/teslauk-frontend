@@ -21,6 +21,7 @@ export interface ButtonProps {
   view?: 'outline' | 'solid'
   isSquare?: boolean
   isActive?: boolean
+  isLoading?: boolean
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -37,6 +38,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       view,
       isSquare,
       isActive,
+      isLoading,
       ...restProps
     }: ButtonProps,
     ref: any
@@ -76,7 +78,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         'bg-transparent text-white': appearance === 'ghost-invert' && view === 'solid',
 
         /* View */
-        'bg-transparent text-N-800 border-N-800 hover:bg-N-800 hover:text-white': appearance === 'primary' && view === 'outline',
+        'bg-transparent text-N-800 border-N-800 hover:bg-N-800 hover:text-white':
+          appearance === 'primary' && view === 'outline',
         'bg-transparent text-N-700 !border-N-400': appearance === 'secondary' && view === 'outline',
         'bg-transparent text-N-800 !border-N-800': appearance === 'neutral' && view === 'outline',
         'bg-transparent text-N-800 hover:border-N-800':
@@ -89,9 +92,20 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button className={CN(ButtonClasses)} disabled={disabled} ref={ref} {...restProps}>
         {iconBefore && <div className={CN('btn__icon children:inline-flex')}>{iconBefore}</div>}
+
         {!children && icon && <div className={CN('btn__content')}>{icon}</div>}
+
         {children && <div className={CN('btn__content')}>{children}</div>}
+
         {iconAfter && <div className={CN('btn__icon children:inline-flex')}>{iconAfter}</div>}
+
+        {isLoading && (
+          <div className={CN('btn__loading')}>
+            <svg className='spinner' viewBox='0 0 50 50'>
+              <circle className='path' cx='25' cy='25' r='20' fill='none' strokeWidth='5' />
+            </svg>
+          </div>
+        )}
       </button>
     )
   }

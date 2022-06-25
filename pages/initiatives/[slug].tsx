@@ -40,7 +40,7 @@ const Page: NextPage = ({ initiative }: any) => {
       <CommonLayout>
         <div className='container flex pt-[40px] pb-[24px]'>
           <div className='mx-auto flex w-full max-w-[782px] flex-col items-center gap-[40px] text-center'>
-            <div className='flex w-full flex-col gap-[20px]'>
+            <div className='flex w-full flex-col gap-[28px]'>
               <div className='flex justify-center'>
                 <Badge>Tesla Owners UK Initiative</Badge>
               </div>

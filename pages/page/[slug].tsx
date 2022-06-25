@@ -7,7 +7,7 @@ import { Button, Badge } from '@/components/atoms'
 import { PageLock } from '@/components/molecules/PageLock'
 import { Common as CommonLayout } from '@/components/layouts'
 
-import { getAllStaticPagesWithSlug, getStaticPage } from '../lib/graphql'
+import { getAllStaticPagesWithSlug, getStaticPage } from '../../lib/graphql'
 
 const Page: NextPage = ({ isServer, page }: any) => {
   const router = useRouter()
@@ -23,11 +23,11 @@ const Page: NextPage = ({ isServer, page }: any) => {
       <CommonLayout>
         <div className='container flex pt-[40px] pb-[24px]'>
           <div className='mx-auto flex w-full max-w-[782px] flex-col items-center gap-[40px] text-center'>
-            <div className='flex w-full flex-col gap-[20px]'>
+            <div className='flex w-full flex-col gap-[28px]'>
               <div className='flex justify-center'>
                 <Badge>Tesla Owners UK Initiative</Badge>
               </div>
-              <h1 className='text-h1'>{page?.title}</h1>
+              <h1 className='text-h1'>{page?.title || '404'}</h1>
             </div>
 
             <div className='banner-image flex w-full'>
@@ -38,14 +38,6 @@ const Page: NextPage = ({ isServer, page }: any) => {
               /> */}
             </div>
           </div>
-        </div>
-
-        <div className='container flex pt-[20px] pb-[24px]'>
-          <PageHeader
-            heading={page?.title}
-            headingClassName='text-N-800 !font-600'
-            // icon={<i className='ri-edit-box-line text-[40px] text-B-500' />}
-          />
         </div>
 
         <div className='container flex flex-col'>

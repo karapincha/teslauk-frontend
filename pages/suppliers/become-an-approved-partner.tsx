@@ -23,8 +23,6 @@ const Page: NextPage = ({ page }: any) => {
   const { isMobile, isTablet, isDesktop } = useViewport()
   const { staticPage, testimonials } = page
 
-  console.log(page)
-
   return (
     <>
       <Head>
@@ -94,7 +92,7 @@ const Page: NextPage = ({ page }: any) => {
 
             <div className='mx-auto grid w-full grid-cols-4 gap-[20px]'>
               {staticPage?.pageBecomeAnApprovedPartner?.partnershipPlans?.plans?.map(
-                ({ name, price, benefits }: any, index: number) => {
+                ({ name, planUniqueId, price, benefits }: any, index: number) => {
                   return (
                     <div className='block' key={index}>
                       <MembershipCard
@@ -111,7 +109,9 @@ const Page: NextPage = ({ page }: any) => {
                         listItemClassName='!text-sm'
                         ctaBtnText='Apply for this plan'
                         ctaBtnAppearance='primary'
-                        onClickCtaBtn={() => {}}
+                        onClickCtaBtn={() =>
+                          router.push(`/forms/apply-for-partnership?info=${planUniqueId}`)
+                        }
                         className='w-full flex-shrink-0'
                       />
                     </div>
@@ -176,6 +176,7 @@ export async function getStaticProps({ preview = false }) {
           benefits {
             label
           }
+          planUniqueId
         }
       }
     }`,

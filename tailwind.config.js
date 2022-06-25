@@ -90,7 +90,12 @@ module.exports = {
 
             'li': {
               marginTop: em(0, 14),
-              marginBottom: em(16, 14),
+              marginBottom: em(4, 14),
+            },
+
+            'ul': {
+              marginTop: em(0, 14),
+              marginBottom: em(12, 14),
             },
           },
         },
