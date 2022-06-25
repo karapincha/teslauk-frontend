@@ -26,9 +26,42 @@ const Page: NextPage = ({ pageData, countries }: any) => {
       </Head>
 
       <CommonLayout className='!pb-0'>
+        <div className='fixed left-0 top-0 h-full p-[60px] z-[1]'>
+          <h5 className='pb-[24px] text-h5 text-N-800'>Menu</h5>
+          <ul className='flex flex-col gap-[8px]'>
+            <li>
+              <a href='/event-home'>
+                <p className='text-base text-N-600 hover:text-B-500'>Events</p>
+              </a>
+            </li>
+            <li>
+              <a href='/event-home'>
+                <p className='text-base text-N-600 hover:text-B-500'>Events</p>
+              </a>
+            </li>
+            <li>
+              <a href='/event-home'>
+                <p className='text-base text-N-600 hover:text-B-500'>Events</p>
+              </a>
+            </li>
+            <li>
+              <a href='/event-home'>
+                <p className='text-base text-N-600 hover:text-B-500'>Events</p>
+              </a>
+            </li>
+            <li>
+              <a href='/event-home'>
+                <p className='text-base text-N-600 hover:text-B-500'>Events</p>
+              </a>
+            </li>
+          </ul>
+        </div>
         <Hero data={hero.blockHero} className='pb-[24px]' />
 
-        <EventCard data={featuredEvents.blockFeaturedEvents} className='py-[24px] md:pt-[40px] md:pb-[80px]' />
+        <EventCard
+          data={featuredEvents.blockFeaturedEvents}
+          className='py-[24px] md:pt-[40px] md:pb-[80px]'
+        />
 
         <QuickMembership
           data={membership.blockMembership}
