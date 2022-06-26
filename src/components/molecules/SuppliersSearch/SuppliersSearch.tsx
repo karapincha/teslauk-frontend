@@ -48,7 +48,7 @@ function Items({ currentItems, searchString, allItems, selectedTag }: any) {
       <ul className='group flex flex-col pt-[12px]'>
         {(items || []).map((data: any, index: number) => {
           return (
-            <li key={index} className='border-b border-N-200 py-[24px]  last:border-b-0 last:pb-0 '>
+            <li key={index} className='border-b border-N-200 py-[24px]  last:border-b-0 last:pb-0'>
               <SearchSuppliers data={data} />
             </li>
           )

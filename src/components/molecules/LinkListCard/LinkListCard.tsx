@@ -40,6 +40,8 @@ export const LinkListCard: FC<LinkListCardProps> = ({
 
       <ul className='list-card__list flex flex-col gap-[12px]'>
         {(list || []).map(({ id, slug, title }: any, index: number) => {
+          if (index > 4) return null
+
           return (
             <li className='flex items-center gap-[8px] text-N-400' key={id || index}>
               <span className={CN('flex flex-shrink-0', iconClassName)}>
@@ -62,7 +64,7 @@ export const LinkListCard: FC<LinkListCardProps> = ({
 
       {articleCount && (
         <div className='block'>
-          <Link href='/guides' passHref>
+          <Link href={link || ''} passHref>
             <Button
               className='!text-B-500'
               iconAfter={<i className='ri-arrow-right-line text-lg' />}

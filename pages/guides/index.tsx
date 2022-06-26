@@ -1,16 +1,12 @@
 import { useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { PageHeader, LinkListCard } from '@/components/molecules'
-import { FileText, Mail } from 'react-feather'
 import { useRouter } from 'next/router'
-import { ContactCta } from '@/components/molecules/ContactCta'
-import { useViewport } from '@/utils'
 import { Common as CommonLayout } from '@/components/layouts'
-import { getAllGuidesByCategories, getGuide, GUIDES_CATEGORIES } from '../../lib/graphql'
+import { getAllGuidesByCategories } from '../../lib/graphql'
 
-const Page: NextPage = ({ guides }: any) => {
+const Page: NextPage = ({ guideCategories, guides }: any) => {
   const router = useRouter()
   const [searchString, setSearchString] = useState('')
 
@@ -27,12 +23,10 @@ const Page: NextPage = ({ guides }: any) => {
           <PageHeader
             hasSearch
             heading='Written by Tesla Owners <br /> for Tesla Owners'
-            description={`Search through over ${guides.length} ${
-              guides.length > 1 ? 'guides' : 'guide'
+            description={`Search through over ${guides?.pageInfo?.total} ${
+              guides?.pageInfo?.total > 1 ? 'guides' : 'guide'
             }`}
-            image='https://images.unsplash.com/flagged/photo-1579782647395-2e6fb36a64f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=806&q=80'
-            headingClassName='text-N-10'
-            descriptionClassName='text-white'
+            // image='https://images.unsplash.com/flagged/photo-1579782647395-2e6fb36a64f2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=806&q=80'
             btnProps={{
               onClick: (e: any) => {
                 e.preventDefault()
@@ -51,15 +45,16 @@ const Page: NextPage = ({ guides }: any) => {
         </div>
 
         <div className='container flex flex-col gap-[24px] pt-[24px] pb-[40px] md:gap-[40px] md:py-[40px]'>
-          <h4 className='text-h4 font-600 text-N-800'>Browse by the categories</h4>
+          <h4 className='text-h4 font-600 text-N-800'>Browse guides by category</h4>
 
           <div className='flex flex-col gap-[24px] md:grid md:grid-cols-2 md:gap-[32px]'>
-            {guides.map(({ name, slug, guides }: any, index: number) => (
+            {guideCategories.map(({ name, slug, guides }: any, index: number) => (
               <LinkListCard
                 key={slug || index}
                 list={guides.nodes}
                 heading={name}
                 articleCount={guides.nodes.length}
+                link={`/guides/category/${slug}`}
               />
             ))}
           </div>
@@ -75,7 +70,8 @@ export async function getStaticProps({ preview = false, previewData }: any) {
   return {
     props: {
       preview,
-      guides: data,
+      guideCategories: data?.guideCategories?.nodes,
+      guides: data?.guides,
     },
     revalidate: 10,
   }

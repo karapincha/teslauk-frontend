@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { PageHeader, ArticleCard, Pagination } from '@/components/molecules'
 import { searchResult } from '@/dummy-data/search-result'
 import { Common as CommonLayout } from '@/components/layouts'

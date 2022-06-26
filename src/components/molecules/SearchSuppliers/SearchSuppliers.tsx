@@ -49,15 +49,15 @@ export const SearchSuppliers: FC<SearchSuppliersProps> = ({
         </div>
 
         {supplierTags && supplierTags?.edges?.length > 0 && (
-          <div className='flex items-center gap-[10px] pt-[8px] text-N-500'>
-            <Tag size={20} />
+          <div className='flex items-center gap-[10px] pt-[8px]'>
+            <Tag size={16} />
 
             {supplierTags?.edges?.map((item: any, index: number) => {
               return (
                 <Link href={`/suppliers/tags/${item?.node?.slug}`} passHref key={index}>
                   <p
                     key={index}
-                    className='max-w-[348px] cursor-pointer text-sm font-600 after:ml-[8px] after:content-["/"] last:after:content-[""] hover:text-R-400'>
+                    className='max-w-[348px] cursor-pointer text-sm font-600 text-N-500 after:ml-[8px] after:content-["/"] last:after:content-[""] hover:text-R-400'>
                     {item?.node?.name}
                   </p>
                 </Link>

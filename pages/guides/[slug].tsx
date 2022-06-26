@@ -23,10 +23,6 @@ const Page: NextPage = ({ guide, guides }: any) => {
 
   const { data: categories, loading, error, refetch } = useQuery(GUIDES_CATEGORIES)
 
-  useEffect(() => {
-    console.log(categories)
-  }, [categories])
-
   const renderCTA = () => {
     return (
       <div className='flex md:w-full lg:w-[738px]'>
@@ -172,6 +168,7 @@ const Page: NextPage = ({ guide, guides }: any) => {
                       </li>
                     ))}
                   </ul>
+
                   <p className='flex items-center gap-[4px] pt-[32px] text-B-500'>
                     <Link href={`/guides`} passHref>
                       <a className='cursor-pointer text-md font-600 text-B-500 hover:text-B-600'>

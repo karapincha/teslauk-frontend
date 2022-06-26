@@ -3,7 +3,7 @@ import { fetchAPI } from '../../api'
 export async function getAllGuidesWithSlug() {
   const data = await fetchAPI(`
     {
-      guides(first: 5000) {
+      guides(first: 500) {
         edges {
           node {
             slug
