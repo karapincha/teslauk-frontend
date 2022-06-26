@@ -74,18 +74,20 @@ const Page: NextPage = ({ page }: any) => {
       </Head>
 
       <CommonLayout>
-        <div className='container flex flex-col gap-[48px] pt-[40px] pb-[24px]'>
+        <div className='container flex flex-col gap-[40px] pt-[40px] pb-[24px] md:gap-[48px]'>
           <div className='mx-auto flex w-full max-w-[782px] flex-col items-center gap-[40px] text-center'>
-            <div className='flex w-full flex-col items-center gap-[28px]'>
+            <div className='flex w-full flex-col items-center gap-[24px] md:gap-[28px]'>
               <div className='flex justify-center'>
                 <Badge>Tesla Owners UK</Badge>
               </div>
-              <h1 className='text-h1'>{page?.title}</h1>
-              <p className='max-w-[472px] text-md'>{page?.form?.description}</p>
+              <h1 className='text-h3 text-N-800 md:text-h1'>{page?.title}</h1>
+              <p className='max-w-[472px] px-[16px] text-md text-N-600 md:px-0'>
+                {page?.form?.description}
+              </p>
             </div>
           </div>
 
-          <div className='mx-auto grid w-full max-w-[800px] grid-cols-2 gap-x-[32px] gap-y-[16px] rounded-[8px] bg-white p-[40px] shadow-card-shadow'>
+          <div className='mx-auto grid w-full max-w-[800px] gap-x-[32px] gap-y-[16px] rounded-[8px] bg-white p-[40px] shadow-card-shadow md:grid-cols-2'>
             {page?.form?.fields?.map(
               ({ label, isRequired, placeholder, field }: any, index: number) => {
                 if (field === 'textfield') {
@@ -108,7 +110,7 @@ const Page: NextPage = ({ page }: any) => {
 
                 if (field === 'textarea') {
                   return (
-                    <div className='col-span-2 flex w-full flex-col gap-[4px]' key={index}>
+                    <div className='flex w-full flex-col gap-[4px] md:col-span-2' key={index}>
                       <TextArea
                         name={label.replace(/[^A-Z0-9]/gi, '_')}
                         label={label}
@@ -126,17 +128,20 @@ const Page: NextPage = ({ page }: any) => {
               }
             )}
 
-            <div className='flex w-full gap-[8px]'>
+            <div className='flex w-full flex-col gap-[16px] md:flex-row md:gap-[8px]'>
               <Button
                 isLoading={loading}
-                className='w-full max-w-[200px]'
+                className='w-full md:max-w-[200px]'
                 onClick={(e: any) => handleSubmit(e)}>
                 {loading
                   ? page?.form?.submittingButtonText || 'Submitting'
                   : page?.form?.submitButtonText || 'Submit'}
               </Button>
 
-              <Button appearance='secondary' onClick={() => router.back()}>
+              <Button
+                appearance='secondary'
+                className='w-full md:max-w-[200px]'
+                onClick={() => router.back()}>
                 Back
               </Button>
             </div>

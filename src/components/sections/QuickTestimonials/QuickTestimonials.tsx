@@ -26,7 +26,7 @@ export const QuickTestimonials: FC<QuickTestimonialsProps> = ({
   return (
     <div className={QuickTestimonialsClasses} {...restProps}>
       <div className='container flex w-full flex-col justify-between gap-[40px] md:items-center lg:max-w-[992px] lg:flex-row lg:gap-[56px]'>
-        <div className='flex w-full text-center md:max-w-[536px] lg:max-w-[464px] lg:text-left'>
+        <div className='flex w-full px-[40px] text-center md:max-w-[536px] md:px-0 lg:max-w-[464px] lg:text-left'>
           <SectionHeading
             overline={subHeading}
             heading={heading}
@@ -35,7 +35,7 @@ export const QuickTestimonials: FC<QuickTestimonialsProps> = ({
           />
         </div>
 
-        <div className='flex pt-[48px] '>
+        <div className='flex pt-[24px] md:pt-[48px]'>
           <QuoteCard
             quote={pageTestimonial?.testimonial}
             name={pageTestimonial?.author}

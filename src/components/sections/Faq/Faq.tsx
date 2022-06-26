@@ -22,7 +22,7 @@ export const Faq: FC<FaqProps> = ({ className, list, ...restProps }: FaqProps) =
           align={'center'}
         />
 
-        <div className='flex w-full flex-col pt-[40px] lg:grid lg:grid-cols-2 lg:gap-x-[48px]'>
+        <div className='flex w-full flex-col pt-[24px] md:pt-[40px] lg:grid lg:grid-cols-2 lg:gap-x-[48px]'>
           {(list || []).map(({ id, question, answer }: any, index: number) => (
             <Accordion
               key={id || index}

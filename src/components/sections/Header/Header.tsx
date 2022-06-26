@@ -17,7 +17,7 @@ export const Header: FC<HeaderProps> = ({
   hamburgerRef,
   ...restProps
 }: HeaderProps) => {
-  const HeaderClasses = CN(`header flex w-full lg:h-[148px] flex items-center`, className)
+  const HeaderClasses = CN(`header flex w-full lg:h-[148px] flex items-center pt-[24px] md:pt-0`, className)
   const { isTablet, isMobile, isDesktop } = useViewport()
 
   return (

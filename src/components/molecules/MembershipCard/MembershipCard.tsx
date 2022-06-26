@@ -38,7 +38,7 @@ export const MembershipCard: FC<MembershipCardProps> = ({
   ...restProps
 }: MembershipCardProps) => {
   const MembershipCardClasses = CN(
-    `membership-card pb-[48px] pt-[32px] px-[28px] rounded-[8px] w-full flex flex-col shadow-card-shadow relative`,
+    `membership-card pb-[48px] pt-[32px] px-[28px] rounded-[8px] md:h-full lg:h-[unset] w-full flex flex-col shadow-card-shadow relative`,
     className,
     {
       'bg-N-600 text-white': type === 'primary',

@@ -61,7 +61,7 @@ const Page: NextPage = ({ page }: any) => {
               className='mx-auto max-w-[472px]'
             />
 
-            <div className='mx-auto grid w-full max-w-[992px] gap-y-[24px] gap-x-[80px] md:grid-cols-2 md:gap-y-[40px]'>
+            <div className='mx-auto grid w-full max-w-[992px] gap-y-[24px] gap-x-[80px] lg:grid-cols-2 md:gap-y-[40px]'>
               {staticPage?.pageBecomeAnApprovedPartner?.benefits?.benefitsList?.map(
                 ({ icon, description, name }: any, index: number) => {
                   return (
@@ -90,7 +90,7 @@ const Page: NextPage = ({ page }: any) => {
               align={'center'}
             />
 
-            <div className='mx-auto grid w-full gap-[20px] md:grid-cols-4'>
+            <div className='mx-auto grid w-full gap-[20px] md:grid-cols-2 lg:grid-cols-4'>
               {staticPage?.pageBecomeAnApprovedPartner?.partnershipPlans?.plans?.map(
                 ({ name, planUniqueId, price, benefits }: any, index: number) => {
                   return (

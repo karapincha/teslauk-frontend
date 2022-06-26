@@ -56,7 +56,7 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
         )}>
         {/* Heading */}
         <h1
-          className='flex-shrink-0 overflow-auto text-h3 font-700 text-N-800 md:text-h2 lg:text-h1'
+          className='flex-shrink-0 overflow-auto text-h3 font-700 text-N-800 md:text-h2 lg:text-h1 text-center md:text-left'
           dangerouslySetInnerHTML={{ __html: heading || '' }}
         />
 
