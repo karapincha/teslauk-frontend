@@ -39,7 +39,7 @@ export const FeatureCard: FC<FeatureCardProps> = ({
         )}
       </div>
 
-      <div className='mt-[-4px] flex flex-col gap-[8px]'>
+      <div className='mt-[-4px] flex flex-col gap-[4px] md:gap-[8px]'>
         <h5
           className={CN('text-h6', headingClassName)}
           dangerouslySetInnerHTML={{ __html: heading || '' }}

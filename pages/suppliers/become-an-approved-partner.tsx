@@ -51,8 +51,8 @@ const Page: NextPage = ({ page }: any) => {
           />
         </div>
 
-        <div className='flex w-full bg-N-50 bg-cover bg-center bg-no-repeat py-[80px]'>
-          <div className='container flex flex-col gap-[80px]'>
+        <div className='flex w-full bg-N-50 bg-cover bg-center bg-no-repeat py-[40px] md:py-[80px]'>
+          <div className='container flex flex-col gap-[40px] md:gap-[80px]'>
             <SectionHeading
               overline={staticPage?.pageBecomeAnApprovedPartner?.benefits?.tag}
               heading={staticPage?.pageBecomeAnApprovedPartner?.benefits?.heading}
@@ -61,7 +61,7 @@ const Page: NextPage = ({ page }: any) => {
               className='mx-auto max-w-[472px]'
             />
 
-            <div className='mx-auto grid w-full max-w-[992px] grid-cols-2 gap-y-[40px] gap-x-[80px]'>
+            <div className='mx-auto grid w-full max-w-[992px] gap-y-[24px] gap-x-[80px] md:grid-cols-2 md:gap-y-[40px]'>
               {staticPage?.pageBecomeAnApprovedPartner?.benefits?.benefitsList?.map(
                 ({ icon, description, name }: any, index: number) => {
                   return (
@@ -81,8 +81,8 @@ const Page: NextPage = ({ page }: any) => {
           </div>
         </div>
 
-        <div className='flex w-full py-[80px]' id='partnership-plans'>
-          <div className='container flex flex-col gap-[80px]'>
+        <div className='flex w-full py-[40px] md:py-[80px]' id='partnership-plans'>
+          <div className='container flex flex-col gap-[40px] md:gap-[80px]'>
             <SectionHeading
               overline={staticPage?.pageBecomeAnApprovedPartner?.partnershipPlans?.overline}
               heading={staticPage?.pageBecomeAnApprovedPartner?.partnershipPlans?.heading}
@@ -90,7 +90,7 @@ const Page: NextPage = ({ page }: any) => {
               align={'center'}
             />
 
-            <div className='mx-auto grid w-full grid-cols-4 gap-[20px]'>
+            <div className='mx-auto grid w-full gap-[20px] md:grid-cols-4'>
               {staticPage?.pageBecomeAnApprovedPartner?.partnershipPlans?.plans?.map(
                 ({ name, planUniqueId, price, benefits }: any, index: number) => {
                   return (
@@ -122,7 +122,7 @@ const Page: NextPage = ({ page }: any) => {
           </div>
         </div>
 
-        <div className='flex w-full bg-N-50 bg-cover bg-center bg-no-repeat py-[80px]'>
+        <div className='flex w-full bg-N-50 bg-cover bg-center bg-no-repeat py-[40px] md:py-[80px]'>
           <div className='container'>
             <Faq
               className='mx-auto max-w-[992px]'
@@ -133,7 +133,7 @@ const Page: NextPage = ({ page }: any) => {
 
         <QuickTestimonials
           data={testimonials?.blockTestimonials}
-          className='py-[24px] md:py-[80px] lg:py-[80px]'
+          className='py-[40px] md:py-[80px] lg:py-[80px]'
         />
       </CommonLayout>
     </>

@@ -58,7 +58,7 @@ export const Header: FC<HeaderProps> = ({
           </Link>
         </div>
 
-        <div className='header__right relative z-10 flex items-center gap-[28px]'>
+        <div className='header__right relative z-10 hidden items-center gap-[28px] md:flex'>
           <Link href='/team' passHref>
             <Button appearance='link' view='outline'>
               Team
