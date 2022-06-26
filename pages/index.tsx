@@ -25,26 +25,26 @@ const Page: NextPage = ({ pageData, showSideMenu, setShowSideMenu, countries }: 
       </Head>
 
       <CommonLayout showSideMenu={showSideMenu} setShowSideMenu={setShowSideMenu} className='!pb-0'>
-        <Hero data={hero.blockHero} className='pb-[24px]' />
+        <Hero data={hero.blockHero} className='pt-[24px] lg:pt-0' />
 
         <EventCard
           data={featuredEvents.blockFeaturedEvents}
-          className='py-[24px] md:pt-[40px] md:pb-[80px]'
+          className='py-[40px] md:pt-[40px] md:pb-[80px]'
         />
 
         <QuickMembership
           data={membership.blockMembership}
-          className='py-[24px] md:py-[80px] lg:py-[80px]'
+          className='py-[40px] md:py-[80px] lg:py-[80px]'
         />
 
         <QuickTestimonials
           data={testimonials.blockTestimonials}
-          className='py-[24px] md:py-[80px] lg:py-[80px]'
+          className='py-[40px] md:py-[80px] lg:py-[80px]'
         />
 
         <GuidesQuickAccess
           data={guides.blockGuides}
-          className='pb-[24px] md:pb-[80px] lg:pt-[20px]'
+          className='pb-[40px] md:pb-[80px] lg:pt-[20px]'
         />
 
         <CallToAction data={cta.blockCta} />
