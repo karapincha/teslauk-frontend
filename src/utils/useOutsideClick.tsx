@@ -6,6 +6,9 @@ import React, { FC, useState, useRef, useEffect } from 'react'
 export const useOutsideClick = (ref: any, callBack?: any, ignoreRef?: any) => {
   useEffect(() => {
     function handleClickOutside(event: any) {
+      console.log(ref)
+      console.log(ignoreRef)
+
       if (ref?.current && !ref.current.contains(event.target) && !ignoreRef) {
         callBack()
       }

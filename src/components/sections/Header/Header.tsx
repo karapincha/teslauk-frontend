@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useRef } from 'react'
 import CN from 'classnames'
 import { Logo } from '@/components/atoms/Logo'
 import { Button } from '@/components/atoms/Button'
@@ -10,7 +10,13 @@ export interface HeaderProps {
   [x: string]: any
 }
 
-export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps) => {
+export const Header: FC<HeaderProps> = ({
+  className,
+  showSideMenu,
+  setShowSideMenu,
+  hamburgerRef,
+  ...restProps
+}: HeaderProps) => {
   const HeaderClasses = CN(`header flex w-full lg:h-[148px] flex items-center`, className)
   const { isTablet, isMobile, isDesktop } = useViewport()
 
@@ -18,15 +24,14 @@ export const Header: FC<HeaderProps> = ({ className, ...restProps }: HeaderProps
     <div className={HeaderClasses} {...restProps}>
       <div className='container relative flex items-center justify-between'>
         <div className='header__left relative z-10 flex items-center'>
-          <Hamburger className='mr-[32px]' />
+          <Hamburger
+            showSideMenu={showSideMenu}
+            setShowSideMenu={setShowSideMenu}
+            className='mr-[32px]'
+            hamburgerRef={hamburgerRef}
+          />
 
           <div className='hidden items-center gap-[32px] lg:flex'>
-            {/* <Link href='/event-home' passHref>
-              <Button appearance='link' view='outline'>
-                Events
-              </Button>
-            </Link> */}
-
             <Link href='/suppliers' passHref>
               <Button appearance='link' view='outline'>
                 Suppliers

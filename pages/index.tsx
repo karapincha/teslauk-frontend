@@ -10,10 +10,9 @@ import {
   Header,
 } from '@/components/sections'
 import { Common as CommonLayout } from '@/components/layouts'
-
 import { getHomePage } from '../lib/graphql'
 
-const Page: NextPage = ({ pageData, countries }: any) => {
+const Page: NextPage = ({ pageData, showSideMenu, setShowSideMenu, countries }: any) => {
   const { hero, featuredEvents, membership, testimonials, guides, cta, supplierBar, footer } =
     pageData
 
@@ -25,37 +24,7 @@ const Page: NextPage = ({ pageData, countries }: any) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <CommonLayout className='!pb-0'>
-        <div className='fixed left-0 top-0 h-full p-[60px] z-[1]'>
-          <h5 className='pb-[24px] text-h5 text-N-800'>Menu</h5>
-          <ul className='flex flex-col gap-[8px]'>
-            <li>
-              <a href='/event-home'>
-                <p className='text-base text-N-600 hover:text-B-500'>Events</p>
-              </a>
-            </li>
-            <li>
-              <a href='/event-home'>
-                <p className='text-base text-N-600 hover:text-B-500'>Events</p>
-              </a>
-            </li>
-            <li>
-              <a href='/event-home'>
-                <p className='text-base text-N-600 hover:text-B-500'>Events</p>
-              </a>
-            </li>
-            <li>
-              <a href='/event-home'>
-                <p className='text-base text-N-600 hover:text-B-500'>Events</p>
-              </a>
-            </li>
-            <li>
-              <a href='/event-home'>
-                <p className='text-base text-N-600 hover:text-B-500'>Events</p>
-              </a>
-            </li>
-          </ul>
-        </div>
+      <CommonLayout showSideMenu={showSideMenu} setShowSideMenu={setShowSideMenu} className='!pb-0'>
         <Hero data={hero.blockHero} className='pb-[24px]' />
 
         <EventCard

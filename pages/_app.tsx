@@ -1,9 +1,11 @@
+import React, { useState, createContext, useContext } from 'react'
 import App from 'next/app'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client'
 import client from '../apollo-client'
 import { ToastContainer } from '@/components/molecules'
+import { AppWrapper } from '@/context'
 
 import 'remixicon/fonts/remixicon.css'
 import '@/styles/tailwind.scss'
@@ -25,8 +27,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
 
       <ApolloProvider client={client}>
-        <Component {...pageProps} />
-        <ToastContainer />
+        <AppWrapper>
+          <Component {...pageProps} />
+          <ToastContainer />
+        </AppWrapper>
       </ApolloProvider>
     </>
   )
