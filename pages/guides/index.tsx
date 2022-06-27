@@ -40,6 +40,11 @@ const Page: NextPage = ({ guideCategories, guides }: any) => {
               placeholder: 'Search a guide',
               value: searchString,
               size: 'lg',
+              onKeyDown: (event: any) => {
+                if (event.key === 'Enter') {
+                  router.push(`/guides/search/?q="${searchString}"`)
+                }
+              },
             }}
           />
         </div>

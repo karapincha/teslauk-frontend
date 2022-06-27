@@ -8,29 +8,50 @@ import { PageHeader, ArticleCard, Pagination } from '@/components/molecules'
 import { Common as CommonLayout } from '@/components/layouts'
 import { getAllGuidesByCategories, getTotals, SEARCH_GUIDES } from '../../lib/graphql'
 import { useQuery, gql } from '@apollo/client'
+import ReactPaginate from 'react-paginate'
+import { Badge, Button, Spinner } from '@/components/atoms'
 
 const Page: NextPage = ({ totals }: any) => {
   const router = useRouter()
   const removeQuotes = (str: any) => {
-    return str.replace(/['"]+/g, '')
+    return (str || '').replace(/['"]+/g, '')
   }
-  const [searchString, setSearchString] = useState(router.query.q || '')
-  const [searchResult, setSearchResult] = useState([])
+  const [searchString, setSearchString] = useState(removeQuotes(router.query.q) || '')
+  const [submitSearchString, setSubmitSearchString] = useState(removeQuotes(router.query.q) || '')
 
-  const {
-    data: result,
-    loading,
-    error,
-    refetch,
-  } = useQuery(SEARCH_GUIDES, {
-    variables: { search: searchString || '' },
+  const { data, loading, error, refetch } = useQuery(SEARCH_GUIDES, {
+    variables: { search: submitSearchString || '' },
   })
 
-  useEffect(() => {
-    setSearchResult(result?.guides?.nodes)
-  }, [result])
+  const [items, setItems] = useState<any>([])
+  const [currentItems, setCurrentItems] = useState(null)
+  const [pageCount, setPageCount] = useState(0)
+  const [itemOffset, setItemOffset] = useState(0)
+  const itemsPerPage = 5
 
-  console.log(totals?.guides?.pageInfo?.total)
+  useEffect(() => {
+    if (router.query.q) {
+      setSearchString(removeQuotes(router.query.q))
+      setSubmitSearchString(removeQuotes(router.query.q))
+    }
+  }, [router])
+
+  useEffect(() => {
+    if (data && data?.guides?.nodes) {
+      setItems(data?.guides?.nodes)
+    }
+  }, [data])
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage
+    setCurrentItems(items.slice(itemOffset, endOffset))
+    setPageCount(Math.ceil(items.length / itemsPerPage))
+  }, [itemOffset, itemsPerPage, items])
+
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % items.length
+    setItemOffset(newOffset)
+  }
 
   return (
     <>
@@ -50,6 +71,7 @@ const Page: NextPage = ({ totals }: any) => {
               onClick: (e: any) => {
                 e.preventDefault()
                 router.push(`/guides/search/?q="${searchString}"`)
+                setSubmitSearchString(searchString)
               },
               children: 'Search',
               appearance: 'primary',
@@ -57,41 +79,82 @@ const Page: NextPage = ({ totals }: any) => {
             inputProps={{
               onChange: (e: any) => {
                 setSearchString(e.target.value)
-                router.push({ query: { q: e.target.value } })
+
+                if (e.target.value.length === 0) {
+                  router.push(`/guides/search/?q="${e.target.value}"`)
+                  setSubmitSearchString(e.target.value)
+                }
               },
               placeholder: 'Search a guide',
               value: removeQuotes(searchString),
               size: 'lg',
+              onKeyDown: (event: any) => {
+                if (event.key === 'Enter') {
+                  console.log('do validate')
+                  setSubmitSearchString(searchString)
+                  router.push(`/guides/search/?q="${searchString}"`)
+                }
+              },
             }}
           />
         </div>
 
-        <div className='container flex flex-col py-[80px]'>
-          <div className='mx-auto flex w-full max-w-[784px] flex-col'>
-            <div className='mb-[48px] text-h5 text-N-700'>
-              Results <span className='font-500 text-N-800'>1-10</span> of{' '}
-              <span className='font-500 text-N-800'>57</span> search results for{' '}
-              <span className='font-500 text-B-500'>“Tesla”</span>
+        <div className='container flex flex-col pt-[40px]'>
+          {loading && (
+            <div className='flex justify-center text-R-400'>
+              <Spinner />
             </div>
+          )}
 
-            <div className='flex flex-col gap-[32px]'>
-              {(searchResult || []).map((item: any, index: number) => {
-                return (
-                  <ArticleCard
-                    title={item?.title}
-                    key={index}
-                    link={`/guides/${item?.slug}`}
-                    excerpt={item?.pageGuide?.excerpt}
-                    thumbnail={item?.pageGuide?.thumbnail?.mediaItemUrl}
+          {!loading && (
+            <>
+              <div className='mx-auto flex w-full max-w-[784px] flex-col'>
+                {submitSearchString && (
+                  <div className='mb-[48px] text-h5 text-N-700'>
+                    Results:{' '}
+                    {`${items.length} ${items.length === 1 ? `guide found` : `guides found`}`} for
+                    <span className='font-500 text-B-500'> "{submitSearchString}"</span>
+                  </div>
+                )}
+
+                <div className='flex flex-col gap-[32px]'>
+                  {(currentItems || []).map((item: any, index: number) => {
+                    return (
+                      <ArticleCard
+                        title={item?.title}
+                        key={index}
+                        link={`/guides/${item?.slug}`}
+                        excerpt={item?.pageGuide?.excerpt}
+                        thumbnail={item?.pageGuide?.thumbnail?.mediaItemUrl}
+                      />
+                    )
+                  })}
+                </div>
+              </div>
+
+              {items.length > 0 && (
+                <div className='mx-auto w-full max-w-[784px] py-[40px] md:py-[80px]'>
+                  <ReactPaginate
+                    breakLabel='...'
+                    nextLabel={
+                      <Button appearance='ghost' isSquare>
+                        <i className='ri-arrow-right-s-line text-lg' />
+                      </Button>
+                    }
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    previousLabel={
+                      <Button appearance='ghost' isSquare>
+                        <i className='ri-arrow-left-s-line text-lg' />
+                      </Button>
+                    }
+                    className='pagination'
                   />
-                )
-              })}
-            </div>
-          </div>
-
-          <div className='mx-auto w-full max-w-[784px] pt-[40px]'>
-            <Pagination />
-          </div>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </CommonLayout>
     </>

@@ -159,6 +159,50 @@ article.prose {
   }
 }
 
+.loader {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+
+  &__svg {
+    animation: 1s ease-in-out 0ms 1 normal forwards running animation;
+    opacity: 0;
+    vertical-align: middle;
+
+    &__circle {
+      animation: 0.86s cubic-bezier(0.4, 0.15, 0.6, 0.85) 0ms infinite normal none running
+        animation-circle;
+      fill: none;
+      stroke: currentColor;
+      stroke-dasharray: 60;
+      stroke-dashoffset: inherit;
+      stroke-linecap: round;
+      stroke-width: 1.5;
+      transform-origin: center center;
+    }
+  }
+}
+
+@keyframes animation {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 60;
+    transform: rotate(50deg);
+  }
+
+  100% {
+    opacity: 1;
+    stroke-dashoffset: 50;
+    transform: rotate(230deg);
+  }
+}
+
+@keyframes animation-circle {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes rotate {
   100% {
     transform: rotate(360deg);
