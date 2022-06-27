@@ -22,6 +22,7 @@ export * from './queries/getGuide'
 export * from './queries/getAllGuidesCategories'
 export * from './queries/getAllGuidesByCategories'
 export * from './queries/getGuidesByCategory'
+export * from './queries/searchGuides'
 
 export * from './queries/getStaticPage'
 export * from './queries/getAllStaticPagesWithSlug'
@@ -40,3 +41,5 @@ export * from './queries/getAllFormsWithSlug'
 export * from './queries/getFormPage'
 
 export * from './mutations/sendmail'
+
+export * from './queries/getTotals'

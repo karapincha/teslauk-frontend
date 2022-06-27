@@ -4,7 +4,6 @@ import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { GET_COMMON } from '../../../../lib/graphql'
 import { useQuery, gql } from '@apollo/client'
 import { SideMenu } from '@/components/molecules'
-import { useAppContext } from '@/context'
 
 export interface CommonProps {
   [x: string]: any
@@ -19,7 +18,6 @@ export const Common: FC<CommonProps> = ({
 }: CommonProps) => {
   const CommonClasses = CN(`common pb-[40px]`, className)
   const [layoutData, setLayoutData] = useState<any>({})
-  const { sideMenu }: any = useAppContext()
 
   const { data, loading, error, refetch } = useQuery(GET_COMMON)
 

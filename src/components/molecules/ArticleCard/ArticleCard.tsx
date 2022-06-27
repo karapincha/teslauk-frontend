@@ -6,27 +6,28 @@ import { Award, CheckCircle, Globe, Mail, MapPin, Phone, PhoneCall, Tag } from '
 
 export interface ArticleCardProps {
   [x: string]: any
-  data: any
+  data?: any
 }
 
 export const ArticleCard: FC<ArticleCardProps> = ({
   className,
-  data,
   tags,
   title,
   thumbnail,
+  link,
+  excerpt,
   ...restProps
 }: ArticleCardProps) => {
   const ArticleCardClasses = CN(
     `article-card flex md:flex-row flex-col-reverse w-full gap-[24px] md:gap-[32px] lg:gap-[80px] group`,
     className
   )
-  const { pageGuide, slug } = data
+
   const { isMobile, isTablet, isDesktop } = useViewport()
 
   return (
     <div className={ArticleCardClasses} {...restProps}>
-      <div className='flex flex-col w-full'>
+      <div className='flex w-full flex-col'>
         {tags && tags?.length > 0 && (
           <div className='flex items-center gap-[8px] pb-[12px]'>
             <Tag className='flex' size={16} />
@@ -48,17 +49,14 @@ export const ArticleCard: FC<ArticleCardProps> = ({
         )}
 
         <div className='flex'>
-          <Link href={`/guides/${slug}` || ''} passHref>
+          <Link href={link || ''} passHref>
             <a className='mb-[8px] cursor-pointer text-h5 font-500 text-N-800 hover:text-B-400'>
               {title}
             </a>
           </Link>
         </div>
 
-        <p
-          className='text-md text-N-600'
-          dangerouslySetInnerHTML={{ __html: pageGuide?.excerpt || '' }}
-        />
+        <p className='text-md text-N-600' dangerouslySetInnerHTML={{ __html: excerpt || '' }} />
       </div>
 
       {thumbnail && (
