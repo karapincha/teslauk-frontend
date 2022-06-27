@@ -90,7 +90,6 @@ const Page: NextPage = ({ totals }: any) => {
               size: 'lg',
               onKeyDown: (event: any) => {
                 if (event.key === 'Enter') {
-                  console.log('do validate')
                   setSubmitSearchString(searchString)
                   router.push(`/guides/search/?q="${searchString}"`)
                 }

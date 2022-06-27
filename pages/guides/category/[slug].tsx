@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { PageHeader, ArticleCard, Pagination } from '@/components/molecules'
@@ -9,15 +9,39 @@ import articleList from '@/dummy-data/article-list'
 import { Tag, ShoppingBag, ArrowRight } from 'react-feather'
 import { ContactCard } from '@/components/molecules/ContactCard'
 import { InlineCTA } from '@/components/molecules/InlineCTA'
-import { Chip } from '@/components/atoms'
+import { Chip, Button } from '@/components/atoms'
 import { Common as CommonLayout } from '@/components/layouts'
 import Link from 'next/link'
 import { getAllGuidesByCategories, getGuidesByCategory } from '../../../lib/graphql'
+import ReactPaginate from 'react-paginate'
 
 const Page: NextPage = ({ page, categories, guides }: any) => {
   const router = useRouter()
   const { isMobile, isTablet, isDesktop } = useViewport()
   const [searchString, setSearchString] = useState('')
+
+  const [items, setItems] = useState<any>(page?.guides?.nodes || [])
+  const [currentItems, setCurrentItems] = useState(null)
+  const [pageCount, setPageCount] = useState(0)
+  const [itemOffset, setItemOffset] = useState(0)
+  const itemsPerPage = 10
+
+  useEffect(() => {
+    if (page && page?.guides && page?.guides?.nodes) {
+      setItems(page?.guides?.nodes)
+    }
+  }, [page])
+
+  useEffect(() => {
+    const endOffset = itemOffset + itemsPerPage
+    setCurrentItems(items.slice(itemOffset, endOffset))
+    setPageCount(Math.ceil(items.length / itemsPerPage))
+  }, [itemOffset, itemsPerPage, items])
+
+  const handlePageClick = (event: any) => {
+    const newOffset = (event.selected * itemsPerPage) % items.length
+    setItemOffset(newOffset)
+  }
 
   return (
     <>
@@ -62,7 +86,7 @@ const Page: NextPage = ({ page, categories, guides }: any) => {
           <div className='flex flex-col lg:flex-row lg:gap-[48px] lg:pt-[48px]'>
             {/* Article list */}
             <div className='article_list flex flex-col'>
-              {(page?.guides?.nodes || []).map((item: any, index: number) => {
+              {(currentItems || []).map((item: any, index: number) => {
                 if (index === 3) {
                   return (
                     <div key={index}>
@@ -106,9 +130,27 @@ const Page: NextPage = ({ page, categories, guides }: any) => {
                 )
               })}
 
-              <div className='w-full max-w-[784px] pt-[24px] md:pt-[80px]'>
-                <Pagination />
-              </div>
+              {items.length > 0 && (
+                <div className='mx-auto w-full max-w-[784px] py-[40px] md:py-[80px]'>
+                  <ReactPaginate
+                    breakLabel='...'
+                    nextLabel={
+                      <Button appearance='ghost' isSquare>
+                        <i className='ri-arrow-right-s-line text-lg' />
+                      </Button>
+                    }
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    previousLabel={
+                      <Button appearance='ghost' isSquare>
+                        <i className='ri-arrow-left-s-line text-lg' />
+                      </Button>
+                    }
+                    className='pagination'
+                  />
+                </div>
+              )}
             </div>
           </div>
 
