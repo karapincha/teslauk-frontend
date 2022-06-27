@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from 'react'
 import CN from 'classnames'
 import { Clock, Tag } from 'react-feather'
+import Link from 'next/link'
 
 export interface ArticleViewTopicProps {
   [x: string]: any
@@ -24,10 +25,12 @@ export const ArticleViewTopic: FC<ArticleViewTopicProps> = ({
 
   return (
     <div className={ArticleViewTopicClasses} {...restProps}>
-      <div className='flex items-center gap-[12px] pt-[64px] pb-[8px] text-md font-600 text-N-500'>
-        <span>{icon}</span>
-        <p>{tagText?.name}</p>
-      </div>
+      <Link href={`/guides/category/${tagText?.slug}`}>
+        <a className='flex items-center gap-[12px] pt-[64px] pb-[8px] text-md font-600 text-N-500'>
+          <span>{icon}</span>
+          <p>{tagText?.name}</p>
+        </a>
+      </Link>
 
       <h1 className='text-h4 font-500 md:w-[70%] md:text-h3 md:font-700 lg:w-1/2 lg:text-h2 lg:font-700'>
         {heading}
