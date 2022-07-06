@@ -12,10 +12,7 @@ export interface QuoteCardProps {
 
 export const QuoteCard: FC<QuoteCardProps> = ({
   className,
-  quote,
-  avatar,
-  name,
-  title,
+  pageTestimonial,
   ...restProps
 }: QuoteCardProps) => {
   const QuoteCardClasses = CN(
@@ -23,17 +20,19 @@ export const QuoteCard: FC<QuoteCardProps> = ({
     className
   )
 
+  const { author, testimonial, image, role } = pageTestimonial
+
   return (
     <div className={QuoteCardClasses} {...restProps}>
       <i className='ri-double-quotes-r absolute right-[24px] top-[-20px] text-[80px] text-B-500' />
 
-      <p className='text-N-600 text-md' dangerouslySetInnerHTML={{ __html: quote || '' }} />
+      <p className='text-md text-N-600' dangerouslySetInnerHTML={{ __html: testimonial || '' }} />
 
       <div className='flex items-center gap-[12px]'>
-        <Avatar image={avatar} size='sm' />
+        <Avatar image={image?.mediaItemUrl} size='sm' />
         <div className='flex flex-col'>
-          <span className='text-N-800'>{name}</span>
-          <span className='text-sm text-N-500'>{title}</span>
+          <span className='text-N-800'>{author}</span>
+          <span className='text-sm text-N-500'>{role}</span>
         </div>
       </div>
     </div>

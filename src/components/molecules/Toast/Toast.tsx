@@ -23,7 +23,7 @@ const Msg = (props: any) => {
         'border-l-[4px] border-G-400 bg-G-10 text-N-800': type === 'success',
       })}>
       <Button
-        onClick={() => onClose(toastProps)}
+        onClick={() => onClose && onClose(toastProps)}
         className='absolute top-[4px] right-0 text-N-800'
         size='xs'
         appearance='ghost'>
@@ -66,9 +66,9 @@ export const ToastContainer = () => {
   return (
     <ToastContainerSrc
       position='top-right'
-      autoClose={2000}
+      autoClose={3000}
       hideProgressBar
-      newestOnTop={false}
+      newestOnTop={true}
       closeOnClick
       closeButton={false}
       rtl={false}

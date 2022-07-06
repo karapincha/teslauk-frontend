@@ -7,9 +7,11 @@ export * from './blocks/callToAction'
 export * from './blocks/suppliersBar'
 export * from './blocks/footer'
 export * from './blocks/suppliersHeader'
+export * from './queries/getMenu'
 
 export * from './pages/home'
 export * from './pages/suppliers'
+export * from './pages/membership'
 
 export * from './queries/getCommon'
 
@@ -40,6 +42,17 @@ export * from './queries/getAllTestimonials'
 export * from './queries/getAllFormsWithSlug'
 export * from './queries/getFormPage'
 
-export * from './mutations/sendmail'
-
 export * from './queries/getTotals'
+
+export * from './queries/getCart'
+
+export * from './mutations/sendmail'
+export * from './mutations/login'
+export * from './mutations/reset-password'
+export * from './mutations/new-password'
+export * from './mutations/signup-free-member'
+export * from './mutations/add-to-cart'
+export * from './mutations/checkout'
+export * from './mutations/logout'
+export * from './mutations/clear-cart'
+export * from './mutations/update-order'

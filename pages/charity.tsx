@@ -23,7 +23,7 @@ const Page: NextPage = () => {
       </Head>
 
       <CommonLayout>
-        <div className='container flex pt-[20px] pb-[24px] md:pb-[80px]'>
+        <div className='container flex pb-[24px] md:pb-[80px]'>
           <PageHeaderVariant
             heading='Charity & <br class="hidden md:inline"/> Request a <br class="md:hidden" /> wish'
             image='/images/charity.png'

@@ -66,7 +66,7 @@ const Page: NextPage = ({ page, initiatives, tags }: any) => {
       </Head>
 
       <CommonLayout>
-        <div className='container flex pt-[20px] pb-[24px] md:pb-[80px]'>
+        <div className='container flex pb-[24px] md:pb-[80px]'>
           <PageHeaderVariant
             heading={page.staticPageHeader.heading}
             image={page.staticPageHeader.banner.mediaItemUrl}
@@ -143,7 +143,7 @@ export async function getStaticProps({ preview = false, previewData }: any) {
       initiatives: initiatives.initiatives?.edges,
       tags: initiatives.initiativeTags?.nodes,
     },
-    revalidate: 10,
+    revalidate: 1,
   }
 }
 

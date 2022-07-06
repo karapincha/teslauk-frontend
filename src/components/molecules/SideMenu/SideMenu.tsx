@@ -12,6 +12,7 @@ export const SideMenu: FC<SideMenuProps> = ({
   showSideMenu,
   setShowSideMenu,
   menuRef,
+  menuItems,
   ...restProps
 }: SideMenuProps) => {
   const SideMenuClasses = CN(`side-menu`, className)
@@ -52,11 +53,11 @@ export const SideMenu: FC<SideMenuProps> = ({
         )}>
         <h5 className='px-[20px] pb-[24px] text-h5 text-N-800'>Menu</h5>
         <ul className='flex flex-col'>
-          {dummyList.map((item, index) => (
+          {menuItems?.map((item: any, index: number) => (
             <li key={index} className='flex w-full'>
-              <Link href={item.link} passHref>
+              <Link href={item.url} passHref>
                 <a className='flex w-full rounded-[4px] py-[8px] px-[20px] text-base text-N-600 hover:bg-R-10 hover:text-B-500'>
-                  {item.label}
+                  {item.name}
                 </a>
               </Link>
             </li>

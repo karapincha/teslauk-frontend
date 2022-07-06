@@ -10,11 +10,18 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
   list,
   disabled,
   isError,
+  placeholder,
+  label,
+  name,
+  required,
   ...restProps
 }: DropdownMenuProps) => {
   const DropdownMenuClasses = CN(
     `dropdown-menu bg-white border rounded-[4px] border-N-300 outline-none focus-within:border-B-400 focus-within:shadow-[inset_0px_0px_0px_1px_#E31937] h-[38px] flex items-center relative z-[1]`,
-    className
+    className,
+    {
+      'mt-[28px]': label,
+    }
   )
   const [menuItems, setMenuItems] = useState([])
 
@@ -24,10 +31,26 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
 
   return (
     <div className={DropdownMenuClasses} {...restProps}>
+      {label && (
+        <label
+          className={CN(
+            'text-field__label absolute top-[-28px] left-[-2px] z-10 !text-md font-500 text-N-600 after:absolute after:left-0 after:right-0 after:bottom-[2px] after:z-[0] after:h-[9px] after:content-[""]',
+            {
+              'after:bg-white': !disabled,
+              'after:bg-N-50': disabled,
+            }
+          )}
+          htmlFor={name}>
+          <span className='relative z-[1]'>
+            {label} {required && <span className='text-R-400'>*</span>}
+          </span>
+        </label>
+      )}
+
       <select
         {...restProps}
         className='relative z-[1] h-full w-full appearance-none rounded-[4px] bg-transparent px-[16px] text-md outline-none'>
-        <option value=''>Filter by type</option>
+        <option value=''>{placeholder || `Filter by type`}</option>
         {menuItems.map(({ slug, name }: any, index: number) => (
           <option key={index} value={slug}>
             {name}

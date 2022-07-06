@@ -129,6 +129,8 @@ const Page: NextPage = ({ guide, guides }: any) => {
                 <div className='hidden lg:flex lg:h-[4px] lg:w-[56px] lg:bg-B-500' />
 
                 <article className='guide-content prose max-w-full'>{prepareGuide()}</article>
+
+                <div className='w-full py-[32px]'>{isDesktop && renderCTA()}</div>
               </div>
 
               <div className='py-[32px]'>{!isDesktop && renderCTA()}</div>
@@ -201,8 +203,6 @@ const Page: NextPage = ({ guide, guides }: any) => {
               </div>
             </div>
           </div>
-
-          <div className='container pb-[100px]'>{isDesktop && renderCTA()}</div>
         </div>
       </CommonLayout>
     </>
@@ -218,7 +218,7 @@ export async function getStaticProps({ params, preview = false, previewData }: a
       guide: data.guide,
       guides: data.guides,
     },
-    revalidate: 10,
+    revalidate: 1,
   }
 }
 

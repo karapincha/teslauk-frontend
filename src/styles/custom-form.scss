@@ -48,9 +48,9 @@
   /* Create a custom checkbox */
   &__checkmark {
     transform: translate(0, -50%);
-    transition: box-shadow 0.2s ease-in-out 0s, border-color 0.2s ease-in-out 0s;
-    transition-duration: 0.1s;
-    transition-timing-function: ease-in-out;
+    // transition: box-shadow 0.2s ease-in-out 0s, border-color 0.2s ease-in-out 0s;
+    // transition-duration: 0.1s;
+    // transition-timing-function: ease-in-out;
 
     /* Checkmark indicator */
     &:after {

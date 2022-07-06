@@ -3,7 +3,7 @@ import { fetchAPI } from '../../api'
 export async function getMembershipBlock() {
   const data = await fetchAPI(
     `query getMembershipBlock {
-      block(id: "join-club", idType: SLUG) {
+      membership: block(id: "join-club", idType: SLUG) {
         blockMembership {
           description
           heading
@@ -15,6 +15,9 @@ export async function getMembershipBlock() {
             features {
               feature
             }
+            footNotes {
+              note
+            }
           }
           supporterMemberBlock {
             heading
@@ -23,6 +26,9 @@ export async function getMembershipBlock() {
             secondaryButtonText
             features {
               feature
+            }
+            footNotes {
+              note
             }
           }
         }

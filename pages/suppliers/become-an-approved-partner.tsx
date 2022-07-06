@@ -21,7 +21,9 @@ import CN from 'classnames'
 const Page: NextPage = ({ page }: any) => {
   const router = useRouter()
   const { isMobile, isTablet, isDesktop } = useViewport()
-  const { staticPage, testimonials } = page
+  const { staticPage, testimonials, faq } = page
+
+  console.log(page)
 
   return (
     <>
@@ -34,7 +36,7 @@ const Page: NextPage = ({ page }: any) => {
       </Head>
 
       <CommonLayout>
-        <div className='container flex pt-[20px] pb-[40px] md:pb-[60px]'>
+        <div className='container flex pb-[40px] md:pb-[60px]'>
           <PageHeaderVariant
             heading={staticPage?.staticPageHeader?.heading}
             image={staticPage?.staticPageHeader?.banner?.mediaItemUrl}
@@ -61,7 +63,7 @@ const Page: NextPage = ({ page }: any) => {
               className='mx-auto max-w-[472px]'
             />
 
-            <div className='mx-auto grid w-full max-w-[992px] gap-y-[24px] gap-x-[80px] lg:grid-cols-2 md:gap-y-[40px]'>
+            <div className='mx-auto grid w-full max-w-[992px] gap-y-[24px] gap-x-[80px] md:gap-y-[40px] lg:grid-cols-2'>
               {staticPage?.pageBecomeAnApprovedPartner?.benefits?.benefitsList?.map(
                 ({ icon, description, name }: any, index: number) => {
                   return (
@@ -124,10 +126,7 @@ const Page: NextPage = ({ page }: any) => {
 
         <div className='flex w-full bg-N-50 bg-cover bg-center bg-no-repeat py-[40px] md:py-[80px]'>
           <div className='container'>
-            <Faq
-              className='mx-auto max-w-[992px]'
-              list={staticPage?.pageBecomeAnApprovedPartner?.faq?.faqList}
-            />
+            <Faq className='mx-auto max-w-[992px]' list={faq?.faq?.faqList} />
           </div>
         </div>
 
@@ -153,14 +152,6 @@ export async function getStaticProps({ preview = false }) {
         heading
         tag
         description
-      }
-      faq {
-        heading
-        overline
-        faqList {
-          answer
-          question
-        }
       }
       partnershipPlans {
         heading
@@ -202,6 +193,16 @@ export async function getStaticProps({ preview = false }) {
         }
       }
       slug
+    }
+    faq: staticPage(id: "become-an-approved-partner", idType: SLUG) {
+      faq {
+        faqList {
+          answer
+          question
+        }
+        faqOverline
+        faqHeading
+      }
     }`
   )
 
@@ -210,7 +211,7 @@ export async function getStaticProps({ preview = false }) {
       preview,
       page: data,
     },
-    revalidate: 10,
+    revalidate: 1,
   }
 }
 

@@ -25,9 +25,9 @@ const Page: NextPage = ({ page, discussionGroups }: any) => {
       </Head>
 
       <CommonLayout>
-        <div className='container flex pt-[20px]'>
+        <div className='container flex'>
           <PageHeaderVariant
-            heading={page.title}
+            heading={page.staticPageHeader.heading}
             image={page.staticPageHeader.banner.mediaItemUrl}
             description={page.staticPageHeader.description}
             imageClassName='!h-[205px] md:!h-[248px] lg:!h-[407px] w-full'
@@ -151,7 +151,7 @@ export async function getStaticProps({ preview = false, previewData }: any) {
       page: data.staticPage,
       discussionGroups,
     },
-    revalidate: 10,
+    revalidate: 1,
   }
 }
 

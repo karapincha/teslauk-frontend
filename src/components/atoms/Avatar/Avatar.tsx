@@ -22,9 +22,10 @@ export const Avatar: FC<AvatarProps> = ({
   return (
     <div className={AvatarClasses} {...restProps}>
       <img
-        src={image}
+        src={image || '/images/avatar.png'}
         onClick={onClick}
-        className={CN('object-cover object-center',
+        className={CN(
+          'object-cover object-center',
           { 'rounded-[50px]': rounded === 'default', 'rounded-full': rounded === 'full' },
           {
             'h-[200px] w-[200px]': size === 'xl',

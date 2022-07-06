@@ -55,7 +55,7 @@ export const Hero: FC<HeroProps> = ({ className, data, ...restProps }: HeroProps
                 </Link>
 
                 <div className='flex'>
-                  <Link href='/login' passHref>
+                  <Link href='/auth/login' passHref>
                     <Button
                       appearance='link'
                       iconAfter={<i className='ri-arrow-right-up-line text-lg' />}>

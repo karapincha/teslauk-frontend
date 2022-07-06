@@ -36,8 +36,8 @@ const Page: NextPage = ({ team }: any) => {
             heading='Our Team'
             headingClassName='!text-h1 !mb-[16px]'
             align='center'
-            description='As per our club rules and articles of association our volunteer executive committee <br />team run the day-to-day management of the club.'
-            descriptionClassName='max-w-[782px] !text-md !font-500'
+            description='As per our club rules and articles of association our volunteer executive committee team run the day-to-day management of the club.'
+            descriptionClassName='max-w-[490px] !text-md !font-500'
           />
         </div>
 
@@ -92,7 +92,7 @@ export async function getStaticProps({ preview = false, previewData }: any) {
       preview,
       team: data.nodes,
     },
-    revalidate: 10,
+    revalidate: 1,
   }
 }
 

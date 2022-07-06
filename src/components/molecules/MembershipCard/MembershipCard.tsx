@@ -105,7 +105,7 @@ export const MembershipCard: FC<MembershipCardProps> = ({
         <div className='membership-card__actions flex flex-col items-center gap-[24px] pt-[24px] lg:flex lg:flex-row'>
           {ctaBtnText && (
             <Button
-              appearance={ctaBtnAppearance || 'secondary'}
+              appearance={type === 'primary' ? 'primary' : 'secondary'}
               onClick={onClickCtaBtn}
               className='w-full lg:w-auto'>
               {ctaBtnText}

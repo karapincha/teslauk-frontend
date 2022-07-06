@@ -43,5 +43,22 @@ export const GET_COMMON = gql`
         phone
       }
     }
+    menu: block(id: "global-header", idType: SLUG) {
+      slug
+      blockGlobalHeader {
+        leftLinks {
+          name
+          url
+        }
+        rightLinks {
+          name
+          url
+        }
+        sidemenuLinks {
+          name
+          url
+        }
+      }
+    }
   }
 `

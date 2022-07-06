@@ -37,10 +37,7 @@ export const QuickTestimonials: FC<QuickTestimonialsProps> = ({
 
         <div className='flex pt-[24px] md:pt-[48px]'>
           <QuoteCard
-            quote={pageTestimonial?.testimonial}
-            name={pageTestimonial?.author}
-            avatar={pageTestimonial?.image?.mediaItemUrl}
-            title={pageTestimonial?.role}
+            pageTestimonial={pageTestimonial}
             className='w-full md:w-[472px] lg:w-[472px]'
           />
         </div>

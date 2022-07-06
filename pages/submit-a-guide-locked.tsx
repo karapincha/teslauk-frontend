@@ -16,7 +16,7 @@ const Page: NextPage = () => {
       </Head>
 
       <CommonLayout>
-        <div className='container flex pt-[20px]'>
+        <div className='container flex'>
           <PageHeader
             heading='Pass on your expertise <br />and experiences'
             headingClassName='text-N-800'

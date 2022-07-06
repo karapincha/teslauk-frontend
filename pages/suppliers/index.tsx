@@ -32,7 +32,7 @@ const Page: NextPage = ({ pageData, isServer }: any) => {
       </Head>
 
       <CommonLayout>
-        <div className='container flex pt-[20px] pb-[40px] md:pb-[80px]'>
+        <div className='container flex pb-[40px] md:pb-[80px]'>
           <PageHeaderVariant
             heading={header?.blockSuppliersHeader?.heading}
             image={header?.blockSuppliersHeader?.image.mediaItemUrl}

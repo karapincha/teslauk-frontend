@@ -21,7 +21,7 @@ export const ContactCta: FC<ContactCtaProps> = ({
     <div className={ContactCtaClasses} {...restProps}>
       <div className='container flex flex-col items-center gap-[32px] lg:flex-row lg:gap-[172px]'>
         <h2
-          className='flex-shrink-0 text-center text-h4 font-600 text-N-800 md:text-h2 lg:w-[452px] lg:text-h3'
+          className='flex-shrink-0 text-left text-h4 font-600 text-N-800 md:text-h2 lg:w-[452px] lg:text-h3'
           dangerouslySetInnerHTML={{ __html: heading || '' }}
         />
 

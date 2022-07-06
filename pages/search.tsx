@@ -17,7 +17,7 @@ const Page: NextPage = () => {
       </Head>
 
       <CommonLayout>
-        <div className='container flex pt-[20px]'>
+        <div className='container flex'>
           <PageHeader
             hasSearch
             heading='Search Resources'

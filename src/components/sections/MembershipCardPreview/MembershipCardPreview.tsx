@@ -10,6 +10,7 @@ export interface MembershipCardPreviewProps {
 export const MembershipCardPreview: FC<MembershipCardPreviewProps> = ({
   className,
   data,
+  isMembershipPage,
   ...restProps
 }: MembershipCardPreviewProps) => {
   const MembershipCardPreviewClasses = CN(`membership-card-preview`, className)
@@ -28,11 +29,6 @@ export const MembershipCardPreview: FC<MembershipCardPreviewProps> = ({
     }
   })
 
-  const handleClick = (e: any) => {
-    e.preventDefault()
-    router.push('/members')
-  }
-
   return (
     <div className={MembershipCardPreviewClasses} {...restProps}>
       <div className='flex w-full max-w-[1050px] flex-col justify-center gap-[24px] md:grid md:grid-cols-2 lg:grid-cols-[1.5fr_2fr] lg:gap-[48px]'>
@@ -43,7 +39,15 @@ export const MembershipCardPreview: FC<MembershipCardPreviewProps> = ({
             price={freeMemberBlock?.price}
             list={freeList}
             ctaBtnText={freeMemberBlock?.primaryButtonText}
-            onClickCtaBtn={handleClick}
+            onClickCtaBtn={(e: any) => {
+              e.preventDefault()
+
+              if (isMembershipPage) {
+                router.push('/membership/free')
+              } else {
+                router.push('/membership')
+              }
+            }}
             className='w-full'
           />
         </div>
@@ -55,9 +59,25 @@ export const MembershipCardPreview: FC<MembershipCardPreviewProps> = ({
             price={supporterMemberBlock?.price}
             list={supporterList}
             ctaBtnText={supporterMemberBlock?.primaryButtonText}
-            onClickCtaBtn={handleClick}
-            secondaryCTABtnText={supporterMemberBlock?.secondaryButtonText}
-            onClickSecondaryCtaBtn={handleClick}
+            onClickCtaBtn={(e: any) => {
+              e.preventDefault()
+
+              if (isMembershipPage) {
+                router.push('/membership/supporter')
+              } else {
+                router.push('/membership')
+              }
+            }}
+            secondaryCTABtnText={!isMembershipPage && supporterMemberBlock?.secondaryButtonText}
+            onClickSecondaryCtaBtn={(e: any) => {
+              e.preventDefault()
+
+              if (isMembershipPage) {
+                router.push('/membership/supporter')
+              } else {
+                router.push('/membership')
+              }
+            }}
           />
         </div>
       </div>
