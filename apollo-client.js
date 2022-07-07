@@ -12,16 +12,26 @@ const httpLink = new HttpLink({
  */
 export const middleware = new ApolloLink((operation, forward) => {
   /**
-   * If session data exist in local storage, set value as session header.
+   * If session and auth data exist in local storage, set value as header.
    */
+  let headers = {}
+
   const session = localStorage.getItem('woo-session')
+  const authToken = localStorage.getItem('token')
+
   if (session) {
-    operation.setContext(({ headers = {} }) => ({
-      headers: {
-        'woocommerce-session': `Session ${session}`,
-      },
-    }))
+    headers['woocommerce-session'] = `Session ${session}`
   }
+
+  if (authToken) {
+    headers['authorization'] = `Bearer ${authToken}`
+  }
+
+  operation.setContext(({ headers = {} }) => ({
+    headers: {
+      ...headers,
+    },
+  }))
 
   return forward(operation)
 })

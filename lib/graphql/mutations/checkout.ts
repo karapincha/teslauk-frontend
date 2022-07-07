@@ -1,4 +1,4 @@
-import { useQuery, gql } from '@apollo/client'
+import { gql } from '@apollo/client'
 
 export const CHECKOUT = gql`
   mutation CHECKOUT(
@@ -22,6 +22,13 @@ export const CHECKOUT = gql`
       order {
         databaseId
         id
+      }
+      customer {
+        sessionToken
+        jwtUserSecret
+        jwtRefreshToken
+        jwtAuthToken
+        jwtAuthExpiration
       }
     }
   }

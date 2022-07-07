@@ -1,9 +1,13 @@
 const API_URL = process.env.WORDPRESS_API_URL || ''
 
 export async function fetchAPI(query: any, { variables }: any = {}) {
-  const headers = {
+  const headers: any = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
+  }
+
+  if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
+    headers['Authorization'] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
   }
 
   const res = await fetch(API_URL, {

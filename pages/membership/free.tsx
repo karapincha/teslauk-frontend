@@ -13,6 +13,7 @@ import {
   GET_CART,
   CLEAR_CART,
   UPDATE_ORDER,
+  UPDATE_USER,
 } from '../../lib/graphql'
 import { useAppContext } from '@/context'
 
@@ -83,6 +84,10 @@ const Page: NextPage = () => {
     },
   })
 
+  const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER, {
+    variables: {},
+  })
+
   const [checkout, { loading: loadingCheckout }] = useMutation(CHECKOUT, {
     variables: {
       email,
@@ -126,6 +131,17 @@ const Page: NextPage = () => {
       })
   }
 
+  const handleUpdateUser = () => {
+    updateUser()
+      .then((e: any) => {
+        console.log(e)
+        return toast({ message: 'success', type: 'success' })
+      })
+      .catch((e: any) => {
+        return toast({ message: e.message, type: 'error' })
+      })
+  }
+
   const handleClearCart = () => {
     clearCart()
       .then((e: any) => {
@@ -152,6 +168,8 @@ const Page: NextPage = () => {
   const handleCheckout = () => {
     checkout()
       .then(({ data }: any) => {
+        console.log(data)
+
         // handleUpdateOrderToCompleted(data)
         return toast({ message: 'Complete', type: 'success' })
       })
@@ -373,6 +391,14 @@ const Page: NextPage = () => {
                       onClick={handleClearCart}
                       isLoading={loadingClearCart}>
                       Clear Cart
+                    </Button>
+
+                    <Button
+                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
+                      appearance='primary'
+                      onClick={handleUpdateUser}
+                      isLoading={loadingClearCart}>
+                      Update user
                     </Button>
                   </div>
                 </div>
