@@ -155,59 +155,63 @@ const Page: NextPage = () => {
   }
 
   const handleFinalize = () => {
-    login({
-      variables: {
-        username,
-        password,
-      },
-      refetchQueries: [{ query: GET_CURRENT_USER }],
-    })
-      .then((res: any) => {
-        // localStorage.setItem('token', loginRes.login.authToken)
-        // localStorage.setItem('userID', loginRes.login.user.databaseId)
-
-        getCurrentUser().then(({ data }: any) => {
-          console.log(`After getting current user data -`, data)
-          updateUser({
-            variables: {
-              id: data.viewer.databaseId,
-              model: model,
-              vin: vin,
-              source: refSource,
-            },
-          })
-            .then((e: any) => {
-              localStorage.clear()
-              logout().catch(() => {})
-              return toast({ message: 'success', type: 'success' })
-            })
-            .catch((e: any) => {
-              localStorage.clear()
-              logout().catch(() => {})
-              return toast({ message: e.message, type: 'error' })
-            })
+    getCurrentUser().then(({ data }: any) => {
+      console.log(`After getting current user data -`, data)
+      updateUser({
+        variables: {
+          id: data?.viewer?.databaseId,
+          model: model,
+          vin: vin,
+          source: refSource,
+        },
+      })
+        .then((e: any) => {
+          localStorage.clear()
+          logout().catch(() => {})
+          return toast({ message: 'success', type: 'success' })
         })
+        .catch((e: any) => {
+          localStorage.clear()
+          logout().catch(() => {})
+          return toast({ message: e.message, type: 'error' })
+        })
+    })
+    // login({
+    //   variables: {
+    //     username,
+    //     password,
+    //   },
+    //   refetchQueries: [{ query: GET_CURRENT_USER }],
+    // })
+    //   .then((res: any) => {
+    //     // localStorage.setItem('token', loginRes.login.authToken)
+    //     // localStorage.setItem('userID', loginRes.login.user.databaseId)
 
-        // updateUser({
-        //   variables: {
-        //     id: loginRes.login.user.databaseId,
-        //     model: model,
-        //     vin: vin,
-        //     source: refSource,
-        //   },
-        // })
-        //   .then((e: any) => {
-        //     localStorage.clear()
-        //     return toast({ message: 'success', type: 'success' })
-        //   })
-        //   .catch((e: any) => {
-        //     localStorage.clear()
-        //     return toast({ message: e.message, type: 'error' })
-        //   })
-      })
-      .catch((e: any) => {
-        return toast({ message: e.message, type: 'error' })
-      })
+    //     getCurrentUser().then(({ data }: any) => {
+    //       console.log(`After getting current user data -`, data)
+    //       updateUser({
+    //         variables: {
+    //           id: data.viewer.databaseId,
+    //           model: model,
+    //           vin: vin,
+    //           source: refSource,
+    //         },
+    //       })
+    //         .then((e: any) => {
+    //           localStorage.clear()
+    //           logout().catch(() => {})
+    //           return toast({ message: 'success', type: 'success' })
+    //         })
+    //         .catch((e: any) => {
+    //           localStorage.clear()
+    //           logout().catch(() => {})
+    //           return toast({ message: e.message, type: 'error' })
+    //         })
+    //     })
+    //   })
+    //   .catch((e: any) => {
+    //     return toast({ message: e.message, type: 'error' })
+    //   })
   }
 
   const handleGetCart = () => {
