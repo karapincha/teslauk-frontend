@@ -7,18 +7,13 @@ import { Common as CommonLayout } from '@/components/layouts'
 import { toast } from '@/components/molecules'
 import { useMutation, useQuery } from '@apollo/client'
 import {
-  SIGNUP_FREE_MEMBER,
   ADD_TO_CART,
   CHECKOUT,
-  GET_CART,
   CLEAR_CART,
-  UPDATE_ORDER,
   UPDATE_USER,
   GET_CURRENT_USER,
-  LOGIN,
   LOGOUT,
 } from '../../lib/graphql'
-import { useAppContext } from '@/context'
 
 const Page: NextPage = () => {
   const modelsList: any = [
@@ -56,7 +51,7 @@ const Page: NextPage = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [vin, setVin] = useState('')
-  const [model, setModel] = useState('')
+  const [model, setModel] = useState('model-3')
   const [refSource, setRefSource] = useState('')
   const [privacyPolicy, setPrivacyPolicy] = useState(false)
   const [errors, setErrors] = useState<any>({})
@@ -85,6 +80,41 @@ const Page: NextPage = () => {
   const { loading: loadingCurrentUser, refetch: getCurrentUser } = useQuery(GET_CURRENT_USER, {
     skip: true,
   })
+
+  /* SHOW ERROR ALERTS */
+  useEffect(() => {
+    let validationErrors = Object.keys(errors)
+
+    /* Check if any of the object value in validationErrors is true */
+
+    console.log(validationErrors)
+
+    if (validationErrors && validationErrors.length) {
+      toast({ message: 'Please fill all the fields', type: 'error' })
+    }
+  }, [errors])
+
+  /* HANDLE VALIDATION */
+  const handleValidation = () => {
+    const fields = [
+      firstName,
+      lastName,
+      password,
+      confirmPassword,
+      username,
+      email,
+      vin,
+      model,
+      refSource,
+      privacyPolicy,
+    ]
+
+    if (!firstName) {
+      setErrors({ ...errors, firstName: true })
+    }
+
+    return
+  }
 
   /* CLEAR CART */
   const handleClearCart = () => {
@@ -178,7 +208,10 @@ const Page: NextPage = () => {
                       label='First Name'
                       onChange={(e: any) => {
                         setFirstName(e.target.value)
+                        setErrors({ ...errors, firstName: false })
                       }}
+                      required
+                      isError={errors.firstName === true}
                     />
                     <TextField
                       placeholder='Enter last name'
@@ -187,6 +220,7 @@ const Page: NextPage = () => {
                       onChange={(e: any) => {
                         setLastName(e.target.value)
                       }}
+                      required
                     />
                   </div>
 
@@ -254,7 +288,9 @@ const Page: NextPage = () => {
                         onChange={(e: any) => {
                           setModel(e.target.value)
                         }}
+                        value='model-3'
                         placeholder='Select model'
+                        required
                       />
 
                       <p className='text-sm font-500 text-N-600'>
@@ -263,16 +299,16 @@ const Page: NextPage = () => {
                       </p>
                     </div>
 
-                    {model && model !== 'other' && (
-                      <div className='flex justify-center'>
+                    <div className='flex h-[160px] w-[300px] flex-shrink-0 justify-center'>
+                      {model && model !== 'other' && (
                         <img
                           src={`/images/models/${model}.png`}
                           width={300}
-                          height='260'
+                          height={160}
                           className='object-contain object-center'
                         />
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
 
                   <TextField
