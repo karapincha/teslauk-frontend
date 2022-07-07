@@ -16,6 +16,7 @@ import {
   UPDATE_USER,
   GET_CURRENT_USER,
   LOGIN,
+  LOGOUT,
 } from '../../lib/graphql'
 import { useAppContext } from '@/context'
 
@@ -103,6 +104,8 @@ const Page: NextPage = () => {
     refetchQueries: [{ query: GET_CURRENT_USER }],
   })
 
+  const [logout, { loading: loadingLogout }] = useMutation(LOGOUT)
+
   useEffect(() => {
     console.log(loginData)
   }, [loginData])
@@ -154,8 +157,8 @@ const Page: NextPage = () => {
   const handleFinalize = () => {
     login({
       variables: {
-        username: 'kk',
-        password: 'kk',
+        username,
+        password,
       },
       refetchQueries: [{ query: GET_CURRENT_USER }],
     })
@@ -163,8 +166,26 @@ const Page: NextPage = () => {
         // localStorage.setItem('token', loginRes.login.authToken)
         // localStorage.setItem('userID', loginRes.login.user.databaseId)
 
-        getCurrentUser().then((res: any) => {
-          console.log(`After getting current user data -`, res)
+        getCurrentUser().then(({ data }: any) => {
+          console.log(`After getting current user data -`, data)
+          updateUser({
+            variables: {
+              id: data.viewer.databaseId,
+              model: model,
+              vin: vin,
+              source: refSource,
+            },
+          })
+            .then((e: any) => {
+              localStorage.clear()
+              logout().catch(() => {})
+              return toast({ message: 'success', type: 'success' })
+            })
+            .catch((e: any) => {
+              localStorage.clear()
+              logout().catch(() => {})
+              return toast({ message: e.message, type: 'error' })
+            })
         })
 
         // updateUser({
