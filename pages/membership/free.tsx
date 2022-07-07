@@ -95,12 +95,17 @@ const Page: NextPage = () => {
     variables: {},
   })
 
-  const [login, { loading: loadingLogin }] = useMutation(LOGIN, {
+  const [login, { loading: loadingLogin, data: loginData }] = useMutation(LOGIN, {
     variables: {
-      login: username,
+      username,
       password,
     },
+    refetchQueries: [{ query: GET_CURRENT_USER }],
   })
+
+  useEffect(() => {
+    console.log(loginData)
+  }, [loginData])
 
   const [checkout, { loading: loadingCheckout }] = useMutation(CHECKOUT, {
     variables: {
@@ -139,27 +144,35 @@ const Page: NextPage = () => {
   }
 
   const handleFinalize = () => {
-    login()
-      .then(({ data: loginRes }: any) => {
-        localStorage.setItem('token', loginRes.login.authToken)
-        localStorage.setItem('userID', loginRes.login.user.databaseId)
+    login({
+      variables: {
+        username: 'kk',
+        password: 'kk',
+      },
+      refetchQueries: [{ query: GET_CURRENT_USER }],
+    })
+      .then((res: any) => {
+        // localStorage.setItem('token', loginRes.login.authToken)
+        // localStorage.setItem('userID', loginRes.login.user.databaseId)
 
-        updateUser({
-          variables: {
-            id: loginRes.login.user.databaseId,
-            model: model,
-            vin: vin,
-            source: refSource,
-          },
-        })
-          .then((e: any) => {
-            localStorage.clear()
-            return toast({ message: 'success', type: 'success' })
-          })
-          .catch((e: any) => {
-            localStorage.clear()
-            return toast({ message: e.message, type: 'error' })
-          })
+        console.log(res)
+
+        // updateUser({
+        //   variables: {
+        //     id: loginRes.login.user.databaseId,
+        //     model: model,
+        //     vin: vin,
+        //     source: refSource,
+        //   },
+        // })
+        //   .then((e: any) => {
+        //     localStorage.clear()
+        //     return toast({ message: 'success', type: 'success' })
+        //   })
+        //   .catch((e: any) => {
+        //     localStorage.clear()
+        //     return toast({ message: e.message, type: 'error' })
+        //   })
       })
       .catch((e: any) => {
         return toast({ message: e.message, type: 'error' })
@@ -445,6 +458,13 @@ const Page: NextPage = () => {
                       onClick={handleUpdateUser}
                       isLoading={loadingClearCart}>
                       Update user
+                    </Button>
+
+                    <Button
+                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
+                      appearance='primary'
+                      onClick={handleFinalize}>
+                      handleFinalize
                     </Button>
                   </div>
                 </div>

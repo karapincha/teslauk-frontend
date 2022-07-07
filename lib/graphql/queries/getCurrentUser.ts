@@ -4,6 +4,9 @@ export const GET_CURRENT_USER = gql`
   {
     viewer {
       id
+      databaseId
+      email
+      capabilities
       firstName
       lastName
     }
