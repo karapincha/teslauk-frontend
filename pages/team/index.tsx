@@ -92,7 +92,7 @@ export async function getStaticProps({ preview = false, previewData }: any) {
       preview,
       team: data.nodes,
     },
-    revalidate: 1,
+    
   }
 }
 

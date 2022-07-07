@@ -211,7 +211,7 @@ export async function getStaticProps({ preview = false }) {
       preview,
       page: data,
     },
-    revalidate: 1,
+    
   }
 }
 

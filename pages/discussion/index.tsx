@@ -151,7 +151,7 @@ export async function getStaticProps({ preview = false, previewData }: any) {
       page: data.staticPage,
       discussionGroups,
     },
-    revalidate: 1,
+    
   }
 }
 

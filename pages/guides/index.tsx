@@ -78,7 +78,7 @@ export async function getStaticProps({ preview = false, previewData }: any) {
       guideCategories: data?.guideCategories?.nodes,
       guides: data?.guides,
     },
-    revalidate: 1,
+    
   }
 }
 

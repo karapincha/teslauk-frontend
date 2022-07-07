@@ -76,7 +76,7 @@ export async function getStaticProps({ params, preview = false, previewData }: a
       preview,
       initiative: data,
     },
-    revalidate: 1,
+    
   }
 }
 

@@ -59,7 +59,7 @@ export async function getStaticProps({ params, preview = false, previewData, req
       page: data.staticPage,
       isServer: !!req,
     },
-    revalidate: 1,
+    
   }
 }
 
