@@ -128,9 +128,17 @@ const Page: NextPage = () => {
   })
 
   const { loading: loadingCart, refetch: getCart } = useQuery(GET_CART, { skip: true })
-  const { loading: loadingCurrentUser, refetch: getCurrentUser } = useQuery(GET_CURRENT_USER, {
+  const {
+    loading: loadingCurrentUser,
+    refetch: getCurrentUser,
+    data: currentUserData,
+  } = useQuery(GET_CURRENT_USER, {
     skip: true,
   })
+
+  useEffect(() => {
+    console.log(currentUserData)
+  }, [currentUserData])
 
   /* Handle add product to cart in the background (Free membership) */
   const handleAddToCart = () => {
@@ -155,7 +163,9 @@ const Page: NextPage = () => {
         // localStorage.setItem('token', loginRes.login.authToken)
         // localStorage.setItem('userID', loginRes.login.user.databaseId)
 
-        console.log(res)
+        getCurrentUser().then((res: any) => {
+          console.log(`After getting current user data -`, res)
+        })
 
         // updateUser({
         //   variables: {
