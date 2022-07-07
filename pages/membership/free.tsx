@@ -129,8 +129,9 @@ const Page: NextPage = () => {
       .then(() => {
         return handleFinalize()
       })
-      .catch(() => {
-        return handleClearCart()
+      .catch((e: any) => {
+        handleClearCart()
+        return toast({ message: e.message, type: 'error' })
       })
   }
 
@@ -142,7 +143,7 @@ const Page: NextPage = () => {
       .then(() => {
         return handleCheckout()
       })
-      .catch(() => {
+      .catch((e: any) => {
         handleClearCart()
         return toast({ message: e.message, type: 'error' })
       })
