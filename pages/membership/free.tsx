@@ -21,8 +21,6 @@ import {
 import { useAppContext } from '@/context'
 
 const Page: NextPage = () => {
-  const { setToken }: any = useAppContext()
-
   const modelsList: any = [
     {
       name: 'Tesla Model 3',
@@ -61,55 +59,16 @@ const Page: NextPage = () => {
   const [model, setModel] = useState('')
   const [refSource, setRefSource] = useState('')
   const [privacyPolicy, setPrivacyPolicy] = useState(false)
-
-  const [orderId, setOrderId] = useState<any>()
-  const [userId, setUserId] = useState<any>()
   const [errors, setErrors] = useState<any>({})
 
-  useEffect(() => {
-    console.log(`UserId updated - `, userId)
-  }, [userId])
-
-  const [registerFreeMember, { data: registerData, loading: loadingRegister }] = useMutation(
-    SIGNUP_FREE_MEMBER,
-    {
-      variables: {
-        firstName,
-        lastName,
-        username,
-        password,
-        email,
-        vin,
-        model,
-        refSource,
-      },
-    }
-  )
-
+  const [logout, { loading: loadingLogout }] = useMutation(LOGOUT)
+  const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER)
   const [addToCart, { loading: loadingAddToCart }] = useMutation(ADD_TO_CART, {
     variables: {
       productId,
     },
   })
-
-  const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER, {
-    variables: {},
-  })
-
-  const [login, { loading: loadingLogin, data: loginData }] = useMutation(LOGIN, {
-    variables: {
-      username,
-      password,
-    },
-    refetchQueries: [{ query: GET_CURRENT_USER }],
-  })
-
-  const [logout, { loading: loadingLogout }] = useMutation(LOGOUT)
-
-  useEffect(() => {
-    console.log(loginData)
-  }, [loginData])
-
+  const [clearCart, { loading: loadingClearCart }] = useMutation(CLEAR_CART)
   const [checkout, { loading: loadingCheckout }] = useMutation(CHECKOUT, {
     variables: {
       email,
@@ -123,40 +82,24 @@ const Page: NextPage = () => {
     },
   })
 
-  const [clearCart, { loading: loadingClearCart }] = useMutation(CLEAR_CART)
-  const [updateOrder, { loading: loadingUpdateOrder }] = useMutation(UPDATE_ORDER, {
-    variables: {
-      id: orderId,
-    },
-  })
-
-  const { loading: loadingCart, refetch: getCart } = useQuery(GET_CART, { skip: true })
-  const {
-    loading: loadingCurrentUser,
-    refetch: getCurrentUser,
-    data: currentUserData,
-  } = useQuery(GET_CURRENT_USER, {
+  const { loading: loadingCurrentUser, refetch: getCurrentUser } = useQuery(GET_CURRENT_USER, {
     skip: true,
   })
 
-  useEffect(() => {
-    console.log(currentUserData)
-  }, [currentUserData])
-
-  /* Handle add product to cart in the background (Free membership) */
-  const handleAddToCart = () => {
-    addToCart()
-      .then((e: any) => {
-        console.log(e)
+  /* CLEAR CART */
+  const handleClearCart = () => {
+    clearCart()
+      .then(() => {
+        return
       })
-      .catch((e: any) => {
-        return toast({ message: e.message, type: 'error' })
+      .catch(() => {
+        return
       })
   }
 
+  /* FINALIZE */
   const handleFinalize = () => {
     getCurrentUser().then(({ data }: any) => {
-      console.log(`After getting current user data -`, data)
       updateUser({
         variables: {
           id: data?.viewer?.databaseId,
@@ -165,120 +108,39 @@ const Page: NextPage = () => {
           source: refSource,
         },
       })
-        .then((e: any) => {
-          localStorage.clear()
-          logout().catch(() => {})
+        .then(() => {
+          logout().catch(() => {
+            return
+          })
           return toast({ message: 'success', type: 'success' })
         })
         .catch((e: any) => {
-          localStorage.clear()
-          logout().catch(() => {})
+          logout().catch(() => {
+            return
+          })
           return toast({ message: e.message, type: 'error' })
         })
     })
-    // login({
-    //   variables: {
-    //     username,
-    //     password,
-    //   },
-    //   refetchQueries: [{ query: GET_CURRENT_USER }],
-    // })
-    //   .then((res: any) => {
-    //     // localStorage.setItem('token', loginRes.login.authToken)
-    //     // localStorage.setItem('userID', loginRes.login.user.databaseId)
-
-    //     getCurrentUser().then(({ data }: any) => {
-    //       console.log(`After getting current user data -`, data)
-    //       updateUser({
-    //         variables: {
-    //           id: data.viewer.databaseId,
-    //           model: model,
-    //           vin: vin,
-    //           source: refSource,
-    //         },
-    //       })
-    //         .then((e: any) => {
-    //           localStorage.clear()
-    //           logout().catch(() => {})
-    //           return toast({ message: 'success', type: 'success' })
-    //         })
-    //         .catch((e: any) => {
-    //           localStorage.clear()
-    //           logout().catch(() => {})
-    //           return toast({ message: e.message, type: 'error' })
-    //         })
-    //     })
-    //   })
-    //   .catch((e: any) => {
-    //     return toast({ message: e.message, type: 'error' })
-    //   })
   }
 
-  const handleGetCart = () => {
-    getCart()
-      .then((e: any) => {
-        console.log(e)
-      })
-      .catch((e: any) => {
-        return toast({ message: e.message, type: 'error' })
-      })
-  }
-
-  const handleUpdateUser = () => {
-    updateUser({ variables: { id: 3, model: 'Model S', source: 'Google', vin: '777' } })
-      .then((e: any) => {
-        console.log(e)
-        return toast({ message: 'success', type: 'success' })
-      })
-      .catch((e: any) => {
-        return toast({ message: e.message, type: 'error' })
-      })
-  }
-
-  const handleClearCart = () => {
-    clearCart()
-      .then((e: any) => {
-        console.log(e)
-      })
-      .catch((e: any) => {
-        return toast({ message: e.message, type: 'error' })
-      })
-  }
-
-  // const handleUpdateOrderToCompleted = (data: any) => {
-  //   setOrderId(data.checkout.order.id)
-  //   updateOrder()
-  //     .then((e: any) => {
-  //       handleClearCart()
-  //       return toast({ message: 'Complete', type: 'success' })
-  //     })
-  //     .catch((e: any) => {
-  //       handleClearCart()
-  //       return toast({ message: e.message, type: 'error' })
-  //     })
-  // }
-
+  /* HANDLE CHECKOUT */
   const handleCheckout = () => {
     checkout()
-      .then(({ data }: any) => {
-        handleFinalize()
-
-        // handleUpdateOrderToCompleted(data)
-        return toast({ message: 'Complete', type: 'success' })
+      .then(() => {
+        return handleFinalize()
       })
-      .catch((e: any) => {
-        handleClearCart()
-        return toast({ message: e.message, type: 'error' })
+      .catch(() => {
+        return handleClearCart()
       })
   }
 
+  /* HANDLE SUBMISSION */
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    localStorage.clear()
 
     addToCart()
-      .then((e: any) => {
-        handleCheckout()
+      .then(() => {
+        return handleCheckout()
       })
       .catch(() => {
         handleClearCart()
@@ -451,55 +313,15 @@ const Page: NextPage = () => {
                       className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
                       appearance='primary'
                       onClick={handleSubmit}
-                      isLoading={loadingRegister}>
+                      isLoading={
+                        loadingAddToCart ||
+                        loadingClearCart ||
+                        loadingCheckout ||
+                        loadingCurrentUser ||
+                        loadingUpdateUser ||
+                        loadingLogout
+                      }>
                       Register Now
-                    </Button>
-
-                    <Button
-                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
-                      appearance='primary'
-                      onClick={handleAddToCart}
-                      isLoading={loadingAddToCart}>
-                      Add to cart
-                    </Button>
-
-                    <Button
-                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
-                      appearance='primary'
-                      onClick={handleGetCart}
-                      isLoading={loadingCart}>
-                      Get Cart
-                    </Button>
-
-                    <Button
-                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
-                      appearance='primary'
-                      onClick={handleCheckout}
-                      isLoading={loadingCheckout}>
-                      Checkout
-                    </Button>
-
-                    <Button
-                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
-                      appearance='primary'
-                      onClick={handleClearCart}
-                      isLoading={loadingClearCart}>
-                      Clear Cart
-                    </Button>
-
-                    <Button
-                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
-                      appearance='primary'
-                      onClick={handleUpdateUser}
-                      isLoading={loadingClearCart}>
-                      Update user
-                    </Button>
-
-                    <Button
-                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
-                      appearance='primary'
-                      onClick={handleFinalize}>
-                      handleFinalize
                     </Button>
                   </div>
                 </div>
