@@ -97,7 +97,7 @@ const Page: NextPage = () => {
 
   const [login, { loading: loadingLogin }] = useMutation(LOGIN, {
     variables: {
-      username,
+      login: username,
       password,
     },
   })
