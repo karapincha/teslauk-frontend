@@ -93,7 +93,7 @@ export async function getStaticProps({ params, preview = false, previewData }: a
       preview,
       supplier: data.supplier,
     },
-    
+    revalidate: 1,
   }
 }
 

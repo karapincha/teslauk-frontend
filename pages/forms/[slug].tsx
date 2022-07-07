@@ -160,7 +160,7 @@ export async function getStaticProps({ params, preview = false, previewData, req
       preview,
       page: data.form,
     },
-    
+    revalidate: 1,
   }
 }
 

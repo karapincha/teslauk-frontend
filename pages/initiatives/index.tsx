@@ -143,6 +143,7 @@ export async function getStaticProps({ preview = false, previewData }: any) {
       initiatives: initiatives.initiatives?.edges,
       tags: initiatives.initiativeTags?.nodes,
     },
+    revalidate: 1,
   }
 }
 

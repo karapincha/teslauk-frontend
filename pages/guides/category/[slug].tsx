@@ -237,7 +237,7 @@ export async function getStaticProps({ params, preview = false, previewData }: a
       categories: data?.guideCategories,
       guides: data?.guides,
     },
-    
+    revalidate: 1,
   }
 }
 

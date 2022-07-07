@@ -168,7 +168,7 @@ export async function getStaticProps({ preview = false, previewData }: any) {
       preview,
       totals: data,
     },
-    
+    revalidate: 1,
   }
 }
 
