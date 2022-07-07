@@ -12,12 +12,12 @@ export const useSessionStorage = (key: any, defaultValue: any = null) => {
 
   function getValueFromSessionStorage(key: any) {
     if (typeof window !== 'undefined') {
-      return sessionStorage.getItem(key)
+      return localStorage.getItem(key)
     }
   }
 
   function saveValueToSessionStorage(key: any, value: any) {
-    return sessionStorage.setItem(key, value)
+    return localStorage.setItem(key, value)
   }
 
   function set(newValue: any) {
@@ -27,12 +27,12 @@ export const useSessionStorage = (key: any, defaultValue: any = null) => {
 
   function remove() {
     set(null)
-    sessionStorage.removeItem(key)
+    localStorage.removeItem(key)
   }
 
   function clear() {
     set(null)
-    sessionStorage.clear()
+    localStorage.clear()
     localStorage.clear()
   }
 

@@ -22,8 +22,10 @@ export const CHECKOUT = gql`
       order {
         databaseId
         id
+        databaseId
       }
       customer {
+        id
         sessionToken
         jwtUserSecret
         jwtRefreshToken

@@ -6,9 +6,9 @@ export async function fetchAPI(query: any, { variables }: any = {}) {
     'Accept': 'application/json',
   }
 
-  if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
-    headers['Authorization'] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
-  }
+  // if (process.env.WORDPRESS_AUTH_REFRESH_TOKEN) {
+  //   headers['Authorization'] = `Bearer ${process.env.WORDPRESS_AUTH_REFRESH_TOKEN}`
+  // }
 
   const res = await fetch(API_URL, {
     method: 'POST',

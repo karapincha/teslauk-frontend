@@ -53,7 +53,7 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
 
     login()
       .then(({ data }: any) => {
-        sessionStorage.setItem('token', data?.login?.authToken)
+        localStorage.setItem('token', data?.login?.authToken)
         setToken(data?.login?.authToken)
         router.push('/dashboard')
       })

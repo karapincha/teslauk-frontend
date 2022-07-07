@@ -1,8 +1,8 @@
 import { useQuery, gql } from '@apollo/client'
 
 export const UPDATE_USER = gql`
-  mutation UPDATE_USER {
-    updateUser(input: { id: "34", tesla_model: "Model Y", ref_source: "Google", vin: "123" }) {
+  mutation UPDATE_USER($id: ID!, $model: String!, $source: String!, $vin: String!) {
+    updateUser(input: { id: $id, tesla_model: $model, ref_source: $source, vin: $vin }) {
       clientMutationId
       user {
         customerExtraFields {

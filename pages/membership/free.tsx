@@ -14,6 +14,8 @@ import {
   CLEAR_CART,
   UPDATE_ORDER,
   UPDATE_USER,
+  GET_CURRENT_USER,
+  LOGIN,
 } from '../../lib/graphql'
 import { useAppContext } from '@/context'
 
@@ -60,7 +62,12 @@ const Page: NextPage = () => {
   const [privacyPolicy, setPrivacyPolicy] = useState(false)
 
   const [orderId, setOrderId] = useState<any>()
+  const [userId, setUserId] = useState<any>()
   const [errors, setErrors] = useState<any>({})
+
+  useEffect(() => {
+    console.log(`UserId updated - `, userId)
+  }, [userId])
 
   const [registerFreeMember, { data: registerData, loading: loadingRegister }] = useMutation(
     SIGNUP_FREE_MEMBER,
@@ -88,6 +95,13 @@ const Page: NextPage = () => {
     variables: {},
   })
 
+  const [login, { loading: loadingLogin }] = useMutation(LOGIN, {
+    variables: {
+      username,
+      password,
+    },
+  })
+
   const [checkout, { loading: loadingCheckout }] = useMutation(CHECKOUT, {
     variables: {
       email,
@@ -109,12 +123,43 @@ const Page: NextPage = () => {
   })
 
   const { loading: loadingCart, refetch: getCart } = useQuery(GET_CART, { skip: true })
+  const { loading: loadingCurrentUser, refetch: getCurrentUser } = useQuery(GET_CURRENT_USER, {
+    skip: true,
+  })
 
   /* Handle add product to cart in the background (Free membership) */
   const handleAddToCart = () => {
     addToCart()
       .then((e: any) => {
         console.log(e)
+      })
+      .catch((e: any) => {
+        return toast({ message: e.message, type: 'error' })
+      })
+  }
+
+  const handleFinalize = () => {
+    login()
+      .then(({ data: loginRes }: any) => {
+        localStorage.setItem('token', loginRes.login.authToken)
+        localStorage.setItem('userID', loginRes.login.user.databaseId)
+
+        updateUser({
+          variables: {
+            id: loginRes.login.user.databaseId,
+            model: model,
+            vin: vin,
+            source: refSource,
+          },
+        })
+          .then((e: any) => {
+            localStorage.clear()
+            return toast({ message: 'success', type: 'success' })
+          })
+          .catch((e: any) => {
+            localStorage.clear()
+            return toast({ message: e.message, type: 'error' })
+          })
       })
       .catch((e: any) => {
         return toast({ message: e.message, type: 'error' })
@@ -132,7 +177,7 @@ const Page: NextPage = () => {
   }
 
   const handleUpdateUser = () => {
-    updateUser()
+    updateUser({ variables: { id: 3, model: 'Model S', source: 'Google', vin: '777' } })
       .then((e: any) => {
         console.log(e)
         return toast({ message: 'success', type: 'success' })
@@ -152,23 +197,23 @@ const Page: NextPage = () => {
       })
   }
 
-  const handleUpdateOrderToCompleted = (data: any) => {
-    setOrderId(data.checkout.order.id)
-    updateOrder()
-      .then((e: any) => {
-        handleClearCart()
-        return toast({ message: 'Complete', type: 'success' })
-      })
-      .catch((e: any) => {
-        handleClearCart()
-        return toast({ message: e.message, type: 'error' })
-      })
-  }
+  // const handleUpdateOrderToCompleted = (data: any) => {
+  //   setOrderId(data.checkout.order.id)
+  //   updateOrder()
+  //     .then((e: any) => {
+  //       handleClearCart()
+  //       return toast({ message: 'Complete', type: 'success' })
+  //     })
+  //     .catch((e: any) => {
+  //       handleClearCart()
+  //       return toast({ message: e.message, type: 'error' })
+  //     })
+  // }
 
   const handleCheckout = () => {
     checkout()
       .then(({ data }: any) => {
-        console.log(data)
+        handleFinalize()
 
         // handleUpdateOrderToCompleted(data)
         return toast({ message: 'Complete', type: 'success' })
@@ -181,6 +226,7 @@ const Page: NextPage = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
+    localStorage.clear()
 
     addToCart()
       .then((e: any) => {
