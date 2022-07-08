@@ -156,7 +156,7 @@ const Page: NextPage = () => {
           logout().catch((e: any) => {
             return toast({ message: e.message, type: 'error' })
           })
-          return router.push(`/auth/login?=newAccountCreated=true`)
+          return router.push(`/auth/login?newAccountCreated=true`)
         })
         .catch((e: any) => {
           logout().catch(() => {
