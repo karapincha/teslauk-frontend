@@ -390,7 +390,8 @@ const Page: NextPage = () => {
                         loadingCheckout ||
                         loadingCurrentUser ||
                         loadingUpdateUser ||
-                        loadingLogout
+                        loadingLogout ||
+                        loadingLogin
                       }>
                       {({ isLoading }: any) => {
                         return isLoading ? `Registering` : `Register now`
