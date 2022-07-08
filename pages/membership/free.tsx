@@ -156,9 +156,11 @@ const Page: NextPage = () => {
           logout().catch(() => {
             return
           })
-          toast({ message: 'success', type: 'success' })
-
-          return router.push(`/auth/login`)
+          return toast({
+            message: 'Success! You are now being re-directed to the login page. ',
+            type: 'success',
+            onClose: router.push(`/auth/login`),
+          })
         })
         .catch((e: any) => {
           logout().catch(() => {
