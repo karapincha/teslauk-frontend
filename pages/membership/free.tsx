@@ -300,7 +300,7 @@ const Page: NextPage = () => {
                         onChange={(e: any) => {
                           setModel(e.target.value)
                         }}
-                        value='model-3'
+                        value={model}
                         placeholder='Select model'
                         required
                       />
