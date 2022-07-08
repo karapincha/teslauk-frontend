@@ -38,6 +38,15 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
     if (router.query.newPasswordRequested === 'true') {
       toast({ message: 'Password reset link sent to your inbox.', type: 'success' })
     }
+    if (router.query.newAccountCreated === 'true') {
+      toast({
+        message: 'Your account has been created. Please login using your email and password ',
+        type: 'success',
+        onClose: router.push({
+          query: {},
+        }),
+      })
+    }
   }, [router])
 
   const handleLogin = () => {

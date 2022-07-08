@@ -153,14 +153,10 @@ const Page: NextPage = () => {
         },
       })
         .then(() => {
-          logout().catch(() => {
-            return
+          logout().catch((e: any) => {
+            return toast({ message: e.message, type: 'error' })
           })
-          return toast({
-            message: 'Success! You are now being re-directed to the login page. ',
-            type: 'success',
-            onClose: router.push(`/auth/login`),
-          })
+          return router.push(`/auth/login?=newAccountCreated=true`)
         })
         .catch((e: any) => {
           logout().catch(() => {
