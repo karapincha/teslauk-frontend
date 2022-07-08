@@ -89,13 +89,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       }
     )
 
+    const renderChildren = () => {
+      if (typeof children === 'function') {
+        return children({ isLoading })
+      } else {
+        return children
+      }
+    }
+
     return (
       <button className={CN(ButtonClasses)} disabled={disabled} ref={ref} {...restProps}>
         {iconBefore && <div className={CN('btn__icon children:inline-flex')}>{iconBefore}</div>}
 
         {!children && icon && <div className={CN('btn__content')}>{icon}</div>}
 
-        {children && <div className={CN('btn__content')}>{children}</div>}
+        {children && <div className={CN('btn__content')}>{renderChildren()}</div>}
 
         {iconAfter && <div className={CN('btn__icon children:inline-flex')}>{iconAfter}</div>}
 

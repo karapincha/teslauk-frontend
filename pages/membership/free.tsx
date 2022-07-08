@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { SectionHeading } from '@/components/molecules'
@@ -81,39 +81,51 @@ const Page: NextPage = () => {
     skip: true,
   })
 
-  /* SHOW ERROR ALERTS */
-  useEffect(() => {
-    let validationErrors = Object.keys(errors)
-
-    /* Check if any of the object value in validationErrors is true */
-
-    console.log(validationErrors)
-
-    if (validationErrors && validationErrors.length) {
-      toast({ message: 'Please fill all the fields', type: 'error' })
-    }
-  }, [errors])
-
   /* HANDLE VALIDATION */
-  const handleValidation = () => {
-    const fields = [
-      firstName,
-      lastName,
-      password,
-      confirmPassword,
-      username,
-      email,
-      vin,
-      model,
-      refSource,
-      privacyPolicy,
-    ]
+  const handleValidation = (e: any) => {
+    e.preventDefault()
 
     if (!firstName) {
-      setErrors({ ...errors, firstName: true })
+      return toast({ message: 'Please enter first name', type: 'error' })
     }
 
-    return
+    if (!lastName) {
+      return toast({ message: 'Please enter last name', type: 'error' })
+    }
+
+    if (!username) {
+      return toast({ message: 'Please enter username', type: 'error' })
+    }
+
+    if (!email) {
+      return toast({ message: 'Please enter email', type: 'error' })
+    }
+
+    if (!password) {
+      return toast({ message: 'Please enter password', type: 'error' })
+    }
+
+    if (!confirmPassword) {
+      return toast({ message: 'Please confirm password', type: 'error' })
+    }
+
+    if (password !== confirmPassword) {
+      return toast({ message: "Passwords don't match", type: 'error' })
+    }
+
+    if (!vin) {
+      return toast({ message: 'Please enter VIN number', type: 'error' })
+    }
+
+    if (!refSource) {
+      return toast({ message: 'Please enter how did you find about us', type: 'error' })
+    }
+
+    if (!privacyPolicy) {
+      return toast({ message: 'Please agree to Rules and Privacy Policy', type: 'error' })
+    }
+
+    return handleSubmit(e)
   }
 
   /* CLEAR CART */
@@ -349,7 +361,7 @@ const Page: NextPage = () => {
                     <Button
                       className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
                       appearance='primary'
-                      onClick={handleSubmit}
+                      onClick={handleValidation}
                       isLoading={
                         loadingAddToCart ||
                         loadingClearCart ||
@@ -358,7 +370,9 @@ const Page: NextPage = () => {
                         loadingUpdateUser ||
                         loadingLogout
                       }>
-                      Register Now
+                      {({ isLoading }: any) => {
+                        return isLoading ? `Registering` : `Register now`
+                      }}
                     </Button>
                   </div>
                 </div>
