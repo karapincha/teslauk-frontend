@@ -42,9 +42,6 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
       toast({
         message: 'Your account has been created. Please login using your email and password ',
         type: 'success',
-        onClose: router.push({
-          query: {},
-        }),
       })
     }
   }, [router])
