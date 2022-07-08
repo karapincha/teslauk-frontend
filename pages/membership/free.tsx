@@ -14,6 +14,7 @@ import {
   UPDATE_USER,
   GET_CURRENT_USER,
   LOGOUT,
+  LOGIN,
 } from '../../lib/graphql'
 
 const Page: NextPage = () => {
@@ -58,6 +59,12 @@ const Page: NextPage = () => {
   const [privacyPolicy, setPrivacyPolicy] = useState(false)
   const [errors, setErrors] = useState<any>({})
 
+  const [login, { loading: loadingLogin }] = useMutation(LOGIN, {
+    variables: {
+      username,
+      password,
+    },
+  })
   const [logout, { loading: loadingLogout }] = useMutation(LOGOUT)
   const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER)
   const [addToCart, { loading: loadingAddToCart }] = useMutation(ADD_TO_CART, {
@@ -143,30 +150,41 @@ const Page: NextPage = () => {
 
   /* FINALIZE */
   const handleFinalize = () => {
-    getCurrentUser().then(({ data }: any) => {
-      updateUser({
-        variables: {
-          id: data?.viewer?.databaseId,
-          model: model,
-          vin: vin,
-          source: refSource,
-        },
-      })
-        .then(() => {
-          logout().catch(() => {
-            return
-          })
-          toast({ message: 'success', type: 'success' })
-
-          return router.push(`/auth/login`)
-        })
-        .catch((e: any) => {
-          logout().catch(() => {
-            return
-          })
-          return toast({ message: e.message, type: 'error' })
-        })
+    login({
+      variables: {
+        username,
+        password,
+      },
     })
+      .then(() => {
+        getCurrentUser().then(({ data }: any) => {
+          updateUser({
+            variables: {
+              id: data?.viewer?.databaseId,
+              model: model,
+              vin: vin,
+              source: refSource,
+            },
+          })
+            .then(() => {
+              logout().catch(() => {
+                return
+              })
+              toast({ message: 'success', type: 'success' })
+
+              return router.push(`/auth/login`)
+            })
+            .catch((e: any) => {
+              logout().catch(() => {
+                return
+              })
+              return toast({ message: e.message, type: 'error' })
+            })
+        })
+      })
+      .catch((e: any) => {
+        return toast({ message: e.message, type: 'error' })
+      })
   }
 
   /* HANDLE CHECKOUT */
