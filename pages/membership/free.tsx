@@ -151,48 +151,39 @@ const Page: NextPage = () => {
 
   /* FINALIZE */
   const handleFinalize = () => {
-    login({
-      variables: {
-        username,
-        password,
-      },
-      refetchQueries: [{ query: GET_CURRENT_USER }],
-    })
-      .then(() => {
-        getCurrentUser().then(({ data }: any) => {
-          updateUser({
-            variables: {
-              id: data?.viewer?.databaseId,
-              model: model,
-              vin: vin,
-              source: refSource,
-            },
+    getCurrentUser().then(({ data }: any) => {
+      updateUser({
+        variables: {
+          id: data?.viewer?.databaseId,
+          model: model,
+          vin: vin,
+          source: refSource,
+        },
+      })
+        .then(() => {
+          logout().catch(() => {
+            return
           })
-            .then(() => {
-              logout().catch(() => {
-                return
-              })
-              toast({ message: 'success', type: 'success' })
+          toast({ message: 'success', type: 'success' })
 
-              return router.push(`/auth/login`)
-            })
-            .catch((e: any) => {
-              logout().catch(() => {
-                return
-              })
-              return toast({ message: e.message, type: 'error' })
-            })
+          return router.push(`/auth/login`)
         })
-      })
-      .catch((e: any) => {
-        return toast({ message: e.message, type: 'error' })
-      })
+        .catch((e: any) => {
+          logout().catch(() => {
+            return
+          })
+          return toast({ message: e.message, type: 'error' })
+        })
+    })
   }
 
   /* HANDLE CHECKOUT */
   const handleCheckout = () => {
     checkout()
       .then(() => {
+        logout().catch(() => {
+          return
+        })
         return handleFinalize()
       })
       .catch((e: any) => {
