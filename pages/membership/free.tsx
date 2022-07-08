@@ -14,7 +14,6 @@ import {
   UPDATE_USER,
   GET_CURRENT_USER,
   LOGOUT,
-  LOGIN,
 } from '../../lib/graphql'
 
 const Page: NextPage = () => {
@@ -59,13 +58,6 @@ const Page: NextPage = () => {
   const [privacyPolicy, setPrivacyPolicy] = useState(false)
   const [errors, setErrors] = useState<any>({})
 
-  const [login, { loading: loadingLogin, data: loginData }] = useMutation(LOGIN, {
-    variables: {
-      username,
-      password,
-    },
-    refetchQueries: [{ query: GET_CURRENT_USER }],
-  })
   const [logout, { loading: loadingLogout }] = useMutation(LOGOUT)
   const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER)
   const [addToCart, { loading: loadingAddToCart }] = useMutation(ADD_TO_CART, {
@@ -181,9 +173,6 @@ const Page: NextPage = () => {
   const handleCheckout = () => {
     checkout()
       .then(() => {
-        logout().catch(() => {
-          return
-        })
         return handleFinalize()
       })
       .catch((e: any) => {
@@ -383,8 +372,7 @@ const Page: NextPage = () => {
                         loadingCheckout ||
                         loadingCurrentUser ||
                         loadingUpdateUser ||
-                        loadingLogout ||
-                        loadingLogin
+                        loadingLogout
                       }>
                       {({ isLoading }: any) => {
                         return isLoading ? `Registering` : `Register now`
