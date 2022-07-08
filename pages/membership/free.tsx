@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { SectionHeading } from '@/components/molecules'
 import { Button, TextField, CheckBox, DropdownMenu } from '@/components/atoms'
 import { Common as CommonLayout } from '@/components/layouts'
@@ -16,6 +17,7 @@ import {
 } from '../../lib/graphql'
 
 const Page: NextPage = () => {
+  const router = useRouter()
   const modelsList: any = [
     {
       name: 'Tesla Model 3',
@@ -154,7 +156,9 @@ const Page: NextPage = () => {
           logout().catch(() => {
             return
           })
-          return toast({ message: 'success', type: 'success' })
+          toast({ message: 'success', type: 'success' })
+
+          return router.push(`/auth/login`)
         })
         .catch((e: any) => {
           logout().catch(() => {
