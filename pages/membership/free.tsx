@@ -59,11 +59,12 @@ const Page: NextPage = () => {
   const [privacyPolicy, setPrivacyPolicy] = useState(false)
   const [errors, setErrors] = useState<any>({})
 
-  const [login, { loading: loadingLogin }] = useMutation(LOGIN, {
+  const [login, { loading: loadingLogin, data: loginData }] = useMutation(LOGIN, {
     variables: {
       username,
       password,
     },
+    refetchQueries: [{ query: GET_CURRENT_USER }],
   })
   const [logout, { loading: loadingLogout }] = useMutation(LOGOUT)
   const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER)
@@ -155,6 +156,7 @@ const Page: NextPage = () => {
         username,
         password,
       },
+      refetchQueries: [{ query: GET_CURRENT_USER }],
     })
       .then(() => {
         getCurrentUser().then(({ data }: any) => {
