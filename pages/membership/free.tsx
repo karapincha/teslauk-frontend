@@ -29,6 +29,7 @@ const Page: NextPage = () => {
     getCurrentUser,
     loadingCurrentUser,
     runClearCart,
+    runCheckout,
   } = useRegistration({
     productId: 1734,
   })
@@ -117,36 +118,29 @@ const Page: NextPage = () => {
     })
   }
 
-  /* HANDLE CHECKOUT */
-  const handleCheckout = () => {
-    checkout({
-      variables: {
-        email,
-        firstName,
-        lastName,
-        vin,
-        model,
-        refSource,
-        username,
-        password,
-      },
-    })
-      .then(() => {
-        return handleFinalize()
-      })
-      .catch((e: any) => {
-        runClearCart()
-        return toast({ message: e.message, type: 'error' })
-      })
-  }
-
   /* HANDLE SUBMISSION */
   const handleSubmit = (e: any) => {
     e.preventDefault()
 
     addToCart()
       .then(() => {
-        return handleCheckout()
+        return runCheckout({
+          variables: {
+            email,
+            firstName,
+            lastName,
+            vin,
+            model,
+            refSource,
+            username,
+            password,
+          },
+          onSuccess: handleFinalize(),
+          onFail: () => {
+            runClearCart()
+            return toast({ message: e.message, type: 'error' })
+          },
+        })
       })
       .catch((e: any) => {
         runClearCart()

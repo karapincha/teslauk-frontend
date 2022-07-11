@@ -13,7 +13,7 @@ import {
 export const useRegistration = ({ productId }: any) => {
   const router = useRouter()
 
-  /* Mutations */
+  /* Mutations ===> */
   const [clearCart, { loading: loadingClearCart }] = useMutation(CLEAR_CART)
   const [logout, { loading: loadingLogout }] = useMutation(LOGOUT)
   const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER)
@@ -24,14 +24,32 @@ export const useRegistration = ({ productId }: any) => {
     },
   })
 
-  /* Queries */
+  /* Queries ===> */
   const { loading: loadingCurrentUser, refetch: getCurrentUser } = useQuery(GET_CURRENT_USER, {
     skip: true,
   })
 
-  /* Functions */
+  /* Functions ===> */
   const runClearCart = (onSuccess?: any, onFail?: any) => {
     clearCart()
+      .then((res: any) => {
+        if (onSuccess) {
+          return onSuccess(res)
+        }
+        return
+      })
+      .catch((res: any) => {
+        if (onFail) {
+          return onSuccess(res)
+        }
+        return
+      })
+  }
+
+  const runCheckout = ({ variables, onSuccess, onFail }: any) => {
+    checkout({
+      variables,
+    })
       .then((res: any) => {
         if (onSuccess) {
           return onSuccess(res)
@@ -65,6 +83,7 @@ export const useRegistration = ({ productId }: any) => {
 
     /* Functions */
     runClearCart,
+    runCheckout,
   }
 }
 
