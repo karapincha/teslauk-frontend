@@ -9,6 +9,8 @@ import { toast } from '@/components/molecules'
 import { ArrowUpRight } from 'react-feather'
 import Link from 'next/link'
 import { teslaModels } from '@/static-data/tesla-models'
+import { useQuery } from '@apollo/client'
+import { GET_CURRENT_USER } from '../../lib/graphql'
 
 import { useRegistration } from '@/utils/useRegistration'
 
@@ -26,11 +28,9 @@ const Page: NextPage = () => {
     loadingClearCart,
     checkout,
     loadingCheckout,
-    getCurrentUser,
-    loadingCurrentUser,
-    currentUserData,
     runClearCart,
     runCheckout,
+    runGetRegisteredUser,
   } = useRegistration({
     productId: 1734,
   })
@@ -93,33 +93,45 @@ const Page: NextPage = () => {
     return handleSubmit(e)
   }
 
+  const {
+    data: currentUserData,
+    loading: loadingCurrentUser,
+    refetch: getCurrentUser,
+  } = useQuery(GET_CURRENT_USER, {
+    skip: true,
+  })
+
   /* FINALIZE */
   const handleFinalize = () => {
-    getCurrentUser().then(({ data }: any) => {
-      console.log(data)
-      console.log(currentUserData)
-
-      /* updateUser({
-        variables: {
-          id: data?.viewer?.databaseId,
-          model: model,
-          vin: vin,
-          source: refSource,
-        },
-      })
-        .then(() => {
-          logout().catch((e: any) => {
-            return toast({ message: e.message, type: 'error' })
-          })
-          return router.push(`/auth/login?newAccountCreated=true`)
-        })
-        .catch((e: any) => {
-          logout().catch(() => {
-            return
-          })
-          return toast({ message: e.message, type: 'error' })
-        }) */
+    runGetRegisteredUser({
+      username,
+      password,
     })
+    // getCurrentUser().then(({ data }: any) => {
+    //   console.log(data)
+    //   console.log(currentUserData)
+
+    //   /* updateUser({
+    //     variables: {
+    //       id: data?.viewer?.databaseId,
+    //       model: model,
+    //       vin: vin,
+    //       source: refSource,
+    //     },
+    //   })
+    //     .then(() => {
+    //       logout().catch((e: any) => {
+    //         return toast({ message: e.message, type: 'error' })
+    //       })
+    //       return router.push(`/auth/login?newAccountCreated=true`)
+    //     })
+    //     .catch((e: any) => {
+    //       logout().catch(() => {
+    //         return
+    //       })
+    //       return toast({ message: e.message, type: 'error' })
+    //     }) */
+    // })
   }
 
   /* HANDLE SUBMISSION */
@@ -369,6 +381,22 @@ const Page: NextPage = () => {
                       {({ isLoading }: any) => {
                         return isLoading ? `Registering` : `Register now`
                       }}
+                    </Button>
+
+                    <Button
+                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
+                      appearance='primary'
+                      onClick={logout}>
+                      Logout
+                    </Button>
+
+                    <Button
+                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
+                      appearance='primary'
+                      onClick={() => {
+                        getCurrentUser()
+                      }}>
+                      Get current user
                     </Button>
                   </div>
                 </div>

@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { useMutation, useQuery } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import {
   ADD_TO_CART,
   CHECKOUT,
   CLEAR_CART,
   UPDATE_USER,
   GET_CURRENT_USER,
+  LOGIN,
   LOGOUT,
 } from '../../lib/graphql'
 
@@ -14,6 +15,7 @@ export const useRegistration = ({ productId }: any) => {
   const router = useRouter()
 
   /* Mutations ===> */
+  const [login, { loading: loadingLogin }] = useMutation(LOGIN)
   const [clearCart, { loading: loadingClearCart }] = useMutation(CLEAR_CART)
   const [logout, { loading: loadingLogout }] = useMutation(LOGOUT)
   const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER)
@@ -22,15 +24,6 @@ export const useRegistration = ({ productId }: any) => {
     variables: {
       productId,
     },
-  })
-
-  /* Queries ===> */
-  const {
-    data: currentUserData,
-    loading: loadingCurrentUser,
-    refetch: getCurrentUser,
-  } = useQuery(GET_CURRENT_USER, {
-    skip: true,
   })
 
   /* Functions ===> */
@@ -68,6 +61,21 @@ export const useRegistration = ({ productId }: any) => {
       })
   }
 
+  const runGetRegisteredUser = ({ username, password }: any) => {
+    logout()
+      .then(() => {
+        login({
+          variables: {
+            username,
+            password,
+          },
+        })
+      })
+      .catch(() => {
+        return
+      })
+  }
+
   return {
     /* Mutations */
     logout,
@@ -81,14 +89,10 @@ export const useRegistration = ({ productId }: any) => {
     checkout,
     loadingCheckout,
 
-    /* Queries */
-    getCurrentUser,
-    loadingCurrentUser,
-    currentUserData,
-
     /* Functions */
     runClearCart,
     runCheckout,
+    runGetRegisteredUser,
   }
 }
 
