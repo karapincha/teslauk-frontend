@@ -6,17 +6,8 @@ import { SectionHeading } from '@/components/molecules'
 import { Button, TextField, CheckBox, DropdownMenu } from '@/components/atoms'
 import { Common as CommonLayout } from '@/components/layouts'
 import { toast } from '@/components/molecules'
-import { useMutation, useQuery } from '@apollo/client'
 import { ArrowUpRight } from 'react-feather'
 import Link from 'next/link'
-import {
-  ADD_TO_CART,
-  CHECKOUT,
-  CLEAR_CART,
-  UPDATE_USER,
-  GET_CURRENT_USER,
-  LOGOUT,
-} from '../../lib/graphql'
 import { teslaModels } from '@/static-data/tesla-models'
 
 import { useRegistration } from '@/utils/useRegistration'
@@ -35,11 +26,13 @@ const Page: NextPage = () => {
     loadingClearCart,
     checkout,
     loadingCheckout,
+    getCurrentUser,
+    loadingCurrentUser,
+    runClearCart,
   } = useRegistration({
     productId: 1734,
   })
 
-  const [productId, setProductId] = useState<any>(1734)
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [password, setPassword] = useState('')
@@ -50,11 +43,6 @@ const Page: NextPage = () => {
   const [model, setModel] = useState('model-3')
   const [refSource, setRefSource] = useState('')
   const [privacyPolicy, setPrivacyPolicy] = useState(false)
-  const [errors, setErrors] = useState<any>({})
-
-  const { loading: loadingCurrentUser, refetch: getCurrentUser } = useQuery(GET_CURRENT_USER, {
-    skip: true,
-  })
 
   /* HANDLE VALIDATION */
   const handleValidation = (e: any) => {
@@ -103,17 +91,6 @@ const Page: NextPage = () => {
     return handleSubmit(e)
   }
 
-  /* CLEAR CART */
-  const handleClearCart = () => {
-    clearCart()
-      .then(() => {
-        return
-      })
-      .catch(() => {
-        return
-      })
-  }
-
   /* FINALIZE */
   const handleFinalize = () => {
     getCurrentUser().then(({ data }: any) => {
@@ -158,7 +135,7 @@ const Page: NextPage = () => {
         return handleFinalize()
       })
       .catch((e: any) => {
-        handleClearCart()
+        runClearCart()
         return toast({ message: e.message, type: 'error' })
       })
   }
@@ -172,7 +149,7 @@ const Page: NextPage = () => {
         return handleCheckout()
       })
       .catch((e: any) => {
-        handleClearCart()
+        runClearCart()
         return toast({ message: e.message, type: 'error' })
       })
   }
