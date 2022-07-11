@@ -7,6 +7,8 @@ import { Button, TextField, CheckBox, DropdownMenu } from '@/components/atoms'
 import { Common as CommonLayout } from '@/components/layouts'
 import { toast } from '@/components/molecules'
 import { useMutation, useQuery } from '@apollo/client'
+import { ArrowUpRight } from 'react-feather'
+import Link from 'next/link'
 import {
   ADD_TO_CART,
   CHECKOUT,
@@ -15,35 +17,10 @@ import {
   GET_CURRENT_USER,
   LOGOUT,
 } from '../../lib/graphql'
+import { teslaModels } from '@/static-data/tesla-models'
 
 const Page: NextPage = () => {
   const router = useRouter()
-  const modelsList: any = [
-    {
-      name: 'Tesla Model 3',
-      slug: 'model-3',
-    },
-    {
-      name: 'Tesla Model S',
-      slug: 'model-s',
-    },
-    {
-      name: 'Tesla Model X',
-      slug: 'model-x',
-    },
-    {
-      name: 'Tesla Model Y',
-      slug: 'model-y',
-    },
-    {
-      name: 'Tesla Roadster',
-      slug: 'model-roadster',
-    },
-    {
-      name: 'Other',
-      slug: 'other',
-    },
-  ]
 
   const [productId, setProductId] = useState<any>(1734)
   const [firstName, setFirstName] = useState('')
@@ -205,7 +182,7 @@ const Page: NextPage = () => {
         <div className='container'>
           <div className='flex flex-col items-center rounded-[8px] bg-[url(/images/hero-pattern.svg)] bg-cover bg-no-repeat py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[80px] lg:pb-[80px]'>
             <SectionHeading
-              overline={'Register as a'}
+              overline='Register as a'
               heading='Free associate member'
               align='center'
               headingClassName='!mb-0'
@@ -222,10 +199,8 @@ const Page: NextPage = () => {
                       label='First Name'
                       onChange={(e: any) => {
                         setFirstName(e.target.value)
-                        setErrors({ ...errors, firstName: false })
                       }}
                       required
-                      isError={errors.firstName === true}
                     />
                     <TextField
                       placeholder='Enter last name'
@@ -298,7 +273,7 @@ const Page: NextPage = () => {
                     <div className='flex flex-col gap-[12px]'>
                       <DropdownMenu
                         label='Tesla Model'
-                        list={modelsList || []}
+                        list={teslaModels || []}
                         onChange={(e: any) => {
                           setModel(e.target.value)
                         }}
@@ -334,10 +309,47 @@ const Page: NextPage = () => {
                       setRefSource(e.target.value)
                     }}
                   />
+                </div>
 
-                  <p className="text-md font-500 text-N-600 after:ml-[2px] after:text-B-500 after:content-['*']">
-                    Rules and Privacy Policy
+                <div className='flex flex-col pt-[20px]'>
+                  <p className="mb-[8px] text-md font-500 text-N-600 after:ml-[2px] after:text-B-500 after:content-['*']">
+                    Club rules, Articles of Association and Privacy Policy
                   </p>
+
+                  <div className='flex w-[unset] flex-col items-start gap-[4px] pt-[12] pb-[8px]'>
+                    <Link href='/articles-of-association' passHref>
+                      <a>
+                        <Button
+                          className='h-[unset] w-[unset] border-none px-0 text-md !font-600 !text-N-800 hover:!text-R-400'
+                          appearance='ghost'
+                          iconAfter={<ArrowUpRight size={20} />}>
+                          Club’s rules
+                        </Button>
+                      </a>
+                    </Link>
+
+                    <Link href='/articles-of-association' passHref>
+                      <a>
+                        <Button
+                          className='h-[unset] w-[unset] border-none px-0 text-md !font-600 !text-N-800 hover:!text-R-400'
+                          appearance='ghost'
+                          iconAfter={<ArrowUpRight size={20} />}>
+                          Articles of Association
+                        </Button>
+                      </a>
+                    </Link>
+
+                    <Link href='/privacy-policy' passHref>
+                      <a>
+                        <Button
+                          className='h-[unset] w-[unset] border-none px-0 text-md !font-600 !text-N-800 hover:!text-R-400'
+                          appearance='ghost'
+                          iconAfter={<ArrowUpRight size={20} />}>
+                          Privacy Policy
+                        </Button>
+                      </a>
+                    </Link>
+                  </div>
                 </div>
 
                 <div className='flex flex-col justify-between !pt-[12px] md:flex-row md:pt-[24px] lg:flex-row lg:pt-[24px]'>
@@ -358,7 +370,7 @@ const Page: NextPage = () => {
                   </div>
                 </div>
 
-                <div className='flex flex-col gap-[24px] pt-[24px] lg:pt-[16px]'>
+                <div className='flex flex-col gap-[24px] pt-[24px] lg:pt-[28px]'>
                   <div className='flex w-full flex-wrap gap-[12px] lg:w-[unset]'>
                     <Button
                       className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'

@@ -97,6 +97,7 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
                 }
               }}
               value={username}
+              autoFocus
             />
           </div>
 
