@@ -19,8 +19,25 @@ import {
 } from '../../lib/graphql'
 import { teslaModels } from '@/static-data/tesla-models'
 
+import { useRegistration } from '@/utils/useRegistration'
+
 const Page: NextPage = () => {
   const router = useRouter()
+
+  const {
+    logout,
+    loadingLogout,
+    updateUser,
+    loadingUpdateUser,
+    addToCart,
+    loadingAddToCart,
+    clearCart,
+    loadingClearCart,
+    checkout,
+    loadingCheckout,
+  } = useRegistration({
+    productId: 1734,
+  })
 
   const [productId, setProductId] = useState<any>(1734)
   const [firstName, setFirstName] = useState('')
@@ -34,27 +51,6 @@ const Page: NextPage = () => {
   const [refSource, setRefSource] = useState('')
   const [privacyPolicy, setPrivacyPolicy] = useState(false)
   const [errors, setErrors] = useState<any>({})
-
-  const [logout, { loading: loadingLogout }] = useMutation(LOGOUT)
-  const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER)
-  const [addToCart, { loading: loadingAddToCart }] = useMutation(ADD_TO_CART, {
-    variables: {
-      productId,
-    },
-  })
-  const [clearCart, { loading: loadingClearCart }] = useMutation(CLEAR_CART)
-  const [checkout, { loading: loadingCheckout }] = useMutation(CHECKOUT, {
-    variables: {
-      email,
-      firstName,
-      lastName,
-      vin,
-      model,
-      refSource,
-      username,
-      password,
-    },
-  })
 
   const { loading: loadingCurrentUser, refetch: getCurrentUser } = useQuery(GET_CURRENT_USER, {
     skip: true,
@@ -146,7 +142,18 @@ const Page: NextPage = () => {
 
   /* HANDLE CHECKOUT */
   const handleCheckout = () => {
-    checkout()
+    checkout({
+      variables: {
+        email,
+        firstName,
+        lastName,
+        vin,
+        model,
+        refSource,
+        username,
+        password,
+      },
+    })
       .then(() => {
         return handleFinalize()
       })
