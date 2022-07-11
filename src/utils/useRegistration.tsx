@@ -25,7 +25,11 @@ export const useRegistration = ({ productId }: any) => {
   })
 
   /* Queries ===> */
-  const { loading: loadingCurrentUser, refetch: getCurrentUser } = useQuery(GET_CURRENT_USER, {
+  const {
+    data: currentUserData,
+    loading: loadingCurrentUser,
+    refetch: getCurrentUser,
+  } = useQuery(GET_CURRENT_USER, {
     skip: true,
   })
 
@@ -40,7 +44,7 @@ export const useRegistration = ({ productId }: any) => {
       })
       .catch((res: any) => {
         if (onFail) {
-          return onSuccess(res)
+          return onFail(res)
         }
         return
       })
@@ -58,7 +62,7 @@ export const useRegistration = ({ productId }: any) => {
       })
       .catch((res: any) => {
         if (onFail) {
-          return onSuccess(res)
+          return onFail(res)
         }
         return
       })
@@ -80,6 +84,7 @@ export const useRegistration = ({ productId }: any) => {
     /* Queries */
     getCurrentUser,
     loadingCurrentUser,
+    currentUserData,
 
     /* Functions */
     runClearCart,

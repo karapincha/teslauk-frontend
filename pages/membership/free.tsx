@@ -28,6 +28,7 @@ const Page: NextPage = () => {
     loadingCheckout,
     getCurrentUser,
     loadingCurrentUser,
+    currentUserData,
     runClearCart,
     runCheckout,
   } = useRegistration({
@@ -95,7 +96,10 @@ const Page: NextPage = () => {
   /* FINALIZE */
   const handleFinalize = () => {
     getCurrentUser().then(({ data }: any) => {
-      updateUser({
+      console.log(data)
+      console.log(currentUserData)
+
+      /* updateUser({
         variables: {
           id: data?.viewer?.databaseId,
           model: model,
@@ -114,7 +118,7 @@ const Page: NextPage = () => {
             return
           })
           return toast({ message: e.message, type: 'error' })
-        })
+        }) */
     })
   }
 
