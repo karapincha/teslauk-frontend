@@ -151,7 +151,7 @@ const Page: NextPage = () => {
             username,
             password,
           },
-          onSuccess: handleFinalize(),
+          onSuccess: () => handleFinalize(),
           onFail: () => {
             runClearCart()
             return toast({ message: e.message, type: 'error' })
