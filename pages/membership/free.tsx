@@ -394,7 +394,10 @@ const Page: NextPage = () => {
                       className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
                       appearance='primary'
                       onClick={() => {
-                        getCurrentUser()
+                        runGetRegisteredUser({
+                          username,
+                          password,
+                        })
                       }}>
                       Get current user
                     </Button>

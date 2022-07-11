@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import {
   ADD_TO_CART,
   CHECKOUT,
@@ -17,13 +17,22 @@ export const useRegistration = ({ productId }: any) => {
   /* Mutations ===> */
   const [login, { loading: loadingLogin }] = useMutation(LOGIN)
   const [clearCart, { loading: loadingClearCart }] = useMutation(CLEAR_CART)
-  const [logout, { loading: loadingLogout }] = useMutation(LOGOUT)
+  const [logout, { loading: loadingLogout, data: logoutData }] = useMutation(LOGOUT)
   const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER)
   const [checkout, { loading: loadingCheckout }] = useMutation(CHECKOUT)
   const [addToCart, { loading: loadingAddToCart }] = useMutation(ADD_TO_CART, {
     variables: {
       productId,
     },
+  })
+
+  /* Queries ===> */
+  const {
+    data: currentUserData,
+    loading: loadingCurrentUser,
+    refetch: getCurrentUser,
+  } = useQuery(GET_CURRENT_USER, {
+    skip: true,
   })
 
   /* Functions ===> */
@@ -61,19 +70,25 @@ export const useRegistration = ({ productId }: any) => {
       })
   }
 
-  const runGetRegisteredUser = ({ username, password }: any) => {
-    logout()
-      .then(() => {
-        login({
-          variables: {
-            username,
-            password,
-          },
+  const runGetRegisteredUser = async ({ username, password }: any) => {
+    const { data: logoutRes } = await logout()
+
+    if (logoutRes.logout.status === 'SUCCESS') {
+      login({
+        variables: {
+          username,
+          password,
+        },
+      })
+        .then(() => {
+          getCurrentUser()
+            .then(({ data }) => {
+              console.log(`user`, data)
+            })
+            .catch()
         })
-      })
-      .catch(() => {
-        return
-      })
+        .catch(() => {})
+    }
   }
 
   return {
