@@ -106,32 +106,30 @@ const Page: NextPage = () => {
     runGetRegisteredUser({
       username,
       password,
+      onSuccess: ({ data }: any) => {
+        updateUser({
+          variables: {
+            id: data?.viewer?.databaseId,
+            model: model,
+            vin: vin,
+            source: refSource,
+          },
+        })
+          .then(() => {
+            logout().catch((e: any) => {
+              return toast({ message: e.message, type: 'error' })
+            })
+            return router.push(`/auth/login?newAccountCreated=true`)
+          })
+          .catch((e: any) => {
+            logout().catch(() => {
+              return
+            })
+            return toast({ message: e.message, type: 'error' })
+          })
+      },
+      onFail: {},
     })
-    // getCurrentUser().then(({ data }: any) => {
-    //   console.log(data)
-    //   console.log(currentUserData)
-
-    //   /* updateUser({
-    //     variables: {
-    //       id: data?.viewer?.databaseId,
-    //       model: model,
-    //       vin: vin,
-    //       source: refSource,
-    //     },
-    //   })
-    //     .then(() => {
-    //       logout().catch((e: any) => {
-    //         return toast({ message: e.message, type: 'error' })
-    //       })
-    //       return router.push(`/auth/login?newAccountCreated=true`)
-    //     })
-    //     .catch((e: any) => {
-    //       logout().catch(() => {
-    //         return
-    //       })
-    //       return toast({ message: e.message, type: 'error' })
-    //     }) */
-    // })
   }
 
   /* HANDLE SUBMISSION */

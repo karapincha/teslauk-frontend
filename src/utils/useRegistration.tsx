@@ -70,7 +70,7 @@ export const useRegistration = ({ productId }: any) => {
       })
   }
 
-  const runGetRegisteredUser = async ({ username, password }: any) => {
+  const runGetRegisteredUser = async ({ username, password, onSuccess, onFail }: any) => {
     const { data: logoutRes } = await logout()
 
     if (logoutRes.logout.status === 'SUCCESS') {
@@ -82,13 +82,21 @@ export const useRegistration = ({ productId }: any) => {
       })
         .then(() => {
           getCurrentUser()
-            .then(({ data }) => {
-              console.log(`user`, data)
+            .then((res: any) => {
+              if (onSuccess) {
+                return onSuccess(res)
+              }
+              return
             })
-            .catch()
+            .catch((res: any) => {
+              if (onFail) {
+                return onFail(res)
+              }
+              return
+            })
         })
         .catch(() => {})
-    }
+    } else {}
   }
 
   return {
