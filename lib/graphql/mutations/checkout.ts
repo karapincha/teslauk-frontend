@@ -3,7 +3,7 @@ import { gql } from '@apollo/client'
 export const CHECKOUT = gql`
   mutation CHECKOUT(
     $paymentMethod: String!
-    $isPaid: Boolean!
+    $isPaid: Boolean
     $email: String!
     $username: String!
     $password: String!

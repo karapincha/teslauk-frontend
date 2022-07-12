@@ -42,6 +42,13 @@ const Page: NextPage = () => {
 
   const [formData, setFormData] = useState<any>({
     model: 'model-3',
+    email: 'xx@lk.lk',
+    firstName: 'xx',
+    lastName: 'xx',
+    vin: 'xx',
+    refSource: 'xx',
+    username: 'xx',
+    password: 'xx',
   })
 
   const handleSubmit = async (e: any) => {
@@ -60,7 +67,6 @@ const Page: NextPage = () => {
           refSource: formData.refSource,
           username: formData.username,
           password: formData.password,
-          isPaid: false,
         },
         onSuccess: () => {},
         onFail: () => {
