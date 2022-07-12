@@ -3,7 +3,7 @@ import { fetchAPI } from '../../api'
 export async function getAllTeam() {
   const data = await fetchAPI(`
   {
-    members(first: 100) {
+    teamMembers(first: 100) {
       nodes {
         title
         slug
@@ -21,5 +21,5 @@ export async function getAllTeam() {
     }
   }
   `)
-  return data?.members
+  return data?.teamMembers
 }
