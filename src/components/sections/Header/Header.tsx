@@ -26,8 +26,6 @@ export const Header: FC<HeaderProps> = ({
   const { isTablet, isMobile, isDesktop } = useViewport()
   const { token }: any = useAppContext()
 
-  console.log('header', token)
-
   return (
     <div className={HeaderClasses} {...restProps}>
       <div className='container relative flex items-center justify-between'>

@@ -9,6 +9,7 @@ import {
   GET_CURRENT_USER,
   LOGIN,
   LOGOUT,
+  UPDATE_ORDER,
 } from '../../lib/graphql'
 
 export const useRegistration = ({ productId }: any) => {
@@ -19,6 +20,7 @@ export const useRegistration = ({ productId }: any) => {
   const [clearCart, { loading: loadingClearCart }] = useMutation(CLEAR_CART)
   const [logout, { loading: loadingLogout, data: logoutData }] = useMutation(LOGOUT)
   const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER)
+  const [updateOrder, { loading: loadingUpdateOrder }] = useMutation(UPDATE_ORDER)
   const [checkout, { loading: loadingCheckout }] = useMutation(CHECKOUT)
   const [addToCart, { loading: loadingAddToCart }] = useMutation(ADD_TO_CART, {
     variables: {
@@ -104,7 +106,15 @@ export const useRegistration = ({ productId }: any) => {
     }
   }
 
-  const runUpdateOrderStatus = async ({ status, onSuccess, onFail }: any) => {}
+  const runUpdateOrderStatus = async ({ variables, onSuccess, onFail }: any) => {
+    updateOrder({ variables })
+      .then(({ data }: any) => {
+        console.log(data)
+      })
+      .catch((e: any) => {
+        console.log(e)
+      })
+  }
 
   return {
     /* Mutations */
@@ -123,6 +133,7 @@ export const useRegistration = ({ productId }: any) => {
     runClearCart,
     runCheckout,
     runGetRegisteredUser,
+    runUpdateOrderStatus,
   }
 }
 

@@ -36,18 +36,19 @@ const Page: NextPage = () => {
     runClearCart,
     runCheckout,
     runGetRegisteredUser,
+    runUpdateOrderStatus,
   } = useRegistration({
     productId: 1739,
   })
 
   const [formData, setFormData] = useState<any>({
     model: 'model-3',
-    email: 'xx@lk.lk',
+    email: 'xx@lk.lkxx',
     firstName: 'xx',
     lastName: 'xx',
     vin: 'xx',
     refSource: 'xx',
-    username: 'xx',
+    username: 'xxxx',
     password: 'xx',
   })
 
@@ -69,7 +70,14 @@ const Page: NextPage = () => {
           username: formData.username,
           password: formData.password,
         },
-        onSuccess: () => {},
+        onSuccess: ({ data }: any) => {
+          runUpdateOrderStatus({
+            variables: {
+              orderId: data.checkout.order.databaseId,
+              status: 'PENDING',
+            },
+          })
+        },
         onFail: () => {
           runClearCart()
           return toast({ message: e.message, type: 'error' })
@@ -370,7 +378,7 @@ const Page: NextPage = () => {
                       appearance='primary'
                       onClick={() => {
                         runGetRegisteredUser({
-                          username: formData.usename,
+                          username: formData.username,
                           password: formData.password,
                         })
                       }}>

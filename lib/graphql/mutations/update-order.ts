@@ -1,8 +1,8 @@
-import { useQuery, gql } from '@apollo/client'
+import { gql } from '@apollo/client'
 
 export const UPDATE_ORDER = gql`
-  mutation UPDATE_ORDER($id: ID) {
-    updateOrder(input: { id: $id, status: COMPLETED }) {
+  mutation UPDATE_ORDER($orderId: Int, $status: OrderStatusEnum = ON_HOLD) {
+    updateOrder(input: { orderId: $orderId, status: $status }) {
       clientMutationId
     }
   }
