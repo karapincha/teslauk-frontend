@@ -24,6 +24,7 @@
     "graphql": "^16.5.0",
     "html-react-parser": "^1.4.14",
     "next": "12.1.6",
+    "next-stripe": "^1.0.0-beta.9",
     "rc-slider": "^10.0.0",
     "react": "18.1.0",
     "react-bookmark": "^0.8.2",

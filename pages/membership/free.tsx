@@ -140,6 +140,7 @@ const Page: NextPage = () => {
           refSource,
           username,
           password,
+          isPaid: true,
         },
         onSuccess: () => handleFinalize(),
         onFail: () => {
@@ -366,25 +367,6 @@ const Page: NextPage = () => {
                       {({ isLoading }: any) => {
                         return isLoading ? `Registering` : `Register now`
                       }}
-                    </Button>
-
-                    <Button
-                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
-                      appearance='primary'
-                      onClick={logout}>
-                      Logout
-                    </Button>
-
-                    <Button
-                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
-                      appearance='primary'
-                      onClick={() => {
-                        runGetRegisteredUser({
-                          username,
-                          password,
-                        })
-                      }}>
-                      Get current user
                     </Button>
                   </div>
                 </div>

@@ -9,6 +9,7 @@ import { ArrowUpRight } from 'react-feather'
 import { Common as CommonLayout } from '@/components/layouts'
 import { useMutation, useQuery } from '@apollo/client'
 import { teslaModels } from '@/static-data/tesla-models'
+import { toast } from '@/components/molecules'
 import {
   ADD_TO_CART,
   CHECKOUT,
@@ -17,16 +18,57 @@ import {
   GET_CURRENT_USER,
   LOGOUT,
 } from '../../lib/graphql'
+import { useRegistration } from '@/utils/useRegistration'
 
 const Page: NextPage = () => {
   const router = useRouter()
+  const {
+    logout,
+    loadingLogout,
+    updateUser,
+    loadingUpdateUser,
+    addToCart,
+    loadingAddToCart,
+    clearCart,
+    loadingClearCart,
+    checkout,
+    loadingCheckout,
+    runClearCart,
+    runCheckout,
+    runGetRegisteredUser,
+  } = useRegistration({
+    productId: 1739,
+  })
 
   const [formData, setFormData] = useState<any>({
     model: 'model-3',
   })
 
-  const handleFormSubmit = () => {
-    console.log(formData)
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    const { data: logoutRes } = await logout()
+
+    if (logoutRes.logout.status === 'SUCCESS') {
+      runCheckout({
+        variables: {
+          paymentMethod: 'stripe',
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          vin: formData.vin,
+          model: formData.model,
+          refSource: formData.refSource,
+          username: formData.username,
+          password: formData.password,
+          isPaid: false,
+        },
+        onSuccess: () => {},
+        onFail: () => {
+          runClearCart()
+          return toast({ message: e.message, type: 'error' })
+        },
+      })
+    }
   }
 
   return (
@@ -305,8 +347,27 @@ const Page: NextPage = () => {
                     <Button
                       className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
                       appearance='primary'
-                      onClick={handleFormSubmit}>
+                      onClick={handleSubmit}>
                       Register Now
+                    </Button>
+
+                    <Button
+                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
+                      appearance='primary'
+                      onClick={logout}>
+                      Logout
+                    </Button>
+
+                    <Button
+                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
+                      appearance='primary'
+                      onClick={() => {
+                        runGetRegisteredUser({
+                          username: formData.usename,
+                          password: formData.password,
+                        })
+                      }}>
+                      Get current user
                     </Button>
                   </div>
                 </div>
