@@ -6,7 +6,7 @@ import { SectionHeading } from '@/components/molecules'
 import { Button, TextField, CheckBox, DropdownMenu } from '@/components/atoms'
 import { Common as CommonLayout } from '@/components/layouts'
 import { toast } from '@/components/molecules'
-import { ArrowUpRight } from 'react-feather'
+import { ArrowUpRight, LogOut } from 'react-feather'
 import Link from 'next/link'
 import { teslaModels } from '@/static-data/tesla-models'
 import { useQuery } from '@apollo/client'
@@ -93,14 +93,6 @@ const Page: NextPage = () => {
     return handleSubmit(e)
   }
 
-  const {
-    data: currentUserData,
-    loading: loadingCurrentUser,
-    refetch: getCurrentUser,
-  } = useQuery(GET_CURRENT_USER, {
-    skip: true,
-  })
-
   /* FINALIZE */
   const handleFinalize = () => {
     runGetRegisteredUser({
@@ -133,33 +125,29 @@ const Page: NextPage = () => {
   }
 
   /* HANDLE SUBMISSION */
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault()
+    const { data: logoutRes } = await logout()
 
-    addToCart()
-      .then(() => {
-        return runCheckout({
-          variables: {
-            email,
-            firstName,
-            lastName,
-            vin,
-            model,
-            refSource,
-            username,
-            password,
-          },
-          onSuccess: () => handleFinalize(),
-          onFail: () => {
-            runClearCart()
-            return toast({ message: e.message, type: 'error' })
-          },
-        })
+    if (logoutRes.logout.status === 'SUCCESS') {
+      runCheckout({
+        variables: {
+          email,
+          firstName,
+          lastName,
+          vin,
+          model,
+          refSource,
+          username,
+          password,
+        },
+        onSuccess: () => handleFinalize(),
+        onFail: () => {
+          runClearCart()
+          return toast({ message: e.message, type: 'error' })
+        },
       })
-      .catch((e: any) => {
-        runClearCart()
-        return toast({ message: e.message, type: 'error' })
-      })
+    }
   }
 
   return (
@@ -372,7 +360,6 @@ const Page: NextPage = () => {
                         loadingAddToCart ||
                         loadingClearCart ||
                         loadingCheckout ||
-                        loadingCurrentUser ||
                         loadingUpdateUser ||
                         loadingLogout
                       }>

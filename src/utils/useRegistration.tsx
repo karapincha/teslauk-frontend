@@ -52,22 +52,26 @@ export const useRegistration = ({ productId }: any) => {
       })
   }
 
-  const runCheckout = ({ variables, onSuccess, onFail }: any) => {
-    checkout({
-      variables,
-    })
-      .then((res: any) => {
-        if (onSuccess) {
-          return onSuccess(res)
-        }
-        return
+  const runCheckout = async ({ variables, onSuccess, onFail }: any) => {
+    addToCart()
+      .then(() => {
+        checkout({
+          variables,
+        })
+          .then((res: any) => {
+            if (onSuccess) {
+              return onSuccess(res)
+            }
+            return
+          })
+          .catch((res: any) => {
+            if (onFail) {
+              return onFail(res)
+            }
+            return
+          })
       })
-      .catch((res: any) => {
-        if (onFail) {
-          return onFail(res)
-        }
-        return
-      })
+      .catch(() => {})
   }
 
   const runGetRegisteredUser = async ({ username, password, onSuccess, onFail }: any) => {
@@ -96,7 +100,8 @@ export const useRegistration = ({ productId }: any) => {
             })
         })
         .catch(() => {})
-    } else {}
+    } else {
+    }
   }
 
   return {
