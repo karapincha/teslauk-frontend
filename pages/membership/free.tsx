@@ -141,6 +141,7 @@ const Page: NextPage = () => {
           username,
           password,
           isPaid: true,
+          paymentMethod: 'none',
         },
         onSuccess: () => handleFinalize(),
         onFail: () => {

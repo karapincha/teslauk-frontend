@@ -59,6 +59,7 @@ const Page: NextPage = () => {
       runCheckout({
         variables: {
           paymentMethod: 'stripe',
+          isPaid: true,
           email: formData.email,
           firstName: formData.firstName,
           lastName: formData.lastName,

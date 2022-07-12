@@ -104,6 +104,8 @@ export const useRegistration = ({ productId }: any) => {
     }
   }
 
+  const runUpdateOrderStatus = async ({ status, onSuccess, onFail }: any) => {}
+
   return {
     /* Mutations */
     logout,
