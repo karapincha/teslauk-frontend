@@ -115,6 +115,8 @@ const Page: NextPage = () => {
           password: formData.password,
         },
         onSuccess: ({ data }: any) => {
+          console.log(data)
+
           setOrderId(data?.checkout?.order?.databaseId)
         },
         onFail: () => {
