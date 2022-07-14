@@ -59,6 +59,43 @@ const Page: NextPage = () => {
 
   const [orderId, setOrderId] = useState()
 
+  /* FINALIZE */
+  const handleFinalize = () => {
+    runGetRegisteredUser({
+      username: formData.username,
+      password: formData.password,
+      onSuccess: ({ data }: any) => {
+        updateUser({
+          variables: {
+            id: data?.viewer?.databaseId,
+            model: formData.model,
+            vin: formData.vin,
+            source: formData.refSource,
+          },
+        })
+          .then(() => {
+            runUpdateOrderStatus({
+              variables: {
+                orderId: data.checkout.order.databaseId,
+                status: 'PENDING',
+              },
+              onSuccess: () => {
+                stripeSubscribe()
+              },
+            })
+          })
+          .catch((e: any) => {
+            logout().catch(() => {
+              return
+            })
+            return toast({ message: e.message, type: 'error' })
+          })
+      },
+      onFail: {},
+    })
+  }
+
+  /* HANDLE SUBMISSION */
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const { data: logoutRes } = await logout()
@@ -79,15 +116,7 @@ const Page: NextPage = () => {
         },
         onSuccess: ({ data }: any) => {
           setOrderId(data.checkout.order.databaseId)
-          runUpdateOrderStatus({
-            variables: {
-              orderId: data.checkout.order.databaseId,
-              status: 'PENDING',
-            },
-            onSuccess: () => {
-              stripeSubscribe()
-            },
-          })
+          handleFinalize()
         },
         onFail: () => {
           runClearCart()
