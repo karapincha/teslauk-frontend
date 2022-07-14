@@ -160,7 +160,7 @@ const Page: NextPage = () => {
           isPaid: true,
           paymentMethod: 'none',
         },
-        onSuccess: () => {
+        onSuccess: ({ data }: any) => {
           setOrderId(data?.checkout?.order?.databaseId)
           handleFinalize()
         },
