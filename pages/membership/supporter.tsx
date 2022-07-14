@@ -48,13 +48,6 @@ const Page: NextPage = () => {
 
   const [formData, setFormData] = useState<any>({
     model: 'model-3',
-    email: 'xx@lk.lkxx',
-    firstName: 'xx',
-    lastName: 'xx',
-    vin: 'xx',
-    refSource: 'xx',
-    username: 'xxxx',
-    password: 'xx',
   })
 
   const [orderId, setOrderId] = useState()
@@ -156,6 +149,18 @@ const Page: NextPage = () => {
           orderId: Number(data.session.client_reference_id),
           status: 'COMPLETED',
         },
+        onSuccess: () => {
+          logout().catch((e: any) => {
+            return toast({ message: e.message, type: 'error' })
+          })
+          return router.push(`/auth/login?newAccountCreated=true`)
+        },
+        onFail: (e: any) => {
+          logout().catch(() => {
+            return
+          })
+          return toast({ message: e.message, type: 'error' })
+        },
       })
     }
   }
@@ -175,14 +180,6 @@ const Page: NextPage = () => {
       </Head>
 
       <CommonLayout>
-        <div className='container pb-[100px]'>
-          <main>
-            <div className='shadow-lg flex gap-[12px] rounded border p-2'>
-              <Button onClick={stripeSubscribe}>Subscribe</Button>
-            </div>
-          </main>
-        </div>
-
         <div className='container'>
           {/* bg-[url(/images/hero-pattern.svg)] */}
           <div className='flex flex-col items-center rounded-[8px] bg-N-50 bg-cover bg-no-repeat py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[80px] lg:pb-[80px]'>

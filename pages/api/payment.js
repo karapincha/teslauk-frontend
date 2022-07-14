@@ -11,6 +11,10 @@ async function CreateStripeSubscription(req, res) {
         price: `price_1LLCn3KyFYHOmIqfFrVEzKHB`,
         quantity: 1,
       },
+      {
+        price: `price_1LLCn3KyFYHOmIqfTzhmRr7E`,
+        quantity: 1,
+      },
     ],
     mode: 'subscription',
     customer_email: email,
