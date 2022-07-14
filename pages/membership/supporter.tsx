@@ -153,7 +153,7 @@ const Page: NextPage = () => {
     if (data && data.session && data.session.payment_status === 'paid') {
       runUpdateOrderStatus({
         variables: {
-          orderId: data.session.client_reference_id,
+          orderId: Number(data.session.client_reference_id),
           status: 'COMPLETED',
         },
       })
