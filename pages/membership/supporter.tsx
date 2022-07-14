@@ -115,8 +115,7 @@ const Page: NextPage = () => {
           password: formData.password,
         },
         onSuccess: ({ data }: any) => {
-          setOrderId(data.checkout.order.databaseId)
-          handleFinalize()
+          setOrderId(data?.checkout?.order?.databaseId)
         },
         onFail: () => {
           runClearCart()
@@ -125,6 +124,12 @@ const Page: NextPage = () => {
       })
     }
   }
+
+  useEffect(() => {
+    if (orderId) {
+      handleFinalize()
+    }
+  }, [orderId])
 
   /* Stripe => Create Subscription */
   const stripeSubscribe = async () => {
