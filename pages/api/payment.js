@@ -1,5 +1,5 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
-const DOMAIN = 'http://localhost:3000/membership/supporter'
+const DOMAIN = `${process.env.FRONTEND_DOMAIN}/membership/supporter`
 
 async function CreateStripeSubscription(req, res) {
   const { name, email, orderId } = req.body

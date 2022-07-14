@@ -99,7 +99,7 @@ const Page: NextPage = () => {
 
   /* Stripe => Create Subscription */
   const stripeSubscribe = async () => {
-    const { data }: any = await axios.post('/api/create-stripe-subscription', {
+    const { data }: any = await axios.post('/api/payment', {
       name: `${formData.firstName} ${formData.lastName}`,
       email: `${formData.email}`,
       orderId: orderId,
@@ -110,7 +110,7 @@ const Page: NextPage = () => {
 
   /* Stripe => Verify Payment */
   const stripeVerifyPayment = async () => {
-    const { data }: any = await axios.post('/api/verify-stripe-subscription', {
+    const { data }: any = await axios.post('/api/verify-payment', {
       session_id,
     })
 
