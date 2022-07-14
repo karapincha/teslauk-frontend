@@ -76,7 +76,7 @@ const Page: NextPage = () => {
           .then(() => {
             runUpdateOrderStatus({
               variables: {
-                orderId: data.checkout.order.databaseId,
+                orderId: orderId,
                 status: 'PENDING',
               },
               onSuccess: () => {
