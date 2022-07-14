@@ -162,7 +162,8 @@ const Page: NextPage = () => {
 
       <CommonLayout>
         <div className='container'>
-          <div className='flex flex-col items-center rounded-[8px] bg-[url(/images/hero-pattern.svg)] bg-cover bg-no-repeat py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[80px] lg:pb-[80px]'>
+          {/*  bg-[url(/images/hero-pattern.svg)] */}
+          <div className='flex flex-col items-center rounded-[8px] bg-N-50 bg-cover bg-no-repeat py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[80px] lg:pb-[80px]'>
             <SectionHeading
               overline='Register as a'
               heading='Free associate member'

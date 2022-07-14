@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import Link from 'next/link'
 import Head from 'next/head'
@@ -20,8 +20,13 @@ import {
 } from '../../lib/graphql'
 import { useRegistration } from '@/utils/useRegistration'
 
+import { loadStripe } from '@stripe/stripe-js'
+import axios from 'axios'
+
 const Page: NextPage = () => {
   const router = useRouter()
+  const { status, session_id } = router.query
+
   const {
     logout,
     loadingLogout,
@@ -52,6 +57,8 @@ const Page: NextPage = () => {
     password: 'xx',
   })
 
+  const [orderId, setOrderId] = useState()
+
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const { data: logoutRes } = await logout()
@@ -71,10 +78,14 @@ const Page: NextPage = () => {
           password: formData.password,
         },
         onSuccess: ({ data }: any) => {
+          setOrderId(data.checkout.order.databaseId)
           runUpdateOrderStatus({
             variables: {
               orderId: data.checkout.order.databaseId,
               status: 'PENDING',
+            },
+            onSuccess: () => {
+              stripeSubscribe()
             },
           })
         },
@@ -86,6 +97,39 @@ const Page: NextPage = () => {
     }
   }
 
+  /* Stripe => Create Subscription */
+  const stripeSubscribe = async () => {
+    const { data }: any = await axios.post('/api/create-stripe-subscription', {
+      name: `${formData.firstName} ${formData.lastName}`,
+      email: `${formData.email}`,
+      orderId: orderId,
+    })
+
+    router.push(data?.subscription?.url)
+  }
+
+  /* Stripe => Verify Payment */
+  const stripeVerifyPayment = async () => {
+    const { data }: any = await axios.post('/api/verify-stripe-subscription', {
+      session_id,
+    })
+
+    if (data && data.session && data.session.payment_status === 'paid') {
+      runUpdateOrderStatus({
+        variables: {
+          orderId: data.session.client_reference_id,
+          status: 'COMPLETED',
+        },
+      })
+    }
+  }
+
+  useEffect(() => {
+    if (session_id) {
+      stripeVerifyPayment()
+    }
+  }, [session_id])
+
   return (
     <>
       <Head>
@@ -95,8 +139,17 @@ const Page: NextPage = () => {
       </Head>
 
       <CommonLayout>
+        <div className='container pb-[100px]'>
+          <main>
+            <div className='shadow-lg flex gap-[12px] rounded border p-2'>
+              <Button onClick={stripeSubscribe}>Subscribe</Button>
+            </div>
+          </main>
+        </div>
+
         <div className='container'>
-          <div className='flex flex-col items-center rounded-[8px] bg-[url(/images/hero-pattern.svg)] bg-cover bg-no-repeat py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[80px] lg:pb-[80px]'>
+          {/* bg-[url(/images/hero-pattern.svg)] */}
+          <div className='flex flex-col items-center rounded-[8px] bg-N-50 bg-cover bg-no-repeat py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[80px] lg:pb-[80px]'>
             <SectionHeading
               overline='Register as a'
               heading='Supporter member'

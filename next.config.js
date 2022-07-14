@@ -6,6 +6,7 @@ module.exports = {
       '2.gravatar.com',
       '0.gravatar.com',
       'touk.be.kp.lk',
+      'images.unsplash.com',
     ],
   },
 }

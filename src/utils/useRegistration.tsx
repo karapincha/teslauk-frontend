@@ -108,11 +108,17 @@ export const useRegistration = ({ productId }: any) => {
 
   const runUpdateOrderStatus = async ({ variables, onSuccess, onFail }: any) => {
     updateOrder({ variables })
-      .then(({ data }: any) => {
-        console.log(data)
+      .then((res: any) => {
+        if (onSuccess) {
+          return onSuccess(res)
+        }
+        return
       })
-      .catch((e: any) => {
-        console.log(e)
+      .catch((res: any) => {
+        if (onFail) {
+          return onFail(res)
+        }
+        return
       })
   }
 
