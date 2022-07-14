@@ -31,6 +31,7 @@ const Page: NextPage = () => {
     runClearCart,
     runCheckout,
     runGetRegisteredUser,
+    runUpdateOrderStatus,
   } = useRegistration({
     productId: 1734,
   })
@@ -45,6 +46,8 @@ const Page: NextPage = () => {
   const [model, setModel] = useState('model-3')
   const [refSource, setRefSource] = useState('')
   const [privacyPolicy, setPrivacyPolicy] = useState(false)
+
+  const [orderId, setOrderId] = useState()
 
   /* HANDLE VALIDATION */
   const handleValidation = (e: any) => {
@@ -108,10 +111,24 @@ const Page: NextPage = () => {
           },
         })
           .then(() => {
-            logout().catch((e: any) => {
-              return toast({ message: e.message, type: 'error' })
+            runUpdateOrderStatus({
+              variables: {
+                orderId: orderId,
+                status: 'COMPLETED',
+              },
+              onSuccess: () => {
+                logout().catch((e: any) => {
+                  return toast({ message: e.message, type: 'error' })
+                })
+                return router.push(`/auth/login?newAccountCreated=true`)
+              },
+              onFail: (e: any) => {
+                logout().catch(() => {
+                  return
+                })
+                return toast({ message: e.message, type: 'error' })
+              },
             })
-            return router.push(`/auth/login?newAccountCreated=true`)
           })
           .catch((e: any) => {
             logout().catch(() => {
@@ -143,7 +160,10 @@ const Page: NextPage = () => {
           isPaid: true,
           paymentMethod: 'none',
         },
-        onSuccess: () => handleFinalize(),
+        onSuccess: () => {
+          setOrderId(data?.checkout?.order?.databaseId)
+          handleFinalize()
+        },
         onFail: () => {
           runClearCart()
           return toast({ message: e.message, type: 'error' })
