@@ -3,7 +3,6 @@ import CN from 'classnames'
 import Link from 'next/link'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useRouter } from 'next/router'
 import { Button } from '@/components/atoms'
 import { MemberCard } from '@/components/molecules/MemberCard'
@@ -17,8 +16,6 @@ const Page: NextPage = () => {
   const router = useRouter()
   const { isDesktop, isMobile, isTablet } = useViewport()
   const { user }: any = useAppContext()
-
-  console.log(`dashboard user `, user)
 
   const upcomingEventsList = [
     {

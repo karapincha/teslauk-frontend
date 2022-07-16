@@ -8,7 +8,7 @@ const AppContext = createContext({})
 
 export function AppWrapper({ children, values }: any) {
   const [showSideMenu, setShowSideMenu] = useState(false)
-  const { user } = useLoggedInUser()
+  const { user, refetchUser } = useLoggedInUser()
   const wrapperRef = useRef(null)
   const hamburgerRef = useRef(null)
 
@@ -17,10 +17,6 @@ export function AppWrapper({ children, values }: any) {
     loading: loadingCommonData,
     refetch: refetchCommonData,
   } = useQuery(GET_COMMON)
-
-  useEffect(() => {
-    console.log(`Context: `, commonData)
-  }, [commonData])
 
   let sharedState = {
     isLoading: loadingCommonData,
@@ -35,6 +31,7 @@ export function AppWrapper({ children, values }: any) {
     footer: commonData?.footer?.blockFooter,
     suppliers: commonData?.suppliers?.nodes,
     user,
+    refetchUser,
   }
 
   useOutsideClick(wrapperRef, () => setShowSideMenu(false), hamburgerRef)

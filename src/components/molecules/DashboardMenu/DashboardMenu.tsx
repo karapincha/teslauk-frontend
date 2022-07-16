@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
 import { Grid, Tag, User, Settings, MapPin, Download, Bell } from 'react-feather'
+import Link from 'next/link'
 
 export interface DashboardMenuProps {
   [x: string]: any
@@ -20,7 +21,7 @@ export const DashboardMenu: FC<DashboardMenuProps> = ({
       icon: <Grid size={20} />,
       label: 'Dashboard',
       url: '#',
-      isActive: false,
+      isActive: true,
     },
     {
       id: '1',
@@ -41,7 +42,7 @@ export const DashboardMenu: FC<DashboardMenuProps> = ({
       icon: <Settings size={20} />,
       label: 'Account',
       url: '#',
-      isActive: true,
+      isActive: false,
     },
     {
       id: '4',
@@ -64,23 +65,32 @@ export const DashboardMenu: FC<DashboardMenuProps> = ({
       url: '#',
       isActive: false,
     },
+    {
+      id: '6',
+      icon: <i className='ri-logout-circle-line text-lg' />,
+      label: 'Logout',
+      url: '/auth/logout',
+      isActive: false,
+    },
   ]
 
   return (
     <div className={DashboardMenuClasses} {...restProps}>
       <ul className='flex flex-col gap-[8px]'>
         {dashboardMenuList.map(({ id, url, label, icon, isActive }, index) => (
-          <li key={id || index} className='flex justify-between py-[8px] pl-[12px] hover:bg-N-50 hover:rounded-[4px]'>
-            <a
-              target='_blank'
-              href={url}
-              className={CN(`flex items-center gap-[8px]  hover:font-600 hover:text-N-800`, {
-                'text-N-600': !isActive,
-                'text-B-500': isActive,
-              })}>
-              <span>{icon}</span>
-              <p className='text-base font-600  hover:text-N-800'>{label}</p>
-            </a>
+          <li
+            key={id || index}
+            className='flex justify-between py-[8px] pl-[12px] hover:rounded-[4px] hover:bg-N-50'>
+            <Link href={url}>
+              <a
+                className={CN(`flex items-center gap-[8px]  hover:font-600 hover:text-N-800`, {
+                  'text-N-600': !isActive,
+                  'text-B-500': isActive,
+                })}>
+                <span>{icon}</span>
+                <p className='text-base font-600  hover:text-N-800'>{label}</p>
+              </a>
+            </Link>
           </li>
         ))}
       </ul>

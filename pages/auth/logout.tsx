@@ -1,32 +1,37 @@
 import { useEffect } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { useSessionStorage } from '@/utils'
-import { useAppContext } from '@/context'
-import { Logo } from '@/components/atoms/Logo'
 import Link from 'next/link'
-import { useViewport } from '@/utils'
-import { LOGOUT } from '../../lib/graphql'
+
+import { useRouter } from 'next/router'
 import { useMutation, useQuery } from '@apollo/client'
-import { useLogoutMutation } from '@/utils'
+import { useSessionStorage, useViewport } from '@/utils'
+import { useAppContext } from '@/context'
+
+import { Logo } from '@/components/atoms/Logo'
+
+import { GET_CURRENT_USER, LOGOUT } from '../../lib/graphql'
 
 const Page: NextPage = () => {
-  const { clear: clearSessionStorage } = useSessionStorage('token', '')
   const router = useRouter()
-  const { setToken }: any = useAppContext()
+  const { user, refetchUser }: any = useAppContext()
   const { isTablet, isMobile, isDesktop } = useViewport()
 
-  const [logoutServer] = useMutation(LOGOUT)
-  const { logoutMutation } = useLogoutMutation()
+  const [logout] = useMutation(LOGOUT)
 
   useEffect(() => {
-    clearSessionStorage()
-    logoutMutation()
-    logoutServer().then(() => {
+    if (user) {
+      logout()
+        .then(() => {
+          refetchUser()
+            .then(() => router.push('/'))
+            .catch()
+        })
+        .catch()
+    } else {
       router.push('/')
-    })
-  })
+    }
+  }, [])
 
   return (
     <>

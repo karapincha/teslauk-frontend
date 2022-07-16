@@ -6,16 +6,7 @@ import { TextField, CheckBox, Button } from '@/components/atoms'
 import { toast } from '@/components/molecules'
 import { useRouter } from 'next/router'
 import { useAppContext } from '@/context'
-import {
-  ADD_TO_CART,
-  CHECKOUT,
-  CLEAR_CART,
-  UPDATE_USER,
-  GET_CURRENT_USER,
-  LOGIN,
-  LOGOUT,
-  UPDATE_ORDER,
-} from '../../../../lib/graphql'
+import { GET_CURRENT_USER, LOGIN } from '../../../../lib/graphql'
 
 export interface LoginProps {
   [x: string]: any
