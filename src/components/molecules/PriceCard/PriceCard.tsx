@@ -78,16 +78,12 @@ export const PriceCard: FC<PriceCardProps> = ({
               label='Enter discount code'
               btnProps={{
                 children: 'Apply',
-                onClick: (e: any) => {
-                  // console.log('Clicked', e)
-                },
+                onClick: (e: any) => {},
                 appearance: 'secondary',
                 size: 'sm',
               }}
               inputProps={{
-                onChange: (e: any) => {
-                  // console.log(e.target.value)
-                },
+                onChange: (e: any) => {},
               }}
             />
             <Button iconAfter={<ArrowRight size={20} />} className='w-full'>

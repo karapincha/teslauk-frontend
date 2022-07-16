@@ -31,9 +31,7 @@ const Page: NextPage = ({ guide, guides }: any) => {
           btnProps={{
             size: 'lg',
             children: 'Submit an article',
-            onClick: () => {
-              console.log('Clicked')
-            },
+            onClick: () => {},
           }}
         />
       </div>

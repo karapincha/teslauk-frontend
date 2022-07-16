@@ -23,7 +23,6 @@ const Page: NextPage = () => {
   useEffect(() => {
     clearSessionStorage()
     logoutMutation()
-    setToken('')
     logoutServer().then(() => {
       router.push('/')
     })

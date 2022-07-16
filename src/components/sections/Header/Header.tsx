@@ -4,7 +4,7 @@ import { Logo } from '@/components/atoms/Logo'
 import { Button } from '@/components/atoms/Button'
 import { Hamburger } from '@/components/atoms/Hamburger'
 import Link from 'next/link'
-import { useViewport } from '@/utils'
+import { useViewport, useLoggedInUser } from '@/utils'
 import { useAppContext } from '@/context'
 
 export interface HeaderProps {
@@ -24,7 +24,7 @@ export const Header: FC<HeaderProps> = ({
     className
   )
   const { isTablet, isMobile, isDesktop } = useViewport()
-  const { token }: any = useAppContext()
+  const { sidemenu, header, footer, suppliers, user, isLoading }: any = useAppContext()
 
   return (
     <div className={HeaderClasses} {...restProps}>
@@ -67,21 +67,28 @@ export const Header: FC<HeaderProps> = ({
             )
           })}
 
-          <Button icon={<i className='ri-search-2-line text-lg' />} appearance='link' />
+          <div className='flex items-center gap-[20px]'>
+            <Button icon={<i className='ri-shopping-cart-line text-lg' />} appearance='link' />
+            <Button icon={<i className='ri-search-2-line text-lg' />} appearance='link' />
 
-          {token === '' ? (
-            <Link href='/auth/login'>
-              <Button view='outline' className='hidden lg:inline'>
-                Login
-              </Button>
-            </Link>
-          ) : (
-            <Link href='/auth/logout'>
-              <Button view='outline' className='hidden lg:inline'>
-                Logout
-              </Button>
-            </Link>
-          )}
+            {!user && !user?.id ? (
+              <Link href='/auth/login'>
+                <Button view='outline' className='hidden lg:flex' size='sm'>
+                  Login
+                </Button>
+              </Link>
+            ) : (
+              <Link href='/dashboard'>
+                <Button
+                  view='outline'
+                  className='hidden lg:flex'
+                  size='sm'
+                  iconBefore={<i className='ri-user-3-line text-lg' />}>
+                  Account
+                </Button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </div>

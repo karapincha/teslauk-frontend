@@ -16,7 +16,7 @@ export const SideMenu: FC<SideMenuProps> = ({
   ...restProps
 }: SideMenuProps) => {
   const SideMenuClasses = CN(`side-menu`, className)
-  const { sideMenu }: any = useAppContext()
+  const { sidemenu }: any = useAppContext()
 
   const dummyList = [
     {
@@ -42,13 +42,13 @@ export const SideMenu: FC<SideMenuProps> = ({
   ]
 
   return (
-    <div className={SideMenuClasses} {...restProps} ref={sideMenu.wrapperRef}>
+    <div className={SideMenuClasses} {...restProps} ref={sidemenu.wrapperRef}>
       <div
         className={CN(
           'left-0 top-0 bottom-0 z-[100] h-full w-full max-w-[300px] bg-white px-[20px] py-[60px] shadow-card-shadow',
           {
-            fixed: sideMenu.showSideMenu,
-            hidden: !sideMenu.showSideMenu,
+            fixed: sidemenu.showSideMenu,
+            hidden: !sidemenu.showSideMenu,
           }
         )}>
         <h5 className='px-[20px] pb-[24px] text-h5 text-N-800'>Menu</h5>

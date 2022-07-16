@@ -157,9 +157,7 @@ const Page: NextPage = () => {
               description='As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes. As part of our mission, we seek out opportunities to to accelerate the world’s transition to sustainable energy we do following programmes. '
               btnProps={{
                 children: 'Sign up',
-                onClick: () => {
-                  // console.log('Clicked')
-                },
+                onClick: () => {},
                 appearance: 'primary',
               }}
             />

@@ -1,12 +1,21 @@
 import React, { FC, useState, useEffect } from 'react'
-import { useMutation, gql } from '@apollo/client'
+import { useMutation, gql, useQuery } from '@apollo/client'
 import Link from 'next/link'
 import CN from 'classnames'
 import { TextField, CheckBox, Button } from '@/components/atoms'
-import { LOGIN } from '../../../../lib/graphql'
 import { toast } from '@/components/molecules'
 import { useRouter } from 'next/router'
 import { useAppContext } from '@/context'
+import {
+  ADD_TO_CART,
+  CHECKOUT,
+  CLEAR_CART,
+  UPDATE_USER,
+  GET_CURRENT_USER,
+  LOGIN,
+  LOGOUT,
+  UPDATE_ORDER,
+} from '../../../../lib/graphql'
 
 export interface LoginProps {
   [x: string]: any
@@ -19,12 +28,14 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
   )
 
   const router = useRouter()
-  const { setToken }: any = useAppContext()
+  const { refetch: refetchUser } = useQuery(GET_CURRENT_USER, {
+    skip: true,
+  })
 
   const [username, setUsername] = useState<any>(router.query.login)
   const [password, setPassword] = useState<any>()
 
-  const [login, { data, loading, error }] = useMutation(LOGIN, {
+  const [login, { loading }] = useMutation(LOGIN, {
     variables: {
       username,
       password,
@@ -35,9 +46,11 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
     if (router.query.passwordChanged === 'true') {
       toast({ message: 'Password changed successfully', type: 'success' })
     }
+
     if (router.query.newPasswordRequested === 'true') {
       toast({ message: 'Password reset link sent to your inbox.', type: 'success' })
     }
+
     if (router.query.newAccountCreated === 'true') {
       toast({
         message: 'Your account has been created. Please login using your email and password ',
@@ -58,10 +71,12 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
     }
 
     login()
-      .then(({ data }: any) => {
-        localStorage.setItem('token', data?.login?.authToken)
-        setToken(data?.login?.authToken)
-        router.push('/dashboard')
+      .then(() => {
+        refetchUser()
+          .then(() => {
+            router.push('/dashboard')
+          })
+          .catch()
       })
       .catch((e: any) => {
         return toast({ message: e.message, type: 'error' })
@@ -72,13 +87,14 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
     if (router.query.passwordChanged) {
       router.push({ query: {} })
     }
+
     if (router.query.newPasswordRequested) {
       router.push({ query: {} })
     }
   }
 
   return (
-    <div className={LoginClasses} {...restProps}>
+    <form className={LoginClasses} {...restProps}>
       <h4 className='pb-[24px] text-center text-h4 font-600 text-N-800'>Login</h4>
       <div>
         <div className='flex flex-col gap-[16px]'>
@@ -118,6 +134,7 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
               }}
               value={password}
               autoFocus={router.query.login}
+              autoComplete='Password'
             />
           </div>
         </div>
@@ -167,10 +184,8 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
           </div>
         </div>
       </div>
-    </div>
+    </form>
   )
 }
-
-Login.defaultProps = {}
 
 export default Login

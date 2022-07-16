@@ -33,12 +33,12 @@ const Page: NextPage = () => {
             headingClassName='text-N-800'
             descriptionClassName='text-N-600'
             btnProps={{
-              onClick: (e: any) => console.log(e),
+              onClick: (e: any) => {},
               children: 'Search',
               appearance: 'primary',
             }}
             inputProps={{
-              onChange: (e: any) => console.log(e.target.value),
+              onChange: (e: any) => {},
               placeholder: 'Need some help? Search guides to find out',
               defaultValue: '',
               size: 'lg',
@@ -61,12 +61,10 @@ const Page: NextPage = () => {
 
               <div className='lg::py-[80px] py-[40px]'>
                 <InlineCTA
-                  heading='Do you have the experties?  Share your knowledge!'
+                  heading='Do you have the expertise?  Share your knowledge!'
                   btnProps={{
                     children: 'Submit an article',
-                    onClick: () => {
-                      console.log('Clicked')
-                    },
+                    onClick: () => {},
                   }}
                 />
               </div>
@@ -137,9 +135,7 @@ const Page: NextPage = () => {
                 If you spot a mistake please ensure you alert us.'
                   btnProps={{
                     label: 'Contact Us',
-                    onClick: () => {
-                      console.log('Clicked')
-                    },
+                    onClick: () => {},
                   }}
                 />
               </div>

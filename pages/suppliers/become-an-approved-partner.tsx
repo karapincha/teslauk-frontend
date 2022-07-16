@@ -23,8 +23,6 @@ const Page: NextPage = ({ page }: any) => {
   const { isMobile, isTablet, isDesktop } = useViewport()
   const { staticPage, testimonials, faq } = page
 
-  console.log(page)
-
   return (
     <>
       <Head>

@@ -53,9 +53,7 @@ const Page: NextPage = () => {
               descriptionCTA='See more'
               btnProps={{
                 children: 'Request a Radio Flyer',
-                onClick: () => {
-                  console.log('Clicked')
-                },
+                onClick: () => {},
                 appearance: 'primary',
               }}
             />
@@ -77,9 +75,7 @@ const Page: NextPage = () => {
               image='/images/charity/charity-003.png'
               btnProps={{
                 children: 'Request a Wish',
-                onClick: () => {
-                  console.log('Clicked')
-                },
+                onClick: () => {},
                 appearance: 'primary',
               }}
             />

@@ -20,7 +20,7 @@ export const Hamburger: FC<HamburgerProps> = ({
   ...restProps
 }: HamburgerProps) => {
   const HamburgerClasses = CN(styles['hamburger'], 'relative cursor-pointer', className)
-  const { sideMenu }: any = useAppContext()
+  const { sidemenu }: any = useAppContext()
 
   return (
     <>
@@ -28,17 +28,17 @@ export const Hamburger: FC<HamburgerProps> = ({
         className={HamburgerClasses}
         style={{ width: width, height: height }}
         {...restProps}
-        ref={sideMenu.hamburgerRef}>
+        ref={sidemenu.hamburgerRef}>
         <input
           className={CN(
             'absolute z-[2] block h-full w-full cursor-pointer opacity-0',
             styles.hamburger__checkbox
           )}
           type='checkbox'
-          checked={sideMenu.showSideMenu}
+          checked={sidemenu.showSideMenu}
           onChange={(e: any) => {
             e.stopPropagation()
-            sideMenu.setShowSideMenu(!sideMenu.showSideMenu)
+            sidemenu.setShowSideMenu(!sidemenu.showSideMenu)
           }}
         />
 

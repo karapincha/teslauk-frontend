@@ -141,16 +141,12 @@ export const Footer: FC<FooterProps> = ({ className, data, ...restProps }: Foote
           placeholder='Enter email address'
           btnProps={{
             children: 'Subscribe',
-            onClick: (e: any) => {
-              // console.log('Clicked', e)
-            },
+            onClick: (e: any) => {},
             appearance: 'primary',
             size: 'sm',
           }}
           inputProps={{
-            onChange: (e: any) => {
-              // console.log(e.target.value)
-            },
+            onChange: (e: any) => {},
             placeholder: 'joe@example.com',
           }}
         />

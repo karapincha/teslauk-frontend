@@ -45,7 +45,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     /* General */
     const ButtonClasses = CN(
-      'btn rounded-[4px] text-base font-500 flex items-center justify-center group transition-colors gap-[6px] children:inline-flex border-2 border-transparent',
+      'btn rounded-[4px] text-base font-500 flex items-center justify-center group transition-colors gap-[6px] border-2 border-transparent',
       className,
       {
         /* Disabled */
@@ -99,13 +99,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <button className={CN(ButtonClasses)} disabled={disabled} ref={ref} {...restProps}>
-        {iconBefore && <div className={CN('btn__icon children:inline-flex')}>{iconBefore}</div>}
+        {!children && icon && (
+          <div className={CN('btn__content flex h-full items-center')}>{icon}</div>
+        )}
 
-        {!children && icon && <div className={CN('btn__content')}>{icon}</div>}
-
-        {children && <div className={CN('btn__content')}>{renderChildren()}</div>}
-
-        {iconAfter && <div className={CN('btn__icon children:inline-flex')}>{iconAfter}</div>}
+        {children && (
+          <div className={CN('btn__content flex h-full items-center gap-[6px]')}>
+            {iconBefore && (
+              <div className={CN('btn__icon flex h-full items-center')}>{iconBefore}</div>
+            )}
+            {renderChildren()}
+            {iconAfter && (
+              <div className={CN('btn__icon flex h-full items-center')}>{iconAfter}</div>
+            )}
+          </div>
+        )}
 
         {isLoading && (
           <div className={CN('btn__loading')}>

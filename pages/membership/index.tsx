@@ -18,8 +18,6 @@ const Page: NextPage = ({ pageData }: any) => {
   const { faq, staticPageHeader } = pageData.page
   const { testimonials } = pageData
 
-  console.log(testimonials)
-
   return (
     <>
       <Head>

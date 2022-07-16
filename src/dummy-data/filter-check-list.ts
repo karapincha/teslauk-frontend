@@ -3,7 +3,7 @@ export const brandCheckList = [
     id: 1,
     label: 'A. Kruss Optronic',
     onChange: (e: any) => {
-      // console.log(e)
+      // {}
     },
     defaultChecked: true,
   },

@@ -70,7 +70,6 @@ DateCard.defaultProps = {
   description: `We organise several Track days per annum where you can take your own car onto the track`,
   heading: `Track Days`,
   link: `/`,
-  linkText: `View event`,
   location: `Bridgend CF32 9SY`,
   appearance: 'default',
 }

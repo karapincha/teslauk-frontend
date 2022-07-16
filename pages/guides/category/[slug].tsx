@@ -106,9 +106,7 @@ const Page: NextPage = ({ page, categories, guides }: any) => {
                         heading='Do you have the expertise? Share your knowledge!'
                         btnProps={{
                           children: 'Submit an article',
-                          onClick: () => {
-                            console.log('Clicked')
-                          },
+                          onClick: () => {},
                         }}
                         className='my-[20px]'
                       />
