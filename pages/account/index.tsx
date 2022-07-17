@@ -315,8 +315,8 @@ const Page: NextPage = ({ orders }: any) => {
                             {format(new Date(date_created?.date), 'dd MMMM yyyy')}
                           </p>
                           <p
-                            className={CN(`text-md font-400`, {
-                              'text-N-800': status === 'pending',
+                            className={CN(`text-md font-400 text-N-800`, {
+                              'text-R-500': status === 'pending',
                               'text-G-500': status === 'completed',
                             })}>
                             {status.replace(/^\w/, (c: any) => c.toUpperCase())}

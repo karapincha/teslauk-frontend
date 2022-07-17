@@ -47,8 +47,6 @@ const Page: NextPage = () => {
   const [refSource, setRefSource] = useState('')
   const [privacyPolicy, setPrivacyPolicy] = useState(false)
 
-  const [orderId, setOrderId] = useState()
-
   /* HANDLE VALIDATION */
   const handleValidation = (e: any) => {
     e.preventDefault()
@@ -97,7 +95,7 @@ const Page: NextPage = () => {
   }
 
   /* FINALIZE */
-  const handleFinalize = () => {
+  const handleFinalize = (orderId: any) => {
     runGetRegisteredUser({
       username,
       password,
@@ -161,8 +159,7 @@ const Page: NextPage = () => {
           paymentMethod: 'none',
         },
         onSuccess: ({ data }: any) => {
-          setOrderId(data?.checkout?.order?.databaseId)
-          handleFinalize()
+          handleFinalize(data?.checkout?.order?.databaseId)
         },
         onFail: () => {
           runClearCart()
