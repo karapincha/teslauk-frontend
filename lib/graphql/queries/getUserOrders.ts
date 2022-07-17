@@ -2,18 +2,9 @@ import { fetchAPI } from '../../api'
 
 export async function getUserOrders() {
   const data = await fetchAPI(`{
-    orders {
-      nodes {
-        id
-        date
-        dateCompleted
-        datePaid
-        orderNumber
-        needsPayment
-        customerIpAddress
-        currency
-      }
+    userOrders {
+      data_json
     }
   }`)
-  return data?.orders
+  return data
 }

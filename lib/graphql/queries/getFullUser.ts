@@ -50,5 +50,8 @@ export const GET_FULL_USER = gql`
       products
       data_json
     }
+    orders: userOrders {
+      data_json
+    }
   }
 `

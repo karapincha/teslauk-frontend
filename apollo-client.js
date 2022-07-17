@@ -58,9 +58,6 @@ export const afterware = new ApolloLink((operation, forward) => {
 const client = new ApolloClient({
   link: middleware.concat(afterware.concat(link)),
   cache: new InMemoryCache(),
-  fetchOptions: {
-    mode: 'no-cors',
-  },
 })
 
 export default client

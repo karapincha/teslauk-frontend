@@ -5,6 +5,7 @@ import Link from 'next/link'
 import CN from 'classnames'
 import { useQuery } from '@apollo/client'
 import _ from 'lodash'
+import { format } from 'date-fns'
 
 import { ArrowRightCircle } from 'react-feather'
 import { Button } from '@/components/atoms'
@@ -23,6 +24,7 @@ const Page: NextPage = ({ orders }: any) => {
   const { isDesktop, isMobile, isTablet } = useViewport()
   const { user }: any = useAppContext()
 
+  const [_orders, _setOrders] = useState<any>()
   const [_subscriptions, _setSubscriptions] = useState<any>()
   const [_subscribedProducts, _setSubscribedProducts] = useState<any>()
 
@@ -50,7 +52,8 @@ const Page: NextPage = ({ orders }: any) => {
 
   /* Filter and set user's active subscriptions and products */
   useEffect(() => {
-    let subscriptions = []
+    /* Subscriptions */
+    let subscriptions: any = []
 
     if (fullUser?.activeSubscriptions) {
       subscriptions = fullUser?.activeSubscriptions?.map((subscription: any) => {
@@ -69,6 +72,17 @@ const Page: NextPage = ({ orders }: any) => {
     }
 
     _setSubscriptions(subscriptions)
+
+    /* Orders */
+    let orders: any = []
+
+    if (fullUser?.orders) {
+      orders = fullUser?.orders?.map((order: any) => {
+        return JSON.parse(order?.data_json)
+      })
+    }
+
+    _setOrders(orders)
   }, [fullUser])
 
   /* Check if user has memberships (Free / Paid) */
@@ -128,8 +142,8 @@ const Page: NextPage = ({ orders }: any) => {
   }, [_subscriptions])
 
   useEffect(() => {
-    console.log(orders)
-  }, [orders])
+    console.log(_orders)
+  }, [_orders])
 
   const upcomingEventsList = [
     {
@@ -281,25 +295,32 @@ const Page: NextPage = ({ orders }: any) => {
             </div>
 
             <div className='scrollbar-py-[12px] scrollbar-track-rounded-full scrollbar-thumb-rounded-full w-full overflow-auto overflow-y-scroll pt-[40px] scrollbar-thin scrollbar-track-N-100 scrollbar-thumb-N-300'>
-              <p className='mb-[16px] text-md text-N-600'>Recent orders</p>
+              <p className='mb-[16px] text-md text-N-600'>Recent purchases</p>
 
               <ul className='flex w-[600px] flex-col gap-[8px] overflow-auto pb-[24px] md:w-[unset] lg:w-[unset]'>
-                {recentOrdersList.map(
-                  ({ id, orderNumber, url, label, date, isCompleted }, index) => (
+                {_orders?.map(
+                  (
+                    { id, number, date_created, label, status, isCompleted }: any,
+                    index: number
+                  ) => (
                     <li
                       key={id || index}
                       className='grid grid-cols-[0.75fr_1fr_3fr_1fr] gap-[24px]'>
-                      <span className='text-md text-N-800'>{orderNumber}</span>
-                      <p className='text-md font-400 text-N-600'>{date}</p>
+                      <Link href={`/account/purchases/${number}`}>
+                        <a className='text-md text-N-800 hover:text-B-500'>#{number}</a>
+                      </Link>
+                      <p className='text-md font-400 text-N-600'>
+                        {format(new Date(date_created?.date), 'dd MMMM yyyy')}
+                      </p>
                       <p
                         className={CN(`text-md font-400`, {
-                          'text-N-800': !isCompleted,
-                          'text-G-500': isCompleted,
+                          'text-N-800': status === 'pending',
+                          'text-G-500': status === 'completed',
                         })}>
-                        {label}
+                        {status.replace(/^\w/, (c: any) => c.toUpperCase())}
                       </p>
 
-                      <Link href={url}>
+                      <Link href={`/account/purchases/${number}`}>
                         <a className='text-md text-N-800 hover:text-B-500'>View</a>
                       </Link>
                     </li>
@@ -309,7 +330,7 @@ const Page: NextPage = ({ orders }: any) => {
             </div>
 
             <div className='pt-[24px] md:pt-[16px] lg:pt-[0]'>
-              <Link href='/account/orders'>
+              <Link href='/account/purchases'>
                 <Button
                   iconAfter={<i className='ri-arrow-right-line text-lg' />}
                   appearance='link'
