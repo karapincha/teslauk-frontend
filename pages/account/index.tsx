@@ -294,51 +294,55 @@ const Page: NextPage = ({ orders }: any) => {
               </ul>
             </div>
 
-            <div className='scrollbar-py-[12px] scrollbar-track-rounded-full scrollbar-thumb-rounded-full w-full overflow-auto overflow-y-scroll pt-[40px] scrollbar-thin scrollbar-track-N-100 scrollbar-thumb-N-300'>
-              <p className='mb-[16px] text-md text-N-600'>Recent purchases</p>
+            {_orders?.length !== 0 && (
+              <>
+                <div className='scrollbar-py-[12px] scrollbar-track-rounded-full scrollbar-thumb-rounded-full w-full overflow-auto overflow-y-scroll pt-[40px] scrollbar-thin scrollbar-track-N-100 scrollbar-thumb-N-300'>
+                  <p className='mb-[16px] text-md text-N-600'>Recent purchases</p>
 
-              <ul className='flex w-[600px] flex-col gap-[8px] overflow-auto pb-[24px] md:w-[unset] lg:w-[unset]'>
-                {_orders?.map(
-                  (
-                    { id, number, date_created, label, status, isCompleted }: any,
-                    index: number
-                  ) => (
-                    <li
-                      key={id || index}
-                      className='grid grid-cols-[0.75fr_1fr_3fr_1fr] gap-[24px]'>
-                      <Link href={`/account/purchases/${number}`}>
-                        <a className='text-md text-N-800 hover:text-B-500'>#{number}</a>
-                      </Link>
-                      <p className='text-md font-400 text-N-600'>
-                        {format(new Date(date_created?.date), 'dd MMMM yyyy')}
-                      </p>
-                      <p
-                        className={CN(`text-md font-400`, {
-                          'text-N-800': status === 'pending',
-                          'text-G-500': status === 'completed',
-                        })}>
-                        {status.replace(/^\w/, (c: any) => c.toUpperCase())}
-                      </p>
+                  <ul className='flex w-[600px] flex-col gap-[8px] overflow-auto pb-[24px] md:w-[unset] lg:w-[unset]'>
+                    {_orders?.map(
+                      (
+                        { id, number, date_created, label, status, isCompleted }: any,
+                        index: number
+                      ) => (
+                        <li
+                          key={id || index}
+                          className='grid grid-cols-[0.75fr_1fr_3fr_1fr] gap-[24px]'>
+                          <Link href={`/account/purchases/${number}`}>
+                            <a className='text-md text-N-800 hover:text-B-500'>#{number}</a>
+                          </Link>
+                          <p className='text-md font-400 text-N-600'>
+                            {format(new Date(date_created?.date), 'dd MMMM yyyy')}
+                          </p>
+                          <p
+                            className={CN(`text-md font-400`, {
+                              'text-N-800': status === 'pending',
+                              'text-G-500': status === 'completed',
+                            })}>
+                            {status.replace(/^\w/, (c: any) => c.toUpperCase())}
+                          </p>
 
-                      <Link href={`/account/purchases/${number}`}>
-                        <a className='text-md text-N-800 hover:text-B-500'>View</a>
-                      </Link>
-                    </li>
-                  )
-                )}
-              </ul>
-            </div>
+                          <Link href={`/account/purchases/${number}`}>
+                            <a className='text-md text-N-800 hover:text-B-500'>View</a>
+                          </Link>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </div>
 
-            <div className='pt-[24px] md:pt-[16px] lg:pt-[0]'>
-              <Link href='/account/purchases'>
-                <Button
-                  iconAfter={<i className='ri-arrow-right-line text-lg' />}
-                  appearance='link'
-                  size='sm'>
-                  View all orders
-                </Button>
-              </Link>
-            </div>
+                <div className='pt-[24px] md:pt-[16px] lg:pt-[0]'>
+                  <Link href='/account/purchases'>
+                    <Button
+                      iconAfter={<i className='ri-arrow-right-line text-lg' />}
+                      appearance='link'
+                      size='sm'>
+                      View all orders
+                    </Button>
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
 
           <div className='justify-end md:flex md:flex-row-reverse md:gap-[24px] lg:flex lg:flex-col lg:justify-start'>
