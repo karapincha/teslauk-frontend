@@ -4,33 +4,16 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import { useRouter } from 'next/router'
-import { useMutation, useQuery } from '@apollo/client'
-import { useSessionStorage, useViewport } from '@/utils'
-import { useAppContext } from '@/context'
+import { useViewport } from '@/utils'
 
 import { Logo } from '@/components/atoms/Logo'
 
-import { GET_CURRENT_USER, LOGOUT } from '../../lib/graphql'
-
 const Page: NextPage = () => {
   const router = useRouter()
-  const { user, refetchUser }: any = useAppContext()
-  const { isTablet, isMobile, isDesktop } = useViewport()
-
-  const [logout] = useMutation(LOGOUT)
+  const { isTablet, isMobile } = useViewport()
 
   useEffect(() => {
-    if (user) {
-      logout()
-        .then(() => {
-          refetchUser()
-            .then(() => router.push('/'))
-            .catch()
-        })
-        .catch()
-    } else {
-      router.push('/')
-    }
+    router.push('https://teslaowners.kp.lk/logout')
   }, [])
 
   return (

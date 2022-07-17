@@ -78,7 +78,7 @@ export const Header: FC<HeaderProps> = ({
                 </Button>
               </Link>
             ) : (
-              <Link href='/dashboard'>
+              <Link href='/account'>
                 <Button
                   view='outline'
                   className='hidden lg:flex'

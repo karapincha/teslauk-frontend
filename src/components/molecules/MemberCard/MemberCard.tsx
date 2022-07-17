@@ -30,18 +30,18 @@ export const MemberCard: FC<MemberCardProps> = ({
           <img src='/images/wallet.png' width={110} height={34} />
         </a>
       </div>
-      <div className='pt-[8px]'>
-        <h4 className='text-h4 font-600 text-N-10'>{name}</h4>
-        <p className='text-base text-N-10'>{email}</p>
+      <div className='pt-[12px]'>
+        <h4 className='text-h5 font-600 text-N-10'>{name}</h4>
+        <p className='text-md text-N-10'>{email}</p>
 
         <div className='grid grid-cols-[1fr_0.5fr] pt-[16px]'>
           <div className='w-fixed text-N-10'>
             <p className='text-md font-600'>Type</p>
-            <p className='text-base font-400'>{type}</p>
+            <p className='text-md font-400'>{type}</p>
           </div>
           <div className='text-N-10'>
             <p className='text-md font-600'>Expires on</p>
-            <p className='text-base font-400'>{expireDate}</p>
+            <p className='text-md font-400'>{expireDate}</p>
           </div>
         </div>
       </div>

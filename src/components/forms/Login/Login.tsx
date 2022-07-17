@@ -65,7 +65,7 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
       .then(() => {
         refetchUser()
           .then(() => {
-            router.push('/dashboard')
+            router.push('/account')
           })
           .catch()
       })

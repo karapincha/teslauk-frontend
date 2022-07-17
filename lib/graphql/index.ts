@@ -8,7 +8,9 @@ export * from './blocks/suppliersBar'
 export * from './blocks/footer'
 export * from './blocks/suppliersHeader'
 export * from './queries/getMenu'
+
 export * from './queries/getCurrentUser'
+export * from './queries/getFullUser'
 
 export * from './pages/home'
 export * from './pages/suppliers'
