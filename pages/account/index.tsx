@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import CN from 'classnames'
 import { useQuery } from '@apollo/client'
+import _ from 'lodash'
 
 import { ArrowRightCircle } from 'react-feather'
 import { Button } from '@/components/atoms'
@@ -24,9 +25,12 @@ const Page: NextPage = () => {
 
   const [_subscriptions, _setSubscriptions] = useState<any>()
   const [_subscribedProducts, _setSubscribedProducts] = useState<any>()
-  const [_hasFreeMembership, _setHasFreeMembership] = useState<any>(false)
-  const [_hasPaidMembership, _setHasPaidMembership] = useState<any>(false)
-  const [_hasPaidMembershipWithPack, _setHasPaidMembershipWithPack] = useState<any>(false)
+
+  const [_hasFreeMembership, _setHasFreeMembership] = useState<any>([])
+  const [_hasPaidMembership, _setHasPaidMembership] = useState<any>([])
+  const [_hasPaidMembershipWithPack, _setHasPaidMembershipWithPack] = useState<any>([])
+
+  const [_freeMembershipRenewalDate, _setFreeMembershipRenewalDate] = useState<any>()
   const [_paidMembershipRenewalDate, _setPaidMembershipRenewalDate] = useState<any>()
   const [_paidMembershipWithPackRenewalDate, _setPaidMembershipWithPackRenewalDate] =
     useState<any>()
@@ -35,13 +39,10 @@ const Page: NextPage = () => {
     variables: {
       id: user?.id,
     },
-    skip: true,
   })
 
   /* Fetch the full user again on global user id change */
   useEffect(() => {
-    console.log(user)
-
     if (user && user?.id) {
       fetchFullUser()
     }
@@ -100,6 +101,30 @@ const Page: NextPage = () => {
     _setHasPaidMembership(hasPaidMembership)
     _setHasPaidMembershipWithPack(hasPaidMembershipWithPack)
   }, [_subscribedProducts])
+
+  useEffect(() => {
+    _subscriptions?.map((sub: any) => {
+      sub?.products?.map((prod: any) => {
+        if (prod?.product_id === Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_FREE_ID)) {
+          _setFreeMembershipRenewalDate(sub?.nextPayment)
+        }
+
+        if (
+          prod?.product_id ===
+          Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
+        ) {
+          _setPaidMembershipWithPackRenewalDate(sub?.nextPayment)
+        }
+
+        if (
+          prod?.product_id ===
+          Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID)
+        ) {
+          _setPaidMembershipRenewalDate(sub?.nextPayment)
+        }
+      })
+    })
+  }, [_subscriptions])
 
   const upcomingEventsList = [
     {
@@ -185,7 +210,9 @@ const Page: NextPage = () => {
   ]
 
   const renderMembershipCard = () => {
-    console.log(_hasFreeMembership?.length ? _hasFreeMembership[0] : '')
+    // console.log(`_hasPaidMembershipWithPack`, _hasPaidMembershipWithPack)
+    // console.log(`_hasPaidMembership`, _hasPaidMembership)
+    // console.log(`_hasFreeMembership`, _hasFreeMembership)
 
     return (
       <>
@@ -198,19 +225,14 @@ const Page: NextPage = () => {
             (_hasFreeMembership?.length && 'Free Membership') ||
             `N/A`
           }
-          expireDate={_paidMembershipRenewalDate || 'Never'}
+          expireDate={_paidMembershipWithPackRenewalDate || _paidMembershipRenewalDate || 'Never'}
         />
-        <p className='py-[24px] text-center text-md text-N-600'>
-          Android? Install this
-          <a target='_blank' href='' className='underline'>
-            app
-          </a>
-          & follow this
-          <a target='_blank' href='' className='underline'>
-            guide
-          </a>
-          .
-        </p>
+        <p
+          className='py-[12px] text-center text-md text-N-600'
+          dangerouslySetInnerHTML={{
+            __html: `Android? Install this <a target='_blank' href='' className='underline'>app</a> & follow this <a target='_blank' href='' className='underline'>guide</a>.`,
+          }}
+        />
       </>
     )
   }
@@ -293,12 +315,12 @@ const Page: NextPage = () => {
             </div>
           </div>
 
-          <div className='justify-end md:flex md:flex-row-reverse md:gap-[24px] lg:flex lg:flex-col'>
+          <div className='justify-end lg:justify-start md:flex md:flex-row-reverse md:gap-[24px] lg:flex lg:flex-col'>
             <div className='flex'>
               {!isMobile && <div className='md:w-full'>{renderMembershipCard()}</div>}
             </div>
 
-            <div className='events w-full rounded-[8px] bg-N-50 px-[24px] py-[24px] md:w-[340px] lg:w-[368px] lg:px-[32px] lg:py-[32px]'>
+            {/* <div className='events w-full rounded-[8px] bg-N-50 px-[24px] py-[24px] md:w-[340px] lg:w-[368px] lg:px-[32px] lg:py-[32px]'>
               <p className='mb-[16px] text-md text-N-600'>Upcoming events</p>
 
               <ul className='flex flex-col gap-[8px]'>
@@ -322,7 +344,7 @@ const Page: NextPage = () => {
                   </Button>
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </AuthLayout>
