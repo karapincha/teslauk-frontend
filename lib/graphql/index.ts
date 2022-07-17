@@ -48,6 +48,7 @@ export * from './queries/getFormPage'
 export * from './queries/getTotals'
 
 export * from './queries/getCart'
+export * from './queries/getUserOrders'
 
 export * from './mutations/sendmail'
 export * from './mutations/login'

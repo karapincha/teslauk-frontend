@@ -16,9 +16,9 @@ import { useRouter } from 'next/router'
 import { useViewport } from '@/utils'
 import { useAppContext } from '@/context'
 
-import { GET_FULL_USER } from '../../lib/graphql'
+import { GET_FULL_USER, getUserOrders } from '../../lib/graphql'
 
-const Page: NextPage = () => {
+const Page: NextPage = ({ orders }: any) => {
   const router = useRouter()
   const { isDesktop, isMobile, isTablet } = useViewport()
   const { user }: any = useAppContext()
@@ -102,6 +102,7 @@ const Page: NextPage = () => {
     _setHasPaidMembershipWithPack(hasPaidMembershipWithPack)
   }, [_subscribedProducts])
 
+  /* Map user subscriptions */
   useEffect(() => {
     _subscriptions?.map((sub: any) => {
       sub?.products?.map((prod: any) => {
@@ -125,6 +126,10 @@ const Page: NextPage = () => {
       })
     })
   }, [_subscriptions])
+
+  useEffect(() => {
+    console.log(orders)
+  }, [orders])
 
   const upcomingEventsList = [
     {
@@ -315,7 +320,7 @@ const Page: NextPage = () => {
             </div>
           </div>
 
-          <div className='justify-end lg:justify-start md:flex md:flex-row-reverse md:gap-[24px] lg:flex lg:flex-col'>
+          <div className='justify-end md:flex md:flex-row-reverse md:gap-[24px] lg:flex lg:flex-col lg:justify-start'>
             <div className='flex'>
               {!isMobile && <div className='md:w-full'>{renderMembershipCard()}</div>}
             </div>
@@ -353,9 +358,12 @@ const Page: NextPage = () => {
 }
 
 export async function getStaticProps({ preview = false, previewData, user }: any) {
+  const data = await getUserOrders()
+
   return {
     props: {
       preview,
+      orders: data,
     },
     revalidate: 1,
   }

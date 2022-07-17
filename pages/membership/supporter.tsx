@@ -446,27 +446,15 @@ const Page: NextPage = () => {
                     <Button
                       className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
                       appearance='primary'
+                      isLoading={
+                        loadingLogout ||
+                        loadingUpdateUser ||
+                        loadingAddToCart ||
+                        loadingClearCart ||
+                        loadingCheckout
+                      }
                       onClick={handleSubmit}>
                       Register Now
-                    </Button>
-
-                    <Button
-                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
-                      appearance='primary'
-                      onClick={logout}>
-                      Logout
-                    </Button>
-
-                    <Button
-                      className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
-                      appearance='primary'
-                      onClick={() => {
-                        runGetRegisteredUser({
-                          username: formData.username,
-                          password: formData.password,
-                        })
-                      }}>
-                      Get current user
                     </Button>
                   </div>
                 </div>
