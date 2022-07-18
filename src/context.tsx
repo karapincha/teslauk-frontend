@@ -2,21 +2,42 @@ import React, { useState, createContext, useContext, useRef, useEffect } from 'r
 import { useOutsideClick, useLoggedInUser } from '@/utils'
 import { useQuery, gql } from '@apollo/client'
 
-import { GET_COMMON } from '../lib/graphql'
+import { GET_COMMON, GET_FULL_USER } from '../lib/graphql'
 
 const AppContext = createContext({})
 
 export function AppWrapper({ children, values }: any) {
-  const [showSideMenu, setShowSideMenu] = useState(false)
-  const { user, refetchUser } = useLoggedInUser()
   const wrapperRef = useRef(null)
   const hamburgerRef = useRef(null)
 
-  const {
-    data: commonData,
-    loading: loadingCommonData,
-    refetch: refetchCommonData,
-  } = useQuery(GET_COMMON)
+  const [showSideMenu, setShowSideMenu] = useState(false)
+  const [_orders, _setOrders] = useState<any>()
+
+  const { user, refetchUser } = useLoggedInUser()
+
+  const { data: commonData, loading: loadingCommonData } = useQuery(GET_COMMON)
+  const { data: fullUser, refetch: fetchFullUser } = useQuery(GET_FULL_USER, {
+    variables: {
+      id: user?.id,
+    },
+  })
+
+  useEffect(() => {
+    if (user && user?.id) {
+      fetchFullUser()
+    }
+  }, [user])
+
+  useEffect(() => {
+    /* User Orders */
+    if (fullUser?.orders) {
+      _setOrders(
+        fullUser?.orders?.map((order: any) => {
+          return JSON.parse(order?.data_json)
+        })
+      )
+    }
+  }, [fullUser])
 
   let sharedState = {
     isLoading: loadingCommonData,
@@ -31,6 +52,8 @@ export function AppWrapper({ children, values }: any) {
     footer: commonData?.footer?.blockFooter,
     suppliers: commonData?.suppliers?.nodes,
     user,
+    fullUser,
+    userOrders: _orders,
     refetchUser,
   }
 

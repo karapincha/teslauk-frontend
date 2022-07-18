@@ -43,12 +43,16 @@ export const GET_FULL_USER = gql`
       data_json
     }
     activeSubscriptions: userActiveSubscriptions {
-      id
+      data_json
       datePaid
+      id
       lastPayment
       nextPayment
       products
-      data_json
+      start
+      status
+      end
+      date_created
     }
     orders: userOrders {
       data_json

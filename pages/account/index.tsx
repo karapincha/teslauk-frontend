@@ -19,36 +19,15 @@ import { useAppContext } from '@/context'
 
 import { GET_FULL_USER, getUserOrders } from '../../lib/graphql'
 
-const Page: NextPage = ({ orders }: any) => {
+const Page: NextPage = () => {
   const router = useRouter()
   const { isDesktop, isMobile, isTablet } = useViewport()
-  const { user }: any = useAppContext()
+  const { fullUser, user, userOrders }: any = useAppContext()
 
-  const [_orders, _setOrders] = useState<any>()
   const [_subscriptions, _setSubscriptions] = useState<any>()
   const [_subscribedProducts, _setSubscribedProducts] = useState<any>()
-
-  const [_hasFreeMembership, _setHasFreeMembership] = useState<any>([])
-  const [_hasPaidMembership, _setHasPaidMembership] = useState<any>([])
-  const [_hasPaidMembershipWithPack, _setHasPaidMembershipWithPack] = useState<any>([])
-
-  const [_freeMembershipRenewalDate, _setFreeMembershipRenewalDate] = useState<any>()
-  const [_paidMembershipRenewalDate, _setPaidMembershipRenewalDate] = useState<any>()
-  const [_paidMembershipWithPackRenewalDate, _setPaidMembershipWithPackRenewalDate] =
-    useState<any>()
-
-  const { data: fullUser, refetch: fetchFullUser } = useQuery(GET_FULL_USER, {
-    variables: {
-      id: user?.id,
-    },
-  })
-
-  /* Fetch the full user again on global user id change */
-  useEffect(() => {
-    if (user && user?.id) {
-      fetchFullUser()
-    }
-  }, [user])
+  const [_activeSubscription, _setActiveSubscription] = useState<any>()
+  const [_expiryDate, _setExpiryDate] = useState<any>()
 
   /* Filter and set user's active subscriptions and products */
   useEffect(() => {
@@ -62,7 +41,7 @@ const Page: NextPage = ({ orders }: any) => {
         const mergedSubscriptionData = {
           ...subscription,
           ...dataJson,
-          products: productsJson,
+          ...productsJson[0],
           data_json: `stripped`,
         }
 
@@ -72,105 +51,14 @@ const Page: NextPage = ({ orders }: any) => {
     }
 
     _setSubscriptions(subscriptions)
-
-    /* Orders */
-    let orders: any = []
-
-    if (fullUser?.orders) {
-      orders = fullUser?.orders?.map((order: any) => {
-        return JSON.parse(order?.data_json)
-      })
-    }
-
-    _setOrders(orders)
+    _setActiveSubscription(subscriptions[0])
   }, [fullUser])
 
-  /* Check if user has memberships (Free / Paid) */
   useEffect(() => {
-    const hasFreeMembership = _subscribedProducts?.filter((product: any) => {
-      if (product.product_id === Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_FREE_ID)) {
-        return product
-      }
-    })
-
-    const hasPaidMembership = _subscribedProducts?.filter((product: any) => {
-      if (
-        product.product_id ===
-        Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
-      ) {
-        return product
-      }
-    })
-
-    const hasPaidMembershipWithPack = _subscribedProducts?.filter((product: any) => {
-      if (
-        product.product_id ===
-        Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID)
-      ) {
-        return product
-      }
-    })
-
-    _setHasFreeMembership(hasFreeMembership)
-    _setHasPaidMembership(hasPaidMembership)
-    _setHasPaidMembershipWithPack(hasPaidMembershipWithPack)
-  }, [_subscribedProducts])
-
-  /* Map user subscriptions */
-  useEffect(() => {
-    _subscriptions?.map((sub: any) => {
-      sub?.products?.map((prod: any) => {
-        if (prod?.product_id === Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_FREE_ID)) {
-          _setFreeMembershipRenewalDate(sub?.nextPayment)
-        }
-
-        if (
-          prod?.product_id ===
-          Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
-        ) {
-          _setPaidMembershipWithPackRenewalDate(sub?.nextPayment)
-        }
-
-        if (
-          prod?.product_id ===
-          Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID)
-        ) {
-          _setPaidMembershipRenewalDate(sub?.nextPayment)
-        }
-      })
-    })
-  }, [_subscriptions])
-
-  useEffect(() => {
-    console.log(_orders)
-  }, [_orders])
-
-  const upcomingEventsList = [
-    {
-      id: '0',
-      label: 'Track Days',
-      url: '#',
-      date: '05 Jan',
-    },
-    {
-      id: '1',
-      label: 'Factory Tours',
-      url: '#',
-      date: '12 Jan',
-    },
-    {
-      id: '2',
-      label: 'Track Days',
-      url: '#',
-      date: '26 Jan',
-    },
-    {
-      id: '3',
-      label: 'Track Days',
-      url: '#',
-      date: '26 Jan',
-    },
-  ]
+    if (_activeSubscription?.product_id === Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_FREE_ID)) {
+      _setExpiryDate('Never')
+    }
+  }, [_activeSubscription])
 
   const quickLinks = [
     {
@@ -185,66 +73,18 @@ const Page: NextPage = ({ orders }: any) => {
     },
   ]
 
-  const recentOrdersList = [
-    {
-      id: '0',
-      orderNumber: '#39155',
-      label: 'Pending payment',
-      url: '#',
-      date: '21/10/2021',
-      isCompleted: false,
-    },
-    {
-      id: '1',
-      orderNumber: '#39155',
-      label: 'Delivered',
-      url: '#',
-      date: '21/10/2021',
-      isCompleted: false,
-    },
-    {
-      id: '2',
-      orderNumber: '#39155',
-      label: 'Order completed',
-      url: '#',
-      date: '21/10/2021',
-      isCompleted: true,
-    },
-    {
-      id: '3',
-      orderNumber: '#39155',
-      label: 'Order completed',
-      url: '#',
-      date: '21/10/2021',
-      isCompleted: true,
-    },
-    {
-      id: '4',
-      orderNumber: '#39155',
-      label: 'Order completed',
-      url: '#',
-      date: '21/10/2021',
-      isCompleted: true,
-    },
-  ]
+  useEffect(() => {
+    console.log(`_activeSubscription`, _activeSubscription)
+  }, [_activeSubscription])
 
   const renderMembershipCard = () => {
-    // console.log(`_hasPaidMembershipWithPack`, _hasPaidMembershipWithPack)
-    // console.log(`_hasPaidMembership`, _hasPaidMembership)
-    // console.log(`_hasFreeMembership`, _hasFreeMembership)
-
     return (
       <>
         <MemberCard
           name={`${user?.firstName} ${user?.lastName}`}
           email={user?.email}
-          type={
-            (_hasPaidMembershipWithPack?.length && `Supporter Membership`) ||
-            (_hasPaidMembership?.length && `Supporter Membership`) ||
-            (_hasFreeMembership?.length && 'Free Membership') ||
-            `N/A`
-          }
-          expireDate={_paidMembershipWithPackRenewalDate || _paidMembershipRenewalDate || 'Never'}
+          type={_activeSubscription?.name || `N/A`}
+          expireDate={_expiryDate}
         />
         <p
           className='py-[12px] text-center text-md text-N-600'
@@ -265,7 +105,7 @@ const Page: NextPage = ({ orders }: any) => {
       </Head>
 
       <AuthLayout>
-        <div className='container gap-[48px] pb-[40px] lg:grid lg:grid-cols-[1fr_4fr_1fr] lg:pb-[80px]'>
+        <div className='container gap-[48px] pb-[40px] lg:grid lg:grid-cols-[160px_4fr_1fr] lg:pb-[80px]'>
           <div className='dashboard-menu hidden lg:flex'>
             <div className='w-full'>
               <DashboardMenu />
@@ -277,8 +117,59 @@ const Page: NextPage = ({ orders }: any) => {
 
             {isMobile && <div className='pt-[24px]'>{renderMembershipCard()}</div>}
 
-            <div className='pt-0 lg:pt-[40px]'>
-              <p className='mb-[16px] text-md text-N-600'>Quick links</p>
+            <div className='pt-[24px] md:pt-[40px] lg:pt-[32px]'>
+              <div className='text-md font-500 text-N-800'>Membership details</div>
+              <div className='flex gap-[64px] pt-[24px] text-md'>
+                <div className='flex flex-col gap-[16px]'>
+                  <div className='flex flex-col lg:flex-row'>
+                    <p className='w-[80px] text-md font-500 text-N-600'>Name</p>
+                    <p>
+                      {user?.firstName} {user?.lastName}
+                    </p>
+                  </div>
+                  <div className='flex flex-col lg:flex-row'>
+                    <p className='w-[80px] text-md font-500 text-N-600'>Email</p>
+                    <p>{user?.email}</p>
+                  </div>
+                  <div className='flex flex-col lg:flex-row'>
+                    <p className='w-[80px] text-md font-500 text-N-600'>Type</p>
+                    <p>{_activeSubscription?.name || `N/A`}</p>
+                  </div>
+                  <div className='flex flex-col lg:flex-row'>
+                    <p className='w-[80px] text-md font-500 text-N-600'>ID</p>
+                    <p>{_activeSubscription?.order_id}</p>
+                  </div>
+                </div>
+                <div className='flex flex-col gap-[16px]'>
+                  <div className='flex flex-col lg:flex-row'>
+                    <p className='w-[80px] text-md font-500 text-N-600'>Status</p>
+                    <p
+                      className={CN('font-600', {
+                        'text-G-500': _activeSubscription?.status === 'active',
+                        'text-R-500': _activeSubscription?.status !== 'active',
+                      })}>
+                      {_activeSubscription?.status}
+                    </p>
+                  </div>
+                  <div className='flex flex-col lg:flex-row'>
+                    <p className='w-[80px] text-md font-500 text-N-600'>Start date</p>
+                    <p>{_activeSubscription?.start}</p>
+                  </div>
+                  <div className='flex flex-col lg:flex-row'>
+                    <p className='w-[80px] text-md font-500 text-N-600'>Expires on</p>
+                    <p
+                      className={CN('font-600', {
+                        'text-B-500': _expiryDate !== 'Never',
+                      })}>
+                      {_expiryDate}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className='flex flex-col gap-[24px] pt-0 lg:pt-[40px]'>
+              <p className='text-md font-500 text-N-800'>Quick links</p>
 
               <ul className='flex flex-col gap-[8px]'>
                 {quickLinks.map(({ id, url, label }, index) => (
@@ -294,38 +185,37 @@ const Page: NextPage = ({ orders }: any) => {
               </ul>
             </div>
 
-            {_orders?.length !== 0 && (
+            {userOrders?.length !== 0 && (
               <>
                 <div className='scrollbar-py-[12px] scrollbar-track-rounded-full scrollbar-thumb-rounded-full w-full overflow-auto overflow-y-scroll pt-[40px] scrollbar-thin scrollbar-track-N-100 scrollbar-thumb-N-300'>
                   <p className='mb-[16px] text-md text-N-600'>Recent purchases</p>
 
                   <ul className='flex w-[600px] flex-col gap-[8px] overflow-auto pb-[24px] md:w-[unset] lg:w-[unset]'>
-                    {_orders?.map(
+                    {userOrders?.map(
                       (
                         { id, number, date_created, label, status, isCompleted }: any,
                         index: number
                       ) => (
-                        <li
-                          key={id || index}
-                          className='grid grid-cols-[0.75fr_1fr_3fr_1fr] gap-[24px]'>
-                          <Link href={`/account/purchases/${number}`}>
-                            <a className='text-md text-N-800 hover:text-B-500'>#{number}</a>
-                          </Link>
-                          <p className='text-md font-400 text-N-600'>
-                            {format(new Date(date_created?.date), 'dd MMMM yyyy')}
-                          </p>
-                          <p
-                            className={CN(`text-md font-400 text-N-800`, {
-                              'text-R-500': status === 'pending',
-                              'text-G-500': status === 'completed',
-                            })}>
-                            {status.replace(/^\w/, (c: any) => c.toUpperCase())}
-                          </p>
-
-                          <Link href={`/account/purchases/${number}`}>
-                            <a className='text-md text-N-800 hover:text-B-500'>View</a>
-                          </Link>
-                        </li>
+                        <Link key={id || index} href={`/account/purchases/${number}`}>
+                          <a>
+                            <li
+                              key={id || index}
+                              className='grid grid-cols-[0.75fr_1fr_1fr_1fr] gap-[24px] rounded-[4px] border border-N-100 bg-white px-[12px] py-[4px]'>
+                              <span className='text-md text-N-800'>#{number}</span>
+                              <p className='text-md font-400 text-N-600'>
+                                {format(new Date(date_created?.date), 'dd MMMM yyyy')}
+                              </p>
+                              <p
+                                className={CN(`text-md font-400 text-N-800`, {
+                                  'text-R-500': status === 'pending',
+                                  'text-G-500': status === 'completed',
+                                })}>
+                                {status.replace(/^\w/, (c: any) => c.toUpperCase())}
+                              </p>
+                              <a className='ml-auto text-md text-N-800 hover:text-B-500'>View</a>
+                            </li>
+                          </a>
+                        </Link>
                       )
                     )}
                   </ul>
@@ -337,7 +227,7 @@ const Page: NextPage = ({ orders }: any) => {
                       iconAfter={<i className='ri-arrow-right-line text-lg' />}
                       appearance='link'
                       size='sm'>
-                      View all orders
+                      View all purchases
                     </Button>
                   </Link>
                 </div>
@@ -382,16 +272,16 @@ const Page: NextPage = ({ orders }: any) => {
   )
 }
 
-export async function getStaticProps({ preview = false, previewData, user }: any) {
-  const data = await getUserOrders()
+// export async function getStaticProps({ preview = false, previewData, user }: any) {
+//   const data = await getUserOrders()
 
-  return {
-    props: {
-      preview,
-      orders: data,
-    },
-    revalidate: 1,
-  }
-}
+//   return {
+//     props: {
+//       preview,
+//       orders: data,
+//     },
+//     revalidate: 1,
+//   }
+// }
 
 export default Page
