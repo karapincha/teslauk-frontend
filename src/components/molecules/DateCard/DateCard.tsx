@@ -19,6 +19,7 @@ export interface DateCardProps {
 export const DateCard: FC<DateCardProps> = ({
   className,
   appearance,
+  pageEvent,
   ...restProps
 }: DateCardProps) => {
   const DateCardClasses = CN(
