@@ -13,8 +13,7 @@ import { Common as CommonLayout } from '@/components/layouts'
 import { getHomePage } from '../lib/graphql'
 
 const Page: NextPage = ({ pageData, showSideMenu, setShowSideMenu, countries }: any) => {
-  const { hero, featuredEvents, membership, testimonials, guides, cta, supplierBar, footer } =
-    pageData
+  const { hero, featuredEvents, membership, testimonials, guides, cta } = pageData
 
   return (
     <>

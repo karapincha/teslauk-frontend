@@ -33,19 +33,19 @@ export const DashboardMenu: FC<DashboardMenuProps> = ({
       url: '/account/purchases',
       isActive: router.pathname === '/account/purchases',
     },
-    {
-      id: '2',
-      icon: <User size={20} />,
-      label: 'Membership',
-      url: '/account/membership',
-      isActive: router.pathname === '/account/membership',
-    },
+    // {
+    //   id: '2',
+    //   icon: <User size={20} />,
+    //   label: 'Membership',
+    //   url: '/account/membership',
+    //   isActive: router.pathname === '/account/membership',
+    // },
     {
       id: '3',
       icon: <Settings size={20} />,
       label: 'Account',
-      url: '/account/account',
-      isActive: router.pathname === '/account/account',
+      url: '/account/manage',
+      isActive: router.pathname === '/account/manage',
     },
     {
       id: '4',

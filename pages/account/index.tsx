@@ -64,12 +64,12 @@ const Page: NextPage = () => {
     {
       id: 0,
       label: 'Edit your password or account details',
-      url: '#',
+      url: '/account/manage',
     },
     {
       id: 1,
       label: 'Manage shipping and billing address',
-      url: '#',
+      url: '/account/addressess',
     },
   ]
 

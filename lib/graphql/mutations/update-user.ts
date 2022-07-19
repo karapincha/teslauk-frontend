@@ -14,3 +14,27 @@ export const UPDATE_USER = gql`
     }
   }
 `
+
+export const UPDATE_PROFILE = gql`
+  mutation UPDATE_PROFILE(
+    $id: ID!
+    $email: String
+    $firstName: String
+    $lastName: String
+    $password: String
+  ) {
+    updateUser(
+      input: {
+        id: $id
+        firstName: $firstName
+        email: $email
+        lastName: $lastName
+        password: $password
+      }
+    ) {
+      user {
+        userId
+      }
+    }
+  }
+`

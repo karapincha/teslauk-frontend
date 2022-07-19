@@ -129,18 +129,6 @@ export async function getHomePage() {
         }
         slug
       }
-      supplierBar: block(id: "suppliers-bar", idType: SLUG) {
-        blockSuppliersBar {
-          logos {
-            image {
-              mediaItemUrl
-            }
-            link
-            name
-          }
-        }
-        slug
-      }
       footer: block(id: "footer", idType: SLUG) {
         slug
         blockFooter {
