@@ -22,6 +22,7 @@ export async function getMembershipPage() {
           supporterMemberBlock {
             heading
             price
+            additionalPrice
             primaryButtonText
             secondaryButtonText
             features {

@@ -57,6 +57,7 @@ export const MembershipCardPreview: FC<MembershipCardPreviewProps> = ({
             heading={supporterMemberBlock?.heading}
             description='Annual subscription'
             price={supporterMemberBlock?.price}
+            additionalPrice={supporterMemberBlock?.additionalPrice}
             list={supporterList}
             ctaBtnText={supporterMemberBlock?.primaryButtonText}
             onClickCtaBtn={(e: any) => {

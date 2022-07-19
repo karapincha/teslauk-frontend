@@ -65,6 +65,7 @@ export async function getHomePage() {
           supporterMemberBlock {
             heading
             price
+            additionalPrice
             primaryButtonText
             secondaryButtonText
             features {

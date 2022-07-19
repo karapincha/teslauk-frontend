@@ -26,6 +26,7 @@ export const MembershipCard: FC<MembershipCardProps> = ({
   headingClassName,
   description,
   price,
+  additionalPrice,
   priceClassName,
   list,
   listClassName,
@@ -74,10 +75,12 @@ export const MembershipCard: FC<MembershipCardProps> = ({
                 },
                 priceClassName
               )}
-              dangerouslySetInnerHTML={{ __html: price || '' }}
+              dangerouslySetInnerHTML={{ __html: `${price}` || '' }}
             />
             {description && <p className='text-md lg:text-base'>({description})</p>}
           </div>
+
+          {additionalPrice && <p className='text-md'>{additionalPrice}</p>}
 
           <ul className={CN('group mt-auto pt-[32px] md:mt-[unset]', listClassName)}>
             {list?.map(({ feature, label, name }, index) => (
