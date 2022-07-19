@@ -54,13 +54,13 @@ export const DashboardMenu: FC<DashboardMenuProps> = ({
       url: '/account/addresses',
       isActive: router.pathname === '/account/addresses',
     },
-    {
-      id: '5',
-      icon: <Download size={20} />,
-      label: 'Downloads',
-      url: '/account/downloads',
-      isActive: router.pathname === '/account/downloads',
-    },
+    // {
+    //   id: '5',
+    //   icon: <Download size={20} />,
+    //   label: 'Downloads',
+    //   url: '/account/downloads',
+    //   isActive: router.pathname === '/account/downloads',
+    // },
     {
       id: '6',
       icon: <Bell size={20} />,

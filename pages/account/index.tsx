@@ -120,7 +120,7 @@ const Page: NextPage = () => {
             <div className='pt-[24px] md:pt-[40px] lg:pt-[32px]'>
               <div className='text-md font-500 text-N-800'>Membership details</div>
               <div className='flex gap-[64px] pt-[24px] text-md'>
-                <div className='flex flex-col gap-[16px]'>
+                <div className='flex flex-col gap-[8px]'>
                   <div className='flex flex-col lg:flex-row'>
                     <p className='w-[80px] text-md font-500 text-N-600'>Name</p>
                     <p>
@@ -140,7 +140,7 @@ const Page: NextPage = () => {
                     <p>{_activeSubscription?.order_id}</p>
                   </div>
                 </div>
-                <div className='flex flex-col gap-[16px]'>
+                <div className='flex flex-col gap-[8px]'>
                   <div className='flex flex-col lg:flex-row'>
                     <p className='w-[80px] text-md font-500 text-N-600'>Status</p>
                     <p
@@ -185,7 +185,7 @@ const Page: NextPage = () => {
               </ul>
             </div>
 
-            {userOrders?.length !== 0 && (
+            {/* {userOrders?.length !== 0 && (
               <>
                 <div className='scrollbar-py-[12px] scrollbar-track-rounded-full scrollbar-thumb-rounded-full w-full overflow-auto overflow-y-scroll pt-[40px] scrollbar-thin scrollbar-track-N-100 scrollbar-thumb-N-300'>
                   <p className='mb-[16px] text-md text-N-600'>Recent purchases</p>
@@ -232,7 +232,7 @@ const Page: NextPage = () => {
                   </Link>
                 </div>
               </>
-            )}
+            )} */}
           </div>
 
           <div className='justify-end md:flex md:flex-row-reverse md:gap-[24px] lg:flex lg:flex-col lg:justify-start'>

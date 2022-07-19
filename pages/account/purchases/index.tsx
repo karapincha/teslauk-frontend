@@ -37,9 +37,9 @@ const Page: NextPage = () => {
           </div>
 
           <div className='flex w-full flex-col'>
-            <h4 className='pb-[24px] text-h4 font-600 text-N-800'>Purchases</h4>
+            <h4 className='text-h4 font-600 text-N-800'>Purchases</h4>
 
-            <ul className='flex w-full flex-col gap-[8px] overflow-auto pb-[24px] md:w-[unset] lg:w-[unset]'>
+            <ul className='flex w-full flex-col gap-[8px] overflow-auto pt-[32px] pb-[24px] md:w-[unset] lg:w-[unset]'>
               <li className='grid grid-cols-[0.75fr_1fr_1fr_1fr_1fr] gap-[24px] rounded-[4px] px-[12px] py-[4px]'>
                 <span className='text-md text-N-800'>Order ID</span>
                 <span className='text-md text-N-800'>Date</span>

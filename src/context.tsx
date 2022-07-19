@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 import React, { useState, createContext, useContext, useRef, useEffect } from 'react'
 import { useOutsideClick, useLoggedInUser } from '@/utils'
 import { useQuery, gql } from '@apollo/client'
@@ -55,6 +57,7 @@ export function AppWrapper({ children, values }: any) {
     fullUser,
     userOrders: _orders,
     refetchUser,
+    fetchFullUser,
   }
 
   useOutsideClick(wrapperRef, () => setShowSideMenu(false), hamburgerRef)

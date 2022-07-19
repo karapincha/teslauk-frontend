@@ -3,30 +3,77 @@ import { gql } from '@apollo/client'
 export const GET_FULL_USER = gql`
   query getFullUser($id: ID!) {
     customer: customer(id: $id) {
-      displayName
-      date
+      id
+      billing {
+        address1
+        city
+        address2
+        company
+        country
+        email
+        firstName
+        lastName
+        phone
+        postcode
+        state
+      }
+      calculatedShipping
       databaseId
+      date
+      displayName
       email
       firstName
+      hasCalculatedShipping
+      isPayingCustomer
+      lastName
+      orderCount
       orders {
         nodes {
+          databaseId
+          date
+          datePaid
+          dateCompleted
           id
           lineItems {
             nodes {
-              orderId
+              productId
               product {
                 node {
                   name
+                  slug
+                  sku
+                  status
                 }
               }
+              subtotal
+              quantity
+              total
+              totalTax
             }
           }
-          databaseId
-          dateCompleted
-          date
-          datePaid
+          modified
+          orderKey
+          orderNumber
+          orderVersion
           status
+          total
+          totalTax
         }
+      }
+      username
+      totalSpent
+      shipping {
+        address1
+        address2
+        city
+        company
+        country
+        email
+        firstName
+        lastName
+        phone
+        postcode
+        state
       }
     }
     memberships: userMemberships {

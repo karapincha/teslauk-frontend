@@ -6,13 +6,12 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useMutation, useQuery } from '@apollo/client'
+import { useAppContext } from '@/context'
 
 import { toast } from '@/components/molecules'
 import { Button, TextField } from '@/components/atoms'
 import { DashboardMenu } from '@/components/molecules/DashboardMenu'
 import { Common as CommonLayout } from '@/components/layouts'
-
-import { useAppContext } from '@/context'
 
 import {
   ADD_TO_CART,
@@ -27,6 +26,8 @@ import {
 
 const Page: NextPage = () => {
   const router = useRouter()
+  const [updateUserObject, setUpdateUserObject] = useState<any>({})
+
   const { fullUser, user, userOrders, refetchUser }: any = useAppContext()
 
   const initialVariables = {
@@ -39,13 +40,6 @@ const Page: NextPage = () => {
 
   const [updateProfile, { loading: loadingUpdateProfile }] = useMutation(UPDATE_PROFILE, {
     variables: initialVariables,
-  })
-
-  const [updateUserObject, setUpdateUserObject] = useState<any>({
-    id: user?.databaseId,
-    firstName: user?.firstName,
-    lastName: user?.lastName,
-    email: user?.email,
   })
 
   const handleProfileUpdate = (e: any) => {
@@ -65,7 +59,7 @@ const Page: NextPage = () => {
 
         refetchUser()
           .then((res: any) => {
-            setUpdateUserObject(initialVariables)
+            // setUpdateUserObject(initialVariables)
           })
           .catch((e: any) => {})
       })
@@ -73,8 +67,8 @@ const Page: NextPage = () => {
   }
 
   useEffect(() => {
-    console.log(user)
-  }, [user])
+    console.log(fullUser)
+  }, [fullUser])
 
   return (
     <>
@@ -95,7 +89,7 @@ const Page: NextPage = () => {
           <div className='flex w-full flex-col'>
             <h4 className='text-h4 font-600 text-N-800'>Manage Account</h4>
 
-            <div className='personal-details w-full pt-[24px] md:pt-[40px]'>
+            <div className='personal-details w-full pt-[24px] md:pt-[32px]'>
               <div className='pb-[16px] text-base font-500 text-N-800'>Personal details</div>
 
               <div className='flex max-w-[600px] flex-col'>
