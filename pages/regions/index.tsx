@@ -15,8 +15,6 @@ import { getRegion, getAllRegionsWithSlug } from '../../lib/graphql'
 const Page: NextPage = ({ regions }: any) => {
   const { isDesktop, isMobile, isTablet } = useViewport()
 
-  console.log(regions)
-
   return (
     <>
       <Head>
@@ -49,7 +47,7 @@ const Page: NextPage = ({ regions }: any) => {
                   <Link href={`/regions/${slug}`}>
                     <a
                       className={CN(
-                        `flex items-center justify-between group text-N-800 hover:text-B-500`
+                        `group flex items-center justify-between text-N-800 hover:text-B-500`
                       )}>
                       <h5 className={CN(`text-base group-hover:text-B-500`)}>{title}</h5>
                       <span>{<ChevronRight size={24} />}</span>

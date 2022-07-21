@@ -18,9 +18,14 @@ import volunteerTeamList from '@/dummy-data/volunteer-team'
 import { Common as CommonLayout } from '@/components/layouts'
 import { getAllTeam } from '../../lib/graphql'
 
+import { useAppContext } from '@/context'
+
 const Page: NextPage = ({ team }: any) => {
   const router = useRouter()
   const { isDesktop, isMobile, isTablet } = useViewport()
+  const { fullUser, user, userOrders }: any = useAppContext()
+
+  console.log(user?.id)
 
   return (
     <>
@@ -56,7 +61,7 @@ const Page: NextPage = ({ team }: any) => {
                         image={pageTeam?.picture?.mediaItemUrl || '/images/avatar.png'}
                         linkedIn={pageTeam?.linkedin}
                         mail={pageTeam?.email}
-                        isDataPublic={pageTeam?.emailVisibleToPublic}
+                        isDataPublic={user?.id ? 'Yes' : 'No'}
                       />
                     </li>
                   )
@@ -66,7 +71,7 @@ const Page: NextPage = ({ team }: any) => {
           </div>
 
           <div className='pb-[40px] md:pb-[80px]'>
-            <h3 className='text-h4 text-center font-700 md:text-h3'>Volunteer Moderation Team</h3>
+            <h3 className='text-center text-h4 font-700 md:text-h3'>Volunteer Moderation Team</h3>
 
             <div className='pt-[24px] md:pt-[48px]'>
               <ul className='flex flex-wrap justify-center gap-[16px]'>
