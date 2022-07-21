@@ -36,23 +36,8 @@ const Page: NextPage = () => {
 
   const [runConfetti, setRunConfetti] = useState(false)
 
-  /* Set timeout for confetti */
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (runConfetti) {
-        setRunConfetti(false)
-      }
-    }, 5000)
-    return () => {
-      clearTimeout(timer)
-      router.push({ query: {} })
-    }
-  }, [runConfetti])
-
-  useEffect(() => {
-    if (new_account) {
-      setRunConfetti(true)
-    }
+    console.log(new_account)
   }, [new_account])
 
   /* Filter and set user's active subscriptions and products */
@@ -139,7 +124,9 @@ const Page: NextPage = () => {
       </Head>
 
       <AuthLayout>
-        <Confetti width={width} height={height} run={true} recycle={runConfetti} />
+        {new_account === 'true' && (
+          <Confetti width={width} height={height} run={true} recycle={runConfetti} />
+        )}
 
         <div className='container gap-[48px] pb-[40px] lg:grid lg:grid-cols-[160px_4fr_1fr] lg:pb-[80px]'>
           <div className='dashboard-menu hidden lg:flex'>

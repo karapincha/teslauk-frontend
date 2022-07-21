@@ -16,103 +16,103 @@ const Page: NextPage = () => {
     {
       id: 0,
       label: 'Scotland',
-      url: '#',
+      url: '/regions/Scotland',
       isActive: false,
     },
     {
       id: 1,
       label: 'East Midlands',
-      url: '#',
+      url: '/regions/East Midlands',
       isActive: false,
     },
     {
       id: 2,
       label: 'Gloucestershire',
-      url: '#',
+      url: '/regions/Gloucestershire',
       isActive: false,
     },
     {
       id: 3,
       label: 'North East',
-      url: '#',
+      url: '/regions/North East',
       isActive: true,
     },
     {
       id: 4,
       label: 'West Midlands',
-      url: '#',
+      url: '/regions/West Midlands',
       isActive: false,
     },
     {
       id: 5,
       label: 'London',
-      url: '#',
+      url: '/regionsLondon/',
       isActive: false,
     },
     {
       id: 6,
       label: 'North West',
-      url: '#',
+      url: '/regions/North West',
       isActive: false,
     },
     {
       id: 7,
       label: 'South Wales',
-      url: '#',
+      url: '/regions/South Wales',
       isActive: false,
     },
     {
       id: 8,
       label: 'South East England',
-      url: '#',
+      url: '/regions/South East England',
       isActive: false,
     },
     {
       id: 9,
       label: 'Nothern Ireland',
-      url: '#',
+      url: '/regions/Nothern Ireland',
       isActive: false,
     },
     {
       id: 10,
       label: 'East Anglia',
-      url: '#',
+      url: '/regions/East Anglia',
       isActive: false,
     },
     {
       id: 11,
       label: 'South England',
-      url: '#',
+      url: '/regions/South England',
       isActive: false,
     },
     {
       id: 12,
       label: 'Yorkshire',
-      url: '#',
+      url: '/regions/Yorkshire',
       isActive: false,
     },
     {
       id: 13,
       label: '3 Countries (Bucks, Beds & Herts)',
-      url: '#',
+      url: '/regions/3 Countries (Bucks, Beds & Herts)',
       isActive: false,
     },
     {
       id: 14,
       label: 'South West England',
-      url: '#',
+      url: '/regions/South West England',
       isActive: false,
     },
     {
       id: 15,
       label: 'North Wales',
-      url: '#',
+      url: '/regions/North Wales',
       isActive: false,
     },
     {
       id: 16,
       label: 'Oxfordshire',
-      url: '#',
+      url: '/regions/Oxfordshire',
       isActive: false,
     },
   ]
@@ -145,22 +145,22 @@ const Page: NextPage = () => {
             <ul className='flex flex-col gap-[24px] md:flex md:px-[88px] lg:grid lg:grid-cols-3 lg:gap-x-[48px] lg:gap-y-[24px] lg:px-0'>
               {regionLinks.map(({ id, url, label, isActive }, index) => (
                 <li key={id || index}>
-                  <a
-                    target='_blank'
-                    href={url}
-                    className={CN(`flex items-center justify-between `, {
-                      'text-N-800': !isActive,
-                      'text-B-500': isActive,
-                    })}>
-                    <h5
-                      className={CN(`text-h5 hover:text-B-500`, {
+                  <Link href={url}>
+                    <a
+                      className={CN(`flex items-center justify-between `, {
                         'text-N-800': !isActive,
                         'text-B-500': isActive,
                       })}>
-                      {label}
-                    </h5>
-                    <span>{<ChevronRight size={24} />}</span>
-                  </a>
+                      <h5
+                        className={CN(`text-base hover:text-B-500`, {
+                          'text-N-800': !isActive,
+                          'text-B-500': isActive,
+                        })}>
+                        {label}
+                      </h5>
+                      <span>{<ChevronRight size={24} />}</span>
+                    </a>
+                  </Link>
                 </li>
               ))}
             </ul>

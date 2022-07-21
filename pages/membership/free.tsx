@@ -10,7 +10,7 @@ import { ArrowUpRight, LogOut } from 'react-feather'
 import Link from 'next/link'
 import { teslaModels } from '@/static-data/tesla-models'
 import { useQuery } from '@apollo/client'
-import { GET_CURRENT_USER } from '../../lib/graphql'
+import { VERIFY_USER } from '../../lib/graphql'
 
 import { useRegistration } from '@/utils/useRegistration'
 
@@ -44,6 +44,10 @@ const Page: NextPage = () => {
   const [model, setModel] = useState('model-3')
   const [refSource, setRefSource] = useState('')
   const [privacyPolicy, setPrivacyPolicy] = useState(false)
+
+  const { refetch: verifyUser } = useQuery(VERIFY_USER, {
+    skip: true,
+  })
 
   /* HANDLE VALIDATION */
   const handleValidation = (e: any) => {
@@ -140,28 +144,41 @@ const Page: NextPage = () => {
     const { data: logoutRes } = await logout()
 
     if (logoutRes.logout.status === 'SUCCESS') {
-      runCheckout({
-        productId: Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_FREE_ID),
-        variables: {
-          email,
-          firstName,
-          lastName,
-          vin,
-          model,
-          refSource,
-          username,
-          password,
-          isPaid: true,
-          paymentMethod: 'none',
-        },
-        onSuccess: ({ data }: any) => {
-          handleFinalize(data?.checkout?.order?.databaseId)
-        },
-        onFail: () => {
-          runClearCart()
-          return toast({ message: e.message, type: 'error' })
-        },
-      })
+      verifyUser({ email: email, username: username })
+        .then(({ data }: any) => {
+          if (!data?.verifyUser?.byUsername?.id && !data?.verifyUser?.byEmail?.id) {
+            runCheckout({
+              productId: Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_FREE_ID),
+              variables: {
+                email,
+                firstName,
+                lastName,
+                vin,
+                model,
+                refSource,
+                username,
+                password,
+                isPaid: true,
+                paymentMethod: 'none',
+              },
+              onSuccess: ({ data }: any) => {
+                handleFinalize(data?.checkout?.order?.databaseId)
+              },
+              onFail: () => {
+                runClearCart()
+                return toast({ message: e.message, type: 'error' })
+              },
+            })
+          } else {
+            toast({
+              message: 'An user already exists with provided email and/or username',
+              type: 'error',
+            })
+          }
+        })
+        .catch((res: any) => {
+          toast({ message: res.message, type: 'error' })
+        })
     }
   }
 
