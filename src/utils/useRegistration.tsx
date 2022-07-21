@@ -12,7 +12,7 @@ import {
   UPDATE_ORDER,
 } from '../../lib/graphql'
 
-export const useRegistration = ({ productId }: any) => {
+export const useRegistration = () => {
   const router = useRouter()
 
   /* Mutations ===> */
@@ -22,11 +22,7 @@ export const useRegistration = ({ productId }: any) => {
   const [updateUser, { loading: loadingUpdateUser }] = useMutation(UPDATE_USER)
   const [updateOrder, { loading: loadingUpdateOrder }] = useMutation(UPDATE_ORDER)
   const [checkout, { loading: loadingCheckout }] = useMutation(CHECKOUT)
-  const [addToCart, { loading: loadingAddToCart }] = useMutation(ADD_TO_CART, {
-    variables: {
-      productId,
-    },
-  })
+  const [addToCart, { loading: loadingAddToCart }] = useMutation(ADD_TO_CART)
 
   /* Queries ===> */
   const {
@@ -54,8 +50,12 @@ export const useRegistration = ({ productId }: any) => {
       })
   }
 
-  const runCheckout = async ({ variables, onSuccess, onFail }: any) => {
-    addToCart()
+  const runCheckout = async ({ variables, productId, onSuccess, onFail }: any) => {
+    addToCart({
+      variables: {
+        productId,
+      },
+    })
       .then(() => {
         checkout({
           variables,

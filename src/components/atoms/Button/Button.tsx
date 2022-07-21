@@ -49,7 +49,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       {
         /* Disabled */
-        'pointer-events-none select-none cursor-not-allowed': disabled,
+        '!pointer-events-none !select-none !cursor-not-allowed opacity-[0.5]': disabled,
+
+        /* Loading */
+        '!pointer-events-none !select-none': isLoading,
 
         /* isActive */
         // 'text-N-800': isActive,

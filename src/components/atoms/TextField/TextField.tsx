@@ -6,7 +6,7 @@ export interface TextFieldProps {
   [x: string]: any
   appearance?: 'default' | 'success' | 'warning' | 'danger'
   className?: string | undefined
-  disabled?: boolean
+  disabled?: any
   hint?: string | undefined
   hintClassName?: string | undefined
   iconAfter?: any
@@ -116,8 +116,8 @@ export const TextField: FC<TextFieldProps> = forwardRef(
               className={CN(
                 'text-field__label absolute top-[-28px] left-[-2px] !text-md font-500 text-N-600 after:absolute after:left-0 after:right-0 after:bottom-[2px] after:z-[0] after:h-[9px] after:content-[""] z-10',
                 {
-                  'after:bg-white': !disabled,
-                  'after:bg-N-50': disabled,
+                  // 'after:bg-white': !disabled,
+                  // 'after:bg-N-50': disabled,
                 }
               )}
               htmlFor={name}>

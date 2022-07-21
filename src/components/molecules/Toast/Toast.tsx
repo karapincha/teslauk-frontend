@@ -21,6 +21,7 @@ const Msg = (props: any) => {
       className={CN('flex w-full p-[20px] text-md', {
         'border-l-[4px] border-R-400 bg-R-10 text-N-800': type === 'error',
         'border-l-[4px] border-G-400 bg-G-10 text-N-800': type === 'success',
+        'border-l-[4px] border-P-400 bg-P-10 text-N-800': type === 'info',
       })}>
       <Button
         onClick={() => onClose && onClose(toastProps)}

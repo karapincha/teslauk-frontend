@@ -36,8 +36,8 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
           className={CN(
             'text-field__label absolute top-[-28px] left-[-2px] z-10 !text-md font-500 text-N-600 after:absolute after:left-0 after:right-0 after:bottom-[2px] after:z-[0] after:h-[9px] after:content-[""]',
             {
-              'after:bg-white': !disabled,
-              'after:bg-N-50': disabled,
+              // 'after:bg-white': !disabled,
+              // 'after:bg-N-50': disabled,
             }
           )}
           htmlFor={name}>
@@ -49,7 +49,8 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
 
       <select
         {...restProps}
-        className='relative z-[1] h-full w-full appearance-none rounded-[4px] bg-transparent px-[16px] text-md outline-none'>
+        className='relative z-[1] h-full w-full appearance-none rounded-[4px] bg-transparent px-[16px] text-md outline-none'
+        disabled={disabled}>
         <option value=''>{placeholder || `Filter by type`}</option>
         {menuItems.map(({ slug, name }: any, index: number) => (
           <option key={index} value={slug}>

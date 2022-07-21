@@ -1,31 +1,37 @@
-import { useState, useEffect } from 'react'
+import _ from 'lodash'
 import type { NextPage } from 'next'
+import axios from 'axios'
 import Link from 'next/link'
 import Head from 'next/head'
+
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useMutation, useQuery } from '@apollo/client'
+import { useRegistration } from '@/utils/useRegistration'
+
 import { SectionHeading } from '@/components/molecules'
 import { Button, TextField, CheckBox, DropdownMenu } from '@/components/atoms'
 import { ArrowUpRight } from 'react-feather'
 import { Common as CommonLayout } from '@/components/layouts'
-import { useMutation, useQuery } from '@apollo/client'
 import { teslaModels } from '@/static-data/tesla-models'
 import { toast } from '@/components/molecules'
-import {
-  ADD_TO_CART,
-  CHECKOUT,
-  CLEAR_CART,
-  UPDATE_USER,
-  GET_CURRENT_USER,
-  LOGOUT,
-} from '../../lib/graphql'
-import { useRegistration } from '@/utils/useRegistration'
 
-import { loadStripe } from '@stripe/stripe-js'
-import axios from 'axios'
+import { VERIFY_USER } from '../../lib/graphql'
 
 const Page: NextPage = () => {
   const router = useRouter()
   const { status, session_id } = router.query
+  const [isWelcomePackIncluded, setIsWelcomePackIncluded] = useState(true)
+  const [defaultModel, setDefaultModel] = useState('model-3')
+
+  const [isSessionVerified, setIsSessionVerified] = useState(false)
+  const [showBrowserWindowAlert, setShowBrowserWindowAlert] = useState(false)
+  const [showPaymentFailedAlert, setShowPaymentFailedAlert] = useState(false)
+  const [isCreatingAccount, setIsCreatingAccount] = useState(false)
+
+  const [selectedMembershipProduct, setSelectedMembershipProduct] = useState(
+    Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
+  )
 
   const {
     logout,
@@ -42,18 +48,19 @@ const Page: NextPage = () => {
     runCheckout,
     runGetRegisteredUser,
     runUpdateOrderStatus,
-  } = useRegistration({
-    productId: 1739,
-  })
+  } = useRegistration()
 
   const [formData, setFormData] = useState<any>({
     model: 'model-3',
+    isWelcomePackIncluded: true,
   })
 
-  const [orderId, setOrderId] = useState()
+  const { refetch: verifyUser } = useQuery(VERIFY_USER, {
+    skip: true,
+  })
 
   /* FINALIZE */
-  const handleFinalize = () => {
+  const handleFinalize = (orderId: any) => {
     runGetRegisteredUser({
       username: formData.username,
       password: formData.password,
@@ -61,7 +68,7 @@ const Page: NextPage = () => {
         updateUser({
           variables: {
             id: data?.viewer?.databaseId,
-            model: formData.model,
+            model: formData.model || defaultModel,
             vin: formData.vin,
             source: formData.refSource,
           },
@@ -70,10 +77,15 @@ const Page: NextPage = () => {
             runUpdateOrderStatus({
               variables: {
                 orderId: orderId,
-                status: 'PENDING',
+                status: formData?.isWelcomePackIncluded ? 'AWAITING_SHIPMENT' : 'COMPLETED',
               },
-              onSuccess: () => {
-                stripeSubscribe()
+              onSuccess: (res: any) => {
+                router.push('/account?new_account=true')
+                localStorage.clear()
+              },
+              onFail: (e: any) => {
+                router.push('/account?order_status_update=failed')
+                localStorage.clear()
               },
             })
           })
@@ -88,48 +100,94 @@ const Page: NextPage = () => {
     })
   }
 
+  /* HANDLE VALIDATION */
+  const handleValidation = (e: any) => {
+    e.preventDefault()
+
+    if (!formData?.firstName) {
+      return toast({ message: 'Please enter first name', type: 'error' })
+    }
+
+    if (!formData?.lastName) {
+      return toast({ message: 'Please enter last name', type: 'error' })
+    }
+
+    if (!formData?.username) {
+      return toast({ message: 'Please enter a username', type: 'error' })
+    }
+
+    if (!formData?.email) {
+      return toast({ message: 'Please enter email address', type: 'error' })
+    }
+
+    if (!formData?.password) {
+      return toast({ message: 'Please enter a password', type: 'error' })
+    }
+
+    if (!formData?.confirmPassword) {
+      return toast({ message: 'Please enter confirm password', type: 'error' })
+    }
+
+    if (formData?.confirmPassword !== formData?.password) {
+      return toast({ message: "Passwords don't match", type: 'error' })
+    }
+
+    if (!formData?.vin) {
+      return toast({ message: "Please enter your primary vehicle's VIN number", type: 'error' })
+    }
+
+    if (isWelcomePackIncluded && !formData?.badgeName) {
+      return toast({ message: 'Please enter a name to appear on your badge', type: 'error' })
+    }
+
+    if (isWelcomePackIncluded && !formData?.locationName) {
+      return toast({
+        message: 'Please enter a location name to appear on your badge',
+        type: 'error',
+      })
+    }
+
+    if (!formData?.privacyPolicy) {
+      return toast({
+        message: 'Please agree to Club rules and Privacy policy',
+        type: 'error',
+      })
+    }
+
+    return handleSubmit(e)
+  }
+
   /* HANDLE SUBMISSION */
   const handleSubmit = async (e: any) => {
     e.preventDefault()
     const { data: logoutRes } = await logout()
 
     if (logoutRes.logout.status === 'SUCCESS') {
-      runCheckout({
-        variables: {
-          paymentMethod: 'stripe',
-          isPaid: true,
-          email: formData.email,
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          vin: formData.vin,
-          model: formData.model,
-          refSource: formData.refSource,
-          username: formData.username,
-          password: formData.password,
-        },
-        onSuccess: ({ data }: any) => {
-          setOrderId(data?.checkout?.order?.databaseId)
-        },
-        onFail: () => {
-          runClearCart()
-          return toast({ message: e.message, type: 'error' })
-        },
-      })
+      verifyUser({ email: formData?.email, username: formData?.username })
+        .then(({ data }: any) => {
+          if (!data?.verifyUser?.byUsername?.id && !data?.verifyUser?.byEmail?.id) {
+            return stripeSubscribe()
+          }
+
+          toast({
+            message: 'An user already exists with provided email and/or username',
+            type: 'error',
+          })
+        })
+        .catch((res: any) => {
+          toast({ message: res.message, type: 'error' })
+        })
     }
   }
-
-  useEffect(() => {
-    if (orderId) {
-      handleFinalize()
-    }
-  }, [orderId])
 
   /* Stripe => Create Subscription */
   const stripeSubscribe = async () => {
     const { data }: any = await axios.post('/api/payment', {
       name: `${formData.firstName} ${formData.lastName}`,
       email: `${formData.email}`,
-      orderId: orderId,
+      clientRef: _.uniqueId(),
+      product: selectedMembershipProduct,
+      isWelcomePackIncluded: isWelcomePackIncluded || formData?.isWelcomePackIncluded,
     })
 
     router.push(data?.subscription?.url)
@@ -140,34 +198,75 @@ const Page: NextPage = () => {
     const { data }: any = await axios.post('/api/verify-payment', {
       session_id,
     })
+    setIsCreatingAccount(true)
 
     if (data && data.session && data.session.payment_status === 'paid') {
-      runUpdateOrderStatus({
-        variables: {
-          orderId: Number(data.session.client_reference_id),
-          status: 'COMPLETED',
-        },
-        onSuccess: () => {
-          logout().catch((e: any) => {
-            return toast({ message: e.message, type: 'error' })
+      setIsSessionVerified(true)
+
+      verifyUser({ email: formData?.email, username: formData?.username }).then(({ data }: any) => {
+        if (!data?.verifyUser?.byUsername?.id && !data?.verifyUser?.byEmail?.id) {
+          setShowBrowserWindowAlert(true)
+          toast({ message: "Payment complete. We'll now create your account", type: 'success' })
+
+          return runCheckout({
+            productId:
+              formData?.isWelcomePackIncluded || isWelcomePackIncluded
+                ? Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
+                : Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID),
+            variables: {
+              isPaid: true,
+              paymentMethod: 'stripe',
+              email: formData.email,
+              firstName: formData.firstName,
+              lastName: formData.lastName,
+              vin: formData.vin,
+              model: formData.model || defaultModel,
+              refSource: formData.refSource,
+              username: formData.username,
+              password: formData.password,
+            },
+            onSuccess: ({ data }: any) => {
+              if (data?.checkout?.order?.databaseId) {
+                handleFinalize(data?.checkout?.order?.databaseId)
+              } else {
+                toast({
+                  message:
+                    'Something went wrong. Please contact us at membership@teslaowners.org.uk',
+                  type: 'error',
+                })
+              }
+            },
+            onFail: (e: any) => {
+              runClearCart()
+              return toast({ message: e.message, type: 'error' })
+            },
           })
-          return router.push(`/auth/login?newAccountCreated=true`)
-        },
-        onFail: (e: any) => {
-          logout().catch(() => {
-            return
-          })
-          return toast({ message: e.message, type: 'error' })
-        },
+        } else {
+          localStorage.clear()
+        }
       })
+    } else if (data && data.session && data.session.payment_status === 'unpaid') {
+      setShowPaymentFailedAlert(true)
+      setIsCreatingAccount(false)
+      setShowBrowserWindowAlert(false)
+    } else {
+      setShowPaymentFailedAlert(false)
+      setShowBrowserWindowAlert(false)
+      setIsSessionVerified(false)
+      setIsCreatingAccount(false)
     }
   }
 
   useEffect(() => {
-    if (session_id) {
+    if (session_id && formData?.email) {
       stripeVerifyPayment()
     }
-  }, [session_id])
+  }, [session_id, formData])
+
+  useEffect(() => {
+    const localStorageData = JSON.parse(localStorage.getItem('registration') || '{}')
+    setFormData({ model: 'model-3', isWelcomePackIncluded: true, ...localStorageData })
+  }, [])
 
   return (
     <>
@@ -189,7 +288,21 @@ const Page: NextPage = () => {
               className='mb-[20px]'
             />
 
-            <div className='w-[90%] pt-[32px] md:w-[672px] lg:w-[672px]'>
+            {status === 'success' && showBrowserWindowAlert && (
+              <div className='alert flex w-full max-w-[672px] rounded-[12px] bg-Y-50 px-[40px] py-[16px] text-md font-500 text-R-800'>
+                We are creating your account. Please don't close this browser window until we
+                re-direct you to your account after completion.
+              </div>
+            )}
+
+            {showPaymentFailedAlert && (
+              <div className='alert flex w-full max-w-[672px] rounded-[12px] bg-R-50 px-[40px] py-[16px] text-md font-500 text-R-500'>
+                We couldn't create your account due to payment failure. You may re-try with a
+                different card or method.
+              </div>
+            )}
+
+            <div className='w-[90%] pt-[32px] md:w-[672px]'>
               <div className='relative flex w-full justify-center rounded-t-[8px]'>
                 <img src='/images/register-banner.png' className='w-full rounded-t-[8px]' />
               </div>
@@ -203,17 +316,43 @@ const Page: NextPage = () => {
 
                     <div className='flex flex-col justify-between md:flex-row lg:flex-row'>
                       <div className='flex flex-col gap-[8px] md:w-[258px] lg:w-[258px]'>
-                        <p className='text-md font-400 text-N-800'>
-                          Tesla Owners UK Annual Supporter Fee + Official Supporter Welcome Pack
+                        <p className='text-base font-400 text-N-800'>
+                          {formData?.isWelcomePackIncluded || isWelcomePackIncluded
+                            ? `Tesla Owners UK Annual Subscription + Official Supporter Welcome Pack`
+                            : `Tesla Owners UK Annual Subscription`}
                         </p>
                         <p className='text-sm font-500 text-N-600'>
-                          Official Supporter Tesla Owners UK Subscription
+                          <CheckBox
+                            defaultChecked={
+                              formData?.isWelcomePackIncluded || isWelcomePackIncluded
+                            }
+                            disabled={isCreatingAccount}
+                            onChange={(e: any) => {
+                              setIsWelcomePackIncluded(e.target.checked)
+                              setSelectedMembershipProduct(
+                                Number(
+                                  process.env
+                                    .NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID
+                                )
+                              )
+                              localStorage.setItem(
+                                'registration',
+                                JSON.stringify({
+                                  ...formData,
+                                  isWelcomePackIncluded: e.target.checked,
+                                })
+                              )
+                            }}>
+                            Include welcome pack
+                          </CheckBox>
                         </p>
                       </div>
 
                       <div className='flex flex-col gap-[12px] pt-[24px] md:items-end md:pt-0 lg:items-end lg:pt-0'>
                         <p className='text-md font-500 text-B-500'>
-                          £35.00/year and a £15.00 Sign-up fee
+                          {isWelcomePackIncluded
+                            ? `£35.00/Year + £15.00 Welcome pack`
+                            : `£35.00/Year`}
                         </p>
                         <Link href='/membership' passHref>
                           <Button
@@ -237,7 +376,12 @@ const Page: NextPage = () => {
                       label='First Name'
                       onChange={(e: any) => {
                         setFormData({ ...formData, firstName: e.target.value })
+                        localStorage.setItem(
+                          'registration',
+                          JSON.stringify({ ...formData, firstName: e.target.value })
+                        )
                       }}
+                      disabled={isCreatingAccount}
                       required
                     />
                     <TextField
@@ -246,7 +390,12 @@ const Page: NextPage = () => {
                       value={formData.lastName || ''}
                       onChange={(e: any) => {
                         setFormData({ ...formData, lastName: e.target.value })
+                        localStorage.setItem(
+                          'registration',
+                          JSON.stringify({ ...formData, lastName: e.target.value })
+                        )
                       }}
+                      disabled={isCreatingAccount}
                       required
                     />
                   </div>
@@ -258,7 +407,12 @@ const Page: NextPage = () => {
                       value={formData.username || ''}
                       onChange={(e: any) => {
                         setFormData({ ...formData, username: e.target.value })
+                        localStorage.setItem(
+                          'registration',
+                          JSON.stringify({ ...formData, username: e.target.value })
+                        )
                       }}
+                      disabled={isCreatingAccount}
                       required
                     />
                     <TextField
@@ -267,7 +421,12 @@ const Page: NextPage = () => {
                       value={formData.email || ''}
                       onChange={(e: any) => {
                         setFormData({ ...formData, email: e.target.value })
+                        localStorage.setItem(
+                          'registration',
+                          JSON.stringify({ ...formData, email: e.target.value })
+                        )
                       }}
+                      disabled={isCreatingAccount}
                       required
                     />
                   </div>
@@ -280,7 +439,12 @@ const Page: NextPage = () => {
                       value={formData.password || ''}
                       onChange={(e: any) => {
                         setFormData({ ...formData, password: e.target.value })
+                        localStorage.setItem(
+                          'registration',
+                          JSON.stringify({ ...formData, password: e.target.value })
+                        )
                       }}
+                      disabled={isCreatingAccount}
                       required
                     />
                     <TextField
@@ -290,7 +454,12 @@ const Page: NextPage = () => {
                       value={formData.confirmPassword || ''}
                       onChange={(e: any) => {
                         setFormData({ ...formData, confirmPassword: e.target.value })
+                        localStorage.setItem(
+                          'registration',
+                          JSON.stringify({ ...formData, confirmPassword: e.target.value })
+                        )
                       }}
+                      disabled={isCreatingAccount}
                       required
                     />
                   </div>
@@ -303,7 +472,9 @@ const Page: NextPage = () => {
                       value={formData.vin || ''}
                       onChange={(e: any) => {
                         setFormData({ ...formData, vin: e.target.value })
+                        localStorage.setItem('registration', JSON.stringify(formData))
                       }}
+                      disabled={isCreatingAccount}
                     />
                   </div>
 
@@ -314,9 +485,15 @@ const Page: NextPage = () => {
                         list={teslaModels || []}
                         onChange={(e: any) => {
                           setFormData({ ...formData, model: e.target.value })
+                          setDefaultModel(e.target.value)
+                          localStorage.setItem(
+                            'registration',
+                            JSON.stringify({ ...formData, model: e.target.value })
+                          )
                         }}
-                        value={formData.model}
+                        value={formData?.model || defaultModel}
                         placeholder='Select model'
+                        disabled={isCreatingAccount}
                         required
                       />
 
@@ -327,57 +504,77 @@ const Page: NextPage = () => {
                     </div>
 
                     <div className='flex h-[160px] w-[300px] flex-shrink-0 justify-center'>
-                      {formData.model && formData.model !== 'other' && (
-                        <img
-                          src={`/images/models/${formData.model}.png`}
-                          width={300}
-                          height={160}
-                          className='object-contain object-center'
-                        />
-                      )}
+                      {(formData?.model || defaultModel) &&
+                        (formData?.model || defaultModel) !== 'other' && (
+                          <img
+                            src={`/images/models/${formData.model || defaultModel}.png`}
+                            width={300}
+                            height={160}
+                            className='object-contain object-center'
+                          />
+                        )}
                     </div>
                   </div>
 
-                  <div className='flex flex-col gap-[8px]'>
-                    <TextField
-                      placeholder='Enter name here'
-                      label='Name to appear on the badge'
-                      value={formData.badgeName || ''}
-                      onChange={(e: any) => {
-                        setFormData({ ...formData, badgeName: e.target.value })
-                      }}
-                      required
-                    />
-                    <p className='text-sm font-500 text-N-600'>
-                      So we can print your name badge please supply your name as you would like it
-                      to appear on your badge
-                    </p>
-                  </div>
+                  {isWelcomePackIncluded && (
+                    <>
+                      <div className='flex flex-col gap-[8px]'>
+                        <TextField
+                          placeholder='Enter name here'
+                          label='Name to appear on the badge'
+                          value={formData.badgeName || ''}
+                          onChange={(e: any) => {
+                            setFormData({ ...formData, badgeName: e.target.value })
+                            localStorage.setItem(
+                              'registration',
+                              JSON.stringify({ ...formData, badgeName: e.target.value })
+                            )
+                          }}
+                          disabled={isCreatingAccount}
+                          required
+                        />
+                        <p className='text-sm font-500 text-N-600'>
+                          So we can print your name badge please supply your name as you would like
+                          it to appear on your badge
+                        </p>
+                      </div>
 
-                  <div className='flex flex-col gap-[8px]'>
-                    <TextField
-                      placeholder='House number and street name'
-                      label='Your location (to appear on badge)'
-                      value={formData.locationName || ''}
-                      onChange={(e: any) => {
-                        setFormData({ ...formData, locationName: e.target.value })
-                      }}
-                      required
-                    />
-                    <p className='text-sm font-500 text-N-600'>
-                      So we can print your name badge please supply your location (nearest large
-                      town/city) e.g. Milton Keynes. This will appear directly below your name on
-                      your badge.
-                    </p>
-                  </div>
+                      <div className='flex flex-col gap-[8px]'>
+                        <TextField
+                          placeholder='House number and street name'
+                          label='Your location (to appear on badge)'
+                          value={formData.locationName || ''}
+                          onChange={(e: any) => {
+                            setFormData({ ...formData, locationName: e.target.value })
+                            localStorage.setItem(
+                              'registration',
+                              JSON.stringify({ ...formData, locationName: e.target.value })
+                            )
+                          }}
+                          disabled={isCreatingAccount}
+                          required
+                        />
+                        <p className='text-sm font-500 text-N-600'>
+                          So we can print your name badge please supply your location (nearest large
+                          town/city) e.g. Milton Keynes. This will appear directly below your name
+                          on your badge.
+                        </p>
+                      </div>
+                    </>
+                  )}
 
                   <TextField
                     label='How did you find out about Tesla Owners UK'
                     required
                     placeholder='Google / Search engine'
                     value={formData.refSource || ''}
+                    disabled={isCreatingAccount}
                     onChange={(e: any) => {
                       setFormData({ ...formData, refSource: e.target.value })
+                      localStorage.setItem(
+                        'registration',
+                        JSON.stringify({ ...formData, refSource: e.target.value })
+                      )
                     }}
                   />
                 </div>
@@ -429,7 +626,12 @@ const Page: NextPage = () => {
                       checked={formData.privacyPolicy || false}
                       onChange={(e: any) => {
                         setFormData({ ...formData, privacyPolicy: e.target.checked })
+                        localStorage.setItem(
+                          'registration',
+                          JSON.stringify({ ...formData, privacyPolicy: e.target.checked })
+                        )
                       }}
+                      disabled={isCreatingAccount}
                     />
                     <p className='text-sm font-500 text-N-600'>
                       By clicking, I agree to adhere to the Club Rules and to the Club Privacy
@@ -446,6 +648,7 @@ const Page: NextPage = () => {
                     <Button
                       className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
                       appearance='primary'
+                      disabled={isCreatingAccount}
                       isLoading={
                         loadingLogout ||
                         loadingUpdateUser ||
@@ -453,8 +656,8 @@ const Page: NextPage = () => {
                         loadingClearCart ||
                         loadingCheckout
                       }
-                      onClick={handleSubmit}>
-                      Register Now
+                      onClick={handleValidation}>
+                      Proceed to payment
                     </Button>
                   </div>
                 </div>

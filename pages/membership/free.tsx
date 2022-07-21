@@ -32,9 +32,7 @@ const Page: NextPage = () => {
     runCheckout,
     runGetRegisteredUser,
     runUpdateOrderStatus,
-  } = useRegistration({
-    productId: 1734,
-  })
+  } = useRegistration()
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -115,10 +113,7 @@ const Page: NextPage = () => {
                 status: 'COMPLETED',
               },
               onSuccess: () => {
-                logout().catch((e: any) => {
-                  return toast({ message: e.message, type: 'error' })
-                })
-                return router.push(`/auth/login?newAccountCreated=true`)
+                router.push('/account?new_account=true')
               },
               onFail: (e: any) => {
                 logout().catch(() => {
@@ -146,6 +141,7 @@ const Page: NextPage = () => {
 
     if (logoutRes.logout.status === 'SUCCESS') {
       runCheckout({
+        productId: Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_FREE_ID),
         variables: {
           email,
           firstName,

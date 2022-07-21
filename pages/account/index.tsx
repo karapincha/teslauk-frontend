@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import _ from 'lodash'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import CN from 'classnames'
-import { useQuery } from '@apollo/client'
-import _ from 'lodash'
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
+
 import { format } from 'date-fns'
 
 import { ArrowRightCircle } from 'react-feather'
@@ -13,6 +14,8 @@ import { MemberCard } from '@/components/molecules/MemberCard'
 import { DashboardMenu } from '@/components/molecules/DashboardMenu'
 import { AuthLayout } from '@/components/layouts'
 
+import { useQuery } from '@apollo/client'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useViewport } from '@/utils'
 import { useAppContext } from '@/context'
@@ -20,7 +23,9 @@ import { useAppContext } from '@/context'
 import { GET_FULL_USER, getUserOrders } from '../../lib/graphql'
 
 const Page: NextPage = () => {
+  const { width, height } = useWindowSize()
   const router = useRouter()
+  const { new_account } = router?.query
   const { isDesktop, isMobile, isTablet } = useViewport()
   const { fullUser, user, userOrders }: any = useAppContext()
 
@@ -28,6 +33,27 @@ const Page: NextPage = () => {
   const [_subscribedProducts, _setSubscribedProducts] = useState<any>()
   const [_activeSubscription, _setActiveSubscription] = useState<any>()
   const [_expiryDate, _setExpiryDate] = useState<any>()
+
+  const [runConfetti, setRunConfetti] = useState(false)
+
+  /* Set timeout for confetti */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (runConfetti) {
+        setRunConfetti(false)
+      }
+    }, 5000)
+    return () => {
+      clearTimeout(timer)
+      router.push({ query: {} })
+    }
+  }, [runConfetti])
+
+  useEffect(() => {
+    if (new_account) {
+      setRunConfetti(true)
+    }
+  }, [new_account])
 
   /* Filter and set user's active subscriptions and products */
   useEffect(() => {
@@ -57,6 +83,14 @@ const Page: NextPage = () => {
   useEffect(() => {
     if (_activeSubscription?.product_id === Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_FREE_ID)) {
       _setExpiryDate('Never')
+    }
+    if (
+      _activeSubscription?.product_id ===
+        Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID) ||
+      _activeSubscription?.product_id ===
+        Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
+    ) {
+      _setExpiryDate(_activeSubscription?.nextPayment)
     }
   }, [_activeSubscription])
 
@@ -105,6 +139,8 @@ const Page: NextPage = () => {
       </Head>
 
       <AuthLayout>
+        <Confetti width={width} height={height} run={true} recycle={runConfetti} />
+
         <div className='container gap-[48px] pb-[40px] lg:grid lg:grid-cols-[160px_4fr_1fr] lg:pb-[80px]'>
           <div className='dashboard-menu hidden lg:flex'>
             <div className='w-full'>
@@ -184,55 +220,6 @@ const Page: NextPage = () => {
                 ))}
               </ul>
             </div>
-
-            {/* {userOrders?.length !== 0 && (
-              <>
-                <div className='scrollbar-py-[12px] scrollbar-track-rounded-full scrollbar-thumb-rounded-full w-full overflow-auto overflow-y-scroll pt-[40px] scrollbar-thin scrollbar-track-N-100 scrollbar-thumb-N-300'>
-                  <p className='mb-[16px] text-md text-N-600'>Recent purchases</p>
-
-                  <ul className='flex w-[600px] flex-col gap-[8px] overflow-auto pb-[24px] md:w-[unset] lg:w-[unset]'>
-                    {userOrders?.map(
-                      (
-                        { id, number, date_created, label, status, isCompleted }: any,
-                        index: number
-                      ) => (
-                        <Link key={id || index} href={`/account/purchases/${number}`}>
-                          <a>
-                            <li
-                              key={id || index}
-                              className='grid grid-cols-[0.75fr_1fr_1fr_1fr] gap-[24px] rounded-[4px] border border-N-100 bg-white px-[12px] py-[4px]'>
-                              <span className='text-md text-N-800'>#{number}</span>
-                              <p className='text-md font-400 text-N-600'>
-                                {format(new Date(date_created?.date), 'dd MMMM yyyy')}
-                              </p>
-                              <p
-                                className={CN(`text-md font-400 text-N-800`, {
-                                  'text-R-500': status === 'pending',
-                                  'text-G-500': status === 'completed',
-                                })}>
-                                {status.replace(/^\w/, (c: any) => c.toUpperCase())}
-                              </p>
-                              <a className='ml-auto text-md text-N-800 hover:text-B-500'>View</a>
-                            </li>
-                          </a>
-                        </Link>
-                      )
-                    )}
-                  </ul>
-                </div>
-
-                <div className='pt-[24px] md:pt-[16px] lg:pt-[0]'>
-                  <Link href='/account/purchases'>
-                    <Button
-                      iconAfter={<i className='ri-arrow-right-line text-lg' />}
-                      appearance='link'
-                      size='sm'>
-                      View all purchases
-                    </Button>
-                  </Link>
-                </div>
-              </>
-            )} */}
           </div>
 
           <div className='justify-end md:flex md:flex-row-reverse md:gap-[24px] lg:flex lg:flex-col lg:justify-start'>
