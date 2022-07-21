@@ -10,112 +10,13 @@ import { Chip } from '@/components/atoms'
 import { useViewport } from '@/utils'
 import { Common as CommonLayout } from '@/components/layouts'
 
-const Page: NextPage = () => {
+import { getRegion, getAllRegionsWithSlug } from '../../lib/graphql'
+
+const Page: NextPage = ({ regions }: any) => {
   const { isDesktop, isMobile, isTablet } = useViewport()
-  const regionLinks = [
-    {
-      id: 0,
-      label: 'Scotland',
-      url: '/regions/Scotland',
-      isActive: false,
-    },
-    {
-      id: 1,
-      label: 'East Midlands',
-      url: '/regions/East Midlands',
-      isActive: false,
-    },
-    {
-      id: 2,
-      label: 'Gloucestershire',
-      url: '/regions/Gloucestershire',
-      isActive: false,
-    },
-    {
-      id: 3,
-      label: 'North East',
-      url: '/regions/North East',
-      isActive: true,
-    },
-    {
-      id: 4,
-      label: 'West Midlands',
-      url: '/regions/West Midlands',
-      isActive: false,
-    },
-    {
-      id: 5,
-      label: 'London',
-      url: '/regionsLondon/',
-      isActive: false,
-    },
-    {
-      id: 6,
-      label: 'North West',
-      url: '/regions/North West',
-      isActive: false,
-    },
-    {
-      id: 7,
-      label: 'South Wales',
-      url: '/regions/South Wales',
-      isActive: false,
-    },
-    {
-      id: 8,
-      label: 'South East England',
-      url: '/regions/South East England',
-      isActive: false,
-    },
-    {
-      id: 9,
-      label: 'Nothern Ireland',
-      url: '/regions/Nothern Ireland',
-      isActive: false,
-    },
-    {
-      id: 10,
-      label: 'East Anglia',
-      url: '/regions/East Anglia',
-      isActive: false,
-    },
-    {
-      id: 11,
-      label: 'South England',
-      url: '/regions/South England',
-      isActive: false,
-    },
-    {
-      id: 12,
-      label: 'Yorkshire',
-      url: '/regions/Yorkshire',
-      isActive: false,
-    },
-    {
-      id: 13,
-      label: '3 Countries (Bucks, Beds & Herts)',
-      url: '/regions/3 Countries (Bucks, Beds & Herts)',
-      isActive: false,
-    },
-    {
-      id: 14,
-      label: 'South West England',
-      url: '/regions/South West England',
-      isActive: false,
-    },
-    {
-      id: 15,
-      label: 'North Wales',
-      url: '/regions/North Wales',
-      isActive: false,
-    },
-    {
-      id: 16,
-      label: 'Oxfordshire',
-      url: '/regions/Oxfordshire',
-      isActive: false,
-    },
-  ]
+
+  console.log(regions)
+
   return (
     <>
       <Head>
@@ -143,21 +44,14 @@ const Page: NextPage = () => {
 
           <div className='region-list py-[40px] md:py-[80px]'>
             <ul className='flex flex-col gap-[24px] md:flex md:px-[88px] lg:grid lg:grid-cols-3 lg:gap-x-[48px] lg:gap-y-[24px] lg:px-0'>
-              {regionLinks.map(({ id, url, label, isActive }, index) => (
-                <li key={id || index}>
-                  <Link href={url}>
+              {(regions || [])?.map(({ slug, title }: any, index: number) => (
+                <li key={slug || index}>
+                  <Link href={`/regions/${slug}`}>
                     <a
-                      className={CN(`flex items-center justify-between `, {
-                        'text-N-800': !isActive,
-                        'text-B-500': isActive,
-                      })}>
-                      <h5
-                        className={CN(`text-base hover:text-B-500`, {
-                          'text-N-800': !isActive,
-                          'text-B-500': isActive,
-                        })}>
-                        {label}
-                      </h5>
+                      className={CN(
+                        `flex items-center justify-between group text-N-800 hover:text-B-500`
+                      )}>
+                      <h5 className={CN(`text-base group-hover:text-B-500`)}>{title}</h5>
                       <span>{<ChevronRight size={24} />}</span>
                     </a>
                   </Link>
@@ -169,6 +63,18 @@ const Page: NextPage = () => {
       </CommonLayout>
     </>
   )
+}
+
+export async function getStaticProps({ params, preview = false, previewData }: any) {
+  const allRegions = await getAllRegionsWithSlug()
+
+  return {
+    props: {
+      preview,
+      regions: allRegions?.nodes,
+    },
+    revalidate: 1,
+  }
 }
 
 export default Page

@@ -1,9 +1,14 @@
-import React, { FC } from 'react'
+import React, { FC, forwardRef } from 'react'
 import CN from 'classnames'
+import { format, formatDistance, formatRelative, subDays } from 'date-fns'
+
 import { Button } from '@/components/atoms/Button'
 import { Pill } from '@/components/atoms/Pill'
 import { ArrowRight, Check, MapPin } from 'react-feather'
 import { Logo } from '@/components/atoms'
+
+import parseHTML from 'html-react-parser'
+import Link from 'next/link'
 
 export interface SingleEventCardProps {
   [x: string]: any
@@ -19,106 +24,86 @@ export interface SingleEventCardProps {
   eventTopic?: string
 }
 
-export const SingleEventCard: FC<SingleEventCardProps> = ({
-  className,
-  cover,
-  heading,
-  isFeatured,
-  description,
-  location,
-  appearance,
-  month,
-  date,
-  eventTopic,
-  ...restProps
-}: SingleEventCardProps) => {
-  const SingleEventCardClasses = CN(`single-event-card flex flex-col `, className)
+export const SingleEventCard = forwardRef<SingleEventCardProps>(
+  (
+    {
+      className,
+      title,
+      pageEvent,
+      excerpt,
+      slug,
+      isFeatured,
 
-  return (
-    <div className={SingleEventCardClasses} {...restProps}>
-      {/* Background with image */}
-      <div
-        className={CN(
-          'flex h-[207px] w-full md:w-[340px] lg:w-[368px] flex-shrink-0 rounded-t-[12px] bg-cover bg-no-repeat',
-          {
-            'bg-N-300 mix-blend-luminosity': appearance === 'gray',
-          }
-        )}
-        style={{ backgroundImage: `url('${cover || ''}')` }}>
-        {/* Featured */}
-        {isFeatured && (
-          <div className='flex px-[24px] pt-[24px]'>
-            <Pill size='md' className={CN('bg-B-100 font-400 !text-B-500')}>
-              {isFeatured}
-            </Pill>
-          </div>
-        )}
-      </div>
+      eventTopic,
+      ...restProps
+    }: SingleEventCardProps,
+    ref: any
+  ) => {
+    const SingleEventCardClasses = CN(
+      `single-event-card relative group flex flex-col shadow-card-shadow hover:cursor-pointer`,
+      className
+    )
+    const { date } = pageEvent || {}
+    const formattedDate = date ? new Date(date) : null
 
-      <div className='w-full md:w-[340px] lg:w-[368px] rounded-b-[12px] bg-white px-[24px] py-[24px]'>
-        <div>
-          {heading && <h5 className='text-h5 font-500 text-N-800'>{heading}</h5>}
-          {description && (
-            <p className='pt-[8px] text-base font-400 text-N-600 line-clamp-3'>{description}</p>
+    return (
+      <div className={SingleEventCardClasses} {...restProps} ref={ref}>
+        <div
+          className={CN(
+            'flex h-[207px] w-full flex-shrink-0 rounded-t-[8px] bg-N-300 bg-cover bg-no-repeat'
           )}
+          style={{
+            backgroundImage: `url('${
+              pageEvent?.featuredImage?.mediaItemUrl ||
+              'https://images.unsplash.com/photo-1538592116845-119a3974c958?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80'
+            }')`,
+          }}>
+          {/* Featured */}
+          {isFeatured && (
+            <div className='flex px-[24px] pt-[24px]'>
+              <Pill size='md' className={CN('bg-B-100 font-400 !text-B-500')}>
+                {isFeatured}
+              </Pill>
+            </div>
+          )}
+        </div>
 
-          {eventTopic && (
-            <div className='flex gap-[16px]'>
+        <div className='w-full rounded-b-[8px] bg-white px-[24px] py-[24px]'>
+          <div className='flex gap-[16px]'>
+            {formattedDate && (
               <div
                 className={CN(
-                  'flex h-[80px] w-[80px] flex-col items-center justify-center rounded-[2px]',
-                  {
-                    'bg-N-800 text-N-10': appearance === 'default',
-                    'bg-N-500 text-N-10': appearance === 'gray',
-                  }
+                  'absolute right-[-16px] top-[-16px] flex h-[80px] w-[80px] flex-shrink-0  flex-col items-center justify-center rounded-[4px] bg-N-100 text-N-700'
                 )}>
-                <span className='text-md font-600'>{month}</span>
-                <span className='text-h3 font-700 leading-[1]'>{date}</span>
+                <span className='text-md font-600'>{format(formattedDate, 'MMM')}</span>
+                <span className='text-h3 font-700 leading-[1]'>{format(formattedDate, 'dd')}</span>
               </div>
-              <div className='flex w-[208px]'>
-                <p
-                  className={CN('text-base font-500', {
-                    'text-N-500': appearance === 'gray',
-                    'text-N-800': appearance === 'default',
-                  })}>
-                  {eventTopic}
-                </p>
-              </div>
-            </div>
-          )}
+            )}
 
-          {location && (
-            <div className='flex items-center justify-center gap-[8px] pt-[16px]'>
-              <div className='w-[32px] rounded-full bg-N-100 px-[8px] py-[8px] text-N-800'>
-                <MapPin size={16} />
-              </div>
-              <p
-                className={CN('text-md font-500', {
-                  'text-N-500': appearance === 'gray',
-                  'text-N-600': appearance === 'default',
-                })}>
-                {location}
-              </p>
-            </div>
-          )}
+            <div className='flex flex-col'>
+              {title && <h5 className='text-h6 font-500 text-N-800'>{title}</h5>}
+              {pageEvent?.location && (
+                <div className='date-card__location flex items-center pt-[4px] text-md font-500 text-N-600'>
+                  <MapPin size={16} />
+                  <span className='pl-[8px]'>{pageEvent?.location}</span>
+                </div>
+              )}
+              {excerpt && (
+                <div className='my-[8px] text-md font-400 text-N-600 line-clamp-3'>
+                  {parseHTML(excerpt)}
+                </div>
+              )}
 
-          <div className='flex justify-center pt-[16px]'>
-            <Button
-              iconAfter={<ArrowRight size={20} />}
-              appearance='link'
-              className={CN({
-                'text-N-300': appearance === 'gray',
-                'text-N-800': appearance === 'default',
-              })}>
-              View event
-            </Button>
+              <span className='flex items-center gap-[8px] text-base font-500 group-hover:text-B-400'>
+                <span>View Event</span>
+                <i className='ri-arrow-right-line text-lg' />
+              </span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  )
-}
-
-SingleEventCard.defaultProps = {}
+    )
+  }
+)
 
 export default SingleEventCard
