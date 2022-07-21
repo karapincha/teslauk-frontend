@@ -25,7 +25,7 @@ export const SupplierAboutSideBar: FC<SupplierAboutSideBarProps> = ({
   const [myLocation, setMyLocation] = useState<any>()
 
   useEffect(() => {
-    if (data !== undefined && data.pageSupplier.location !== undefined) {
+    if (data !== undefined && data?.pageSupplier?.location !== undefined) {
       const center = {
         lat: data?.pageSupplier?.location?.latitude,
         lng: data?.pageSupplier?.location?.longitude,
