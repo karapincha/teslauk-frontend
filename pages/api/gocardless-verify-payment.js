@@ -9,7 +9,7 @@ const client = gocardless(
 )
 
 async function verifyPayment(req, res) {
-  const { customerId } = req.body
+  const { customerId, paymentRequest } = req.body
 
   const customer = await client.customers.find(customerId)
   const mandates = await client.mandates.list({ customer: customerId })
@@ -18,7 +18,14 @@ async function verifyPayment(req, res) {
     resource_type: 'payments',
   })
 
-  res.json({ customer, events, mandates })
+  const payment =
+    (await events?.linked?.payments.filter(item => {
+      if (item.reference === paymentRequest) {
+        return item
+      }
+    })[0]) || {}
+
+  res.json({ payment })
 }
 
 export default verifyPayment

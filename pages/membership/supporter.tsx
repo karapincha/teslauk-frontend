@@ -3,24 +3,27 @@ import type { NextPage } from 'next'
 import axios from 'axios'
 import Link from 'next/link'
 import Head from 'next/head'
+import { toast } from '@/components/molecules'
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useMutation, useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 import { useRegistration } from '@/utils/useRegistration'
+import { useAppContext } from '@/context'
 
 import { SectionHeading } from '@/components/molecules'
-import { Button, TextField, CheckBox, DropdownMenu, Radio } from '@/components/atoms'
+import { Button, TextField, CheckBox, DropdownMenu, Radio, Spinner } from '@/components/atoms'
 import { ArrowUpRight } from 'react-feather'
 import { Common as CommonLayout } from '@/components/layouts'
+
 import { teslaModels } from '@/static-data/tesla-models'
-import { toast } from '@/components/molecules'
 
 import { VERIFY_USER } from '../../lib/graphql'
 
 const Page: NextPage = () => {
   const router = useRouter()
-  const { status, session_id, billingRequest, customerId, paymentRequest } = router.query
+  const { status, session_id, billingRequest, customerId, paymentRequest, ref } = router.query
+  const { fullUser, user, userOrders }: any = useAppContext()
   const [isWelcomePackIncluded, setIsWelcomePackIncluded] = useState(true)
   const [defaultModel, setDefaultModel] = useState('model-3')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('stripe')
@@ -305,11 +308,7 @@ const Page: NextPage = () => {
       paymentRequest: paymentRequest,
     })
 
-    const payment = await data?.events?.linked?.payments.filter((item: any) => {
-      if (item.reference === paymentRequest) {
-        return item
-      }
-    })[0]
+    const payment = data?.payment
 
     localStorage.setItem(
       'paid',
@@ -354,10 +353,10 @@ const Page: NextPage = () => {
   }, [session_id, formData])
 
   useEffect(() => {
-    if (customerId) {
+    if (customerId && ref === 'GoCardLess') {
       goCardLessVerify()
     }
-  }, [customerId])
+  }, [customerId, ref])
 
   useEffect(() => {
     const fetchLocalData = async () => {
@@ -423,9 +422,12 @@ const Page: NextPage = () => {
             />
 
             {status === 'success' && showBrowserWindowAlert && (
-              <div className='alert flex w-full max-w-[672px] rounded-[8px] bg-Y-50 px-[40px] py-[16px] text-md font-500 text-R-800'>
-                We are attempting to create your account. Please don't close this browser window
-                until we re-direct you to your account after completion.
+              <div className='alert flex w-full max-w-[672px] items-center gap-[20px] rounded-[8px] bg-Y-50 px-[40px] py-[16px] text-md font-500 text-R-800'>
+                <Spinner size={24} />
+                <span>
+                  We are attempting to create your account. Please don't close this browser window
+                  until we re-direct you to your account after completion.
+                </span>
               </div>
             )}
 
