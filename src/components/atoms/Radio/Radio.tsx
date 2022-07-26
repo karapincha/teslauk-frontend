@@ -72,17 +72,22 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
           type={type}
           ref={combinedRef}
           onChange={onChange}
-          className='absolute w-0 h-0 opacity-0'
+          className='absolute h-0 w-0 opacity-0 peer'
           {...restProps}
         />
 
-        <span className={CN('radio__checkmark w-[18px] h-[18px] bg-B-500 rounded-full left-0 top-[50%] absolute', iconClassName)} />
+        <span
+          className={CN(
+            'radio__checkmark absolute left-0 top-[50%] h-[18px] w-[18px] rounded-full bg-B-500',
+            iconClassName
+          )}
+        />
 
         {children && (
-          <span
-            className={CN('radio__label text-md pl-[8px] select-none text-N-800', labelClassName)}>
+          <div
+            className={CN('radio__label select-none pl-[8px] text-md text-N-800', labelClassName)}>
             {children}
-          </span>
+          </div>
         )}
       </label>
     )

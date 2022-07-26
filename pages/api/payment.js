@@ -4,8 +4,6 @@ const DOMAIN = `${process.env.FRONTEND_DOMAIN}/membership/supporter`
 async function CreateStripeSubscription(req, res) {
   const { name, isWelcomePackIncluded, email, clientRef, product } = req.body
 
-  console.log(isWelcomePackIncluded)
-
   const lineItems = isWelcomePackIncluded
     ? [
         {

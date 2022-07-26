@@ -10,7 +10,7 @@ import { useMutation, useQuery } from '@apollo/client'
 import { useRegistration } from '@/utils/useRegistration'
 
 import { SectionHeading } from '@/components/molecules'
-import { Button, TextField, CheckBox, DropdownMenu } from '@/components/atoms'
+import { Button, TextField, CheckBox, DropdownMenu, Radio } from '@/components/atoms'
 import { ArrowUpRight } from 'react-feather'
 import { Common as CommonLayout } from '@/components/layouts'
 import { teslaModels } from '@/static-data/tesla-models'
@@ -20,11 +20,11 @@ import { VERIFY_USER } from '../../lib/graphql'
 
 const Page: NextPage = () => {
   const router = useRouter()
-  const { status, session_id } = router.query
+  const { status, session_id, billingRequest, customerId, paymentRequest } = router.query
   const [isWelcomePackIncluded, setIsWelcomePackIncluded] = useState(true)
   const [defaultModel, setDefaultModel] = useState('model-3')
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('stripe')
 
-  const [isSessionVerified, setIsSessionVerified] = useState(false)
   const [showBrowserWindowAlert, setShowBrowserWindowAlert] = useState(false)
   const [showPaymentFailedAlert, setShowPaymentFailedAlert] = useState(false)
   const [isCreatingAccount, setIsCreatingAccount] = useState(false)
@@ -50,34 +50,47 @@ const Page: NextPage = () => {
     runUpdateOrderStatus,
   } = useRegistration()
 
-  const [formData, setFormData] = useState<any>({
-    model: 'model-3',
-    isWelcomePackIncluded: true,
-  })
+  const [formData, setFormData] = useState<any>()
+
+  const loadLocalStorageData: any = async () => {
+    const myPromise = new Promise((resolve, reject) => {
+      const localStorageData = JSON.parse(localStorage.getItem('registration') || '{}')
+      const localStoragePaidAmount = JSON.parse(localStorage.getItem('paid') || '{}')
+      resolve({ ...localStorageData, ...localStoragePaidAmount })
+    })
+
+    return myPromise
+  }
 
   const { refetch: verifyUser } = useQuery(VERIFY_USER, {
     skip: true,
   })
 
   /* FINALIZE */
-  const handleFinalize = (orderId: any) => {
+  const handleFinalize = async (orderId: any) => {
+    const res = await loadLocalStorageData()
+
+    if (!res && !res.email) {
+      return console.log('Failed to load user data from the submission.')
+    }
+
     runGetRegisteredUser({
-      username: formData.username,
-      password: formData.password,
+      username: res.username,
+      password: res.password,
       onSuccess: ({ data }: any) => {
         updateUser({
           variables: {
             id: data?.viewer?.databaseId,
-            model: formData.model || defaultModel,
-            vin: formData.vin,
-            source: formData.refSource,
+            model: res.model || defaultModel,
+            vin: res.vin,
+            source: res.refSource,
           },
         })
           .then(() => {
             runUpdateOrderStatus({
               variables: {
                 orderId: orderId,
-                status: formData?.isWelcomePackIncluded ? 'AWAITING_SHIPMENT' : 'COMPLETED',
+                status: res?.isWelcomePackIncluded ? 'AWAITING_SHIPMENT' : 'COMPLETED',
               },
               onSuccess: (res: any) => {
                 router.push('/account?new_account=true')
@@ -136,11 +149,11 @@ const Page: NextPage = () => {
       return toast({ message: "Please enter your primary vehicle's VIN number", type: 'error' })
     }
 
-    if (isWelcomePackIncluded && !formData?.badgeName) {
+    if (formData?.isWelcomePackIncluded && !formData?.badgeName) {
       return toast({ message: 'Please enter a name to appear on your badge', type: 'error' })
     }
 
-    if (isWelcomePackIncluded && !formData?.locationName) {
+    if (formData?.isWelcomePackIncluded && !formData?.locationName) {
       return toast({
         message: 'Please enter a location name to appear on your badge',
         type: 'error',
@@ -166,7 +179,13 @@ const Page: NextPage = () => {
       verifyUser({ email: formData?.email, username: formData?.username })
         .then(({ data }: any) => {
           if (!data?.verifyUser?.byUsername?.id && !data?.verifyUser?.byEmail?.id) {
-            return stripeSubscribe()
+            if (selectedPaymentMethod === 'stripe') {
+              return stripeSubscribe()
+            }
+
+            if (selectedPaymentMethod === 'gocardless') {
+              return goCardLessBillingRequest()
+            }
           }
 
           toast({
@@ -183,14 +202,64 @@ const Page: NextPage = () => {
   /* Stripe => Create Subscription */
   const stripeSubscribe = async () => {
     const { data }: any = await axios.post('/api/payment', {
-      name: `${formData.firstName} ${formData.lastName}`,
-      email: `${formData.email}`,
-      clientRef: _.uniqueId(),
-      product: selectedMembershipProduct,
-      isWelcomePackIncluded: isWelcomePackIncluded || formData?.isWelcomePackIncluded,
+      name: `${formData?.firstName} ${formData?.lastName}`,
+      email: `${formData?.email}`,
+      clientRef: _.uniqueId(formData?.email.replace(/\s/g, '')),
+      isWelcomePackIncluded: formData?.isWelcomePackIncluded,
     })
 
     router.push(data?.subscription?.url)
+  }
+
+  const handleCheckout = async (paymentMethod: string) => {
+    const res = await loadLocalStorageData()
+
+    if (!res && !res.email) {
+      return console.log('Failed to load user data from the submission.')
+    }
+
+    setIsCreatingAccount(true)
+    verifyUser({ email: res?.email, username: res?.username }).then(({ data }: any) => {
+      if (!data?.verifyUser?.byUsername?.id && !data?.verifyUser?.byEmail?.id) {
+        setShowBrowserWindowAlert(true)
+        toast({ message: "Payment complete. We'll now create your account", type: 'success' })
+
+        return runCheckout({
+          productId:
+            res?.payment === 3500
+              ? Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID)
+              : Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID),
+          variables: {
+            isPaid: true,
+            paymentMethod: paymentMethod || 'none',
+            email: res.email,
+            firstName: res.firstName,
+            lastName: res.lastName,
+            vin: res.vin,
+            model: res.model || defaultModel,
+            refSource: res.refSource,
+            username: res.username,
+            password: res.password,
+          },
+          onSuccess: ({ data }: any) => {
+            if (data?.checkout?.order?.databaseId) {
+              handleFinalize(data?.checkout?.order?.databaseId)
+            } else {
+              toast({
+                message: 'Something went wrong. Please contact us at membership@teslaowners.org.uk',
+                type: 'error',
+              })
+            }
+          },
+          onFail: (e: any) => {
+            runClearCart()
+            return toast({ message: e.message, type: 'error' })
+          },
+        })
+      } else {
+        localStorage.clear()
+      }
+    })
   }
 
   /* Stripe => Verify Payment */
@@ -198,53 +267,9 @@ const Page: NextPage = () => {
     const { data }: any = await axios.post('/api/verify-payment', {
       session_id,
     })
-    setIsCreatingAccount(true)
 
     if (data && data.session && data.session.payment_status === 'paid') {
-      setIsSessionVerified(true)
-
-      verifyUser({ email: formData?.email, username: formData?.username }).then(({ data }: any) => {
-        if (!data?.verifyUser?.byUsername?.id && !data?.verifyUser?.byEmail?.id) {
-          setShowBrowserWindowAlert(true)
-          toast({ message: "Payment complete. We'll now create your account", type: 'success' })
-
-          return runCheckout({
-            productId:
-              formData?.isWelcomePackIncluded || isWelcomePackIncluded
-                ? Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
-                : Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID),
-            variables: {
-              isPaid: true,
-              paymentMethod: 'stripe',
-              email: formData.email,
-              firstName: formData.firstName,
-              lastName: formData.lastName,
-              vin: formData.vin,
-              model: formData.model || defaultModel,
-              refSource: formData.refSource,
-              username: formData.username,
-              password: formData.password,
-            },
-            onSuccess: ({ data }: any) => {
-              if (data?.checkout?.order?.databaseId) {
-                handleFinalize(data?.checkout?.order?.databaseId)
-              } else {
-                toast({
-                  message:
-                    'Something went wrong. Please contact us at membership@teslaowners.org.uk',
-                  type: 'error',
-                })
-              }
-            },
-            onFail: (e: any) => {
-              runClearCart()
-              return toast({ message: e.message, type: 'error' })
-            },
-          })
-        } else {
-          localStorage.clear()
-        }
-      })
+      handleCheckout('stripe')
     } else if (data && data.session && data.session.payment_status === 'unpaid') {
       setShowPaymentFailedAlert(true)
       setIsCreatingAccount(false)
@@ -252,8 +277,67 @@ const Page: NextPage = () => {
     } else {
       setShowPaymentFailedAlert(false)
       setShowBrowserWindowAlert(false)
-      setIsSessionVerified(false)
       setIsCreatingAccount(false)
+    }
+  }
+
+  /* GoCardLess => Create Billing Request */
+  const goCardLessBillingRequest = async () => {
+    const { data } = await axios.post('/api/gocardless-create-billing-request', {
+      clientRef: _.uniqueId(formData?.email.replace(/\s/g, '').replaceAll('.', '')),
+      firstName: formData?.firstName,
+      lastName: formData?.lastName,
+      email: formData?.email,
+      isWelcomePackIncluded: formData?.isWelcomePackIncluded,
+    })
+    router.push(data?.billingRequestFlow?.authorisation_url)
+  }
+
+  /* GoCardLess => Verify Payment */
+  const goCardLessVerify = async () => {
+    setIsCreatingAccount(true)
+    setShowBrowserWindowAlert(true)
+
+    const { data } = await axios.post('/api/gocardless-verify-payment', {
+      customerId: customerId,
+      billingRequest: billingRequest,
+      paymentRequest: paymentRequest,
+    })
+
+    const payment = await data?.events?.linked?.payments.filter((item: any) => {
+      if (item.reference === paymentRequest) {
+        return item
+      }
+    })[0]
+
+    localStorage.setItem(
+      'paid',
+      JSON.stringify({
+        payment: payment?.amount,
+      })
+    )
+
+    if (payment && payment.status === 'confirmed') {
+      goCardLessSubscribe()
+    } else if (payment && payment.status === 'failed') {
+      setShowPaymentFailedAlert(true)
+      setIsCreatingAccount(false)
+      setShowBrowserWindowAlert(false)
+    } else {
+      setShowPaymentFailedAlert(false)
+      setShowBrowserWindowAlert(false)
+      setIsCreatingAccount(false)
+    }
+  }
+
+  /* GoCardLess => Subscribe */
+  const goCardLessSubscribe = async () => {
+    const { data } = await axios.post('/api/gocardless-create-subscription', {
+      customerId: customerId,
+    })
+
+    if (data?.subscription?.status === 'active') {
+      handleCheckout('gocardless')
     }
   }
 
@@ -264,8 +348,52 @@ const Page: NextPage = () => {
   }, [session_id, formData])
 
   useEffect(() => {
-    const localStorageData = JSON.parse(localStorage.getItem('registration') || '{}')
-    setFormData({ model: 'model-3', isWelcomePackIncluded: true, ...localStorageData })
+    if (customerId) {
+      goCardLessVerify()
+    }
+  }, [customerId])
+
+  useEffect(() => {
+    const fetchLocalData = async () => {
+      const localData = await loadLocalStorageData()
+      return localData
+    }
+
+    fetchLocalData()
+      .then((res: any) => {
+        if (res?.isWelcomePackIncluded === undefined) {
+          localStorage.setItem(
+            'registration',
+            JSON.stringify({
+              ...res,
+              isWelcomePackIncluded: true,
+            })
+          )
+          setFormData({ ...res, isWelcomePackIncluded: true })
+          setSelectedMembershipProduct(
+            Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
+          )
+        } else {
+          localStorage.setItem(
+            'registration',
+            JSON.stringify({
+              ...res,
+            })
+          )
+          setFormData({ ...res })
+
+          if (res?.isWelcomePackIncluded) {
+            setSelectedMembershipProduct(
+              Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
+            )
+          } else {
+            setSelectedMembershipProduct(
+              Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID)
+            )
+          }
+        }
+      })
+      .catch(console.error)
   }, [])
 
   return (
@@ -289,14 +417,14 @@ const Page: NextPage = () => {
             />
 
             {status === 'success' && showBrowserWindowAlert && (
-              <div className='alert flex w-full max-w-[672px] rounded-[12px] bg-Y-50 px-[40px] py-[16px] text-md font-500 text-R-800'>
-                We are creating your account. Please don't close this browser window until we
-                re-direct you to your account after completion.
+              <div className='alert flex w-full max-w-[672px] rounded-[8px] bg-Y-50 px-[40px] py-[16px] text-md font-500 text-R-800'>
+                We are attempting to create your account. Please don't close this browser window
+                until we re-direct you to your account after completion.
               </div>
             )}
 
             {showPaymentFailedAlert && (
-              <div className='alert flex w-full max-w-[672px] rounded-[12px] bg-R-50 px-[40px] py-[16px] text-md font-500 text-R-500'>
+              <div className='alert flex w-full max-w-[672px] rounded-[8px] bg-R-50 px-[40px] py-[16px] text-md font-500 text-R-500'>
                 We couldn't create your account due to payment failure. You may re-try with a
                 different card or method.
               </div>
@@ -317,24 +445,16 @@ const Page: NextPage = () => {
                     <div className='flex flex-col justify-between md:flex-row lg:flex-row'>
                       <div className='flex flex-col gap-[8px] md:w-[258px] lg:w-[258px]'>
                         <p className='text-base font-400 text-N-800'>
-                          {formData?.isWelcomePackIncluded || isWelcomePackIncluded
+                          {formData?.isWelcomePackIncluded
                             ? `Tesla Owners UK Annual Subscription + Official Supporter Welcome Pack`
                             : `Tesla Owners UK Annual Subscription`}
                         </p>
                         <p className='text-sm font-500 text-N-600'>
                           <CheckBox
-                            defaultChecked={
-                              formData?.isWelcomePackIncluded || isWelcomePackIncluded
-                            }
+                            defaultChecked={formData?.isWelcomePackIncluded}
                             disabled={isCreatingAccount}
                             onChange={(e: any) => {
-                              setIsWelcomePackIncluded(e.target.checked)
-                              setSelectedMembershipProduct(
-                                Number(
-                                  process.env
-                                    .NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID
-                                )
-                              )
+                              setFormData({ ...formData, isWelcomePackIncluded: e.target.checked })
                               localStorage.setItem(
                                 'registration',
                                 JSON.stringify({
@@ -350,7 +470,7 @@ const Page: NextPage = () => {
 
                       <div className='flex flex-col gap-[12px] pt-[24px] md:items-end md:pt-0 lg:items-end lg:pt-0'>
                         <p className='text-md font-500 text-B-500'>
-                          {isWelcomePackIncluded
+                          {formData?.isWelcomePackIncluded
                             ? `£35.00/Year + £15.00 Welcome pack`
                             : `£35.00/Year`}
                         </p>
@@ -372,7 +492,7 @@ const Page: NextPage = () => {
                   <div className='flex w-full flex-col justify-between gap-[16px] md:flex-row lg:flex-row lg:gap-[16px]'>
                     <TextField
                       placeholder='Enter first name'
-                      value={formData.firstName || ''}
+                      value={formData?.firstName || ''}
                       label='First Name'
                       onChange={(e: any) => {
                         setFormData({ ...formData, firstName: e.target.value })
@@ -387,7 +507,7 @@ const Page: NextPage = () => {
                     <TextField
                       placeholder='Enter last name'
                       label='Last name'
-                      value={formData.lastName || ''}
+                      value={formData?.lastName || ''}
                       onChange={(e: any) => {
                         setFormData({ ...formData, lastName: e.target.value })
                         localStorage.setItem(
@@ -404,7 +524,7 @@ const Page: NextPage = () => {
                     <TextField
                       placeholder='Enter username'
                       label='Username'
-                      value={formData.username || ''}
+                      value={formData?.username || ''}
                       onChange={(e: any) => {
                         setFormData({ ...formData, username: e.target.value })
                         localStorage.setItem(
@@ -418,7 +538,7 @@ const Page: NextPage = () => {
                     <TextField
                       placeholder='Enter email address'
                       label='Email address'
-                      value={formData.email || ''}
+                      value={formData?.email || ''}
                       onChange={(e: any) => {
                         setFormData({ ...formData, email: e.target.value })
                         localStorage.setItem(
@@ -436,7 +556,7 @@ const Page: NextPage = () => {
                       type='password'
                       placeholder='Enter password here'
                       label='Password'
-                      value={formData.password || ''}
+                      value={formData?.password || ''}
                       onChange={(e: any) => {
                         setFormData({ ...formData, password: e.target.value })
                         localStorage.setItem(
@@ -451,7 +571,7 @@ const Page: NextPage = () => {
                       type='password'
                       placeholder='Re-type password'
                       label='Confirm password'
-                      value={formData.confirmPassword || ''}
+                      value={formData?.confirmPassword || ''}
                       onChange={(e: any) => {
                         setFormData({ ...formData, confirmPassword: e.target.value })
                         localStorage.setItem(
@@ -469,7 +589,7 @@ const Page: NextPage = () => {
                       label='Vehicle VIN No (Available from app)'
                       required
                       placeholder='Enter vehicle Vin No'
-                      value={formData.vin || ''}
+                      value={formData?.vin || ''}
                       onChange={(e: any) => {
                         setFormData({ ...formData, vin: e.target.value })
                         localStorage.setItem('registration', JSON.stringify(formData))
@@ -507,7 +627,7 @@ const Page: NextPage = () => {
                       {(formData?.model || defaultModel) &&
                         (formData?.model || defaultModel) !== 'other' && (
                           <img
-                            src={`/images/models/${formData.model || defaultModel}.png`}
+                            src={`/images/models/${formData?.model || defaultModel}.png`}
                             width={300}
                             height={160}
                             className='object-contain object-center'
@@ -522,7 +642,7 @@ const Page: NextPage = () => {
                         <TextField
                           placeholder='Enter name here'
                           label='Name to appear on the badge'
-                          value={formData.badgeName || ''}
+                          value={formData?.badgeName || ''}
                           onChange={(e: any) => {
                             setFormData({ ...formData, badgeName: e.target.value })
                             localStorage.setItem(
@@ -543,7 +663,7 @@ const Page: NextPage = () => {
                         <TextField
                           placeholder='House number and street name'
                           label='Your location (to appear on badge)'
-                          value={formData.locationName || ''}
+                          value={formData?.locationName || ''}
                           onChange={(e: any) => {
                             setFormData({ ...formData, locationName: e.target.value })
                             localStorage.setItem(
@@ -567,7 +687,7 @@ const Page: NextPage = () => {
                     label='How did you find out about Tesla Owners UK'
                     required
                     placeholder='Google / Search engine'
-                    value={formData.refSource || ''}
+                    value={formData?.refSource || ''}
                     disabled={isCreatingAccount}
                     onChange={(e: any) => {
                       setFormData({ ...formData, refSource: e.target.value })
@@ -577,6 +697,46 @@ const Page: NextPage = () => {
                       )
                     }}
                   />
+                </div>
+
+                <div className='flex flex-col pt-[20px]'>
+                  <p className='mb-[16px] text-md font-500 text-N-600'>
+                    Select your preferred method of Payment
+                  </p>
+
+                  <div className='flex flex-col gap-[8px]'>
+                    <Radio
+                      defaultChecked={selectedPaymentMethod === 'stripe'}
+                      onChange={(e: any) => {
+                        if (e.target.checked) {
+                          setSelectedPaymentMethod('stripe')
+                        }
+                      }}
+                      name='payment_method'
+                      className='!h-[unset] !px-0'
+                      iconClassName='left-[16px]'
+                      labelClassName='flex items-center h-[40px] rounded-[4px] border-[1px] border-N-300 peer-checked:bg-R-10 peer-checked:border-R-100 w-full !px-[40px]'>
+                      <img src='/payment-logos/visa.svg' width={40} />
+                      <img src='/payment-logos/mastercard.svg' width={40} />
+                      <img src='/payment-logos/amex.svg' width={40} />
+                      Credit / Debit card (Stripe)
+                    </Radio>
+
+                    <Radio
+                      defaultChecked={selectedPaymentMethod === 'gocardless'}
+                      onChange={(e: any) => {
+                        if (e.target.checked) {
+                          setSelectedPaymentMethod('gocardless')
+                        }
+                      }}
+                      name='payment_method'
+                      className='!h-[unset] !px-0'
+                      iconClassName='left-[16px]'
+                      labelClassName='flex items-center h-[40px] rounded-[4px] border-[1px] border-N-300 peer-checked:bg-R-10 peer-checked:border-R-100 w-full !pl-[44px] !pr-[40px] gap-[16px]'>
+                      <img src='/payment-logos/direct-debit-dark.svg' width={56} />
+                      Direct Debit (GoCardLess)
+                    </Radio>
+                  </div>
                 </div>
 
                 <div className='flex flex-col pt-[20px]'>
@@ -623,7 +783,7 @@ const Page: NextPage = () => {
                 <div className='flex flex-col justify-between !pt-[12px] md:flex-row md:pt-[24px] lg:flex-row lg:pt-[24px]'>
                   <div className='flex gap-[12px]'>
                     <CheckBox
-                      checked={formData.privacyPolicy || false}
+                      checked={formData?.privacyPolicy || false}
                       onChange={(e: any) => {
                         setFormData({ ...formData, privacyPolicy: e.target.checked })
                         localStorage.setItem(

@@ -114,7 +114,7 @@ export const TextField: FC<TextFieldProps> = forwardRef(
           {label && (
             <label
               className={CN(
-                'text-field__label absolute top-[-28px] left-[-2px] !text-md font-500 text-N-600 after:absolute after:left-0 after:right-0 after:bottom-[2px] after:z-[0] after:h-[9px] after:content-[""] z-10',
+                'text-field__label absolute top-[-28px] left-[-2px] z-10 !text-md font-500 text-N-600 after:absolute after:left-0 after:right-0 after:bottom-[2px] after:z-[0] after:h-[9px] after:content-[""]',
                 {
                   // 'after:bg-white': !disabled,
                   // 'after:bg-N-50': disabled,
@@ -150,12 +150,12 @@ export const TextField: FC<TextFieldProps> = forwardRef(
 
           {type === 'password' && (
             <div
+              tabIndex={-1}
               className={CN(
                 'text-field__icon flex h-full items-center pr-[16px] pl-[12px] text-N-500'
               )}
               onClick={() => setInputType(prev => (prev === 'password' ? 'text' : 'password'))}
-              role='button'
-              tabIndex={0}>
+              role='button'>
               {inputType === 'password' ? <Eye size={16} /> : <EyeOff size={16} />}
             </div>
           )}
