@@ -22,7 +22,8 @@ import { VERIFY_USER } from '../../lib/graphql'
 
 const Page: NextPage = () => {
   const router = useRouter()
-  const { status, session_id, billingRequest, customerId, paymentRequest, ref } = router.query
+  const { status, session_id, billingRequest, customerId, paymentRequest, ref, stripeCustomerId } =
+    router.query
   const { fullUser, user, userOrders }: any = useAppContext()
   const [isWelcomePackIncluded, setIsWelcomePackIncluded] = useState(true)
   const [defaultModel, setDefaultModel] = useState('model-3')
@@ -87,6 +88,8 @@ const Page: NextPage = () => {
             model: res.model || defaultModel,
             vin: res.vin,
             source: res.refSource,
+            gocardlessId: customerId,
+            stripeId: stripeCustomerId,
           },
         })
           .then(() => {
