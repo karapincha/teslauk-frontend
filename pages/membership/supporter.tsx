@@ -219,6 +219,7 @@ const Page: NextPage = () => {
     }
 
     setIsCreatingAccount(true)
+
     verifyUser({ email: res?.email, username: res?.username }).then(({ data }: any) => {
       if (!data?.verifyUser?.byUsername?.id && !data?.verifyUser?.byEmail?.id) {
         setShowBrowserWindowAlert(true)
@@ -338,6 +339,11 @@ const Page: NextPage = () => {
 
     if (data?.subscription?.status === 'active') {
       handleCheckout('gocardless')
+    } else {
+      toast({
+        message: 'Something went wrong. Please contact us at membership@teslaowners.org.uk',
+        type: 'error',
+      })
     }
   }
 
