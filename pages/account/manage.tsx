@@ -66,9 +66,9 @@ const Page: NextPage = () => {
       .catch((e: any) => {})
   }
 
-  useEffect(() => {
-    console.log(fullUser)
-  }, [fullUser])
+  // useEffect(() => {
+  //   console.log(fullUser)
+  // }, [fullUser])
 
   return (
     <>

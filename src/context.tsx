@@ -18,7 +18,11 @@ export function AppWrapper({ children, values }: any) {
   const { user, refetchUser } = useLoggedInUser()
 
   const { data: commonData, loading: loadingCommonData } = useQuery(GET_COMMON)
-  const { data: fullUser, refetch: fetchFullUser } = useQuery(GET_FULL_USER, {
+  const {
+    data: fullUser,
+    refetch: fetchFullUser,
+    loading: fullUserLoading,
+  } = useQuery(GET_FULL_USER, {
     variables: {
       id: user?.id,
     },
@@ -55,6 +59,7 @@ export function AppWrapper({ children, values }: any) {
     suppliers: commonData?.suppliers?.nodes,
     user,
     fullUser,
+    fullUserLoading,
     userOrders: _orders,
     refetchUser,
     fetchFullUser,

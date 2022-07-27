@@ -13,6 +13,7 @@ import { Button } from '@/components/atoms'
 import { MemberCard } from '@/components/molecules/MemberCard'
 import { DashboardMenu } from '@/components/molecules/DashboardMenu'
 import { AuthLayout } from '@/components/layouts'
+import { UpdateOrderAddresses } from '@/components/forms'
 
 import { useQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
@@ -27,18 +28,15 @@ const Page: NextPage = () => {
   const router = useRouter()
   const { new_account } = router?.query
   const { isDesktop, isMobile, isTablet } = useViewport()
-  const { fullUser, user, userOrders }: any = useAppContext()
+  const { fullUser, fullUserLoading, user, userOrders }: any = useAppContext()
 
   const [_subscriptions, _setSubscriptions] = useState<any>()
   const [_subscribedProducts, _setSubscribedProducts] = useState<any>()
   const [_activeSubscription, _setActiveSubscription] = useState<any>()
   const [_expiryDate, _setExpiryDate] = useState<any>()
+  const [_showShippingAddressModal, _setShowShippingAddressModal] = useState(false)
 
   const [runConfetti, setRunConfetti] = useState(false)
-
-  useEffect(() => {
-    console.log(new_account)
-  }, [new_account])
 
   /* Filter and set user's active subscriptions and products */
   useEffect(() => {
@@ -63,6 +61,35 @@ const Page: NextPage = () => {
 
     _setSubscriptions(subscriptions)
     _setActiveSubscription(subscriptions[0])
+
+    /* Check if subscription is with supporter + welcome pack */
+    const subscriptionOrder =
+      fullUser?.customer?.orders?.nodes?.filter((order: any) => {
+        const filtered = order?.lineItems?.nodes?.filter((item: any) => {
+          if (
+            item?.productId ===
+            Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
+          ) {
+            return order
+          }
+        })
+        return filtered
+      })[0] || {}
+
+    const shippingAddress = fullUser?.customer?.shipping
+
+    console.log(shippingAddress)
+
+    if (
+      !fullUserLoading &&
+      (!shippingAddress?.address1 ||
+        !shippingAddress?.city ||
+        !shippingAddress?.postcode ||
+        !shippingAddress?.state ||
+        !shippingAddress?.phone)
+    ) {
+      _setShowShippingAddressModal(true)
+    }
   }, [fullUser])
 
   useEffect(() => {
@@ -92,10 +119,6 @@ const Page: NextPage = () => {
     },
   ]
 
-  useEffect(() => {
-    console.log(`_activeSubscription`, _activeSubscription)
-  }, [_activeSubscription])
-
   const renderMembershipCard = () => {
     return (
       <>
@@ -124,6 +147,14 @@ const Page: NextPage = () => {
       </Head>
 
       <AuthLayout>
+        {_showShippingAddressModal && (
+          <div className='fixed top-0 right-0 bottom-0 left-0 z-10 flex items-center justify-center bg-slate-400/50'>
+            <div className='flex w-full max-w-[600px]'>
+              <UpdateOrderAddresses setShowAddressModal={_setShowShippingAddressModal} />
+            </div>
+          </div>
+        )}
+
         {new_account === 'true' && (
           <Confetti width={width} height={height} run={true} recycle={runConfetti} />
         )}

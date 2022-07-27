@@ -40,6 +40,11 @@ export const UPDATE_BILLING = gql`
           lastName
           email
         }
+        shipping {
+          firstName
+          lastName
+          email
+        }
       }
     }
   }
