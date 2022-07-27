@@ -228,7 +228,8 @@ export const UpdateOrderAddresses: FC<UpdateOrderAddressesProps> = ({
           <Button
             className='w-full text-base !font-600'
             appearance='primary'
-            onClick={handleValidation}>
+            onClick={handleValidation}
+            isLoading={loadingUpdateShipping || loadingUpdateOrdersShippingAddress}>
             Save Shipping Address
           </Button>
         </div>

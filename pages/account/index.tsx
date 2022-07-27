@@ -35,6 +35,7 @@ const Page: NextPage = () => {
   const [_activeSubscription, _setActiveSubscription] = useState<any>()
   const [_expiryDate, _setExpiryDate] = useState<any>()
   const [_showShippingAddressModal, _setShowShippingAddressModal] = useState(false)
+  const [_subscriptionOrder, _setSubscriptionOrder] = useState<any>({})
 
   const [runConfetti, setRunConfetti] = useState(false)
 
@@ -75,6 +76,8 @@ const Page: NextPage = () => {
         })
         return filtered
       })[0] || {}
+
+    _setSubscriptionOrder(subscriptionOrder)
 
     const shippingAddress = fullUser?.customer?.shipping
 
@@ -145,15 +148,15 @@ const Page: NextPage = () => {
       </Head>
 
       <AuthLayout>
-        {_showShippingAddressModal && (
-          <div className='fixed top-0 right-0 bottom-0 left-0 z-10 flex items-center justify-center bg-slate-400/50'>
+        {_showShippingAddressModal && _subscriptionOrder?.status === 'AWAITING_SHIPMENT' && (
+          <div className='fixed top-0 right-0 bottom-0 left-0 flex items-center justify-center bg-slate-400/50'>
             <div className='flex w-full max-w-[600px]'>
               <UpdateOrderAddresses setShowAddressModal={_setShowShippingAddressModal} />
             </div>
           </div>
         )}
 
-        {new_account === 'true' && (
+        {!_showShippingAddressModal && new_account === 'true' && (
           <Confetti width={width} height={height} run={true} recycle={runConfetti} />
         )}
 
