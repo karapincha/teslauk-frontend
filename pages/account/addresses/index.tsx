@@ -86,12 +86,12 @@ const Page: NextPage = () => {
                         {fullUser?.customer?.firstName} {fullUser?.customer?.lastName}
                       </h5>
                       <div className='text-md font-400 text-N-800'>
-                        <p>Address: {fullUser?.customer?.billing?.address1 || 'N/A'}</p>
-                        <p>City: {fullUser?.customer?.billing?.city || 'N/A'}</p>
-                        <p>Post Code: {fullUser?.customer?.billing?.postcode || 'N/A'}</p>
-                        <p>Country: {fullUser?.customer?.billing?.country || 'N/A'}</p>
-                        <p>Phone: {fullUser?.customer?.billing?.phone || 'N/A'}</p>
-                        <p>Email: {fullUser?.customer?.billing?.email || 'N/A'}</p>
+                        <p>Address: {fullUser?.customer?.billing?.address1 || '—'}</p>
+                        <p>City: {fullUser?.customer?.billing?.city || '—'}</p>
+                        <p>Postcode: {fullUser?.customer?.billing?.postcode || '—'}</p>
+                        <p>State: {fullUser?.customer?.billing?.state || '—'}</p>
+                        <p>Phone: {fullUser?.customer?.billing?.phone || '—'}</p>
+                        <p>Email: {fullUser?.customer?.billing?.email || '—'}</p>
                       </div>
                     </div>
                   </div>
@@ -109,7 +109,7 @@ const Page: NextPage = () => {
                       <p className='text-md font-500 text-N-800'>Shipping address</p>
                     </div>
 
-                    <div className='flex w-full flex-col gap-[4px] pb-[16px]'>
+                    {/* <div className='flex w-full flex-col gap-[4px] pb-[16px]'>
                       <CheckBox
                         defaultChecked={useBillingAddressForShipping}
                         children='Use same as billing address'
@@ -130,31 +130,27 @@ const Page: NextPage = () => {
                           }
                         }}
                       />
-                    </div>
+                    </div> */}
 
-                    {!useBillingAddressForShipping && (
-                      <div>
-                        <h5 className='mb-[4px] text-base font-500 text-N-800'>
-                          {fullUser?.customer?.firstName} {fullUser?.customer?.lastName}
-                        </h5>
-                        <div className='text-md font-400 text-N-800'>
-                          <p>Address: {fullUser?.customer?.shipping?.address1 || 'N/A'}</p>
-                          <p>City: {fullUser?.customer?.shipping?.city || 'N/A'}</p>
-                          <p>Post Code: {fullUser?.customer?.shipping?.postcode || 'N/A'}</p>
-                          <p>Country: {fullUser?.customer?.shipping?.country || 'N/A'}</p>
-                          <p>Phone: {fullUser?.customer?.shipping?.phone || 'N/A'}</p>
-                        </div>
+                    <div>
+                      <h5 className='mb-[4px] text-base font-500 text-N-800'>
+                        {fullUser?.customer?.firstName} {fullUser?.customer?.lastName}
+                      </h5>
+                      <div className='text-md font-400 text-N-800'>
+                        <p>Address: {fullUser?.customer?.shipping?.address1 || '—'}</p>
+                        <p>City: {fullUser?.customer?.shipping?.city || '—'}</p>
+                        <p>Postcode: {fullUser?.customer?.shipping?.postcode || '—'}</p>
+                        <p>State: {fullUser?.customer?.shipping?.state || '—'}</p>
+                        <p>Phone: {fullUser?.customer?.shipping?.phone || '—'}</p>
                       </div>
-                    )}
+                    </div>
                   </div>
 
-                  {!useBillingAddressForShipping && (
-                    <Link href='/account/addresses/edit-shipping'>
-                      <Button appearance='secondary' size='sm'>
-                        Edit shipping address
-                      </Button>
-                    </Link>
-                  )}
+                  <Link href='/account/addresses/edit-shipping'>
+                    <Button appearance='secondary' size='sm'>
+                      Edit shipping address
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>

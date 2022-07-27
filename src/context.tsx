@@ -36,12 +36,8 @@ export function AppWrapper({ children, values }: any) {
 
   useEffect(() => {
     /* User Orders */
-    if (fullUser?.orders) {
-      _setOrders(
-        fullUser?.orders?.map((order: any) => {
-          return JSON.parse(order?.data_json)
-        })
-      )
+    if (fullUser?.customer?.orders) {
+      _setOrders(fullUser?.customer?.orders?.nodes)
     }
   }, [fullUser])
 

@@ -37,9 +37,9 @@ const Page: NextPage = () => {
           </div>
 
           <div className='flex w-full flex-col'>
-            <h4 className='pb-[24px] text-h4 font-600 text-N-800'>Purchases</h4>
+            <h4 className='text-h4 font-600 text-N-800'>Purchases</h4>
 
-            <ul className='flex w-full flex-col gap-[8px] overflow-auto pb-[24px] md:w-[unset] lg:w-[unset]'>
+            <ul className='flex w-full flex-col gap-[8px] overflow-auto pt-[32px] pb-[24px] md:w-[unset] lg:w-[unset]'>
               <li className='grid grid-cols-[0.75fr_1fr_1fr_1fr_1fr] gap-[24px] rounded-[4px] px-[12px] py-[4px]'>
                 <span className='text-md text-N-800'>Order ID</span>
                 <span className='text-md text-N-800'>Date</span>
@@ -49,17 +49,15 @@ const Page: NextPage = () => {
               </li>
 
               {userOrders?.map((order: any, index: number) => {
-                const { id, number, date_created, status, total } = order || {}
+                const { id, orderNumber, date, status, total } = order || {}
 
                 return (
                   <li
                     key={id || index}
                     className='grid grid-cols-[0.75fr_1fr_1fr_1fr_1fr] gap-[24px] rounded-[4px] border border-N-100 bg-white px-[12px] py-[4px]'>
-                    <span className='text-md text-N-800'>#{number}</span>
+                    <span className='text-md text-N-800'>#{orderNumber}</span>
 
-                    <p className='text-md font-400 text-N-700'>
-                      {format(new Date(date_created?.date), 'dd MMMM yyyy')}
-                    </p>
+                    <p className='text-md font-400 text-N-700'>{date.split('T')[0]}</p>
 
                     <p
                       className={CN(`text-md font-400 text-N-800`, {
@@ -69,9 +67,9 @@ const Page: NextPage = () => {
                       {status.replace(/^\w/, (c: any) => c.toUpperCase())}
                     </p>
 
-                    <span className='text-md text-N-800'>£{total}</span>
+                    <span className='text-md text-N-800'>{total}</span>
 
-                    <Link key={id || index} href={`/account/purchases/${number}`}>
+                    <Link key={id || index} href={`/account/purchases/${orderNumber}`}>
                       <a className='ml-auto cursor-pointer text-md text-N-800 hover:text-B-500'>
                         View
                       </a>

@@ -20,7 +20,7 @@ const Page: NextPage = () => {
   const { fullUser, user, userOrders, refetchUser }: any = useAppContext()
 
   const initialVariables = {
-    id: fullUser?.customer?.id,
+    id: fullUser?.customer?.databaseId,
     address1: fullUser?.customer?.shipping?.address1,
     address2: fullUser?.customer?.shipping?.address2,
     city: fullUser?.customer?.shipping?.city,
@@ -94,9 +94,8 @@ const Page: NextPage = () => {
                 <div className='input-field flex flex-col gap-[16px] pt-[16px] lg:max-w-[600px]'>
                   <div className='flex w-full flex-col justify-between gap-[16px] md:flex-row lg:flex-row lg:gap-[16px]'>
                     <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>First Name</p>
                       <TextField
-                        placeholder='Enter first name'
+                        label='First Name'
                         defaultValue={fullUser?.customer?.shipping?.firstName}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, firstName: e.target.value })
@@ -104,9 +103,8 @@ const Page: NextPage = () => {
                       />
                     </div>
                     <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>Last Name</p>
                       <TextField
-                        placeholder='Enter last name'
+                        label='Last Name'
                         defaultValue={fullUser?.customer?.shipping?.lastName}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, lastName: e.target.value })
@@ -117,9 +115,8 @@ const Page: NextPage = () => {
 
                   <div className='flex w-full flex-col justify-between gap-[16px] md:flex-row lg:flex-row lg:gap-[16px]'>
                     <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>Phone</p>
                       <TextField
-                        placeholder='Enter phone'
+                        label='Phone'
                         defaultValue={fullUser?.customer?.shipping?.phone}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, phone: e.target.value })
@@ -128,43 +125,41 @@ const Page: NextPage = () => {
                     </div>
                   </div>
 
-                  <div className='flex w-full flex-col gap-[4px]'>
+                  {/* <div className='flex w-full flex-col gap-[4px]'>
                     <p className='text-md text-N-600'>Company</p>
                     <div className='flex flex-col gap-[16px]'>
                       <TextField
-                        placeholder='Company co. (optional)'
+                        
                         defaultValue={fullUser?.customer?.shipping?.company}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, company: e.target.value })
                         }}
                       />
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className='flex w-full flex-col gap-[4px]'>
-                    <p className='text-md text-N-600'>Street address</p>
                     <div className='flex flex-col gap-[16px]'>
                       <TextField
-                        placeholder='House number and street name'
+                        label='Address'
                         defaultValue={fullUser?.customer?.shipping?.address1}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, address1: e.target.value })
                         }}
                       />
-                      <TextField
-                        placeholder='Apartment, suite, unit, etc. (optional)'
+                      {/* <TextField
+                        
                         defaultValue={fullUser?.customer?.shipping?.address2}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, address2: e.target.value })
                         }}
-                      />
+                      /> */}
                     </div>
                   </div>
 
                   <div className='flex w-full flex-col gap-[4px]'>
-                    <p className='text-md text-N-600'>Town / City</p>
                     <TextField
-                      placeholder='Enter town / city'
+                      label='City / Town'
                       defaultValue={fullUser?.customer?.shipping?.city}
                       onChange={(e: any) => {
                         setUpdatableAddress({ ...updatableAddress, city: e.target.value })
@@ -174,9 +169,8 @@ const Page: NextPage = () => {
 
                   <div className='flex w-full flex-col justify-between gap-[16px] md:flex-row lg:flex-row lg:gap-[16px]'>
                     <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>Postcode</p>
                       <TextField
-                        placeholder='Enter postcode'
+                        label='Zip / Postal Code'
                         defaultValue={fullUser?.customer?.shipping?.postcode}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, postcode: e.target.value })
@@ -185,12 +179,11 @@ const Page: NextPage = () => {
                     </div>
 
                     <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>Country / Region</p>
                       <TextField
-                        placeholder='Select a country / Region'
-                        defaultValue={fullUser?.customer?.shipping?.country}
+                        label='State / Province / Region'
+                        defaultValue={fullUser?.customer?.shipping?.state}
                         onChange={(e: any) => {
-                          setUpdatableAddress({ ...updatableAddress, country: e.target.value })
+                          setUpdatableAddress({ ...updatableAddress, state: e.target.value })
                         }}
                       />
                     </div>

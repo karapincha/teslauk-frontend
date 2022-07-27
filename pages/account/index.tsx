@@ -78,8 +78,6 @@ const Page: NextPage = () => {
 
     const shippingAddress = fullUser?.customer?.shipping
 
-    console.log(shippingAddress)
-
     if (
       !fullUserLoading &&
       (!shippingAddress?.address1 ||

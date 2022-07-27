@@ -90,13 +90,11 @@ const Page: NextPage = () => {
 
             <div className='personal-details w-full pt-[24px]'>
               <div className='flex flex-col'>
-                <p className='text-base font-500 text-N-800'>Billing address</p>
                 <div className='input-field flex flex-col gap-[16px] pt-[16px] lg:max-w-[600px]'>
                   <div className='flex w-full flex-col justify-between gap-[16px] md:flex-row lg:flex-row lg:gap-[16px]'>
                     <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>First Name</p>
                       <TextField
-                        placeholder='Enter first name'
+                        label='First Name'
                         defaultValue={fullUser?.customer?.billing?.firstName}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, firstName: e.target.value })
@@ -104,9 +102,8 @@ const Page: NextPage = () => {
                       />
                     </div>
                     <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>Last Name</p>
                       <TextField
-                        placeholder='Enter last name'
+                        label='Last Name'
                         defaultValue={fullUser?.customer?.billing?.lastName}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, lastName: e.target.value })
@@ -117,9 +114,8 @@ const Page: NextPage = () => {
 
                   <div className='flex w-full flex-col justify-between gap-[16px] md:flex-row lg:flex-row lg:gap-[16px]'>
                     <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>Email address</p>
                       <TextField
-                        placeholder='Enter email address'
+                        label='Email address'
                         defaultValue={fullUser?.customer?.billing?.email}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, email: e.target.value })
@@ -128,9 +124,8 @@ const Page: NextPage = () => {
                     </div>
 
                     <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>Phone</p>
                       <TextField
-                        placeholder='Enter phone'
+                        label='Phone'
                         defaultValue={fullUser?.customer?.billing?.phone}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, phone: e.target.value })
@@ -139,43 +134,39 @@ const Page: NextPage = () => {
                     </div>
                   </div>
 
-                  <div className='flex w-full flex-col gap-[4px]'>
-                    <p className='text-md text-N-600'>Company</p>
+                  {/* <div className='flex w-full flex-col gap-[4px]'>
                     <div className='flex flex-col gap-[16px]'>
                       <TextField
-                        placeholder='Company co. (optional)'
+                        
                         defaultValue={fullUser?.customer?.billing?.company}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, company: e.target.value })
                         }}
                       />
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className='flex w-full flex-col gap-[4px]'>
-                    <p className='text-md text-N-600'>Street address</p>
                     <div className='flex flex-col gap-[16px]'>
                       <TextField
-                        placeholder='House number and street name'
+                        label='Address'
                         defaultValue={fullUser?.customer?.billing?.address1}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, address1: e.target.value })
                         }}
                       />
-                      <TextField
-                        placeholder='Apartment, suite, unit, etc. (optional)'
+                      {/* <TextField
                         defaultValue={fullUser?.customer?.billing?.address2}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, address2: e.target.value })
                         }}
-                      />
+                      /> */}
                     </div>
                   </div>
 
                   <div className='flex w-full flex-col gap-[4px]'>
-                    <p className='text-md text-N-600'>Town / City</p>
                     <TextField
-                      placeholder='Enter town / city'
+                      label='City / Town'
                       defaultValue={fullUser?.customer?.billing?.city}
                       onChange={(e: any) => {
                         setUpdatableAddress({ ...updatableAddress, city: e.target.value })
@@ -185,9 +176,8 @@ const Page: NextPage = () => {
 
                   <div className='flex w-full flex-col justify-between gap-[16px] md:flex-row lg:flex-row lg:gap-[16px]'>
                     <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>Postcode</p>
                       <TextField
-                        placeholder='Enter postcode'
+                        label='Zip / Postal Code'
                         defaultValue={fullUser?.customer?.billing?.postcode}
                         onChange={(e: any) => {
                           setUpdatableAddress({ ...updatableAddress, postcode: e.target.value })
@@ -196,12 +186,11 @@ const Page: NextPage = () => {
                     </div>
 
                     <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>Country / Region</p>
                       <TextField
-                        placeholder='Select a country / Region'
-                        defaultValue={fullUser?.customer?.billing?.country}
+                        label='State / Province / Region'
+                        defaultValue={fullUser?.customer?.billing?.state}
                         onChange={(e: any) => {
-                          setUpdatableAddress({ ...updatableAddress, country: e.target.value })
+                          setUpdatableAddress({ ...updatableAddress, state: e.target.value })
                         }}
                       />
                     </div>
