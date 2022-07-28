@@ -15,15 +15,9 @@ export async function getRegions() {
               pageEvent {
                 contactEmail
                 date
+                slug
                 location
-                time
-                featuredImage {
-                  mediaItemUrl
-                }
-                mapLocation {
-                  latitude
-                  longitude
-                }
+                featuredImage
               }
               title
               excerpt

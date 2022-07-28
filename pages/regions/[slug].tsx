@@ -122,23 +122,31 @@ const Page: NextPage = ({ region }: any) => {
         </div>
 
         <div className='container pt-[500px] pb-[24px] md:pb-[80px] lg:pt-[400px] lg:pb-[80px]'>
-          <div className='flex flex-col justify-between pb-[40px]'>
-            <h4 className='text-h4 font-500 text-N-800'>Latest {region?.title} events</h4>
-          </div>
+          {pageRegion?.events?.length && (
+            <>
+              <div className='flex flex-col justify-between pb-[40px]'>
+                <h4 className='text-h4 font-500 text-N-800'>Latest {region?.title} events</h4>
+              </div>
 
-          <ul className='flex flex-col gap-[24px] md:grid md:grid-cols-2 md:gap-y-[40px] md:gap-x-[24px] lg:grid lg:grid-cols-3 lg:gap-x-[48px]'>
-            {(pageRegion?.events || []).map((event: any, index: number) => {
-              if (index < 3) {
-                return (
-                  <li key={index}>
-                    <Link href={`/events/${event?.slug}`} passHref>
-                      <SingleEventCard {...event} />
-                    </Link>
-                  </li>
-                )
-              }
-            })}
-          </ul>
+              <ul className='flex flex-col gap-[24px] md:grid md:grid-cols-2 md:gap-y-[40px] md:gap-x-[24px] lg:grid lg:grid-cols-3 lg:gap-x-[48px]'>
+                {(pageRegion?.events || []).map((event: any, index: number) => {
+                  if (index > 3) {
+                    return
+                  }
+
+                  return (
+                    <li key={index}>
+                      <Link href={`/events/${event?.slug}` || ''} passHref>
+                        <a className='w-full'>
+                          <SingleEventCard {...event} />
+                        </a>
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </>
+          )}
         </div>
 
         <ContactCta

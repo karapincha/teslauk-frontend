@@ -18,11 +18,9 @@ export async function getFeaturedEventsBlock() {
               pageEvent {
                 contactEmail
                 date
+                slug
                 location
-                time
-                featuredImage {
-                  mediaItemUrl
-                }
+                featuredImage
               }
               title
               excerpt

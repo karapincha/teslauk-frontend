@@ -54,8 +54,9 @@ export const SingleEventCard = forwardRef(
       },
       className
     )
-    const { date } = pageEvent || {}
-    const formattedDate = start_date ? new Date(start_date) : new Date()
+    const { featuredImage } = pageEvent || {}
+    const eventDate = start_date || pageEvent?.date
+    const formattedDate = eventDate ? new Date(eventDate) : new Date()
 
     return (
       <div className={SingleEventCardClasses} {...restProps} ref={ref}>
@@ -66,7 +67,7 @@ export const SingleEventCard = forwardRef(
             'grayscale': isPast,
           })}
           style={{
-            backgroundImage: `url('${banner?.url || '/placeholder.png'}')`,
+            backgroundImage: `url('${banner?.url || featuredImage || '/placeholder.png'}')`,
           }}
         />
 
@@ -108,7 +109,9 @@ export const SingleEventCard = forwardRef(
                 <div className='flex h-[32px] w-[32px] flex-shrink-0 items-center justify-center rounded-full bg-N-100'>
                   <MapPin size={16} />
                 </div>
-                <span className='pl-[8px] line-clamp-1'>{location || 'To be decided'}</span>
+                <span className='pl-[8px] line-clamp-1'>
+                  {location || pageEvent?.location || 'To be decided'}
+                </span>
               </div>
 
               {/* <span className='flex items-center gap-[8px] text-base font-500 group-hover:text-B-400'>
