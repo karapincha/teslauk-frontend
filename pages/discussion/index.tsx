@@ -12,6 +12,7 @@ import { DiscussionCard } from '@/components/molecules/DiscussionCard'
 
 import { Common as CommonLayout } from '@/components/layouts'
 import { getAllDiscussionGroupsWithSlug, getStaticPage } from '../../lib/graphql'
+import Link from 'next/link'
 
 const Page: NextPage = ({ page, discussionGroups }: any) => {
   const router = useRouter()
@@ -45,9 +46,11 @@ const Page: NextPage = ({ page, discussionGroups }: any) => {
                   <p className='text-base font-500 text-white'>Find local owners near to you</p>
                 </div>
                 <div className='flex pt-[24px] md:pt-0'>
-                  <Button appearance='primary' size='md'>
-                    Find in your location
-                  </Button>
+                  <Link href='/regions'>
+                    <Button appearance='primary' size='md'>
+                      Find in your location
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>

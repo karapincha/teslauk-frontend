@@ -15,36 +15,6 @@ export function AppWrapper({ children, values }: any) {
   const [isPageLoading, setIsPageLoading] = useState(false)
   const { data: commonData, loading: loadingCommonData } = useQuery(GET_COMMON)
 
-  useEffect(() => {
-    Router.events.on('routeChangeStart', () => {
-      NProgress.start()
-      setIsPageLoading(true)
-    })
-    Router.events.on('routeChangeComplete', () => {
-      NProgress.done()
-      setIsPageLoading(false)
-    })
-    Router.events.on('routeChangeError', () => {
-      NProgress.done()
-      setIsPageLoading(false)
-    })
-
-    return () => {
-      Router.events.off('routeChangeStart', () => {
-        NProgress.start()
-        setIsPageLoading(true)
-      })
-      Router.events.off('routeChangeComplete', () => {
-        NProgress.done()
-        setIsPageLoading(false)
-      })
-      Router.events.off('routeChangeError', () => {
-        NProgress.done()
-        setIsPageLoading(false)
-      })
-    }
-  }, [])
-
   const wrapperRef = useRef(null)
   const hamburgerRef = useRef(null)
 
@@ -62,6 +32,40 @@ export function AppWrapper({ children, values }: any) {
       id: user?.id,
     },
   })
+
+  useEffect(() => {
+    Router.events.on('routeChangeStart', () => {
+      NProgress.start()
+      setIsPageLoading(true)
+    })
+    Router.events.on('routeChangeComplete', () => {
+      NProgress.done()
+      setIsPageLoading(false)
+      setShowSideMenu(false)
+    })
+    Router.events.on('routeChangeError', () => {
+      NProgress.done()
+      setIsPageLoading(false)
+      setShowSideMenu(false)
+    })
+
+    return () => {
+      Router.events.off('routeChangeStart', () => {
+        NProgress.start()
+        setIsPageLoading(true)
+      })
+      Router.events.off('routeChangeComplete', () => {
+        NProgress.done()
+        setIsPageLoading(false)
+        setShowSideMenu(false)
+      })
+      Router.events.off('routeChangeError', () => {
+        NProgress.done()
+        setIsPageLoading(false)
+        setShowSideMenu(false)
+      })
+    }
+  }, [])
 
   useEffect(() => {
     if (user && user?.id) {
