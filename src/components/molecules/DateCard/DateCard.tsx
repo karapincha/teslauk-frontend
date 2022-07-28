@@ -43,20 +43,27 @@ export const DateCard: FC<DateCardProps> = ({
         <span className='text-h3 font-700 leading-[1]'>{date}</span>
       </div>
 
-      <div className='date-card__content'>
-        <h4 className='date-card__heading mb-[4px] text-h5'>{title}</h4>
-        <p className='date-card__location mb-[16px] flex items-center text-md font-500 text-N-500'>
-          <MapPin size={16} />
-          <span className='pl-[8px]'>{location}</span>
-        </p>
-        <div className='date-card__description mb-[16px] text-md text-N-600'>
+      <div className='date-card__content pr-[40px]'>
+        <h4 className='date-card__heading mb-[8px] text-h6 line-clamp-1 group-hover:text-B-400'>
+          {title}
+        </h4>
+
+        <div className='date-card__description mb-[16px] text-md text-N-600 line-clamp-3'>
           {parseHTML(excerpt || '')}
+        </div>
+
+        <div className='date-card__location mb-[8px] flex items-center text-md font-500 text-N-500'>
+          <div className='flex h-[32px] w-[32px] flex-shrink-0 items-center justify-center rounded-full bg-N-100'>
+            <MapPin size={16} />
+          </div>
+          <span className='pl-[8px] line-clamp-1'>{pageEvent?.location || 'To be decided'}</span>
         </div>
 
         <Button
           appearance='link'
           iconAfter={<i className='ri-arrow-right-line text-lg' />}
-          className={CN('group-hover:text-B-400')}>
+          className={CN('group-hover:text-B-400')}
+          size='sm'>
           View Event
         </Button>
       </div>

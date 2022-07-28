@@ -23,10 +23,6 @@ export async function getFeaturedEventsBlock() {
                 featuredImage {
                   mediaItemUrl
                 }
-                mapLocation {
-                  latitude
-                  longitude
-                }
               }
               title
               excerpt

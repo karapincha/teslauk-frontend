@@ -67,16 +67,8 @@ export const SingleEventCard = forwardRef(
           })}
           style={{
             backgroundImage: `url('${banner?.url || '/placeholder.png'}')`,
-          }}>
-          {/* Featured */}
-          {/* {isFeatured && (
-            <div className='flex px-[24px] pt-[24px]'>
-              <Pill size='md' className={CN('bg-B-100 font-400 !text-B-500')}>
-                {isFeatured}
-              </Pill>
-            </div>
-          )} */}
-        </div>
+          }}
+        />
 
         <div className='w-full rounded-b-[8px] bg-white px-[24px] py-[24px]'>
           <div className='flex gap-[16px]'>

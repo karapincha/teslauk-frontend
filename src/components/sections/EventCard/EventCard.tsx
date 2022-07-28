@@ -26,45 +26,55 @@ export const EventCard: FC<EventCardProps> = ({
           <Card
             heading={heading}
             subHeading={subHeading}
-            image={
-              featuredImage?.mediaItemUrl ||
-              'https://images.unsplash.com/photo-1554744512-d6c603f27c54?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
-            }
+            image={featuredImage?.mediaItemUrl || '/placeholder.png'}
             imageAlt={heading}
             description={description}
             cta={
               <Link href='/events'>
-                <Button iconAfter={<i className='ri-arrow-right-line text-lg' />} appearance='link'>
-                  {primaryButtonText}
-                </Button>
+                <a>
+                  <Button
+                    iconAfter={<i className='ri-arrow-right-line text-lg' />}
+                    appearance='link'>
+                    {primaryButtonText}
+                  </Button>
+                </a>
               </Link>
             }
           />
         </div>
 
-        <div className='flex flex-col gap-[40px] md:flex md:flex-col md:gap-[32px] lg:flex lg:flex-row lg:gap-[64px]'>
+        <div className='flex flex-col gap-[40px] md:flex md:flex-col md:gap-[32px] lg:flex lg:flex-row lg:gap-[36px]'>
           {featuredEvents &&
             featuredEvents.length > 0 &&
             featuredEvents.map((event: any, index: number) => {
               if (index < 3) {
+                console.log(event)
+
                 if (index === 0) {
                   return (
-                    <DateCard
-                      {...event}
-                      key={index}
-                      appearance='primary'
-                      className='!w-[calc(100%-16px)]'
-                    />
+                    <Link key={index} href={`/events/${event?.pageEvent?.slug}`}>
+                      <a className='w-full'>
+                        <DateCard
+                          {...event}
+                          appearance='primary'
+                          className='!w-[calc(100%-16px)]'
+                        />
+                      </a>
+                    </Link>
                   )
                 }
                 return (
-                  <DateCard
-                    {...event}
-                    key={index}
-                    month='Jul'
-                    date='12'
-                    className='!w-[calc(100%-16px)]'
-                  />
+                  <Link key={index} href={`/events/${event?.pageEvent?.slug}`}>
+                    <a className='w-full'>
+                      <DateCard
+                        {...event}
+                        key={index}
+                        month='Jul'
+                        date='12'
+                        className='!w-[calc(100%-16px)]'
+                      />
+                    </a>
+                  </Link>
                 )
               }
             })}

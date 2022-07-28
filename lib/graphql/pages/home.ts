@@ -32,12 +32,9 @@ export async function getHomePage() {
               pageEvent {
                 contactEmail
                 date
+                slug
                 location
                 featuredImage
-                mapLocation {
-                  latitude
-                  longitude
-                }
               }
               title
               excerpt
