@@ -121,7 +121,7 @@ const Page: NextPage = ({ region }: any) => {
           </div>
         </div>
 
-        <div className='container pt-[500px] pb-[24px] md:pb-[80px] lg:pt-[348px] lg:pb-[80px]'>
+        <div className='container pt-[500px] pb-[24px] md:pb-[80px] lg:pt-[400px] lg:pb-[80px]'>
           <div className='flex flex-col justify-between pb-[40px]'>
             <h4 className='text-h4 font-500 text-N-800'>Latest {region?.title} events</h4>
           </div>
@@ -147,94 +147,13 @@ const Page: NextPage = ({ region }: any) => {
           icon={<Mail size={32} />}
           email='regions@teslaowners.org.uk'
         />
-
-        {/* <div className='container pt-[40px]'>
-          <div className='flex justify-between pb-[24px] md:flex-col md:gap-[40px] md:pb-[40px] lg:flex-row lg:items-center lg:gap-0'>
-            <h4 className='text-h4 font-500 text-N-800'>News</h4>
-          </div>
-          <ul className='flex flex-col gap-[24px] md:grid md:grid-cols-2 md:gap-y-[40px] md:gap-x-[24px] lg:grid lg:grid-cols-3 lg:gap-x-[48px]'>
-            {(newsList || []).map(
-              (
-                { id, cover, isFeatured, description, appearance, location, heading }: any,
-                index: number
-              ) => (
-                <li key={id || index}>
-                  <SingleEventCard
-                    cover={cover}
-                    isFeatured={isFeatured}
-                    description={description}
-                    appearance={appearance}
-                    location={location}
-                    heading={heading}
-                  />
-                </li>
-              )
-            )}
-          </ul>
-        </div> */}
-
-        {/* CTA bar with contact form */}
-        {/* <div id='contact' className='pt-[40px] md:pt-[80px] lg:pb-[100px] lg:pt-[140px]'>
-          <div className='bg-N-50 pb-[40px] md:pb-[80px] lg:h-[352px] lg:pb-0'>
-            <div className='container relative flex flex-col gap-[24px] lg:flex-row lg:justify-between lg:gap-0'>
-              <div className='pt-[40px] md:pt-[80px] lg:pt-[64px]'>
-                <div className='flex w-full flex-col gap-[24px] lg:w-[452px]'>
-                  <h2 className='text-h3 font-700 text-N-800 lg:text-h2'>
-                    Contact the regional leader
-                  </h2>
-                  <p className='text-base font-500 text-N-600'>
-                    Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit
-                    officia consequat duis enim velit mollit.{' '}
-                  </p>
-                </div>
-              </div>
-
-              <div className='rounded-[8px] shadow-card-shadow bg-[white] px-[24px] py-[38px] lg:absolute lg:right-0 lg:top-[-80px] lg:w-[576px] lg:px-[32px]'>
-                <div className='input-field flex flex-col gap-[16px] pt-[16px]'>
-                  <div className='flex flex-col justify-between gap-[16px] md:flex-row '>
-                    <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>First Name</p>
-                      <TextField placeholder='Enter first name' />
-                    </div>
-                    <div className='flex w-full flex-col gap-[4px]'>
-                      <p className='text-md text-N-600'>Last Name</p>
-                      <TextField placeholder='Enter last name' />
-                    </div>
-                  </div>
-                  <div className='flex flex-col gap-[4px]'>
-                    <p className='text-md text-N-600'>Email address</p>
-                    <TextField placeholder='Enter email address' />
-                  </div>
-                  <div className='flex flex-col gap-[4px]'>
-                    <p className='text-md text-N-600'>Subject</p>
-                    <TextField placeholder='Enter subject' />
-                  </div>
-
-                  <div className='flex flex-col gap-[4px]'>
-                    <div className='flex justify-between'>
-                      <p className='text-md text-N-600'>Message</p>
-                      <p className='text-md text-N-500'>Max. 500 characters</p>
-                    </div>
-                    <TextArea placeholder='Enter subject' />
-                  </div>
-
-                  <div className=''>
-                    <Button className='w-full md:w-[unset]' appearance='primary'>
-                      Submit
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </CommonLayout>
     </>
   )
 }
 
 export async function getStaticProps({ params, preview = false, previewData }: any) {
-  const data = await getRegion(params.slug || '')
+  const data = await getRegion(params.slug)
 
   return {
     props: {

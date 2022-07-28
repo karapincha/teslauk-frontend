@@ -13,6 +13,7 @@ export interface PageHeaderVariantProps {
   metaDataNumber?: string
   commonClassName?: string
   imageClassName?: string
+  rightContentClassName?: string
   descriptionClassName?: string
 }
 
@@ -26,6 +27,8 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
   metaData,
   metaDataNumber,
   imageClassName,
+  rightContent,
+  rightContentClassName,
   descriptionClassName,
   ...restProps
 }: PageHeaderVariantProps) => {
@@ -47,6 +50,14 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
     )
   }
 
+  const renderRightContent = () => {
+    return (
+      <div className='w-full pt-[24px] md:pt-0'>
+        <div className={CN('w-full', rightContentClassName)}>{rightContent}</div>
+      </div>
+    )
+  }
+
   return (
     <div className={PageHeaderVariantClasses} {...restProps}>
       <div
@@ -56,12 +67,13 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
         )}>
         {/* Heading */}
         <h1
-          className='flex-shrink-0 overflow-auto text-h3 font-700 text-N-800 md:text-h2 lg:text-h1 text-center md:text-left'
+          className='flex-shrink-0 overflow-auto text-center text-h3 font-700 text-N-800 md:text-left md:text-h2 lg:text-h1'
           dangerouslySetInnerHTML={{ __html: heading || '' }}
         />
 
         {/* Image in mobile version */}
-        {isMobile && renderGraphic()}
+        {isMobile && image && renderGraphic()}
+        {isMobile && rightContent && renderRightContent()}
 
         {/* Description */}
         {description && (
@@ -94,7 +106,8 @@ export const PageHeaderVariant: FC<PageHeaderVariantProps> = ({
         )}
       </div>
 
-      {!isMobile && renderGraphic()}
+      {!isMobile && image && renderGraphic()}
+      {!isMobile && rightContent && renderRightContent()}
     </div>
   )
 }

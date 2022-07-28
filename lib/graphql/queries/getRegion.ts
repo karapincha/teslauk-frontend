@@ -15,10 +15,7 @@ export async function getRegion(slug: any) {
               contactEmail
               date
               location
-              time
-              featuredImage {
-                mediaItemUrl
-              }
+              featuredImage
               mapLocation {
                 latitude
                 longitude

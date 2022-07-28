@@ -7,6 +7,8 @@ module.exports = {
       '0.gravatar.com',
       'touk.be.kp.lk',
       'images.unsplash.com',
+      'do3z7e6uuakno.cloudfront.net',
+      'cloudfront.net',
     ],
   },
 }

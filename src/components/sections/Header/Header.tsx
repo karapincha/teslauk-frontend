@@ -29,7 +29,7 @@ export const Header: FC<HeaderProps> = ({
   return (
     <div className={HeaderClasses} {...restProps}>
       <div className='container relative flex items-center justify-between'>
-        <div className='header__left relative flex items-center'>
+        <div className='header__left relative z-10 flex items-center'>
           <Hamburger
             showSideMenu={showSideMenu}
             setShowSideMenu={setShowSideMenu}
@@ -50,7 +50,7 @@ export const Header: FC<HeaderProps> = ({
           </div>
         </div>
 
-        <div className='header__center absolute left-0 flex w-full items-center justify-center'>
+        <div className='header__center absolute flex w-full items-center justify-center'>
           <Link href='/' passHref>
             <Logo className='cursor-pointer' size={isMobile ? 52 : isTablet ? 68 : 100} />
           </Link>
