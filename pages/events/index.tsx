@@ -19,79 +19,6 @@ import Link from 'next/link'
 const Page: NextPage = ({ events }: any) => {
   const { isMobile, isTablet, isDesktop } = useViewport()
 
-  console.log(events?.past)
-
-  // return <></>
-
-  // useEffect(() => {}, [])
-
-  // show only two cards from active event card for mobile list
-  // const renderEvents = () => {
-  //   const mobileList = activeEventList.filter((event: any, index: number) => {
-  //     if (index < 2) {
-  //       return event
-  //     }
-  //   })
-  //   const prepareComponent = (event: any, index: number) => {
-  //     const { id, cover, isFeatured, month, date, appearance, eventTopic, location } = event || {}
-  //     return (
-  //       <li key={id || index}>
-  //         <SingleEventCard
-  //           cover={cover}
-  //           isFeatured={isFeatured}
-  //           month={month}
-  //           date={date}
-  //           appearance={appearance}
-  //           eventTopic={eventTopic}
-  //           location={location}
-  //         />
-  //       </li>
-  //     )
-  //   }
-  //   if (isMobile) {
-  //     return mobileList.map((event: any, index: number) => {
-  //       return prepareComponent(event, index)
-  //     })
-  //   } else {
-  //     return activeEventList.map((event: any, index: number) => {
-  //       return prepareComponent(event, index)
-  //     })
-  //   }
-  // }
-  // // show only two cards from inactive event card for mobile list
-  // const renderPastEvents = () => {
-  //   const pastMobileList = inactiveEventList.filter((event: any, index: number) => {
-  //     if (index < 2) {
-  //       return event
-  //     }
-  //   })
-  //   const prepareComponent = (event: any, index: number) => {
-  //     const { id, cover, isFeatured, month, date, appearance, eventTopic, location } = event || {}
-  //     return (
-  //       <li key={id || index}>
-  //         <SingleEventCard
-  //           cover={cover}
-  //           isFeatured={isFeatured}
-  //           month={month}
-  //           date={date}
-  //           appearance={appearance}
-  //           eventTopic={eventTopic}
-  //           location={location}
-  //         />
-  //       </li>
-  //     )
-  //   }
-  //   if (isMobile) {
-  //     return pastMobileList.map((event: any, index: number) => {
-  //       return prepareComponent(event, index)
-  //     })
-  //   } else {
-  //     return inactiveEventList.map((event: any, index: number) => {
-  //       return prepareComponent(event, index)
-  //     })
-  //   }
-  // }
-
   return (
     <>
       <Head>
@@ -149,9 +76,6 @@ const Page: NextPage = ({ events }: any) => {
                 )
               })}
             </ul>
-            {/* <div className='w-full py-[40px] md:py-[80px]'>
-              <Pagination />
-            </div> */}
           </div>
         </div>
 

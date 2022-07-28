@@ -58,3 +58,21 @@
     }
   }
 }
+
+/* NProgress */
+#nprogress .bar {
+  background: #e31937 !important;
+
+  .progress {
+    background: #e31937 !important;
+  }
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #e31937, 0 0 5px #e31937 !important;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #e31937 !important;
+  border-left-color: #e31937 !important;
+}

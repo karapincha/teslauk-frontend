@@ -14,6 +14,7 @@ export const EventHeader: FC<EventHeaderProps> = ({
   month,
   date,
   heading,
+  year,
   ...restProps
 }: EventHeaderProps) => {
   const EventHeaderClasses = CN(
@@ -29,10 +30,11 @@ export const EventHeader: FC<EventHeaderProps> = ({
           'flex h-[72px] w-[72px] flex-col items-center justify-center rounded-[4px] bg-N-800 px-[22px] text-N-10 lg:h-[84px] lg:w-[84px]'
         )}>
         <span className='text-md font-600'>{month}</span>
-        <span className='text-h3 font-700 leading-[1]'>{date}</span>
+        <span className='leading-[1] text-h4 font-700'>{date}</span>
+        <span className='text-sm font-600'>{year}</span>
       </div>
 
-      <div className='flex flex-col gap-[16px]'>
+      <div className='flex flex-col gap-[8px]'>
         <h3
           className='text-h4 font-700 text-N-800 md:text-h3'
           dangerouslySetInnerHTML={{ __html: heading || '' }}

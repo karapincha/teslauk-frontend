@@ -1,5 +1,8 @@
 import _ from 'lodash'
 
+import Router from 'next/router'
+import NProgress from 'nprogress'
+
 import React, { useState, createContext, useContext, useRef, useEffect } from 'react'
 import { useOutsideClick, useLoggedInUser } from '@/utils'
 import { useQuery, gql } from '@apollo/client'
@@ -9,6 +12,39 @@ import { GET_COMMON, GET_FULL_USER } from '../lib/graphql'
 const AppContext = createContext({})
 
 export function AppWrapper({ children, values }: any) {
+  const [isPageLoading, setIsPageLoading] = useState(false)
+  const { data: commonData, loading: loadingCommonData } = useQuery(GET_COMMON)
+
+  useEffect(() => {
+    Router.events.on('routeChangeStart', () => {
+      NProgress.start()
+      setIsPageLoading(true)
+    })
+    Router.events.on('routeChangeComplete', () => {
+      NProgress.done()
+      setIsPageLoading(false)
+    })
+    Router.events.on('routeChangeError', () => {
+      NProgress.done()
+      setIsPageLoading(false)
+    })
+
+    return () => {
+      Router.events.off('routeChangeStart', () => {
+        NProgress.start()
+        setIsPageLoading(true)
+      })
+      Router.events.off('routeChangeComplete', () => {
+        NProgress.done()
+        setIsPageLoading(false)
+      })
+      Router.events.off('routeChangeError', () => {
+        NProgress.done()
+        setIsPageLoading(false)
+      })
+    }
+  }, [])
+
   const wrapperRef = useRef(null)
   const hamburgerRef = useRef(null)
 
@@ -17,7 +53,6 @@ export function AppWrapper({ children, values }: any) {
 
   const { user, refetchUser } = useLoggedInUser()
 
-  const { data: commonData, loading: loadingCommonData } = useQuery(GET_COMMON)
   const {
     data: fullUser,
     refetch: fetchFullUser,
@@ -42,7 +77,7 @@ export function AppWrapper({ children, values }: any) {
   }, [fullUser])
 
   let sharedState = {
-    isLoading: loadingCommonData,
+    isLoading: isPageLoading || loadingCommonData,
     sidemenu: {
       showSideMenu,
       setShowSideMenu,

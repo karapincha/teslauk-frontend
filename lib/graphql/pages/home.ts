@@ -33,10 +33,7 @@ export async function getHomePage() {
                 contactEmail
                 date
                 location
-                time
-                featuredImage {
-                  mediaItemUrl
-                }
+                featuredImage
                 mapLocation {
                   latitude
                   longitude

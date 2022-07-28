@@ -6,6 +6,7 @@ import { ApolloProvider } from '@apollo/client'
 import client from '../apollo-client'
 import { ToastContainer } from '@/components/molecules'
 import { AppWrapper } from '@/context'
+
 import Script from 'next/script'
 
 import 'remixicon/fonts/remixicon.css'
@@ -14,6 +15,7 @@ import '@/styles/typography.scss'
 import '@/styles/common.scss'
 import '@/styles/custom-form.scss'
 import '@/styles/overrides.scss'
+import 'nprogress/nprogress.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

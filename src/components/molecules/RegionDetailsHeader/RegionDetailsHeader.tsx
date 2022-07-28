@@ -15,7 +15,7 @@ export const RegionDetailsHeader: FC<RegionDetailsHeaderProps> = ({
   ...restProps
 }: RegionDetailsHeaderProps) => {
   const RegionDetailsHeaderClasses = CN(
-    `region-details-header flex flex-col-reverse lg:flex-row gap-[40px] md:gap-[48px] rounded-[12px] bg-white px-[16px] lg:px-[56px] py-[60px] shadow-card-shadow`,
+    `region-details-header flex flex-col-reverse lg:flex-row gap-[40px] md:gap-[48px] rounded-[8px] bg-white px-[16px] lg:px-[56px] py-[60px] shadow-card-shadow`,
     className
   )
   const { pageRegion } = region || {}

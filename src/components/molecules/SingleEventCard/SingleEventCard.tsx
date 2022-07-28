@@ -55,21 +55,18 @@ export const SingleEventCard = forwardRef(
       className
     )
     const { date } = pageEvent || {}
-    const formattedDate = start_date ? new Date(start_date) : null
+    const formattedDate = start_date ? new Date(start_date) : new Date()
 
     return (
       <div className={SingleEventCardClasses} {...restProps} ref={ref}>
         <div
-          className={CN('flex w-full flex-shrink-0 bg-N-300 bg-cover bg-no-repeat', {
-            'w-[160px] rounded-l-[8px]': isHorizontal,
+          className={CN('flex w-full flex-shrink-0 bg-N-300 bg-cover bg-center bg-no-repeat', {
+            'w-[200px] rounded-l-[8px]': isHorizontal,
             'h-[207px] rounded-t-[8px]': !isHorizontal,
             'grayscale': isPast,
           })}
           style={{
-            backgroundImage: `url('${
-              banner?.url ||
-              'https://images.unsplash.com/photo-1538592116845-119a3974c958?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80'
-            }')`,
+            backgroundImage: `url('${banner?.url || '/placeholder.png'}')`,
           }}>
           {/* Featured */}
           {/* {isFeatured && (
