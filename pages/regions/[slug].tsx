@@ -11,6 +11,7 @@ import { Common as CommonLayout } from '@/components/layouts'
 
 import { getRegion, getAllRegionsWithSlug } from '../../lib/graphql'
 import Link from 'next/link'
+import CN from 'classnames'
 
 const Page: NextPage = ({ region }: any) => {
   const router = useRouter()
@@ -121,7 +122,10 @@ const Page: NextPage = ({ region }: any) => {
           </div>
         </div>
 
-        <div className='container pt-[500px] pb-[24px] md:pb-[80px] lg:pt-[400px] lg:pb-[80px]'>
+        <div
+          className={CN('container pt-[500px] pb-[24px] lg:pt-[400px]', {
+            'md:pb-[80px]': pageRegion?.events?.length,
+          })}>
           {pageRegion?.events?.length && (
             <>
               <div className='flex flex-col justify-between pb-[40px]'>
