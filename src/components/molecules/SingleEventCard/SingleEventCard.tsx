@@ -72,13 +72,13 @@ export const SingleEventCard = forwardRef(
             }')`,
           }}>
           {/* Featured */}
-          {isFeatured && (
+          {/* {isFeatured && (
             <div className='flex px-[24px] pt-[24px]'>
               <Pill size='md' className={CN('bg-B-100 font-400 !text-B-500')}>
                 {isFeatured}
               </Pill>
             </div>
-          )}
+          )} */}
         </div>
 
         <div className='w-full rounded-b-[8px] bg-white px-[24px] py-[24px]'>
@@ -100,7 +100,7 @@ export const SingleEventCard = forwardRef(
             )}
 
             <div
-              className={CN('flex flex-col', {
+              className={CN('flex w-full flex-col', {
                 'pr-[60px]': isHorizontal,
               })}>
               {title && (
@@ -110,7 +110,7 @@ export const SingleEventCard = forwardRef(
               )}
 
               {description && (
-                <div className='mb-[12px] text-md font-400 text-N-600 line-clamp-3'>
+                <div className='mb-[12px] w-full max-w-[300px] overflow-hidden text-md font-400 text-N-600 line-clamp-3'>
                   {parseHTML(description)}
                 </div>
               )}

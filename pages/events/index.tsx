@@ -173,7 +173,7 @@ const Page: NextPage = ({ events }: any) => {
                 }
 
                 return (
-                  <Link key={index} href={event?.url || ''}>
+                  <Link key={index} href={`/events/${event?.slug}` || ''}>
                     <a className='w-full'>
                       <SingleEventCard isPast isHorizontal={true} {...event} />
                     </a>
