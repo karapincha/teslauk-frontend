@@ -22,11 +22,8 @@ export const ShopCard: FC<ShopCardProps> = ({
   return (
     <div className={ShopCardClasses} {...restProps}>
       {image && (
-        <div className='md:flex'>
-          <img
-            src={image}
-            className='h-full w-full rounded-[8px] border border-N-300 md:h-[224px] md:w-[224px] lg:h-[264px] lg:w-[264px]'
-          />
+        <div className='flex shadow-card-shadow md:h-[224px] md:w-[224px] lg:h-[264px] lg:w-[264px]'>
+          <img src={image} className='h-full w-full rounded-[8px] object-cover object-center' />
         </div>
       )}
 
@@ -36,7 +33,7 @@ export const ShopCard: FC<ShopCardProps> = ({
             {heading}
           </p>
         )}
-        {price && <p className='text-md font-600 text-B-500 md:text-base'>From: {price} </p>}
+        {price && <p className='text-md font-600 text-B-500 md:text-base'>{price} </p>}
         {shopName && <p className='text-sm font-400 text-N-600 md:text-md'>{shopName}</p>}
       </div>
     </div>

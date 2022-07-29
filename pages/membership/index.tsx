@@ -7,8 +7,7 @@ import {
   TestimonialCarousel,
   Faq,
 } from '@/components/sections'
-import { PageHeader, ContactCta, SectionHeading } from '@/components/molecules'
-import { testimonials } from '@/dummy-data/testimonials'
+import { ContactCta, SectionHeading } from '@/components/molecules'
 import { Common as CommonLayout } from '@/components/layouts'
 import { getMembershipPage } from '../../lib/graphql'
 

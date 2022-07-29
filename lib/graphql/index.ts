@@ -54,6 +54,9 @@ export * from './queries/getCart'
 export * from './queries/getUserOrders'
 export * from './queries/verifyUser'
 
+export * from './queries/getProductCategories'
+export * from './queries/getProducts'
+
 export * from './mutations/sendmail'
 export * from './mutations/login'
 export * from './mutations/reset-password'
