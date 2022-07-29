@@ -118,3 +118,22 @@
     height: 80px !important;
   }
 }
+
+/* Blockquote */
+blockquote {
+  border-left: 0;
+  padding-left: 0 !important;
+  margin: 0 !important;
+
+  &:before {
+    content: '\EC51';
+    font-family: remixicon !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    margin-right: 8px;
+    font-size: 40px;
+    line-height: 1;
+
+    @apply text-B-500;
+  }
+}

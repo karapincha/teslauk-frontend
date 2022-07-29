@@ -97,6 +97,10 @@ module.exports = {
               marginTop: em(0, 14),
               marginBottom: em(12, 14),
             },
+
+            'img': {
+              maxWidth: '100%',
+            },
           },
         },
       }),

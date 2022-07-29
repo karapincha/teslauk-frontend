@@ -1,0 +1,35 @@
+import dedent from 'ts-dedent'
+import { ArgsTable, Canvas, Description, Meta, Preview, Source, Story } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { ShopVideos } from './ShopVideos'
+
+<Meta title='01. Atoms / ShopVideos' component={ShopVideos} />
+
+# ShopVideos
+
+`import { ShopVideos } from '@karapincha/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <ShopVideos />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<ShopVideos />`} />
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={ShopVideos} />

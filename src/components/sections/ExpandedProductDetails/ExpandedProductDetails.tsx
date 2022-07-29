@@ -7,6 +7,8 @@ import { useViewport } from '@/utils'
 import ImageGallery from 'react-image-gallery'
 import Link from 'next/link'
 
+import parseHtml from 'html-react-parser'
+
 export interface ExpandedProductDetailsProps {
   [x: string]: any
   productName?: string
@@ -58,12 +60,13 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
   return (
     <div className={ExpandedProductDetailsClasses} {...restProps}>
       {/* Product image carousel */}
-      <div className='flex w-[576px] flex-shrink-0 flex-col'>
+      <div className='flex w-[576px] flex-shrink-0 flex-col gap-[20px]'>
         <ImageGallery
           items={images}
           showFullscreenButton={false}
           showPlayButton={false}
           onErrorImageURL='/placeholder.png'
+          showThumbnails={product?.galleryImages?.nodes?.length === 0 ? false : true}
           renderThumbInner={(props: any) => {
             return (
               <div className='flex items-center justify-center'>
@@ -113,43 +116,55 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
       <div className='flex w-full flex-col'>
         <div className='flex flex-col gap-[40px]'>
           <div className='flex flex-col'>
-            <h1 className='mb-[8px] text-h2 font-600 text-N-800'>{product?.name}</h1>
+            <div className='pb-[12px] text-md font-600 text-N-700'>
+              <div className='flex items-center gap-[8px]'>
+                {product?.productCategories?.nodes?.map((cat: any) => {
+                  return (
+                    <Link href={`/shop?category=${cat?.slug}`} key={cat?.slug}>
+                      <a>
+                        <Badge appearance='warning'>{cat.name}</Badge>
+                      </a>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
 
-            <p className='flex items-center gap-[8px] text-base font-500 text-G-500'>
-              <i className='ri-check-double-line text-lg' />
-              <span>({product?.stockQuantity}) In stock</span>
-            </p>
+            <h1 className='mb-[12px] text-h2 font-600 leading-[48px] text-N-800'>{product?.name}</h1>
 
-            <div className='flex flex-col gap-[8px] py-[20px]'>
+            <div className='mb-[12px]'>{parseHtml(product?.shortDescription || '')}</div>
+
+            {product?.stockQuantity ? (
+              <p className='flex items-center gap-[8px] text-base font-500 text-G-500'>
+                <i className='ri-check-double-line text-lg' />
+                <span>({product?.stockQuantity}) In stock</span>
+              </p>
+            ) : (
+              <p className='flex items-center gap-[8px] text-base font-500 text-R-500'>
+                <i className='ri-error-warning-line text-lg' />
+                <span>Out-of stock</span>
+              </p>
+            )}
+
+            <div className='flex flex-col gap-[0px] py-[20px]'>
               <div className='flex items-center gap-[12px]'>
-                <Badge className='h-[32px] w-[112px] !justify-start'>
-                  <div className='flex w-full items-center gap-[4px] !font-500'>
-                    <i className='ri-store-3-line text-lg' /> Sold by
+                <div className='flex text-md'>
+                  <div className='flex w-full items-center gap-[8px] !font-500'>
+                    <i className='ri-truck-line text-lg' /> Estimated shipping —
                   </div>
-                </Badge>
+                </div>
 
-                <span className='text-md font-600 text-N-700'>{shopName}</span>
+                <span className='text-md font-600 text-N-700'>4-6 Weeks</span>
               </div>
 
               <div className='flex items-center gap-[12px]'>
-                <Badge className='h-[32px] w-[112px] !justify-start'>
-                  <div className='flex w-full items-center gap-[4px] !font-500'>
-                    <i className='ri-file-copy-line text-lg' />
-                    Category
+                <div className='flex text-md'>
+                  <div className='flex w-full items-center gap-[8px] !font-500'>
+                    <i className='ri-store-3-line text-lg' /> Sold by —
                   </div>
-                </Badge>
-
-                <div className='text-md font-600 text-N-700'>
-                  {product?.productCategories?.nodes?.map((cat: any) => {
-                    return (
-                      <Link href={`/shop?category=${cat?.slug}`} key={cat?.slug}>
-                        <a>
-                          <span>{cat.name}</span>
-                        </a>
-                      </Link>
-                    )
-                  })}
                 </div>
+
+                <span className='text-md font-600 text-N-700'>{shopName}</span>
               </div>
             </div>
 
@@ -161,7 +176,8 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
               <div className='flex w-[150px] items-center'>
                 <Button
                   appearance='ghost'
-                  className='w-[40px] flex-shrink-0 group'
+                  className='group w-[40px] flex-shrink-0'
+                  disabled={!product?.stockQuantity}
                   onClick={() => {
                     if (qty > 1) {
                       setQty(Number(qty) - 1)
@@ -173,6 +189,7 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
                 <TextField
                   className='w-full appearance-none px-0 text-center text-lg font-600'
                   value={qty}
+                  disabled={!product?.stockQuantity}
                   onChange={(e: any) => {
                     e.preventDefault()
                     const re = /^[0-9\b]+$/
@@ -185,7 +202,8 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
 
                 <Button
                   appearance='ghost'
-                  className='w-[40px] flex-shrink-0 group'
+                  className='group w-[40px] flex-shrink-0'
+                  disabled={!product?.stockQuantity}
                   onClick={() => {
                     if (qty < product?.stockQuantity) {
                       setQty(Number(qty) + 1)
@@ -200,10 +218,19 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
 
         <div className='flex flex-col gap-[8px] pt-[28px] md:gap-[24px]'>
           <div className='flex'>
-            <Button className='w-full md:w-[200px]' iconAfter={<ShoppingCart size={20} />}>
+            <Button
+              className='w-full md:w-[200px]'
+              iconAfter={<ShoppingCart size={20} />}
+              disabled={!product?.stockQuantity}>
               Add to cart
             </Button>
           </div>
+        </div>
+
+        <div className='flex items-center pt-[28px]'>
+          <a href='#description' className='flex text-md items-center gap-[4px] font-500'>
+            Read more details about this product <i className='ri-arrow-down-s-line text-lg' />
+          </a>
         </div>
       </div>
     </div>

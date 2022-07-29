@@ -7,13 +7,31 @@ export interface ShopReviewsProps {
 
 export const ShopReviews: FC<ShopReviewsProps> = ({
   className,
+  product,
   ...restProps
 }: ShopReviewsProps) => {
-  const ShopReviewsClasses = CN(`shop-reviews`, className)
+  const ShopReviewsClasses = CN(`shop-reviews max-w-[100%] flex flex-col gap-[24px]`, className)
+
+  const { pageProduct } = product
 
   return (
     <div className={ShopReviewsClasses} {...restProps}>
-      shop-reviews is working...
+      <article className='prose max-w-[100%]'>
+        <div className='flex flex-col gap-[40px]'>
+          {pageProduct?.reviews?.map(({ author, review, authorLink }: any, index: number) => {
+            return (
+              <figure key={index} className='m-0'>
+                <blockquote cite={authorLink}>{review}</blockquote>
+                <figcaption>
+                  <a href={authorLink} target='_blank' className='text-N-600 no-underline'>
+                    — {author}
+                  </a>
+                </figcaption>
+              </figure>
+            )
+          })}
+        </div>
+      </article>
     </div>
   )
 }

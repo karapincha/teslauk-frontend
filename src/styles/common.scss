@@ -17,6 +17,12 @@ img {
   max-width: unset;
 }
 
+.prose {
+  img {
+    max-width: 100%;
+  }
+}
+
 .scrollbar-thin {
   -webkit-appearance: none !important;
   -webkit-overflow-scrolling: auto;

@@ -6,6 +6,7 @@ export async function getProduct(slug: any) {
     product(id: "${slug}", idType: SLUG) {
       id
       featured
+      description
       galleryImages {
         nodes {
           mediaItemUrl
@@ -30,17 +31,23 @@ export async function getProduct(slug: any) {
         salePrice
         price
         stockQuantity
+        description
+        shortDescription
       }
       ... on ExternalProduct {
         id
         name
         salePrice
         price
+        description
+        shortDescription
       }
       ... on GroupProduct {
         id
         name
         price
+        description
+        shortDescription
       }
       ... on SubscriptionVariableProduct {
         id
@@ -55,6 +62,8 @@ export async function getProduct(slug: any) {
         salePrice
         price
         stockQuantity
+        description
+        shortDescription
       }
       ... on SimpleProduct {
         id
@@ -62,6 +71,21 @@ export async function getProduct(slug: any) {
         salePrice
         price
         stockQuantity
+        description
+        shortDescription
+      }
+      pageProduct {
+        features {
+          feature
+        }
+        reviews {
+          author
+          authorLink
+          review
+        }
+        videos {
+          youtubeUrl
+        }
       }
     }
   }
