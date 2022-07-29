@@ -12,6 +12,7 @@ import { Common as CommonLayout } from '@/components/layouts'
 import { PageHeader, ContactCta, SectionHeading } from '@/components/molecules'
 
 import { getProductCategories, getProducts } from '../../lib/graphql'
+import Link from 'next/link'
 
 const Page: NextPage = ({ categories, products }: any) => {
   const [activeProductsCategory, setActiveProductsCategory] = useState('all')
@@ -50,7 +51,7 @@ const Page: NextPage = ({ categories, products }: any) => {
               </Button>
 
               {categories?.map(({ name, slug, count }: any, index: number) => {
-                if (!count || count === 0) {
+                if (!count || count === 0 || slug === 'memberships') {
                   return
                 }
 
@@ -71,34 +72,44 @@ const Page: NextPage = ({ categories, products }: any) => {
 
         <div className='container pb-[80px]'>
           <div className='flex flex-wrap gap-[48px] pt-[40px]'>
-            {products?.map(({ id, name, price, image, productCategories }: any, index: number) => {
-              if (
-                productCategories?.nodes.filter((cat: any) => cat.slug === activeProductsCategory)
-                  .length > 0
-              ) {
-                return (
-                  <ShopCard
-                    key={id || index}
-                    image={image?.mediaItemUrl || '/placeholder.png'}
-                    heading={name}
-                    price={price}
-                    // shopName='Milton Keynes Team'
-                  />
-                )
-              }
+            {products?.map(
+              ({ id, name, price, image, slug, productCategories }: any, index: number) => {
+                if (
+                  productCategories?.nodes.filter((cat: any) => cat.slug === activeProductsCategory)
+                    .length > 0
+                ) {
+                  return (
+                    <Link href={`/shop/${slug}`}>
+                      <a key={id || index}>
+                        <ShopCard
+                          key={id || index}
+                          image={image?.mediaItemUrl || '/placeholder.png'}
+                          heading={name}
+                          price={price}
+                          // shopName='Milton Keynes Team'
+                        />
+                      </a>
+                    </Link>
+                  )
+                }
 
-              if (activeProductsCategory === 'all') {
-                return (
-                  <ShopCard
-                    key={id || index}
-                    image={image?.mediaItemUrl || '/placeholder.png'}
-                    heading={name}
-                    price={price}
-                    // shopName='Milton Keynes Team'
-                  />
-                )
+                if (activeProductsCategory === 'all') {
+                  return (
+                    <Link href={`/shop/${slug}`}>
+                      <a key={id || index}>
+                        <ShopCard
+                          key={id || index}
+                          image={image?.mediaItemUrl || '/placeholder.png'}
+                          heading={name}
+                          price={price}
+                          // shopName='Milton Keynes Team'
+                        />
+                      </a>
+                    </Link>
+                  )
+                }
               }
-            })}
+            )}
           </div>
         </div>
       </CommonLayout>

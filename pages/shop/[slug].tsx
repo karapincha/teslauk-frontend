@@ -7,7 +7,9 @@ import { Button } from '@/components/atoms'
 import { ArrowRight } from 'react-feather'
 import { ShopCard } from '@/components/molecules/ShopCard'
 
-const Page: NextPage = () => {
+import { getProduct, getProducts } from '../../lib/graphql'
+
+const Page: NextPage = ({ product }: any) => {
   const shopListA = [
     {
       id: 0,
@@ -42,6 +44,9 @@ const Page: NextPage = () => {
       url: '#',
     },
   ]
+
+  console.log(product)
+
   return (
     <>
       <Head>
@@ -51,7 +56,7 @@ const Page: NextPage = () => {
       </Head>
 
       <CommonLayout>
-        <div className='container pt-[40px] md:pb-[80px]'>
+        <div className='container pt-[24px] md:pb-[80px]'>
           <ExpandedProductDetails
             image='/shop-item.png'
             productName='Tesla Owners UK Yeti Rambler 12oz (355ml) with 100% leakproof HotShot Lid'
@@ -59,6 +64,7 @@ const Page: NextPage = () => {
             shopName='Tesla Owners UK'
             category='Accessories'
             stockAmount={296}
+            product={product}
           />
 
           <div className='pt-[40px] md:pt-[80px]'>
@@ -139,6 +145,29 @@ const Page: NextPage = () => {
       </CommonLayout>
     </>
   )
+}
+
+export async function getStaticProps({ params, preview = false, previewData }: any) {
+  const data = await getProduct(params.slug)
+
+  return {
+    props: {
+      preview,
+      product: data,
+    },
+    revalidate: 1,
+  }
+}
+
+export async function getStaticPaths() {
+  const allProducts = await getProducts()
+
+  console.log(allProducts)
+
+  return {
+    paths: allProducts?.nodes?.map(({ slug }: any) => `/shop/${slug}`) || [],
+    fallback: true,
+  }
 }
 
 export default Page

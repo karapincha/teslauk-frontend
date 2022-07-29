@@ -16,6 +16,7 @@ import '@/styles/common.scss'
 import '@/styles/custom-form.scss'
 import '@/styles/overrides.scss'
 import 'nprogress/nprogress.css'
+import 'react-image-gallery/styles/css/image-gallery.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

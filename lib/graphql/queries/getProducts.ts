@@ -3,7 +3,7 @@ import { fetchAPI } from '../../api'
 export async function getProducts() {
   const data = await fetchAPI(`
   {
-    products {
+    products(where: {categoryNotIn: "memberships"}) {
       nodes {
         featured
         id

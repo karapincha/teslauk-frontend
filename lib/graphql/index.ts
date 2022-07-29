@@ -56,6 +56,7 @@ export * from './queries/verifyUser'
 
 export * from './queries/getProductCategories'
 export * from './queries/getProducts'
+export * from './queries/getProduct'
 
 export * from './mutations/sendmail'
 export * from './mutations/login'
