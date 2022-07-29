@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import CN from 'classnames'
 import { Badge, Button, TextField } from '@/components/atoms'
 import { ShoppingCart } from 'react-feather'
@@ -33,6 +33,8 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
     className
   )
   const { isMobile, isTablet, isDesktop } = useViewport()
+
+  const [qty, setQty] = useState(1)
 
   const mapImages = product?.galleryImages?.nodes?.map((image: any) => {
     return {
@@ -115,7 +117,7 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
 
             <p className='flex items-center gap-[8px] text-base font-500 text-G-500'>
               <i className='ri-check-double-line text-lg' />
-              <span>({stockAmount}) In stock</span>
+              <span>({product?.stockQuantity}) In stock</span>
             </p>
 
             <div className='flex flex-col gap-[8px] py-[20px]'>
@@ -156,15 +158,40 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
                 <h3>{product?.price}</h3>
               </div>
 
-              <div className='flex w-[140px] items-center'>
-                <Button appearance='ghost' className='w-[40px] flex-shrink-0'>
-                  <i className='ri-indeterminate-circle-fill text-[24px]' />
+              <div className='flex w-[150px] items-center'>
+                <Button
+                  appearance='ghost'
+                  className='w-[40px] flex-shrink-0 group'
+                  onClick={() => {
+                    if (qty > 1) {
+                      setQty(Number(qty) - 1)
+                    }
+                  }}>
+                  <i className='ri-indeterminate-circle-fill text-[24px] group-hover:text-B-500' />
                 </Button>
 
-                <TextField className='w-full text-center text-lg font-600' value={1} readOnly />
+                <TextField
+                  className='w-full appearance-none px-0 text-center text-lg font-600'
+                  value={qty}
+                  onChange={(e: any) => {
+                    e.preventDefault()
+                    const re = /^[0-9\b]+$/
 
-                <Button appearance='ghost' className='w-[40px] flex-shrink-0'>
-                  <i className='ri-add-circle-fill text-[24px]' />
+                    if (e.target.value === '' || re.test(e.target.value)) {
+                      setQty(Number(e.target.value))
+                    }
+                  }}
+                />
+
+                <Button
+                  appearance='ghost'
+                  className='w-[40px] flex-shrink-0 group'
+                  onClick={() => {
+                    if (qty < product?.stockQuantity) {
+                      setQty(Number(qty) + 1)
+                    }
+                  }}>
+                  <i className='ri-add-circle-fill text-[24px] group-hover:text-B-500' />
                 </Button>
               </div>
             </div>
