@@ -5,6 +5,7 @@ export async function getProduct(slug: any) {
   {
     product(id: "${slug}", idType: SLUG) {
       id
+      databaseId
       featured
       description
       galleryImages {

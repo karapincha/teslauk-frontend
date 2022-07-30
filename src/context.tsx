@@ -7,13 +7,14 @@ import React, { useState, createContext, useContext, useRef, useEffect } from 'r
 import { useOutsideClick, useLoggedInUser } from '@/utils'
 import { useQuery, gql } from '@apollo/client'
 
-import { GET_COMMON, GET_FULL_USER } from '../lib/graphql'
+import { GET_COMMON, GET_FULL_USER, GET_CART } from '../lib/graphql'
 
 const AppContext = createContext({})
 
 export function AppWrapper({ children, values }: any) {
   const [isPageLoading, setIsPageLoading] = useState(false)
   const { data: commonData, loading: loadingCommonData } = useQuery(GET_COMMON)
+  const { data: cart, loading: loadingCart, refetch: refetchCart } = useQuery(GET_CART)
 
   const wrapperRef = useRef(null)
   const hamburgerRef = useRef(null)
@@ -98,6 +99,8 @@ export function AppWrapper({ children, values }: any) {
     userOrders: _orders,
     refetchUser,
     fetchFullUser,
+    cart: cart?.cart,
+    refetchCart,
   }
 
   useOutsideClick(wrapperRef, () => setShowSideMenu(false), hamburgerRef)

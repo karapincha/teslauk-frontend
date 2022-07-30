@@ -28,6 +28,8 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
   stockAmount,
   image,
   product,
+  onAddToCart,
+  isLoading,
   ...restProps
 }: ExpandedProductDetailsProps) => {
   const ExpandedProductDetailsClasses = CN(
@@ -130,7 +132,9 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
               </div>
             </div>
 
-            <h1 className='mb-[12px] text-h2 font-600 leading-[48px] text-N-800'>{product?.name}</h1>
+            <h1 className='mb-[12px] text-h2 font-600 leading-[48px] text-N-800'>
+              {product?.name}
+            </h1>
 
             <div className='mb-[12px]'>{parseHtml(product?.shortDescription || '')}</div>
 
@@ -219,16 +223,18 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
         <div className='flex flex-col gap-[8px] pt-[28px] md:gap-[24px]'>
           <div className='flex'>
             <Button
+              isLoading={isLoading}
               className='w-full md:w-[200px]'
               iconAfter={<ShoppingCart size={20} />}
-              disabled={!product?.stockQuantity}>
+              disabled={!product?.stockQuantity}
+              onClick={() => onAddToCart(qty)}>
               Add to cart
             </Button>
           </div>
         </div>
 
         <div className='flex items-center pt-[28px]'>
-          <a href='#description' className='flex text-md items-center gap-[4px] font-500'>
+          <a href='#description' className='flex items-center gap-[4px] text-md font-500'>
             Read more details about this product <i className='ri-arrow-down-s-line text-lg' />
           </a>
         </div>

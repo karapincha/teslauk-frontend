@@ -39,6 +39,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isSquare,
       isActive,
       isLoading,
+      sup,
       ...restProps
     }: ButtonProps,
     ref: any
@@ -54,9 +55,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         /* Loading */
         '!pointer-events-none !select-none': isLoading,
 
-        /* isActive */
-        // 'text-N-800': isActive,
-        // 'text-N-500': !isActive,
+        /* Sup */
+        'relative': sup,
 
         /* Sizing */
         'h-[24px] px-[8px] text-[12px] font-500': size === 'xs',
@@ -102,6 +102,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <button className={CN(ButtonClasses)} disabled={disabled} ref={ref} {...restProps}>
+        {sup && (
+          <span
+            className={CN(
+              'absolute right-[-12px] top-0 inline-flex h-[20px] w-[20px] items-center justify-center rounded-full bg-B-500 text-sm font-600 text-white',
+              {}
+            )}>
+            {sup}
+          </span>
+        )}
+
         {!children && icon && (
           <div className={CN('btn__content flex h-full items-center')}>{icon}</div>
         )}

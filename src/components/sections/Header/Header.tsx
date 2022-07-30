@@ -24,7 +24,7 @@ export const Header: FC<HeaderProps> = ({
     className
   )
   const { isTablet, isMobile, isDesktop } = useViewport()
-  const { sidemenu, header, footer, suppliers, user, isLoading }: any = useAppContext()
+  const { sidemenu, header, footer, suppliers, user, isLoading, cart }: any = useAppContext()
 
   return (
     <div className={HeaderClasses} {...restProps}>
@@ -68,7 +68,14 @@ export const Header: FC<HeaderProps> = ({
           })}
 
           <div className='flex items-center gap-[20px]'>
-            <Button icon={<i className='ri-shopping-cart-line text-lg' />} appearance='link' />
+            <Link href='/shop/checkout'>
+              <Button
+                icon={<i className='ri-shopping-cart-line text-lg' />}
+                appearance='link'
+                sup={cart?.contents?.itemCount}
+              />
+            </Link>
+
             <Button icon={<i className='ri-search-2-line text-lg' />} appearance='link' />
 
             {!user && !user?.id ? (

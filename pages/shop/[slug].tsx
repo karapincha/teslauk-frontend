@@ -1,51 +1,37 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useMutation, useQuery } from '@apollo/client'
 import { ExpandedProductDetails } from '@/components/sections/ExpandedProductDetails'
 import { Common as CommonLayout } from '@/components/layouts'
 import { ShopVideos, ShopDetails } from '@/components/sections'
 import { Button } from '@/components/atoms'
 import { ArrowRight } from 'react-feather'
 import { ShopCard } from '@/components/molecules/ShopCard'
+import { useAppContext } from '@/context'
 
-import { getProduct, getProducts } from '../../lib/graphql'
+import { getProduct, getProducts, ADD_TO_CART } from '../../lib/graphql'
 
 const Page: NextPage = ({ product }: any) => {
-  const shopListA = [
-    {
-      id: 0,
-      image: '/shop-item.png',
-      heading: 'Charging Cable (EU+UK) Rental Set',
-      price: '£6.00',
-      shopName: 'Milton Keynes Team',
-      url: '#',
-    },
-    {
-      id: 1,
-      image: '/shop-item.png',
-      heading: 'Charging Cable (EU+UK) Rental Set',
-      price: '£6.00',
-      shopName: 'Milton Keynes Team',
-      url: '#',
-    },
-    {
-      id: 2,
-      image: '/shop-item.png',
-      heading: 'Charging Cable (EU+UK) Rental Set',
-      price: '£6.00',
-      shopName: 'Milton Keynes Team',
-      url: '#',
-    },
-    {
-      id: 3,
-      image: '/shop-item.png',
-      heading: 'Charging Cable (EU+UK) Rental Set',
-      price: '£6.00',
-      shopName: 'Milton Keynes Team',
-      url: '#',
-    },
-  ]
+  const { sidemenu, header, footer, suppliers, user, isLoading, cart, refetchCart }: any =
+    useAppContext()
 
-  console.log(product)
+  const [addToCart, { loading: loadingAddToCart }] = useMutation(ADD_TO_CART)
+
+  const handleAddToCart = (qty: number) => {
+    addToCart({
+      variables: {
+        productId: product.databaseId,
+        quantity: qty,
+      },
+    })
+      .then((res: any) => {
+        console.log(res)
+        refetchCart().then().catch()
+      })
+      .catch((res: any) => {
+        console.log(res)
+      })
+  }
 
   return (
     <>
@@ -57,7 +43,11 @@ const Page: NextPage = ({ product }: any) => {
 
       <CommonLayout>
         <div className='container pt-[24px] md:pb-[80px]'>
-          <ExpandedProductDetails product={product} />
+          <ExpandedProductDetails
+            onAddToCart={handleAddToCart}
+            isLoading={loadingAddToCart}
+            product={product}
+          />
 
           <div className='pt-[60px]' id='description'>
             <ShopDetails product={product} />
@@ -82,8 +72,6 @@ export async function getStaticProps({ params, preview = false, previewData }: a
 
 export async function getStaticPaths() {
   const allProducts = await getProducts()
-
-  console.log(allProducts)
 
   return {
     paths: allProducts?.nodes?.map(({ slug }: any) => `/shop/${slug}`) || [],
