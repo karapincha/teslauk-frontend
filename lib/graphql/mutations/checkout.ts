@@ -22,17 +22,11 @@ export const CHECKOUT = gql`
       redirect
       result
       order {
-        databaseId
         id
         databaseId
       }
       customer {
         id
-        sessionToken
-        jwtUserSecret
-        jwtRefreshToken
-        jwtAuthToken
-        jwtAuthExpiration
       }
     }
   }

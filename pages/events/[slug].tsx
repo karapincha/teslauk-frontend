@@ -32,8 +32,6 @@ const Page: NextPage = ({ event }: any) => {
   const { isDesktop, isMobile, isTablet } = useViewport()
   const formattedDate = event?.start_date ? new Date(event?.start_date) : new Date()
 
-  console.log(event)
-
   const renderMap = () => {
     if (!event?.map_latitude || !event?.map_longitude) {
       return

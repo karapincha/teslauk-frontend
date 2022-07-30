@@ -48,8 +48,6 @@ export const EventCard: FC<EventCardProps> = ({
             featuredEvents.length > 0 &&
             featuredEvents.map((event: any, index: number) => {
               if (index < 3) {
-                console.log(event)
-
                 if (index === 0) {
                   return (
                     <Link key={index} href={`/events/${event?.pageEvent?.slug}`}>

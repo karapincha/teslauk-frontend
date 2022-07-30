@@ -10,14 +10,11 @@ export const QtySelector: FC<QtySelectorProps> = ({
   className,
   stockQty,
   onChange,
+  defaultQty,
   ...restProps
 }: QtySelectorProps) => {
   const QtySelectorClasses = CN(`qty-selector flex items-center w-full`, className)
-  const [qty, setQty] = useState(1)
-
-  useEffect(() => {
-    onChange && onChange(qty)
-  }, [qty])
+  const [qty, setQty] = useState(defaultQty)
 
   return (
     <div className={QtySelectorClasses} {...restProps}>
@@ -28,6 +25,7 @@ export const QtySelector: FC<QtySelectorProps> = ({
         onClick={() => {
           if (qty > 1) {
             setQty(Number(qty) - 1)
+            onChange && onChange(Number(qty) - 1)
           }
         }}>
         <i className='ri-indeterminate-circle-fill text-[24px] group-hover:text-B-500' />
@@ -43,6 +41,7 @@ export const QtySelector: FC<QtySelectorProps> = ({
 
           if (e.target.value === '' || re.test(e.target.value)) {
             setQty(Number(e.target.value))
+            onChange && onChange(Number(e.target.value))
           }
         }}
       />
@@ -54,6 +53,7 @@ export const QtySelector: FC<QtySelectorProps> = ({
         onClick={() => {
           if (qty < stockQty) {
             setQty(Number(qty) + 1)
+            onChange && onChange(Number(qty) + 1)
           }
         }}>
         <i className='ri-add-circle-fill text-[24px] group-hover:text-B-500' />

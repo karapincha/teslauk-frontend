@@ -25,8 +25,6 @@ const Page: NextPage = ({ team }: any) => {
   const { isDesktop, isMobile, isTablet } = useViewport()
   const { fullUser, user, userOrders }: any = useAppContext()
 
-  console.log(user?.id)
-
   return (
     <>
       <Head>

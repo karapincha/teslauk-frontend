@@ -98,20 +98,6 @@ export const AddressModal: FC<AddressModalProps> = ({
                 </div>
                 <TextField
                   autoComplete='none'
-                  label='Phone'
-                  onKeyPress={(e: any) => {
-                    if (e.key === 'Enter') {
-                      handleValidation(e)
-                    }
-                  }}
-                  defaultValue={formData?.phone}
-                  onChange={(e: any) => {
-                    setFormData({ ...formData, phone: e.target.value })
-                  }}
-                  required
-                />
-                <TextField
-                  autoComplete='none'
                   label='Address'
                   onKeyPress={(e: any) => {
                     if (e.key === 'Enter') {
@@ -121,6 +107,20 @@ export const AddressModal: FC<AddressModalProps> = ({
                   defaultValue={formData?.address1}
                   onChange={(e: any) => {
                     setFormData({ ...formData, address1: e.target.value })
+                  }}
+                  required
+                />
+                <TextField
+                  autoComplete='none'
+                  label='Phone'
+                  onKeyPress={(e: any) => {
+                    if (e.key === 'Enter') {
+                      handleValidation(e)
+                    }
+                  }}
+                  defaultValue={formData?.phone}
+                  onChange={(e: any) => {
+                    setFormData({ ...formData, phone: e.target.value })
                   }}
                   required
                 />

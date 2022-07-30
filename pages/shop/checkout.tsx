@@ -8,6 +8,7 @@ import { Button, CheckBox, TextField } from '@/components/atoms'
 import { CheckoutCard } from '@/components/molecules/CheckoutCard'
 import { PaymentGateway } from '@/components/sections/PaymentGateway'
 import { AddressCard } from '@/components/molecules/AddressCard'
+import { useRouter } from 'next/router'
 
 import { Common as CommonLayout } from '@/components/layouts'
 import { AddressModal } from '@/components/molecules'
@@ -16,43 +17,146 @@ import { toast } from '@/components/molecules'
 
 import { useAppContext } from '@/context'
 
-import { UPDATE_SHIPPING, UPDATE_BILLING } from '../../lib/graphql'
+import { useStripePayment } from '@/utils/useStripePayment'
+
+import { UPDATE_SHIPPING, UPDATE_BILLING, PLACE_ORDER } from '../../lib/graphql'
 import Link from 'next/link'
 
 const Page: NextPage = () => {
+  const router = useRouter()
+  const { payment, stripe_session_id } = router.query
   const { isMobile, isTablet, isDesktop } = useViewport()
-  const {
-    sidemenu,
-    header,
-    footer,
-    suppliers,
-    user,
-    fullUser,
-    refetchFullUser,
-    isLoading,
-    cart,
-  }: any = useAppContext()
+  const { handleStripePayment, handleVerifyStripePayment } = useStripePayment()
+
+  const { user, fullUser, refetchFullUser, cart, refetchCart }: any = useAppContext()
 
   const [showAddressModal, setShowAddressModal] = useState(false)
   const [addressModalHeading, setAddressModalHeading] = useState('')
   const [selectedAddress, setSelectedAddress] = useState<any>({})
   const [selectedAddressType, setSelectedAddressType] = useState<any>('')
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('stripe')
 
   const [updateShipping, { loading: loadingUpdateShipping }] = useMutation(UPDATE_SHIPPING)
   const [updateBilling, { loading: loadingUpdateBilling }] = useMutation(UPDATE_BILLING)
+  const [placeOrder, { loading: loadingPlaceOrder }] = useMutation(PLACE_ORDER)
 
   const handleCloseAddressModal = async () => {
     await refetchFullUser()
-
     setShowAddressModal(false)
     setAddressModalHeading('')
     setSelectedAddress({})
     setSelectedAddressType('')
   }
 
+  const handleSubmit = async () => {
+    if (selectedPaymentMethod === 'stripe') {
+      const paymentLink = await handleStripePayment(cart)
+      return router.push(paymentLink)
+    }
+  }
+
   useEffect(() => {
-    console.log(user)
-  }, [user])
+    const refreshCart = async () => {
+      let cartValue = 0
+
+      refetchCart()
+        .then(({ data }: any) => {
+          cartValue = Number(data?.cart?.total?.substring(1))
+          return handlePaymentValidation(cartValue, data?.cart)
+        })
+        .catch()
+
+      return cartValue
+    }
+
+    refreshCart()
+  }, [payment, stripe_session_id])
+
+  const handlePaymentValidation = async (cartValue: number, cart: any) => {
+    if (payment && payment === 'success' && stripe_session_id) {
+      setSelectedPaymentMethod('stripe')
+      const { status, amount } = await handleVerifyStripePayment(stripe_session_id)
+
+      if (status === 'complete' && amount === cartValue) {
+        toast({ message: 'Payment successful', type: 'success' })
+        await refetchFullUser()
+        return handleOrder(cart)
+      } else if (status === 'complete' && amount !== cartValue) {
+        return toast({
+          message:
+            "Your cart amount and paid amount doesn't match. Please contact support@teslaowners.org.uk",
+          type: 'error',
+        })
+      } else {
+        return toast({
+          message:
+            'Payment failed. Please re-try. If the problem persists, please contact support@teslaowners.org.uk',
+          type: 'error',
+        })
+      }
+    }
+  }
+
+  const handleOrder = async (cart: any) => {
+    refetchFullUser()
+      .then(({ data }: any) => {
+        const billingAddress = data?.customer?.billing
+        const shippingAddress = data?.customer?.shipping
+
+        console.log(billingAddress)
+        console.log(shippingAddress)
+
+        placeOrder({
+          variables: {
+            input: {
+              paymentMethod: selectedPaymentMethod,
+              isPaid: true,
+              shipToDifferentAddress: true,
+              billing: {
+                address1: billingAddress?.address1,
+                firstName: billingAddress?.firstName,
+                lastName: billingAddress?.lastName,
+                phone: billingAddress?.phone,
+                city: billingAddress?.city,
+                postcode: billingAddress?.postcode,
+                state: billingAddress?.state,
+                email: billingAddress?.email,
+              },
+              shipping: {
+                address1: shippingAddress?.address1,
+                firstName: shippingAddress?.firstName,
+                lastName: shippingAddress?.lastName,
+                phone: shippingAddress?.phone,
+                city: shippingAddress?.city,
+                postcode: shippingAddress?.postcode,
+                state: shippingAddress?.state,
+                email: shippingAddress?.email,
+              },
+            },
+          },
+        })
+          .then((res: any) => {
+            console.log(res)
+            refetchCart()
+              .then((res: any) => {
+                console.log(res)
+              })
+              .catch((res: any) => {
+                console.log(res)
+              })
+          })
+          .catch((res: any) => {
+            console.log(res)
+          })
+      })
+      .catch((res: any) => {
+        console.log(res)
+      })
+  }
+
+  // useEffect(() => {
+  //   console.log(cart)
+  // }, [cart])
 
   return (
     <>
@@ -110,7 +214,11 @@ const Page: NextPage = () => {
 
                 <div className='flex flex-col gap-[16px] pt-[32px]'>
                   {/* Payment method */}
-                  <PaymentGateway />
+                  <PaymentGateway
+                    onChange={(method: any) => {
+                      setSelectedPaymentMethod(method)
+                    }}
+                  />
 
                   {/* Place order button */}
                   <div className='flex flex-col gap-[24px]'>
@@ -134,7 +242,12 @@ const Page: NextPage = () => {
                       </div>
                     </div>
                     <div className='flex'>
-                      <Button className='w-full lg:w-[unset]'>Place order</Button>
+                      <Button
+                        className='w-full lg:w-[unset]'
+                        onClick={handleSubmit}
+                        isLoading={loadingPlaceOrder}>
+                        Pay and Place order
+                      </Button>
                     </div>
                   </div>
                 </div>
@@ -149,7 +262,6 @@ const Page: NextPage = () => {
                 name={`${fullUser?.customer?.billing?.firstName} ${fullUser?.customer?.billing?.lastName}`}
                 address={`
                   ${fullUser?.customer?.billing?.address1 || ''} <br />
-                  ${fullUser?.customer?.billing?.address2 || ''} <br />
                   ${fullUser?.customer?.billing?.city || ''} <br />
                   ${fullUser?.customer?.billing?.postcode || ''} <br />
                   ${fullUser?.customer?.billing?.state || ''}
@@ -170,13 +282,11 @@ const Page: NextPage = () => {
                 name={`${fullUser?.customer?.shipping?.firstName} ${fullUser?.customer?.shipping?.lastName}`}
                 address={`
                   ${fullUser?.customer?.shipping?.address1 || ''} <br />
-                  ${fullUser?.customer?.shipping?.address2 || ''} <br />
                   ${fullUser?.customer?.shipping?.city || ''} <br />
                   ${fullUser?.customer?.shipping?.postcode || ''} <br />
                   ${fullUser?.customer?.shipping?.state || ''}
                   `}
                 phoneNumber={fullUser?.customer?.shipping?.phone}
-                email={fullUser?.customer?.shipping?.email}
                 onEditClick={() => {
                   setSelectedAddress(fullUser?.customer?.shipping)
                   setAddressModalHeading('Update shipping address')

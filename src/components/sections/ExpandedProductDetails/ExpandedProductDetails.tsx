@@ -183,6 +183,7 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
                     setQty(qty)
                   }}
                   stockQty={product?.stockQuantity}
+                  defaultQty={qty}
                 />
               </div>
             </div>

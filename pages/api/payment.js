@@ -30,6 +30,9 @@ async function CreateStripeSubscription(req, res) {
     success_url: `${DOMAIN}?status=success&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${DOMAIN}?status=cancelled&session_id={CHECKOUT_SESSION_ID}`,
     client_reference_id: clientRef,
+    payment_intent_data: {
+      description: 'Tesla Owners UK Membership',
+    },
   })
 
   res.json({ subscription })

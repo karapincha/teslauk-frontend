@@ -46,9 +46,9 @@ export const CheckoutProductCard: FC<CheckoutProductCardProps> = ({
   //   setQty(quantity)
   // }, [quantity])
 
-  useEffect(() => {
-    console.log(productSrc)
-  }, [productSrc])
+  // useEffect(() => {
+  //   console.log(productSrc)
+  // }, [productSrc])
 
   return (
     <div className={CheckoutProductCardClasses} {...restProps}>
@@ -64,6 +64,7 @@ export const CheckoutProductCard: FC<CheckoutProductCardProps> = ({
 
         <div className='flex'>
           <QtySelector
+            defaultQty={quantity}
             onChange={(qty: number) => {
               updateItemQty({
                 variables: {
