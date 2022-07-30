@@ -19,7 +19,7 @@ import { useAppContext } from '@/context'
 
 import { useStripePayment } from '@/utils/useStripePayment'
 
-import { UPDATE_SHIPPING, UPDATE_BILLING, PLACE_ORDER } from '../../lib/graphql'
+import { UPDATE_SHIPPING, UPDATE_BILLING, PLACE_ORDER, CLEAR_CART } from '../../lib/graphql'
 import Link from 'next/link'
 
 const Page: NextPage = () => {
@@ -39,6 +39,7 @@ const Page: NextPage = () => {
   const [updateShipping, { loading: loadingUpdateShipping }] = useMutation(UPDATE_SHIPPING)
   const [updateBilling, { loading: loadingUpdateBilling }] = useMutation(UPDATE_BILLING)
   const [placeOrder, { loading: loadingPlaceOrder }] = useMutation(PLACE_ORDER)
+  const [clearCart, { loading: loadingClearCart }] = useMutation(CLEAR_CART)
 
   const handleCloseAddressModal = async () => {
     await refetchFullUser()
@@ -77,6 +78,10 @@ const Page: NextPage = () => {
       setSelectedPaymentMethod('stripe')
       const { status, amount } = await handleVerifyStripePayment(stripe_session_id)
 
+      console.log(amount);
+      console.log(cartValue);
+      
+
       if (status === 'complete' && amount === cartValue) {
         toast({ message: 'Payment successful', type: 'success' })
         await refetchFullUser()
@@ -102,9 +107,6 @@ const Page: NextPage = () => {
       .then(({ data }: any) => {
         const billingAddress = data?.customer?.billing
         const shippingAddress = data?.customer?.shipping
-
-        console.log(billingAddress)
-        console.log(shippingAddress)
 
         placeOrder({
           variables: {
@@ -135,15 +137,21 @@ const Page: NextPage = () => {
             },
           },
         })
-          .then((res: any) => {
-            console.log(res)
-            refetchCart()
-              .then((res: any) => {
-                console.log(res)
-              })
-              .catch((res: any) => {
-                console.log(res)
-              })
+          .then(async ({ data }: any) => {
+            console.log(data)
+            if (data?.checkout?.result === 'success') {
+              toast({ message: 'Order successful', type: 'success' })
+              await clearCart()
+              await refetchCart()
+              return router.push('/shop/order-success')
+            }
+            // refetchCart()
+            //   .then((res: any) => {
+            //     console.log(res)
+            //   })
+            //   .catch((res: any) => {
+            //     console.log(res)
+            //   })
           })
           .catch((res: any) => {
             console.log(res)
