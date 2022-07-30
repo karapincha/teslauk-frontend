@@ -45,11 +45,11 @@ export const InitiativeCard: FC<InitiativeCardProps> = ({
 
       {list && (
         <div className='pt-[24px]'>
-          <ul className='flex flex-col border-t group border-N-200 text-md text-N-800 '>
+          <ul className='flex flex-col border-t group border-N-100 text-md text-N-800 '>
             {(list || []).map(({ id, label, onClick }, index) => {
               return (
                 <li
-                  className='border-b border-N-200 py-[8px] hover:text-B-500'
+                  className='border-b border-N-100 py-[8px] hover:text-B-500'
                   key={id || index}>
                   <a
                     className='flex items-center justify-between text-md font-500 text-N-800 hover:text-B-500'

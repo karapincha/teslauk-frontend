@@ -24,13 +24,13 @@ export const PriceCard: FC<PriceCardProps> = ({
   ...restProps
 }: PriceCardProps) => {
   const PriceCardClasses = CN(
-    `price-card shadow-card lg:w-[368px] rounded-[8px] border border-N-200 bg-white px-[24px] py-[24px] w-full`,
+    `price-card shadow-card lg:w-[368px] rounded-[8px] border border-N-100 bg-white px-[24px] py-[24px] w-full`,
     className
   )
 
   return (
     <div className={PriceCardClasses} {...restProps}>
-      <div className='flex flex-col gap-[8px] border-b border-N-200 pb-[8px]'>
+      <div className='flex flex-col gap-[8px] border-b border-N-100 pb-[8px]'>
         <div className='flex justify-between'>
           <p className='text-md font-500 text-N-600'>Subtotal</p>
           <p className='text-md font-500 text-N-700'>{subTotal}</p>

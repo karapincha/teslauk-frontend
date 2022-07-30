@@ -23,7 +23,7 @@ export const PaymentGateway: FC<PaymentGatewayProps> = ({
           <div
             className={CN('w-full rounded-[6px] bg-white  py-[16px] pl-[16px] lg:w-[264px]', {
               'border-[2px] border-B-500': activeTab === 'stripe',
-              'border border-N-300': activeTab !== 'stripe',
+              'border border-N-100': activeTab !== 'stripe',
             })}>
             <p className='pb-[8px] text-md font-600 text-N-800'>Credit / Debit Card </p>
             <img src='/stripe.svg' className='w-[119px]' />
@@ -35,7 +35,7 @@ export const PaymentGateway: FC<PaymentGatewayProps> = ({
           <div
             className={CN('w-full rounded-[6px] bg-white  py-[16px] pl-[16px] lg:w-[264px]', {
               'border-[2px] border-B-500': activeTab === 'direct',
-              'border border-N-300': activeTab !== 'direct',
+              'border border-N-100': activeTab !== 'direct',
             })}>
             <p className='pb-[8px] text-md font-600 text-N-800'>Credit / Debit Card </p>
             <img src='/direct-debit.svg' />

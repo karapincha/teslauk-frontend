@@ -726,7 +726,7 @@ const Page: NextPage = () => {
                       name='payment_method'
                       className='!h-[unset] !px-0'
                       iconClassName='left-[16px]'
-                      labelClassName='flex items-center h-[40px] rounded-[4px] border-[1px] border-N-300 peer-checked:bg-R-10 peer-checked:border-R-100 w-full !px-[40px]'>
+                      labelClassName='flex items-center h-[40px] rounded-[4px] border-[1px] border-N-100 peer-checked:bg-R-10 peer-checked:border-R-100 w-full !px-[40px]'>
                       <img src='/payment-logos/visa.svg' width={40} />
                       <img src='/payment-logos/mastercard.svg' width={40} />
                       <img src='/payment-logos/amex.svg' width={40} />
@@ -743,7 +743,7 @@ const Page: NextPage = () => {
                       name='payment_method'
                       className='!h-[unset] !px-0'
                       iconClassName='left-[16px]'
-                      labelClassName='flex items-center h-[40px] rounded-[4px] border-[1px] border-N-300 peer-checked:bg-R-10 peer-checked:border-R-100 w-full !pl-[44px] !pr-[40px] gap-[16px]'>
+                      labelClassName='flex items-center h-[40px] rounded-[4px] border-[1px] border-N-100 peer-checked:bg-R-10 peer-checked:border-R-100 w-full !pl-[44px] !pr-[40px] gap-[16px]'>
                       <img src='/payment-logos/direct-debit-dark.svg' width={56} />
                       Direct Debit (GoCardLess)
                     </Radio>

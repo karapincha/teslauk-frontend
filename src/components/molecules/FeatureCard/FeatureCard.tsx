@@ -31,7 +31,7 @@ export const FeatureCard = forwardRef(
       <div className={FeatureCardClasses} {...restProps} ref={ref}>
         <div
           className={CN(
-            'relative flex h-[48px] w-[48px] flex-shrink-0 items-center justify-center rounded-[8px] border border-N-200 bg-icon-bg text-xl font-400 text-N-600 group-hover:border-R-50 group-hover:bg-icon-bg-hover group-hover:text-R-400 lg:h-[48px] lg:w-[48px]',
+            'relative flex h-[48px] w-[48px] flex-shrink-0 items-center justify-center rounded-[8px] border border-N-100 bg-icon-bg text-xl font-400 text-N-600 group-hover:border-R-50 group-hover:bg-icon-bg-hover group-hover:text-R-400 lg:h-[48px] lg:w-[48px]',
             {
               '!h-[60px] !w-[60px]': isLarge,
             }

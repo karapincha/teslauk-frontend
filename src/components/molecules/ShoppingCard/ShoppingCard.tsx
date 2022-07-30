@@ -27,7 +27,7 @@ export const ShoppingCard: FC<ShoppingCardProps> = ({
 
   return (
     <div className={ShoppingCardClasses} {...restProps}>
-      <img src={image} className='h-[74px] w-[74px] rounded-[6px] border border-N-300' />
+      <img src={image} className='h-[74px] w-[74px] rounded-[6px] border border-N-100' />
 
       <div className='flex flex-col md:flex-row md:items-center md:gap-[28px]'>
         <div className='flex flex-col gap-[8px] md:w-[220px] lg:max-w-[246px]'>

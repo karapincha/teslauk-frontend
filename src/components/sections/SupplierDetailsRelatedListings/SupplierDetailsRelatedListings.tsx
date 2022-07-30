@@ -62,7 +62,7 @@ export const SupplierDetailsRelatedListings: FC<SupplierDetailsRelatedListingsPr
             ) => (
               <li
                 key={id || index}
-                className='border-b border-N-200 py-[24px] last:border-b-0 last:pb-0 md:py-[40px]'>
+                className='border-b border-N-100 py-[24px] last:border-b-0 last:pb-0 md:py-[40px]'>
                 <SearchSuppliers
                   supplierName={supplierName}
                   category={category}

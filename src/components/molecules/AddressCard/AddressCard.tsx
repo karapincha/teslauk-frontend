@@ -15,25 +15,29 @@ export const AddressCard: FC<AddressCardProps> = ({
   address,
   phoneNumber,
   email,
+  type,
+  heading,
   ...restProps
 }: AddressCardProps) => {
-  const AddressCardClasses = CN(`address-card flex justify-between items-center`, className)
+  const AddressCardClasses = CN(`address-card flex flex-col relative`, className)
 
   return (
     <div className={AddressCardClasses} {...restProps}>
-      <div className='flex flex-col'>
-        <h5 className='text-h5 font-500 text-N-800'>{name}</h5>
+      {heading && <h5 className='mb-[12px] mt-0 w-full text-base font-500'>{heading}</h5>}
+
+      <div className='flex w-full flex-col'>
+        <h5 className='text-md font-500 text-N-800'>{name}</h5>
         <p
-          className='w-[295px] text-base font-400 text-N-800 md:w-full'
+          className='text-md font-400 text-N-800'
           dangerouslySetInnerHTML={{ __html: address || '' }}
         />
 
-        <p className='text-base font-400 text-N-800'>{phoneNumber}</p>
-        <p className='text-base font-400 text-N-800'>{email}</p>
+        <p className='text-md font-400 text-N-800'>{phoneNumber}</p>
+        <p className='text-md font-400 text-N-800'>{email}</p>
       </div>
-      {/* Edit icon */}
-      <div>
-        <i className='ri-pencil-line text-[24px] text-N-300' />
+
+      <div className='absolute right-0 top-0'>
+        <i className='ri-pencil-line text-lg text-N-300' />
       </div>
     </div>
   )

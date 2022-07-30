@@ -21,7 +21,7 @@ export const ShopDetails: FC<ShopDetailsProps> = ({
 
   return (
     <div className={ShopDetailsClasses} {...restProps}>
-      <div className='flex w-full gap-[12px] border-b border-dashed border-N-200 pb-[12px]'>
+      <div className='flex w-full gap-[12px] border-b border-dashed border-N-100 pb-[12px]'>
         <Button
           appearance={activeTab === 'features' ? 'neutral' : 'default'}
           onClick={() => setActiveTab('features')}>

@@ -17,7 +17,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
   ...restProps
 }: DropdownMenuProps) => {
   const DropdownMenuClasses = CN(
-    `dropdown-menu bg-white border rounded-[4px] border-N-300 outline-none focus-within:border-B-400 focus-within:shadow-[inset_0px_0px_0px_1px_#E31937] h-[38px] flex items-center relative z-[1]`,
+    `dropdown-menu bg-white border rounded-[4px] border-N-100 outline-none focus-within:border-B-400 focus-within:shadow-[inset_0px_0px_0px_1px_#E31937] h-[38px] flex items-center relative z-[1]`,
     className,
     {
       'mt-[28px]': label,

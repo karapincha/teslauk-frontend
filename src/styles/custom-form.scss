@@ -21,7 +21,7 @@
     /* Checked and disabled */
     &:checked,
     &:disabled ~ .checkbox__checkmark {
-      @apply bg-N-50 border-N-300;
+      @apply bg-N-50 border-N-100;
     }
 
     /* CheckBox disabled label */
@@ -85,7 +85,7 @@
     /* Checked and disabled */
     &:checked,
     &:disabled ~ .radio__checkmark {
-      @apply bg-N-50 border-N-300;
+      @apply bg-N-50 border-N-100;
     }
 
     /* CheckBox disabled label */

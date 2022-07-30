@@ -27,7 +27,7 @@ export const SupplierDetailsTabs: FC<SupplierDetailsTabsProps> = ({
   return (
     <div className={SupplierDetailsTabsClasses} {...restProps}>
       <div className='tabs flex flex-col'>
-        <div className='flex  items-center gap-[24px] border-b border-N-200 lg:w-[784px]'>
+        <div className='flex  items-center gap-[24px] border-b border-N-100 lg:w-[784px]'>
           <Button
             appearance={activeTab === 'about' ? 'ghost' : 'link'}
             className={CN('mb-[-1px] rounded-b-[0px] px-0', {

@@ -26,13 +26,13 @@ export const ListCard: FC<ListCardProps> = ({
     <div className={ListCardClasses} {...restProps}>
       <ul
         className={CN(
-          'group flex flex-col border-N-200 text-md text-N-800 lg:border-b',
+          'group flex flex-col border-N-100 text-md text-N-800 lg:border-b',
           commonClassName
         )}>
         {(list || []).map(({ id, label, feature, link, isActive }: any, index: number) => {
           return (
             <li
-              className='flex items-center border-N-200 bg-N-50 py-[12px] group-first:border-t'
+              className='flex items-center border-N-100 bg-N-50 py-[12px] group-first:border-t'
               key={id || index}>
               {link && (
                 <a

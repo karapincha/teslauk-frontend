@@ -150,7 +150,7 @@ const Page: NextPage = () => {
                     {recentOrdersList.map(({ id, url, product, itemsCount, price }, index) => (
                       <li
                         key={id || index}
-                        className='grid grid-cols-[2fr_2fr_1fr_1fr] gap-[16px] border-b-[1px] border-N-200 py-[20px] px-[8px] md:grid-cols-[8fr_2fr_2fr_2fr] md:pl-[16px] lg:grid-cols-[8fr_2fr_2fr_2fr] lg:pl-[16px]'>
+                        className='grid grid-cols-[2fr_2fr_1fr_1fr] gap-[16px] border-b-[1px] border-N-100 py-[20px] px-[8px] md:grid-cols-[8fr_2fr_2fr_2fr] md:pl-[16px] lg:grid-cols-[8fr_2fr_2fr_2fr] lg:pl-[16px]'>
                         <p className='font-400 text-N-600 md:text-N-800 lg:text-N-600'>{product}</p>
                         <p className='font-400 text-N-600'>{itemsCount}</p>
                         <p>{price}</p>
@@ -166,11 +166,11 @@ const Page: NextPage = () => {
                     ))}
                   </ul>
                   <ul className='bg-white'>
-                    <li className='grid grid-cols-[4fr_2fr] border-b-[1px] border-N-200 py-[20px] px-[8px] md:grid-cols-[5fr_2fr] md:pl-[16px] lg:grid-cols-[5fr_2fr] lg:pl-[16px]'>
+                    <li className='grid grid-cols-[4fr_2fr] border-b-[1px] border-N-100 py-[20px] px-[8px] md:grid-cols-[5fr_2fr] md:pl-[16px] lg:grid-cols-[5fr_2fr] lg:pl-[16px]'>
                       <p className='text-md font-600 text-N-600'>Sub total:</p>
                       <p className='text-sm font-600 md:text-base lg:text-base'>£35.00 / day</p>
                     </li>
-                    <li className='tex-md grid grid-cols-[4fr_2fr] border-b-[1px] border-N-200 py-[20px] px-[8px] md:grid-cols-[5fr_2fr] md:pl-[16px]  lg:grid-cols-[5fr_2fr] lg:pl-[16px]'>
+                    <li className='tex-md grid grid-cols-[4fr_2fr] border-b-[1px] border-N-100 py-[20px] px-[8px] md:grid-cols-[5fr_2fr] md:pl-[16px]  lg:grid-cols-[5fr_2fr] lg:pl-[16px]'>
                       <p className='text-md font-600 text-N-600'>Total:</p>
                       <p className='text-sm font-600 md:text-base lg:text-base'>£35.00 / day</p>
                     </li>

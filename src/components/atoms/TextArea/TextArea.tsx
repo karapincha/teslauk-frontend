@@ -57,8 +57,8 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
     const wrapperBorderColor =
       (!disabled &&
         !isError &&
-        'border-N-300 outline-none focus-within:border-B-400 focus-within:shadow-[inset_0px_0px_0px_1px_#E31937]') ||
-      (disabled && 'border-N-200') ||
+        'border-N-100 outline-none focus-within:border-B-400 focus-within:shadow-[inset_0px_0px_0px_1px_#E31937]') ||
+      (disabled && 'border-N-100') ||
       (!disabled &&
         isError &&
         '!border-R-100 focus-within:!border-B-400 focus-within:!shadow-[0px_0px_0px_1px_#E31937]')
