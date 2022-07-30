@@ -1,0 +1,35 @@
+import dedent from 'ts-dedent'
+import { ArgsTable, Canvas, Description, Meta, Preview, Source, Story } from '@storybook/addon-docs'
+import { DocStory } from '@karapincha/hydra-ui'
+
+import { PlaceholderProductThumbnail } from './PlaceholderProductThumbnail'
+
+<Meta title='01. Atoms / PlaceholderProductThumbnail' component={PlaceholderProductThumbnail} />
+
+# PlaceholderProductThumbnail
+
+`import { PlaceholderProductThumbnail } from '@karapincha/ui'`
+
+<br />
+<br />
+
+### Default
+
+<br />
+
+<Story name='Default'>
+  <div className='doc-story__preview' style={{ zoom: '100%' }}>
+    <div className='flex items-center gap-4'>
+      <PlaceholderProductThumbnail />
+    </div>
+  </div>
+</Story>
+
+<Source language={'jsx'} code={dedent`<PlaceholderProductThumbnail />`} />
+
+<br />
+<br />
+
+### Properties
+
+<ArgsTable of={PlaceholderProductThumbnail} />

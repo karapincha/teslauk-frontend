@@ -59,6 +59,8 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
     ...mapImages,
   ]
 
+  console.log(product)
+
   return (
     <div className={ExpandedProductDetailsClasses} {...restProps}>
       {/* Product image carousel */}
@@ -81,7 +83,7 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
           }}
           renderItem={(props: any) => {
             return (
-              <div className='flex h-[576px] w-[576px] items-center justify-center rounded-[8px] border border-N-100'>
+              <div className='flex h-[576px] w-[576px] items-center justify-center rounded-[8px] border border-N-100 bg-white'>
                 <img
                   src={props?.original}
                   className='h-[calc(100%)] w-[calc(100%)] rounded-[8px] object-contain object-center'
@@ -136,7 +138,9 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
               {product?.name}
             </h1>
 
-            <div className='mb-[12px]'>{parseHtml(product?.shortDescription || '')}</div>
+            <div className='prose mb-[12px] text-md'>
+              {parseHtml(product?.shortDescription || '')}
+            </div>
 
             {product?.stockQuantity ? (
               <p className='flex items-center gap-[8px] text-base font-500 text-G-500'>
@@ -161,15 +165,17 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
                 <span className='text-md font-600 text-N-700'>4-6 Weeks</span>
               </div>
 
-              <div className='flex items-center gap-[12px]'>
-                <div className='flex text-md'>
-                  <div className='flex w-full items-center gap-[8px] !font-500'>
-                    <i className='ri-store-3-line text-lg' /> SKU —
+              {product?.sku && (
+                <div className='flex items-center gap-[12px]'>
+                  <div className='flex text-md'>
+                    <div className='flex w-full items-center gap-[8px] !font-500'>
+                      <i className='ri-store-3-line text-lg' /> SKU —
+                    </div>
                   </div>
-                </div>
 
-                <span className='text-md font-600 text-N-700'>{shopName}</span>
-              </div>
+                  <span className='text-md font-600 text-N-700'>{product?.sku}</span>
+                </div>
+              )}
             </div>
 
             <div className='flex items-center pt-[12px]'>

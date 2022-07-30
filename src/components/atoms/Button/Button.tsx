@@ -73,7 +73,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
         /* Appearance */
         'bg-B-500 text-white hover:bg-B-600': appearance === 'primary' && view === 'solid',
-        'bg-N-200 text-N-800 hover:bg-N-300': appearance === 'secondary' && view === 'solid',
+        'bg-N-100 text-N-800 hover:bg-N-200': appearance === 'secondary' && view === 'solid',
         'bg-N-800 text-white': appearance === 'neutral' && view === 'solid',
         'bg-transparent text-N-800 hover:text-B-500': appearance === 'link',
         'bg-transparent text-white hover:text-N-200': appearance === 'link-invert',
