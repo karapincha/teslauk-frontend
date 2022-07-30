@@ -105,8 +105,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {sup && (
           <span
             className={CN(
-              'absolute right-[-12px] top-0 inline-flex h-[20px] w-[20px] items-center justify-center rounded-full bg-B-500 text-sm font-600 text-white',
-              {}
+              'absolute right-[-12px] top-0 inline-flex h-[20px] w-[20px] items-center justify-center rounded-full bg-B-500 text-sm font-600 text-white'
             )}>
             {sup}
           </span>

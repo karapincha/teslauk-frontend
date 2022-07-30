@@ -26,7 +26,7 @@ export const CheckoutCard: FC<CheckoutCardProps> = ({
   ...restProps
 }: CheckoutCardProps) => {
   const CheckoutCardClasses = CN(
-    `checkout-card shadow-card rounded-[8px] bg-white px-[32px] py-[32px] w-full shadow-card-shadow`,
+    `checkout-card rounded-[8px] bg-white px-[32px] py-[32px] w-full shadow-card-shadow`,
     className
   )
 

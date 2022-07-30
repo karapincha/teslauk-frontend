@@ -26,7 +26,7 @@ export function AppWrapper({ children, values }: any) {
 
   const {
     data: fullUser,
-    refetch: fetchFullUser,
+    refetch: refetchFullUser,
     loading: fullUserLoading,
   } = useQuery(GET_FULL_USER, {
     variables: {
@@ -70,7 +70,7 @@ export function AppWrapper({ children, values }: any) {
 
   useEffect(() => {
     if (user && user?.id) {
-      fetchFullUser()
+      refetchFullUser()
     }
   }, [user])
 
@@ -98,7 +98,7 @@ export function AppWrapper({ children, values }: any) {
     fullUserLoading,
     userOrders: _orders,
     refetchUser,
-    fetchFullUser,
+    refetchFullUser,
     cart: cart?.cart,
     refetchCart,
   }

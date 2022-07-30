@@ -18,7 +18,7 @@ import { UPDATE_SHIPPING } from '../../../lib/graphql'
 
 const Page: NextPage = () => {
   const router = useRouter()
-  const { fullUser, user, userOrders, refetchUser, fetchFullUser }: any = useAppContext()
+  const { fullUser, user, userOrders, refetchUser, refetchFullUser }: any = useAppContext()
   const addressesAreEqual =
     _.isEqual(fullUser?.customer?.billing?.address1, fullUser?.customer?.shipping?.address1) ||
     false
@@ -46,7 +46,7 @@ const Page: NextPage = () => {
 
   useEffect(() => {
     if (user && user?.id) {
-      fetchFullUser()
+      refetchFullUser()
     }
   }, [user])
 
@@ -118,7 +118,7 @@ const Page: NextPage = () => {
                           if (e.target.checked === true) {
                             updateShipping()
                               .then(() => {
-                                fetchFullUser()
+                                refetchFullUser()
                                   .then((res: any) => {})
                                   .catch((e: any) => {
                                     return toast({ message: e.message, type: 'error' })

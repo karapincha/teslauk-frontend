@@ -72,7 +72,7 @@ export const Header: FC<HeaderProps> = ({
               <Button
                 icon={<i className='ri-shopping-cart-line text-lg' />}
                 appearance='link'
-                sup={cart?.contents?.itemCount}
+                sup={cart?.contents?.itemCount === 0 ? null : cart?.contents?.itemCount}
               />
             </Link>
 

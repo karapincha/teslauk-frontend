@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
+import { Button } from '@/components/atoms'
 
 export interface AddressCardProps {
   [x: string]: any
@@ -17,6 +18,7 @@ export const AddressCard: FC<AddressCardProps> = ({
   email,
   type,
   heading,
+  onEditClick,
   ...restProps
 }: AddressCardProps) => {
   const AddressCardClasses = CN(`address-card flex flex-col relative`, className)
@@ -36,9 +38,13 @@ export const AddressCard: FC<AddressCardProps> = ({
         <p className='text-md font-400 text-N-800'>{email}</p>
       </div>
 
-      <div className='absolute right-0 top-0'>
-        <i className='ri-pencil-line text-lg text-N-300' />
-      </div>
+      {onEditClick && (
+        <div className='absolute right-0 top-0'>
+          <Button appearance='ghost' size='sm' onClick={onEditClick}>
+            <i className='ri-pencil-line text-lg' />
+          </Button>
+        </div>
+      )}
     </div>
   )
 }
