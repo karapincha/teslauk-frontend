@@ -42,7 +42,11 @@ export const ShopCard: FC<ShopCardProps> = ({
           </p>
         )}
 
-        {heading && <p className='w-full text-base text-N-800 mb-[4px] leading-[26px] group-hover:text-B-500'>{heading}</p>}
+        {heading && (
+          <p className='mb-[4px] w-full text-base leading-[26px] text-N-800 group-hover:text-B-500'>
+            {heading}
+          </p>
+        )}
 
         {price && <p className='text-lg font-600 text-N-800'>{price} </p>}
       </div>

@@ -3,7 +3,7 @@ import CN from 'classnames'
 
 export interface BadgeProps {
   [x: string]: any
-  appearance?: 'error' | 'success' | 'warning' | 'info' | 'default' | 'neutral'
+  appearance?: 'error' | 'success' | 'warning' | 'info' | 'default' | 'neutral' | 'brand'
   children?: React.ReactNode | string | number | null
   onClick?: any
   size?: 'sm' | 'default'
@@ -29,6 +29,7 @@ export const Badge: FC<BadgeProps> = ({
       'bg-A-10 text-A-700': appearance === 'warning',
       'bg-B-10 text-B-700': appearance === 'info',
       'bg-N-200 text-N-700': appearance === 'neutral',
+      'bg-B-10 text-B-500': appearance === 'brand',
       'bg-N-200 text-N-700 hover:bg-N-300 hover:text-N-800 hover:cursor-pointer':
         appearance === 'neutral' && isHover,
       '!bg-R-50 !text-R-700': appearance === 'neutral' && isSelected,

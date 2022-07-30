@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Header, Footer, SupplierRibbon } from '@/components/sections'
@@ -5,7 +6,7 @@ import { ShopCategories } from '@/components/sections/ShopCategories'
 import { useState } from 'react'
 import { VehicleCard } from '@/components/molecules/VehicleCard'
 import { modelS, model3 } from '@/dummy-data/vehicle-list'
-import { ShopCard } from '@/components/molecules/ShopCard'
+import { ShopCard, PlaceholderProductCard } from '@/components/molecules'
 import { Badge, Button } from '@/components/atoms'
 import { ArrowRight } from 'react-feather'
 import { Common as CommonLayout } from '@/components/layouts'
@@ -15,8 +16,34 @@ import { getProductCategories, getProducts } from '../../lib/graphql'
 import Link from 'next/link'
 
 const Page: NextPage = ({ categories, products }: any) => {
-  const [activeProductsCategory, setActiveProductsCategory] = useState('all')
-  console.log(products)
+  const [activeProductsCategory, setActiveProductsCategory] = useState('accessories')
+  const [filteredProducts, setFilteredProducts] = useState([])
+
+  useEffect(() => {
+    const prods = products?.filter((product: any, index: number) => {
+      const { productCategories } = product
+      if (
+        productCategories?.nodes.filter((cat: any) => {
+          return cat.slug === activeProductsCategory
+        }).length > 0
+      ) {
+        return product
+      }
+    })
+
+    setFilteredProducts(prods)
+  }, [activeProductsCategory])
+
+  const renderPlaceholders = () => {
+    /* If length of products is lower than 4 then render placeholders to match 4 items */
+    const placeholders = []
+    if (filteredProducts?.length < 4) {
+      for (let i = 0; i < 4 - filteredProducts?.length; i++) {
+        placeholders.push(<PlaceholderProductCard key={i} />)
+      }
+    }
+    return placeholders
+  }
 
   return (
     <>
@@ -39,27 +66,20 @@ const Page: NextPage = ({ categories, products }: any) => {
           />
         </div>
 
-        <div className='flex pt-[80px] pb-[40px]'>
+        <div className='flex pt-[60px] pb-[60px]'>
           <div className='container'>
             <div className='flex items-center justify-center gap-[8px]'>
-              <Button
-                appearance={activeProductsCategory === 'all' ? 'primary' : 'default'}
-                onClick={() => {
-                  setActiveProductsCategory('all')
-                }}>
-                All Products
-              </Button>
-
               {categories?.map(({ name, slug, count }: any, index: number) => {
                 if (count && count !== 0 && slug !== 'memberships') {
                   return (
                     <Button
                       key={index}
+                      size='sm'
                       appearance={activeProductsCategory === slug ? 'primary' : 'default'}
                       onClick={() => {
                         setActiveProductsCategory(slug)
                       }}>
-                      {name} <Badge>{count}</Badge>
+                      {name} <Badge appearance='brand'>{count}</Badge>
                     </Button>
                   )
                 }
@@ -69,48 +89,26 @@ const Page: NextPage = ({ categories, products }: any) => {
         </div>
 
         <div className='container pb-[80px]'>
-          <div className='grid grid-cols-4 gap-[32px] pt-[40px]'>
-            {products?.map(
-              (
-                { id, name, price, image, slug, productCategories, stockQuantity, ...rest }: any,
-                index: number
-              ) => {
-                if (
-                  productCategories?.nodes.filter((cat: any) => cat.slug === activeProductsCategory)
-                    .length > 0
-                ) {
-                  return (
-                    <Link key={id || index} href={`/shop/${slug}`}>
-                      <a>
-                        <ShopCard
-                          key={id || index}
-                          image={image?.mediaItemUrl || '/placeholder.png'}
-                          heading={name}
-                          price={price}
-                          stockQuantity={stockQuantity}
-                        />
-                      </a>
-                    </Link>
-                  )
-                }
+          <div className='grid grid-cols-4 gap-[32px]'>
+            {filteredProducts?.map((product: any, index: number) => {
+              const { id, name, price, image, slug, stockQuantity } = product
 
-                if (activeProductsCategory === 'all') {
-                  return (
-                    <Link key={id || index} href={`/shop/${slug}`}>
-                      <a>
-                        <ShopCard
-                          key={id || index}
-                          image={image?.mediaItemUrl || '/placeholder.png'}
-                          heading={name}
-                          price={price}
-                          stockQuantity={stockQuantity}
-                        />
-                      </a>
-                    </Link>
-                  )
-                }
-              }
-            )}
+              return (
+                <Link key={id || index} href={`/shop/${slug}`}>
+                  <a>
+                    <ShopCard
+                      key={id || index}
+                      image={image?.mediaItemUrl || '/placeholder.png'}
+                      heading={name}
+                      price={price}
+                      stockQuantity={stockQuantity}
+                    />
+                  </a>
+                </Link>
+              )
+            })}
+
+            {renderPlaceholders()}
           </div>
         </div>
       </CommonLayout>
