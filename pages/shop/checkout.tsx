@@ -78,20 +78,13 @@ const Page: NextPage = () => {
       setSelectedPaymentMethod('stripe')
       const { status, amount } = await handleVerifyStripePayment(stripe_session_id)
 
-      console.log(amount);
-      console.log(cartValue);
-      
+      console.log(amount)
+      console.log(cartValue)
 
-      if (status === 'complete' && amount === cartValue) {
+      if (status === 'complete') {
         toast({ message: 'Payment successful', type: 'success' })
         await refetchFullUser()
         return handleOrder(cart)
-      } else if (status === 'complete' && amount !== cartValue) {
-        return toast({
-          message:
-            "Your cart amount and paid amount doesn't match. Please contact support@teslaowners.org.uk",
-          type: 'error',
-        })
       } else {
         return toast({
           message:

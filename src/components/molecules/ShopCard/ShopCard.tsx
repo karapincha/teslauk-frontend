@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import CN from 'classnames'
+import { Badge, Tag } from '@/components/atoms'
 
 export interface ShopCardProps {
   [x: string]: any
@@ -15,26 +16,35 @@ export const ShopCard: FC<ShopCardProps> = ({
   heading,
   price,
   shopName,
+  stockQuantity,
   ...restProps
 }: ShopCardProps) => {
-  const ShopCardClasses = CN(`shop-card flex flex-col gap-[16px]`, className)
+  const ShopCardClasses = CN(`shop-card flex flex-col gap-[4px] group`, className)
 
   return (
     <div className={ShopCardClasses} {...restProps}>
       {image && (
-        <div className='flex shadow-card-shadow md:h-[224px] md:w-[224px] lg:h-[264px] lg:w-[264px]'>
+        <div className='relative flex h-[240px] w-full shadow-card-shadow'>
           <img src={image} className='h-full w-full rounded-[8px] object-cover object-center' />
         </div>
       )}
 
-      <div className='flex w-full flex-col items-center md:w-[224px] lg:w-[264px]'>
-        {heading && (
-          <p className='w-full text-center text-md font-500 text-N-800 md:text-base lg:w-[240px]'>
-            {heading}
+      <div className='flex w-full flex-col'>
+        {stockQuantity ? (
+          <p className='flex items-center gap-[8px] text-sm font-500 text-G-500'>
+            <i className='ri-check-double-line text-lg' />
+            <span>({stockQuantity}) In stock</span>
+          </p>
+        ) : (
+          <p className='flex items-center gap-[8px] text-sm font-500 text-B-500'>
+            <i className='ri-error-warning-line text-lg' />
+            <span>Out-of stock</span>
           </p>
         )}
-        {price && <p className='text-md font-600 text-B-500 md:text-base'>{price} </p>}
-        {shopName && <p className='text-sm font-400 text-N-600 md:text-md'>{shopName}</p>}
+
+        {heading && <p className='w-full text-base text-N-800 mb-[4px] leading-[26px] group-hover:text-B-500'>{heading}</p>}
+
+        {price && <p className='text-lg font-600 text-N-800'>{price} </p>}
       </div>
     </div>
   )

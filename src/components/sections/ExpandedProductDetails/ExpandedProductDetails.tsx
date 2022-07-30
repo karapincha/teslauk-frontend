@@ -164,7 +164,7 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
               <div className='flex items-center gap-[12px]'>
                 <div className='flex text-md'>
                   <div className='flex w-full items-center gap-[8px] !font-500'>
-                    <i className='ri-store-3-line text-lg' /> Sold by —
+                    <i className='ri-store-3-line text-lg' /> SKU —
                   </div>
                 </div>
 

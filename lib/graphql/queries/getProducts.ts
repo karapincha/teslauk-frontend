@@ -19,7 +19,11 @@ export async function getProducts() {
         ... on SimpleProduct {
           id
           name
+          salePrice
           price
+          stockQuantity
+          description
+          shortDescription
           productCategories {
             nodes {
               count
@@ -31,7 +35,11 @@ export async function getProducts() {
         ... on SubscriptionProduct {
           id
           name
+          salePrice
           price
+          stockQuantity
+          description
+          shortDescription
           productCategories {
             nodes {
               count
@@ -43,7 +51,9 @@ export async function getProducts() {
         ... on SubscriptionVariableProduct {
           id
           name
+          salePrice
           price
+          stockQuantity
           productCategories {
             nodes {
               count
