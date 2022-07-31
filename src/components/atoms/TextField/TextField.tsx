@@ -143,7 +143,7 @@ export const TextField: FC<TextFieldProps> = forwardRef(
             disabled={disabled}
             readOnly={readOnly}
             ref={ref}
-            type={type !== 'text' ? type : inputType}
+            type={inputType}
             name={name}
             {...restProps}
           />

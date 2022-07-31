@@ -12,9 +12,15 @@ export interface LoginProps {
   [x: string]: any
 }
 
-export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) => {
+export const Login: FC<LoginProps> = ({
+  className,
+  onClose,
+  redirectUrl,
+  callBackFn,
+  ...restProps
+}: LoginProps) => {
   const LoginClasses = CN(
-    `login bg-white shadow-card rounded-[8px] px-[16px] md:px-[40px] lg:px-[40px] py-[24px] md:py-[32px] lg:py-[32px] w-full`,
+    `login bg-white shadow-card rounded-[8px] px-[16px] md:px-[40px] lg:px-[40px] py-[24px] md:py-[32px] lg:py-[32px] w-full relative`,
     className
   )
 
@@ -50,7 +56,9 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
     }
   }, [router])
 
-  const handleLogin = () => {
+  const handleLogin = (e?: any) => {
+    e.preventDefault()
+
     if (!username || username === '') {
       toast({ message: 'Please enter username', type: 'error' })
       return
@@ -64,8 +72,16 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
     login()
       .then(() => {
         refetchUser()
-          .then(() => {
-            router.push('/account')
+          .then((res: any) => {
+            if (callBackFn) {
+              return callBackFn(res)
+            }
+
+            if (redirectUrl) {
+              return router.push(redirectUrl)
+            } else {
+              return router.push('/account')
+            }
           })
           .catch()
       })
@@ -87,6 +103,10 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
   return (
     <form className={LoginClasses} {...restProps}>
       <h4 className='pb-[24px] text-center text-h4 font-600 text-N-800'>Login</h4>
+      <Button appearance='ghost' className='absolute top-0 right-0' onClick={onClose}>
+        <i className='ri-close-fill' />
+      </Button>
+
       <div>
         <div className='flex flex-col gap-[16px]'>
           <div className='flex flex-col gap-[4px]'>
@@ -100,7 +120,7 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
               }}
               onKeyPress={(e: any) => {
                 if (e.key === 'Enter') {
-                  handleLogin()
+                  handleLogin(e)
                 }
               }}
               value={username}
@@ -120,7 +140,7 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
               }}
               onKeyPress={(e: any) => {
                 if (e.key === 'Enter') {
-                  handleLogin()
+                  handleLogin(e)
                 }
               }}
               value={password}
@@ -146,16 +166,14 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
         </div>
 
         <div className='flex flex-col gap-[32px] pt-[24px]'>
-          <div className=''>
-            <Link href='#'>
-              <Button
-                className='w-full text-base !font-600'
-                appearance='primary'
-                onClick={handleLogin}
-                isLoading={loading}>
-                Log in
-              </Button>
-            </Link>
+          <div className='flex'>
+            <Button
+              className='w-full text-base !font-600'
+              appearance='primary'
+              onClick={handleLogin}
+              isLoading={loading}>
+              Log in
+            </Button>
           </div>
 
           <div className='relative flex'>
@@ -166,8 +184,8 @@ export const Login: FC<LoginProps> = ({ className, ...restProps }: LoginProps) =
             </span>
           </div>
 
-          <div className=''>
-            <Link href='#'>
+          <div className='flex'>
+            <Link href='/membership'>
               <Button className='w-full text-base !font-600 !text-N-800' appearance='secondary'>
                 Get membership
               </Button>

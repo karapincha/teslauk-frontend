@@ -1,38 +1,55 @@
+import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useMutation, useQuery } from '@apollo/client'
 import { ExpandedProductDetails } from '@/components/sections/ExpandedProductDetails'
 import { Common as CommonLayout } from '@/components/layouts'
 import { ShopVideos, ShopDetails } from '@/components/sections'
+import { Login } from '@/components/forms'
 
 import { toast } from '@/components/molecules'
 
+import { useRouter } from 'next/router'
 import { useAppContext } from '@/context'
 
 import { getProduct, getProducts, ADD_TO_CART } from '../../lib/graphql'
 
 const Page: NextPage = ({ product }: any) => {
-  const { refetchCart }: any = useAppContext()
+  const { asPath } = useRouter()
+  const [showLoginModal, setShowLoginModal] = useState(false)
+  const { user, refetchFullUser, refetchCart }: any = useAppContext()
+
+  useEffect(() => {
+    console.log(asPath)
+  }, [asPath])
 
   const [addToCart, { loading: loadingAddToCart }] = useMutation(ADD_TO_CART)
 
-  const handleAddToCart = (qty: number) => {
-    addToCart({
-      variables: {
-        productId: product.databaseId,
-        quantity: qty,
-      },
-    })
-      .then((res: any) => {
-        toast({ message: `Added ${qty} item${qty > 1 ? 's' : ''} to cart`, type: 'success' })
-        refetchCart().then().catch()
+  const handleAddToCart = async (qty: number) => {
+    if (!user) {
+      toast({
+        message: `Please login to add product to the cart`,
+        type: 'warning',
       })
-      .catch((res: any) => {
-        return toast({
-          message: `Oops, Something went wrong. Couldn't add to cart.`,
-          type: 'error',
+      return setShowLoginModal(true)
+    } else {
+      addToCart({
+        variables: {
+          productId: product.databaseId,
+          quantity: qty,
+        },
+      })
+        .then((res: any) => {
+          toast({ message: `Added ${qty} item${qty > 1 ? 's' : ''} to cart`, type: 'success' })
+          refetchCart().then().catch()
         })
-      })
+        .catch((res: any) => {
+          return toast({
+            message: `Oops, Something went wrong. Couldn't add to cart.`,
+            type: 'error',
+          })
+        })
+    }
   }
 
   return (
@@ -44,6 +61,22 @@ const Page: NextPage = ({ product }: any) => {
       </Head>
 
       <CommonLayout>
+        {showLoginModal && (
+          <div className='fixed top-0 right-0 bottom-0 left-0 z-[100] flex items-center justify-center bg-slate-400/50'>
+            <div className='w-full pt-[8px] md:w-[448px] md:pt-[16px] lg:w-[448px] lg:pt-[16px]'>
+              <Login
+                onClose={() => {
+                  setShowLoginModal(false)
+                }}
+                callBackFn={async () => {
+                  await refetchFullUser()
+                  return setShowLoginModal(false)
+                }}
+              />
+            </div>
+          </div>
+        )}
+
         <div className='container pt-[24px] md:pb-[60px]'>
           <ExpandedProductDetails
             onAddToCart={handleAddToCart}
