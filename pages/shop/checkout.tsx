@@ -5,7 +5,7 @@ import { Header, Footer, SupplierRibbon } from '@/components/sections'
 import { useViewport } from '@/utils'
 import { useMutation, gql } from '@apollo/client'
 import { Button, CheckBox, TextField } from '@/components/atoms'
-import { CheckoutCard } from '@/components/molecules/CheckoutCard'
+import { CheckoutCard, PagePlaceholder } from '@/components/molecules'
 import { PaymentGateway } from '@/components/sections/PaymentGateway'
 import { AddressCard } from '@/components/molecules/AddressCard'
 import { useRouter } from 'next/router'
@@ -36,6 +36,9 @@ const Page: NextPage = () => {
   const [selectedAddressType, setSelectedAddressType] = useState<any>('')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('stripe')
 
+  const [agreedToTerms, setAgreedToTerms] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
   const [updateShipping, { loading: loadingUpdateShipping }] = useMutation(UPDATE_SHIPPING)
   const [updateBilling, { loading: loadingUpdateBilling }] = useMutation(UPDATE_BILLING)
   const [placeOrder, { loading: loadingPlaceOrder }] = useMutation(PLACE_ORDER)
@@ -50,6 +53,13 @@ const Page: NextPage = () => {
   }
 
   const handleSubmit = async () => {
+    setIsLoading(true)
+
+    if (!agreedToTerms) {
+      setIsLoading(false)
+      return toast({ message: 'You must agree to the terms and conditions', type: 'error' })
+    }
+
     if (selectedPaymentMethod === 'stripe') {
       const paymentLink = await handleStripePayment(cart)
       return router.push(paymentLink)
@@ -155,9 +165,30 @@ const Page: NextPage = () => {
       })
   }
 
-  // useEffect(() => {
-  //   console.log(cart)
-  // }, [cart])
+  useEffect(() => {
+    console.log(cart)
+  }, [cart])
+
+  const renderPagePlaceholder = () => {
+    return (
+      <div className='container'>
+        <PagePlaceholder
+          heading='Shopping Cart'
+          description={
+            <div className='max-w-[600px]'>
+              Your cart is currently empty. Before proceed to checkout you must add some products to
+              your shopping cart.
+            </div>
+          }
+          cta={
+            <Link href='/shop'>
+              <Button appearance='primary'>Browse products</Button>
+            </Link>
+          }
+        />
+      </div>
+    )
+  }
 
   return (
     <>
@@ -168,137 +199,152 @@ const Page: NextPage = () => {
       </Head>
 
       <CommonLayout>
-        {showAddressModal && (
-          <AddressModal
-            heading={addressModalHeading}
-            onClose={handleCloseAddressModal}
-            isLoading={loadingUpdateShipping || loadingUpdateBilling}
-            address={selectedAddress}
-            onSubmit={(address: any) => {
-              if (selectedAddressType === 'shipping') {
-                updateShipping({ variables: { ...address, id: user?.databaseId } })
-                  .then((res: any) => {
-                    handleCloseAddressModal()
-                    return toast({ message: 'Shipping address updated', type: 'success' })
-                  })
-                  .catch((res: any) => {
-                    handleCloseAddressModal()
-                    return toast({ message: 'Something went wrong.', type: 'error' })
-                  })
-              }
-              if (selectedAddressType === 'billing') {
-                updateBilling({ variables: { ...address, id: user?.databaseId } })
-                  .then((res: any) => {
-                    handleCloseAddressModal()
-                    return toast({ message: 'Billing address updated', type: 'success' })
-                  })
-                  .catch((res: any) => {
-                    handleCloseAddressModal()
-                    return toast({ message: 'Something went wrong.', type: 'error' })
-                  })
-              }
-            }}
-          />
-        )}
+        {cart?.contents?.nodes?.length === 0 ? (
+          renderPagePlaceholder()
+        ) : (
+          <>
+            {renderPagePlaceholder()}
 
-        <div className='container'>
-          <div className='flex flex-col pb-[24px] md:pb-[32px]'>
-            <h1 className='text-h4 font-600 text-N-800 md:text-h3 md:font-700'>Checkout</h1>
-          </div>
+            {showAddressModal && (
+              <AddressModal
+                heading={addressModalHeading}
+                onClose={handleCloseAddressModal}
+                isLoading={loadingUpdateShipping || loadingUpdateBilling}
+                address={selectedAddress}
+                onSubmit={(address: any) => {
+                  if (selectedAddressType === 'shipping') {
+                    updateShipping({ variables: { ...address, id: user?.databaseId } })
+                      .then((res: any) => {
+                        handleCloseAddressModal()
+                        return toast({ message: 'Shipping address updated', type: 'success' })
+                      })
+                      .catch((res: any) => {
+                        handleCloseAddressModal()
+                        return toast({ message: 'Something went wrong.', type: 'error' })
+                      })
+                  }
+                  if (selectedAddressType === 'billing') {
+                    updateBilling({ variables: { ...address, id: user?.databaseId } })
+                      .then((res: any) => {
+                        handleCloseAddressModal()
+                        return toast({ message: 'Billing address updated', type: 'success' })
+                      })
+                      .catch((res: any) => {
+                        handleCloseAddressModal()
+                        return toast({ message: 'Something went wrong.', type: 'error' })
+                      })
+                  }
+                }}
+              />
+            )}
 
-          <div className='grid grid-cols-[7fr_2fr] gap-[32px]'>
-            <div className='w-full'>
-              <CheckoutCard />
+            <div className='container'>
+              <div className='flex flex-col pb-[24px] md:pb-[32px]'>
+                <h1 className='text-h4 font-600 text-N-800 md:text-h3 md:font-700'>
+                  Shopping Cart
+                </h1>
+              </div>
 
-              <div className='py-[40px] md:py-[32px]'>
-                <h4 className='text-h4 font-600 text-N-800'>Payment method</h4>
+              <div className='grid grid-cols-[7fr_2fr] gap-[32px]'>
+                <div className='w-full'>
+                  <CheckoutCard />
 
-                <div className='flex flex-col gap-[16px] pt-[32px]'>
-                  {/* Payment method */}
-                  <PaymentGateway
-                    onChange={(method: any) => {
-                      setSelectedPaymentMethod(method)
-                    }}
-                  />
+                  <div className='py-[40px] md:py-[32px]'>
+                    <h4 className='text-h4 font-600 text-N-800'>Payment method</h4>
 
-                  {/* Place order button */}
-                  <div className='flex flex-col gap-[24px]'>
-                    <div className='flex flex-col gap-[16px]'>
-                      <p className='max-w-[600px] text-md font-400 text-N-800'>
-                        Your personal data will be used to process your order, support your
-                        experience throughout this website, and for other purposes described in our
-                        privacy policy. We do NOT save your card/bank details.
-                      </p>
+                    <div className='flex flex-col gap-[16px] pt-[32px]'>
+                      {/* Payment method */}
+                      <PaymentGateway
+                        onChange={(method: any) => {
+                          setSelectedPaymentMethod(method)
+                        }}
+                      />
 
-                      {/* This checkbox does not appear in the direct debit page version */}
-                      <div className='flex items-center gap-[12px]'>
-                        <CheckBox labelClassName='leading-[1]'>
-                          <p className='text-base font-400 leading-[1] pt-[4px]'>
-                            I have read and agree to the website {''}
-                            <Link href='/terms-and-conditions'>
-                              <a className='font-600'>terms and conditions {''}</a>
-                            </Link>
-                            <span className='text-B-500'>*</span>
+                      {/* Place order button */}
+                      <div className='flex flex-col gap-[24px]'>
+                        <div className='flex flex-col gap-[32px]'>
+                          <p className='max-w-[600px] text-sm font-500 text-N-800'>
+                            Your personal data will be used to process your order, support your
+                            experience throughout this website, and for other purposes described in
+                            our privacy policy. We do NOT save your card/bank details.
                           </p>
-                        </CheckBox>
+
+                          {/* This checkbox does not appear in the direct debit page version */}
+                          <div className='flex items-center gap-[12px]'>
+                            <CheckBox
+                              defaultChecked={agreedToTerms}
+                              onChange={(e: any) => {
+                                setAgreedToTerms(e.target.checked)
+                              }}
+                              labelClassName='leading-[1]'>
+                              <p className='pt-[4px] text-base font-400 leading-[1]'>
+                                I have read and agree to the website {''}
+                                <Link href='/terms-and-conditions'>
+                                  <a className='font-600'>terms and conditions {''}</a>
+                                </Link>
+                                <span className='text-B-500'>*</span>
+                              </p>
+                            </CheckBox>
+                          </div>
+                        </div>
+                        <div className='flex'>
+                          <Button
+                            className='w-full lg:w-[unset]'
+                            onClick={handleSubmit}
+                            isLoading={isLoading || loadingPlaceOrder}>
+                            Pay and Place order
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                    <div className='flex'>
-                      <Button
-                        className='w-full lg:w-[unset]'
-                        onClick={handleSubmit}
-                        isLoading={loadingPlaceOrder}>
-                        Pay and Place order
-                      </Button>
                     </div>
                   </div>
                 </div>
+
+                {/* Addresses */}
+                <div className='flex w-full flex-col gap-[32px]'>
+                  <AddressCard
+                    heading='Billing address'
+                    type='billing'
+                    name={`${fullUser?.customer?.billing?.firstName} ${fullUser?.customer?.billing?.lastName}`}
+                    address={`
+          ${fullUser?.customer?.billing?.address1 || ''} <br />
+          ${fullUser?.customer?.billing?.city || ''} <br />
+          ${fullUser?.customer?.billing?.postcode || ''} <br />
+          ${fullUser?.customer?.billing?.state || ''}
+          `}
+                    phoneNumber={fullUser?.customer?.billing?.phone}
+                    email={fullUser?.customer?.billing?.email}
+                    onEditClick={() => {
+                      setSelectedAddress(fullUser?.customer?.billing)
+                      setAddressModalHeading('Update billing address')
+                      setShowAddressModal(true)
+                      setSelectedAddressType('billing')
+                    }}
+                  />
+
+                  <AddressCard
+                    heading='Shipping address'
+                    type='shipping'
+                    name={`${fullUser?.customer?.shipping?.firstName} ${fullUser?.customer?.shipping?.lastName}`}
+                    address={`
+          ${fullUser?.customer?.shipping?.address1 || ''} <br />
+          ${fullUser?.customer?.shipping?.city || ''} <br />
+          ${fullUser?.customer?.shipping?.postcode || ''} <br />
+          ${fullUser?.customer?.shipping?.state || ''}
+          `}
+                    phoneNumber={fullUser?.customer?.shipping?.phone}
+                    onEditClick={() => {
+                      setSelectedAddress(fullUser?.customer?.shipping)
+                      setAddressModalHeading('Update shipping address')
+                      setShowAddressModal(true)
+                      setSelectedAddressType('shipping')
+                    }}
+                  />
+                </div>
               </div>
             </div>
-
-            {/* Addresses */}
-            <div className='flex w-full flex-col gap-[32px]'>
-              <AddressCard
-                heading='Billing address'
-                type='billing'
-                name={`${fullUser?.customer?.billing?.firstName} ${fullUser?.customer?.billing?.lastName}`}
-                address={`
-                  ${fullUser?.customer?.billing?.address1 || ''} <br />
-                  ${fullUser?.customer?.billing?.city || ''} <br />
-                  ${fullUser?.customer?.billing?.postcode || ''} <br />
-                  ${fullUser?.customer?.billing?.state || ''}
-                  `}
-                phoneNumber={fullUser?.customer?.billing?.phone}
-                email={fullUser?.customer?.billing?.email}
-                onEditClick={() => {
-                  setSelectedAddress(fullUser?.customer?.billing)
-                  setAddressModalHeading('Update billing address')
-                  setShowAddressModal(true)
-                  setSelectedAddressType('billing')
-                }}
-              />
-
-              <AddressCard
-                heading='Shipping address'
-                type='shipping'
-                name={`${fullUser?.customer?.shipping?.firstName} ${fullUser?.customer?.shipping?.lastName}`}
-                address={`
-                  ${fullUser?.customer?.shipping?.address1 || ''} <br />
-                  ${fullUser?.customer?.shipping?.city || ''} <br />
-                  ${fullUser?.customer?.shipping?.postcode || ''} <br />
-                  ${fullUser?.customer?.shipping?.state || ''}
-                  `}
-                phoneNumber={fullUser?.customer?.shipping?.phone}
-                onEditClick={() => {
-                  setSelectedAddress(fullUser?.customer?.shipping)
-                  setAddressModalHeading('Update shipping address')
-                  setShowAddressModal(true)
-                  setSelectedAddressType('shipping')
-                }}
-              />
-            </div>
-          </div>
-        </div>
+          </>
+        )}
       </CommonLayout>
     </>
   )
