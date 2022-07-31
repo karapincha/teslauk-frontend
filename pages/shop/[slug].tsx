@@ -25,15 +25,15 @@ const Page: NextPage = ({ product }: any) => {
     })
       .then((res: any) => {
         toast({ message: `Added ${qty} item${qty > 1 ? 's' : ''} to cart`, type: 'success' })
-
         refetchCart().then().catch()
       })
       .catch((res: any) => {
-        console.log(res)
+        return toast({
+          message: `Oops, Something went wrong. Couldn't add to cart.`,
+          type: 'error',
+        })
       })
   }
-
-  console.log(product)
 
   return (
     <>

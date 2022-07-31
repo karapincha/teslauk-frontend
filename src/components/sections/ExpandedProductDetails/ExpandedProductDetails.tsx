@@ -115,10 +115,10 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
       </div>
 
       {/* Product description */}
-      <div className='flex w-full flex-col'>
-        <div className='flex flex-col gap-[40px]'>
-          <div className='flex flex-col'>
-            <div className='pb-[12px] text-md font-600 text-N-700'>
+      <div className='flex w-full flex-col gap-[32px]'>
+        <div className='flex flex-col'>
+          <div className='flex flex-col gap-[32px]'>
+            <div className='flex flex-col gap-[16px]'>
               <div className='flex items-center gap-[8px]'>
                 {product?.productCategories?.nodes?.map((cat: any) => {
                   return (
@@ -130,53 +130,49 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
                   )
                 })}
               </div>
-            </div>
 
-            <h1 className='mb-[12px] text-h2 font-600 leading-[48px] text-N-800'>
-              {product?.name}
-            </h1>
+              <h1 className='text-h2 leading-[48px]'>{product?.name}</h1>
 
-            <div className='prose mb-[12px] text-md'>
-              {parseHtml(product?.shortDescription || '')}
-            </div>
+              <div className='prose text-md'>{parseHtml(product?.shortDescription || '')}</div>
 
-            {product?.stockQuantity ? (
-              <p className='flex items-center gap-[8px] text-base font-500 text-G-500'>
-                <i className='ri-check-double-line text-lg' />
-                <span>({product?.stockQuantity}) In stock</span>
-              </p>
-            ) : (
-              <p className='flex items-center gap-[8px] text-base font-500 text-R-500'>
-                <i className='ri-error-warning-line text-lg' />
-                <span>Out-of stock</span>
-              </p>
-            )}
+              {product?.stockQuantity ? (
+                <p className='flex items-center gap-[8px] text-base font-500 text-G-500'>
+                  <i className='ri-check-double-line text-lg' />
+                  <span>({product?.stockQuantity}) In stock</span>
+                </p>
+              ) : (
+                <p className='flex items-center gap-[8px] text-base font-500 text-R-500'>
+                  <i className='ri-error-warning-line text-lg' />
+                  <span>Out-of stock</span>
+                </p>
+              )}
 
-            <div className='flex flex-col gap-[0px] py-[20px]'>
-              <div className='flex items-center gap-[12px]'>
-                <div className='flex text-md'>
-                  <div className='flex w-full items-center gap-[8px] !font-500'>
-                    <i className='ri-truck-line text-lg' /> Estimated shipping —
-                  </div>
-                </div>
-
-                <span className='text-md font-600 text-N-700'>4-6 Weeks</span>
-              </div>
-
-              {product?.sku && (
-                <div className='flex items-center gap-[12px]'>
+              <div className='flex flex-col'>
+                <div className='flex items-center gap-[8px]'>
                   <div className='flex text-md'>
                     <div className='flex w-full items-center gap-[8px] !font-500'>
-                      <i className='ri-store-3-line text-lg' /> SKU —
+                      <i className='ri-truck-line text-lg' /> Estimated shipping —
                     </div>
                   </div>
 
-                  <span className='text-md font-600 text-N-700'>{product?.sku}</span>
+                  <span className='text-md font-600 text-N-700'>4-6 Weeks</span>
                 </div>
-              )}
+
+                {product?.sku && (
+                  <div className='flex items-center gap-[8px]'>
+                    <div className='flex text-md'>
+                      <div className='flex w-full items-center gap-[8px] !font-500'>
+                        <i className='ri-store-3-line text-lg' /> SKU —
+                      </div>
+                    </div>
+
+                    <span className='text-md font-600 text-N-700'>{product?.sku}</span>
+                  </div>
+                )}
+              </div>
             </div>
 
-            <div className='flex items-center pt-[12px]'>
+            <div className='flex'>
               <div className='mr-[12px] flex border-r border-N-100 pr-[20px]'>
                 <h3>{product?.price}</h3>
               </div>
@@ -191,31 +187,30 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
                 />
               </div>
             </div>
+
+            <div className='flex'>
+              <Button
+                isLoading={isLoading}
+                className='w-full md:w-[200px]'
+                iconAfter={<ShoppingCart size={20} />}
+                disabled={!product?.stockQuantity}
+                onClick={() => onAddToCart(qty)}>
+                Add to cart
+              </Button>
+            </div>
+
+            {(product?.pageProduct?.features ||
+              product?.pageProduct?.reviews ||
+              product?.pageProduct?.videos) && (
+              <div className='flex items-center'>
+                <a href='#description' className='flex items-center gap-[4px] text-md font-500'>
+                  Read more details about this product{' '}
+                  <i className='ri-arrow-down-s-line text-lg' />
+                </a>
+              </div>
+            )}
           </div>
         </div>
-
-        <div className='flex flex-col gap-[8px] pt-[28px] md:gap-[24px]'>
-          <div className='flex'>
-            <Button
-              isLoading={isLoading}
-              className='w-full md:w-[200px]'
-              iconAfter={<ShoppingCart size={20} />}
-              disabled={!product?.stockQuantity}
-              onClick={() => onAddToCart(qty)}>
-              Add to cart
-            </Button>
-          </div>
-        </div>
-
-        {(product?.pageProduct?.features ||
-          product?.pageProduct?.reviews ||
-          product?.pageProduct?.videos) && (
-          <div className='flex items-center pt-[28px]'>
-            <a href='#description' className='flex items-center gap-[4px] text-md font-500'>
-              Read more details about this product <i className='ri-arrow-down-s-line text-lg' />
-            </a>
-          </div>
-        )}
       </div>
     </div>
   )

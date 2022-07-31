@@ -229,3 +229,8 @@ article.prose {
     stroke-dashoffset: -124;
   }
 }
+
+
+.lock {
+  @apply select-none pointer-events-none;
+}

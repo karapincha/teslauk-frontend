@@ -11,9 +11,9 @@ import { useQuery } from '@apollo/client'
 import { useRegistration } from '@/utils/useRegistration'
 import { useAppContext } from '@/context'
 
-import { SectionHeading } from '@/components/molecules'
-import { Button, TextField, CheckBox, DropdownMenu, Radio, Spinner } from '@/components/atoms'
 import { ArrowUpRight } from 'react-feather'
+import { Button, TextField, CheckBox, DropdownMenu, Radio, Spinner } from '@/components/atoms'
+import { SectionHeading } from '@/components/molecules'
 import { Common as CommonLayout } from '@/components/layouts'
 
 import { teslaModels } from '@/static-data/tesla-models'
