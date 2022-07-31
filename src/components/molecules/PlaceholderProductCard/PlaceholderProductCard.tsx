@@ -15,11 +15,19 @@ export const PlaceholderProductCard: FC<PlaceholderProductCardProps> = ({
   stockQuantity,
   ...restProps
 }: PlaceholderProductCardProps) => {
-  const PlaceholderProductCardClasses = CN(`placeholder-card flex flex-col gap-[4px] group opacity-[0.9]`, className)
+  const PlaceholderProductCardClasses = CN(
+    `placeholder-card flex flex-col gap-[4px] group opacity-[0.9]`,
+    className
+  )
 
   return (
     <div className={PlaceholderProductCardClasses} {...restProps}>
-      <div className='relative flex h-[240px] w-full rounded-[8px] border border-dashed border-N-200 bg-N-50/20' />
+      <div className='relative flex h-[240px] w-full items-center justify-center rounded-[8px] border border-dashed border-N-200 bg-N-50/20'>
+        <span className='text-center text-md font-900 uppercase text-N-200'>
+          More products <br />
+          coming soon
+        </span>
+      </div>
 
       <div className='flex w-full flex-col'>
         <p className='mb-[8px] mt-[8px] h-[6px] w-[100px] rounded-full bg-N-100'></p>
