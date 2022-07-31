@@ -1,13 +1,13 @@
+import Link from 'next/link'
 import React, { FC, useState } from 'react'
 import CN from 'classnames'
-import { Badge, Button, TextField, QtySelector } from '@/components/atoms'
-import { ShoppingCart } from 'react-feather'
-import { useViewport } from '@/utils'
-
-import ImageGallery from 'react-image-gallery'
-import Link from 'next/link'
-
 import parseHtml from 'html-react-parser'
+import ImageGallery from 'react-image-gallery'
+
+import { ShoppingCart } from 'react-feather'
+import { Badge, Button, TextField, QtySelector } from '@/components/atoms'
+
+import { useViewport } from '@/utils'
 
 export interface ExpandedProductDetailsProps {
   [x: string]: any

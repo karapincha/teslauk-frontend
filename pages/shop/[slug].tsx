@@ -4,16 +4,15 @@ import { useMutation, useQuery } from '@apollo/client'
 import { ExpandedProductDetails } from '@/components/sections/ExpandedProductDetails'
 import { Common as CommonLayout } from '@/components/layouts'
 import { ShopVideos, ShopDetails } from '@/components/sections'
-import { Button } from '@/components/atoms'
-import { ArrowRight } from 'react-feather'
-import { ShopCard } from '@/components/molecules/ShopCard'
+
+import { toast } from '@/components/molecules'
+
 import { useAppContext } from '@/context'
 
 import { getProduct, getProducts, ADD_TO_CART } from '../../lib/graphql'
 
 const Page: NextPage = ({ product }: any) => {
-  const { sidemenu, header, footer, suppliers, user, isLoading, cart, refetchCart }: any =
-    useAppContext()
+  const { refetchCart }: any = useAppContext()
 
   const [addToCart, { loading: loadingAddToCart }] = useMutation(ADD_TO_CART)
 
@@ -25,7 +24,8 @@ const Page: NextPage = ({ product }: any) => {
       },
     })
       .then((res: any) => {
-        console.log(res)
+        toast({ message: `Added ${qty} item${qty > 1 ? 's' : ''} to cart`, type: 'success' })
+
         refetchCart().then().catch()
       })
       .catch((res: any) => {

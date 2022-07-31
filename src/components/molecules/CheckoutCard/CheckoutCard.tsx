@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import CN from 'classnames'
-import { Button } from '@/components/atoms'
+
 import { CheckoutProductCard } from '../CheckoutProductCard'
 
 import { useAppContext } from '@/context'
@@ -30,8 +30,7 @@ export const CheckoutCard: FC<CheckoutCardProps> = ({
     className
   )
 
-  const { sidemenu, header, footer, suppliers, user, fullUser, isLoading, cart }: any =
-    useAppContext()
+  const { cart }: any = useAppContext()
 
   return (
     <div className={CheckoutCardClasses} {...restProps}>
@@ -46,15 +45,17 @@ export const CheckoutCard: FC<CheckoutCardProps> = ({
           <p className='text-md font-500 text-N-600'>Subtotal</p>
           <p className='text-md font-500 text-N-700'>{cart?.subtotal}</p>
         </div>
-        {/* Shipping cost */}
+
         <div className='flex justify-between'>
           <p className='text-md font-500 text-N-600'>Shipping</p>
           <p className='text-md font-500 text-N-700'>{cart?.shippingTotal || '—'}</p>
         </div>
+
         <div className='flex justify-between'>
           <p className='text-md font-500 text-N-600'>GST (Included)</p>
           <p className='text-md font-500 text-N-700'>{cart?.totalTax || '—'}</p>
         </div>
+
         <div className='flex justify-between'>
           <p className='text-md font-500 text-N-600'>Discount</p>
           <p className='text-md font-500 text-N-700'>{cart?.discountTotal || '—'}</p>
@@ -68,7 +69,5 @@ export const CheckoutCard: FC<CheckoutCardProps> = ({
     </div>
   )
 }
-
-CheckoutCard.defaultProps = {}
 
 export default CheckoutCard
