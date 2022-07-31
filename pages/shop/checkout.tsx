@@ -227,19 +227,20 @@ const Page: NextPage = () => {
                       <p className='max-w-[600px] text-md font-400 text-N-800'>
                         Your personal data will be used to process your order, support your
                         experience throughout this website, and for other purposes described in our
-                        privacy policy.
+                        privacy policy. We do NOT save your card/bank details.
                       </p>
 
                       {/* This checkbox does not appear in the direct debit page version */}
                       <div className='flex items-center gap-[12px]'>
-                        <CheckBox />
-                        <p className='text-base font-400'>
-                          I have read and agree to the website {''}
-                          <Link href='/terms-and-conditions'>
-                            <a className='text-base font-600'>terms and conditions {''}</a>
-                          </Link>
-                          <span className='text-base text-B-500'>*</span>
-                        </p>
+                        <CheckBox labelClassName='leading-[1]'>
+                          <p className='text-base font-400 leading-[1] pt-[4px]'>
+                            I have read and agree to the website {''}
+                            <Link href='/terms-and-conditions'>
+                              <a className='font-600'>terms and conditions {''}</a>
+                            </Link>
+                            <span className='text-B-500'>*</span>
+                          </p>
+                        </CheckBox>
                       </div>
                     </div>
                     <div className='flex'>

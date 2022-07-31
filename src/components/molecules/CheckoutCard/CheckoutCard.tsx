@@ -41,7 +41,7 @@ export const CheckoutCard: FC<CheckoutCardProps> = ({
         })}
       </div>
 
-      <div className='flex flex-col gap-[8px] border-b border-t border-N-100 pt-[24px] pb-[8px]'>
+      <div className='flex flex-col gap-[8px] border-b border-t border-N-100 py-[16px]'>
         <div className='flex justify-between'>
           <p className='text-md font-500 text-N-600'>Subtotal</p>
           <p className='text-md font-500 text-N-700'>{cart?.subtotal}</p>
@@ -60,9 +60,10 @@ export const CheckoutCard: FC<CheckoutCardProps> = ({
           <p className='text-md font-500 text-N-700'>{cart?.discountTotal || '—'}</p>
         </div>
       </div>
+
       <div className='flex justify-between pt-[16px]'>
         <p className='text-base font-500 text-N-800'>Total price</p>
-        <p className='text-base font-500 text-N-800'>{cart?.total}</p>
+        <p className='text-lg font-500 text-N-800'>{cart?.total}</p>
       </div>
     </div>
   )

@@ -59,8 +59,6 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
     ...mapImages,
   ]
 
-  console.log(product)
-
   return (
     <div className={ExpandedProductDetailsClasses} {...restProps}>
       {/* Product image carousel */}

@@ -77,13 +77,13 @@ export const CheckBox = forwardRef<HTMLInputElement, CheckboxProps>(
         <span className='checkbox__checkmark absolute left-0 top-[12px] h-[18px] w-[18px] rounded-[4px] border border-N-400 bg-white' />
 
         {children && (
-          <span
+          <div
             className={CN(
               'checkbox__label select-none pl-[8px] text-md text-N-800',
               labelClassName
             )}>
             {children}
-          </span>
+          </div>
         )}
       </label>
     )

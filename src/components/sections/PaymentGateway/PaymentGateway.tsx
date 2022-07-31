@@ -21,10 +21,10 @@ export const PaymentGateway: FC<PaymentGatewayProps> = ({
       <div className='flex flex-col gap-[24px] lg:flex-row lg:gap-[16px]'>
         <div
           className={CN(
-            'w-full cursor-pointer rounded-[6px] bg-white  py-[16px] pl-[16px] lg:w-[264px]',
+            'relative w-full cursor-pointer rounded-[8px] bg-white py-[16px]  pl-[16px] shadow-card-shadow lg:w-[264px]',
             {
-              'border-[2px] border-B-500': activeTab === 'stripe',
-              'border-[2px] border-N-100': activeTab !== 'stripe',
+              'border-[2px] border-N-700': activeTab === 'stripe',
+              'border-[2px] border-transparent': activeTab !== 'stripe',
             }
           )}
           onClick={() => {
@@ -33,14 +33,18 @@ export const PaymentGateway: FC<PaymentGatewayProps> = ({
           }}>
           <p className='pb-[8px] text-md font-600 text-N-800'>Credit / Debit Card </p>
           <img src='/stripe.svg' className='w-[119px]' />
+
+          {activeTab === 'stripe' && (
+            <i className='ri-checkbox-circle-fill absolute top-[4px] right-[12px] text-[20px] text-B-500' />
+          )}
         </div>
 
         <div
           className={CN(
-            'w-full cursor-pointer rounded-[6px] bg-white  py-[16px] pl-[16px] lg:w-[264px]',
+            'w-full cursor-pointer rounded-[8px] bg-white py-[16px] pl-[16px] shadow-card-shadow lg:w-[264px] relative',
             {
-              'border-[2px] border-B-500': activeTab === 'gocardless',
-              'border-[2px] border-N-100': activeTab !== 'gocardless',
+              'border-[2px] border-N-700': activeTab === 'gocardless',
+              'border-[2px] border-transparent': activeTab !== 'gocardless',
             }
           )}
           onClick={() => {
@@ -49,6 +53,10 @@ export const PaymentGateway: FC<PaymentGatewayProps> = ({
           }}>
           <p className='pb-[8px] text-md font-600 text-N-800'>GoCardLess</p>
           <img src='/direct-debit.svg' />
+
+          {activeTab === 'gocardless' && (
+            <i className='ri-checkbox-circle-fill absolute top-[4px] right-[12px] text-[20px] text-B-500' />
+          )}
         </div>
       </div>
     </div>
