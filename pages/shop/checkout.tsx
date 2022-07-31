@@ -40,7 +40,7 @@ const Page: NextPage = () => {
   const [addressModalHeading, setAddressModalHeading] = useState('')
   const [selectedAddress, setSelectedAddress] = useState<any>({})
   const [selectedAddressType, setSelectedAddressType] = useState<any>('')
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('gocardless')
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('stripe')
 
   const [agreedToTerms, setAgreedToTerms] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
