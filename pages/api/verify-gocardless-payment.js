@@ -1,6 +1,4 @@
-import { format } from 'date-fns'
-
-const DOMAIN = `${process.env.FRONTEND_DOMAIN}/membership/supporter`
+const DOMAIN = `${process.env.FRONTEND_DOMAIN}/shop/checkout`
 const constants = require('gocardless-nodejs/constants')
 const gocardless = require('gocardless-nodejs')
 const client = gocardless(
@@ -8,8 +6,8 @@ const client = gocardless(
   constants.Environments.Sandbox
 )
 
-async function verifyPayment(req, res) {
-  const { paymentRequest } = req.body
+async function verifyGoCardLessPayment(req, res) {
+  const { sessionId } = req.body
 
   const events = await client.events.list({
     include: 'payment',
@@ -18,12 +16,12 @@ async function verifyPayment(req, res) {
 
   const payment =
     (await events?.linked?.payments.filter(item => {
-      if (item.reference === paymentRequest) {
+      if (item.reference === sessionId) {
         return item
       }
     })[0]) || {}
 
-  res.json({ payment })
+  return res.json({ status: payment?.status })
 }
 
-export default verifyPayment
+export default verifyGoCardLessPayment

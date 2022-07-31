@@ -10,11 +10,12 @@ export interface PaymentGatewayProps {
 export const PaymentGateway: FC<PaymentGatewayProps> = ({
   className,
   onChange,
+  defaultPaymentMethod,
   ...restProps
 }: PaymentGatewayProps) => {
   const PaymentGatewayClasses = CN(`payment-gateway`, className)
 
-  const [activeTab, setActiveTab] = useState('stripe')
+  const [activeTab, setActiveTab] = useState(defaultPaymentMethod)
 
   return (
     <div className={PaymentGatewayClasses} {...restProps}>
@@ -41,7 +42,7 @@ export const PaymentGateway: FC<PaymentGatewayProps> = ({
 
         <div
           className={CN(
-            'w-full cursor-pointer rounded-[8px] bg-white py-[16px] pl-[16px] shadow-card-shadow lg:w-[264px] relative',
+            'relative w-full cursor-pointer rounded-[8px] bg-white py-[16px] pl-[16px] shadow-card-shadow lg:w-[264px]',
             {
               'border-[2px] border-N-700': activeTab === 'gocardless',
               'border-[2px] border-transparent': activeTab !== 'gocardless',

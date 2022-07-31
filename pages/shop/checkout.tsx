@@ -16,8 +16,7 @@ import { AddressModal } from '@/components/molecules'
 import { toast } from '@/components/molecules'
 
 import { useAppContext } from '@/context'
-
-import { useStripePayment } from '@/utils/useStripePayment'
+import { useStripePayment, useGoCardLessPayment } from '@/utils'
 
 import {
   UPDATE_SHIPPING,
@@ -30,9 +29,10 @@ import Link from 'next/link'
 
 const Page: NextPage = () => {
   const router = useRouter()
-  const { payment, stripe_session_id } = router.query
+  const { payment, stripe_session_id, gocardless_session_id } = router.query
   const { isMobile, isTablet, isDesktop } = useViewport()
   const { handleStripePayment, handleVerifyStripePayment } = useStripePayment()
+  const { handleGoCardLessPayment, handleVerifyGoCardLessPayment } = useGoCardLessPayment()
 
   const { user, fullUser, refetchFullUser, cart, refetchCart }: any = useAppContext()
 
@@ -40,7 +40,7 @@ const Page: NextPage = () => {
   const [addressModalHeading, setAddressModalHeading] = useState('')
   const [selectedAddress, setSelectedAddress] = useState<any>({})
   const [selectedAddressType, setSelectedAddressType] = useState<any>('')
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('stripe')
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('gocardless')
 
   const [agreedToTerms, setAgreedToTerms] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
@@ -78,8 +78,17 @@ const Page: NextPage = () => {
       return toast({ message: 'You must agree to the terms and conditions', type: 'error' })
     }
 
+    /* Stripe */
     if (selectedPaymentMethod === 'stripe') {
       const paymentLink = await handleStripePayment({ cart, email: user?.email })
+      setIsLoading(false)
+      return router.push(paymentLink)
+    }
+
+    /* GoCardLess */
+    if (selectedPaymentMethod === 'gocardless') {
+      const paymentLink = await handleGoCardLessPayment({ cart, email: user?.email })
+      setIsLoading(false)
       return router.push(paymentLink)
     }
 
@@ -87,6 +96,10 @@ const Page: NextPage = () => {
   }
 
   useEffect(() => {
+    if (!payment) {
+      return
+    }
+
     if (payment === 'success') {
       setIsLockedPage(true)
     }
@@ -109,9 +122,17 @@ const Page: NextPage = () => {
     }
 
     refreshCart()
-  }, [payment, stripe_session_id])
+  }, [payment, stripe_session_id, gocardless_session_id])
 
   const handlePaymentValidation = async (cartValue: number, cart: any) => {
+    if (cart?.contents?.nodes?.length === 0) {
+      setIsLoading(false)
+      setIsLockedPage(false)
+      toast({ message: 'Your cart is empty', type: 'warning' })
+      return router.push({ query: {} })
+    }
+
+    /* Stripe */
     if (payment && payment === 'success' && stripe_session_id) {
       verifyOrderPaymentKey({
         variables: {
@@ -149,6 +170,45 @@ const Page: NextPage = () => {
         })
         .catch()
     }
+
+    /* GoCardLess */
+    if (payment && payment === 'success' && gocardless_session_id) {
+      verifyOrderPaymentKey({
+        variables: {
+          input: { paymentKey: gocardless_session_id },
+        },
+      })
+        .then(async ({ data }: any) => {
+          const existingOrders = JSON.parse(data?.verifyOrderByOrderKey?.orders)
+
+          if (existingOrders.length === 0) {
+            setSelectedPaymentMethod('gocardless')
+            const { status } = await handleVerifyGoCardLessPayment(gocardless_session_id)
+
+            if (status === 'confirmed') {
+              toast({ message: 'Payment successful', type: 'success' })
+              await refetchFullUser()
+              return handleOrder(cart)
+            } else {
+              setIsLoading(false)
+              return toast({
+                message:
+                  'Payment failed. Please re-try. If the problem persists, please contact support@teslaowners.org.uk',
+                type: 'error',
+              })
+            }
+          } else {
+            setIsLoading(false)
+            setIsLockedPage(false)
+            return toast({
+              message:
+                'You have already placed an order with this payment key. If you think this is a mistake, please contact support@teslaowners.org.uk',
+              type: 'error',
+            })
+          }
+        })
+        .catch()
+    }
   }
 
   const handleOrder = async (cart: any) => {
@@ -160,7 +220,7 @@ const Page: NextPage = () => {
         placeOrder({
           variables: {
             input: {
-              metaData: [{ key: 'paymentKey', value: stripe_session_id }],
+              metaData: [{ key: 'paymentKey', value: stripe_session_id || gocardless_session_id }],
               paymentMethod: selectedPaymentMethod,
               isPaid: true,
               shipToDifferentAddress: true,
@@ -301,6 +361,7 @@ const Page: NextPage = () => {
                     <div className='flex flex-col gap-[16px] pt-[32px]'>
                       {/* Payment method */}
                       <PaymentGateway
+                        defaultPaymentMethod={selectedPaymentMethod}
                         onChange={(method: any) => {
                           setSelectedPaymentMethod(method)
                         }}
