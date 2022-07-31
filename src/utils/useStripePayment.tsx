@@ -3,9 +3,10 @@ import axios from 'axios'
 
 export const useStripePayment = () => {
   /* Handle Stripe Payment Processing */
-  const handleStripePayment = async (cart: any) => {
+  const handleStripePayment = async ({ cart, email }: any) => {
     const { data }: any = await axios.post('/api/get-stripe-payment', {
       cart,
+      email,
     })
     return data?.session?.url
   }

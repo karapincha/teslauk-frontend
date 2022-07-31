@@ -19,7 +19,13 @@ import { useAppContext } from '@/context'
 
 import { useStripePayment } from '@/utils/useStripePayment'
 
-import { UPDATE_SHIPPING, UPDATE_BILLING, PLACE_ORDER, CLEAR_CART } from '../../lib/graphql'
+import {
+  UPDATE_SHIPPING,
+  UPDATE_BILLING,
+  PLACE_ORDER,
+  CLEAR_CART,
+  VERIFY_ORDER_PAYMENT_KEY,
+} from '../../lib/graphql'
 import Link from 'next/link'
 
 const Page: NextPage = () => {
@@ -36,7 +42,7 @@ const Page: NextPage = () => {
   const [selectedAddressType, setSelectedAddressType] = useState<any>('')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('stripe')
 
-  const [agreedToTerms, setAgreedToTerms] = useState(false)
+  const [agreedToTerms, setAgreedToTerms] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [isLockedPage, setIsLockedPage] = useState(false)
 
@@ -44,6 +50,8 @@ const Page: NextPage = () => {
   const [updateBilling, { loading: loadingUpdateBilling }] = useMutation(UPDATE_BILLING)
   const [placeOrder, { loading: loadingPlaceOrder }] = useMutation(PLACE_ORDER)
   const [clearCart, { loading: loadingClearCart }] = useMutation(CLEAR_CART)
+  const [verifyOrderPaymentKey, { loading: loadingVerifyOrderPaymentKey }] =
+    useMutation(VERIFY_ORDER_PAYMENT_KEY)
 
   const handleCloseAddressModal = async () => {
     await refetchFullUser()
@@ -56,20 +64,35 @@ const Page: NextPage = () => {
   const handleSubmit = async () => {
     setIsLoading(true)
 
+    if (!fullUser?.customer?.shipping?.address1 || !fullUser?.customer?.shipping?.city) {
+      setIsLoading(false)
+      setSelectedAddressType('confirm-shipping')
+      setSelectedAddress(fullUser?.customer?.shipping)
+      setAddressModalHeading('Confirm Shipping Address')
+      setShowAddressModal(true)
+      return toast({ message: 'Please confirm your shipping address', type: 'warning' })
+    }
+
     if (!agreedToTerms) {
       setIsLoading(false)
       return toast({ message: 'You must agree to the terms and conditions', type: 'error' })
     }
 
     if (selectedPaymentMethod === 'stripe') {
-      const paymentLink = await handleStripePayment(cart)
+      const paymentLink = await handleStripePayment({ cart, email: user?.email })
       return router.push(paymentLink)
     }
+
+    setIsLoading(false)
   }
 
   useEffect(() => {
     if (payment === 'success') {
       setIsLockedPage(true)
+    }
+
+    if (payment === 'cancelled') {
+      return
     }
 
     const refreshCart = async () => {
@@ -90,21 +113,41 @@ const Page: NextPage = () => {
 
   const handlePaymentValidation = async (cartValue: number, cart: any) => {
     if (payment && payment === 'success' && stripe_session_id) {
-      setSelectedPaymentMethod('stripe')
+      verifyOrderPaymentKey({
+        variables: {
+          input: { paymentKey: stripe_session_id },
+        },
+      })
+        .then(async ({ data }: any) => {
+          const existingOrders = JSON.parse(data?.verifyOrderByOrderKey?.orders)
 
-      const { status, amount } = await handleVerifyStripePayment(stripe_session_id)
+          if (existingOrders.length === 0) {
+            setSelectedPaymentMethod('stripe')
 
-      if (status === 'complete') {
-        toast({ message: 'Payment successful', type: 'success' })
-        await refetchFullUser()
-        return handleOrder(cart)
-      } else {
-        return toast({
-          message:
-            'Payment failed. Please re-try. If the problem persists, please contact support@teslaowners.org.uk',
-          type: 'error',
+            const { status } = await handleVerifyStripePayment(stripe_session_id)
+            if (status === 'complete') {
+              toast({ message: 'Payment successful', type: 'success' })
+              await refetchFullUser()
+              return handleOrder(cart)
+            } else {
+              setIsLoading(false)
+              return toast({
+                message:
+                  'Payment failed. Please re-try. If the problem persists, please contact support@teslaowners.org.uk',
+                type: 'error',
+              })
+            }
+          } else {
+            setIsLoading(false)
+            setIsLockedPage(false)
+            return toast({
+              message:
+                'You have already placed an order with this payment key. If you think this is a mistake, please contact support@teslaowners.org.uk',
+              type: 'error',
+            })
+          }
         })
-      }
+        .catch()
     }
   }
 
@@ -117,6 +160,7 @@ const Page: NextPage = () => {
         placeOrder({
           variables: {
             input: {
+              metaData: [{ key: 'paymentKey', value: stripe_session_id }],
               paymentMethod: selectedPaymentMethod,
               isPaid: true,
               shipToDifferentAddress: true,
@@ -146,9 +190,9 @@ const Page: NextPage = () => {
           .then(async ({ data }: any) => {
             if (data?.checkout?.result === 'success') {
               toast({ message: 'Order successful', type: 'success' })
-              // await clearCart()
-              // await refetchCart()
-              // return router.push('/shop/order-success')
+              await clearCart()
+              await refetchCart()
+              return router.push('/shop/order-success')
             }
           })
           .catch((res: any) => {
@@ -204,11 +248,18 @@ const Page: NextPage = () => {
             {showAddressModal && (
               <AddressModal
                 heading={addressModalHeading}
+                showUseBillingAddress={selectedAddressType === 'confirm-shipping'}
                 onClose={handleCloseAddressModal}
                 isLoading={loadingUpdateShipping || loadingUpdateBilling}
+                billingAddress={fullUser?.customer?.billing}
+                shippingAddress={fullUser?.customer?.shipping}
                 address={selectedAddress}
+                selectedAddressType={selectedAddressType}
                 onSubmit={(address: any) => {
-                  if (selectedAddressType === 'shipping') {
+                  if (
+                    selectedAddressType === 'shipping' ||
+                    selectedAddressType === 'confirm-shipping'
+                  ) {
                     updateShipping({ variables: { ...address, id: user?.databaseId } })
                       .then((res: any) => {
                         handleCloseAddressModal()
@@ -219,6 +270,7 @@ const Page: NextPage = () => {
                         return toast({ message: 'Something went wrong.', type: 'error' })
                       })
                   }
+
                   if (selectedAddressType === 'billing') {
                     updateBilling({ variables: { ...address, id: user?.databaseId } })
                       .then((res: any) => {
@@ -263,7 +315,6 @@ const Page: NextPage = () => {
                             our privacy policy. We do NOT save your card/bank details.
                           </p>
 
-                          {/* This checkbox does not appear in the direct debit page version */}
                           <div className='flex items-center gap-[12px]'>
                             <CheckBox
                               defaultChecked={agreedToTerms}

@@ -14,6 +14,10 @@ export const AddressModal: FC<AddressModalProps> = ({
   heading,
   isLoading,
   address,
+  showUseBillingAddress,
+  billingAddress,
+  shippingAddress,
+  selectedAddressType,
   ...restProps
 }: AddressModalProps) => {
   const AddressModalClasses = CN(`address-modal`, className)
@@ -57,13 +61,29 @@ export const AddressModal: FC<AddressModalProps> = ({
       <div className='fixed top-0 right-0 bottom-0 left-0 z-10 flex items-center justify-center bg-slate-400/50'>
         <div className='flex w-full max-w-[600px]'>
           {/* Start */}
-          <div className='relative w-full rounded-[8px] bg-white px-[16px] py-[24px] shadow-card-shadow md:px-[32px] md:py-[32px] lg:px-[32px] lg:py-[32px]'>
-            <div className='mb-[28px] flex items-center justify-between gap-[4px]'>
+          <div className='relative flex w-full flex-col gap-[16px] rounded-[8px] bg-white px-[32px] py-[32px] shadow-card-shadow'>
+            <div className='flex items-center justify-between gap-[4px]'>
               <h4 className='text-center text-h5 font-600 text-N-800'>{heading}</h4>
               <Button appearance='ghost' className='absolute top-0 right-0' onClick={onClose}>
                 <i className='ri-close-fill' />
               </Button>
             </div>
+
+            {(selectedAddressType === 'confirm-shipping' ||
+              billingAddress?.address1 !== shippingAddress?.address1) && (
+              <div className='flex'>
+                <CheckBox
+                  onChange={(e: any) => {
+                    if (e.target.checked) {
+                      setFormData({ ...billingAddress })
+                    } else {
+                      setFormData({ ...shippingAddress })
+                    }
+                  }}>
+                  Use same as billing address
+                </CheckBox>
+              </div>
+            )}
 
             <div className='flex flex-col gap-[16px]'>
               <div className='flex flex-col gap-[12px]'>
@@ -76,7 +96,7 @@ export const AddressModal: FC<AddressModalProps> = ({
                         handleValidation(e)
                       }
                     }}
-                    defaultValue={formData?.firstName}
+                    value={formData?.firstName}
                     onChange={(e: any) => {
                       setFormData({ ...formData, firstName: e.target.value })
                     }}
@@ -90,7 +110,7 @@ export const AddressModal: FC<AddressModalProps> = ({
                         handleValidation(e)
                       }
                     }}
-                    defaultValue={formData?.lastName}
+                    value={formData?.lastName}
                     onChange={(e: any) => {
                       setFormData({ ...formData, lastName: e.target.value })
                     }}
@@ -104,7 +124,7 @@ export const AddressModal: FC<AddressModalProps> = ({
                       handleValidation(e)
                     }
                   }}
-                  defaultValue={formData?.address1}
+                  value={formData?.address1}
                   onChange={(e: any) => {
                     setFormData({ ...formData, address1: e.target.value })
                   }}
@@ -118,7 +138,7 @@ export const AddressModal: FC<AddressModalProps> = ({
                       handleValidation(e)
                     }
                   }}
-                  defaultValue={formData?.phone}
+                  value={formData?.phone}
                   onChange={(e: any) => {
                     setFormData({ ...formData, phone: e.target.value })
                   }}
@@ -133,7 +153,7 @@ export const AddressModal: FC<AddressModalProps> = ({
                         handleValidation(e)
                       }
                     }}
-                    defaultValue={formData?.city}
+                    value={formData?.city}
                     onChange={(e: any) => {
                       setFormData({ ...formData, city: e.target.value })
                     }}
@@ -147,7 +167,7 @@ export const AddressModal: FC<AddressModalProps> = ({
                         handleValidation(e)
                       }
                     }}
-                    defaultValue={formData?.postcode}
+                    value={formData?.postcode}
                     onChange={(e: any) => {
                       setFormData({ ...formData, postcode: e.target.value })
                     }}
@@ -162,7 +182,7 @@ export const AddressModal: FC<AddressModalProps> = ({
                       handleValidation(e)
                     }
                   }}
-                  defaultValue={formData?.state}
+                  value={formData?.state}
                   onChange={(e: any) => {
                     setFormData({ ...formData, state: e.target.value })
                   }}
@@ -170,16 +190,10 @@ export const AddressModal: FC<AddressModalProps> = ({
               </div>
             </div>
 
-            <div className='flex flex-col gap-[32px] pt-[24px]'>
-              <div className=''>
-                <Button
-                  className='w-full text-base !font-600'
-                  appearance='primary'
-                  onClick={handleValidation}
-                  isLoading={isLoading}>
-                  Save Address
-                </Button>
-              </div>
+            <div className='flex flex-col gap-[32px]'>
+              <Button appearance='primary' onClick={handleValidation} isLoading={isLoading}>
+                Save Address
+              </Button>
             </div>
           </div>
         </div>

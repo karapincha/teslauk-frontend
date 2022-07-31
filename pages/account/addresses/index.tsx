@@ -66,91 +66,107 @@ const Page: NextPage = () => {
             </div>
           </div>
 
-          <div className='flex w-full flex-col'>
-            <h4 className='text-h4 font-600 text-N-800'>Manage Account</h4>
+          <div className='flex w-full flex-col gap-[16px]'>
+            <h4 className='text-h4 font-600 text-N-800'>Manage Addresses</h4>
 
-            <div className='personal-details w-full pt-[24px]'>
-              <div className='text-md font-400 text-N-600'>
+            <div className='personal-details flex w-full flex-col gap-[32px]'>
+              <div className='text-md text-N-600'>
                 <p>The following addresses will be used on the checkout page by default.</p>
               </div>
 
-              <div className='flex flex-col gap-[24px] pt-[24px] lg:gap-[40px] '>
-                <div className='max-w-[482px] text-md font-500 text-N-800'>
-                  <div className='pb-[16px]'>
-                    <div className='billing-address-heading mb-[16px]'>
+              <div className='flex flex-col gap-[32px] '>
+                <div className='flex max-w-[482px] flex-col gap-[16px]'>
+                  <div className='flex flex-col gap-[16px]'>
+                    <div className='billing-address-heading'>
                       <p className='text-md font-500 text-N-800'>Billing address</p>
                     </div>
 
-                    <div>
+                    <div className='flex flex-col'>
                       <h5 className='mb-[4px] text-base font-500 text-N-800'>
-                        {fullUser?.customer?.firstName} {fullUser?.customer?.lastName}
+                        {fullUser?.customer?.billing?.firstName}{' '}
+                        {fullUser?.customer?.billing?.lastName}
                       </h5>
                       <div className='text-md font-400 text-N-800'>
-                        <p>Address: {fullUser?.customer?.billing?.address1 || '—'}</p>
-                        <p>City: {fullUser?.customer?.billing?.city || '—'}</p>
-                        <p>Postcode: {fullUser?.customer?.billing?.postcode || '—'}</p>
-                        <p>State: {fullUser?.customer?.billing?.state || '—'}</p>
-                        <p>Phone: {fullUser?.customer?.billing?.phone || '—'}</p>
-                        <p>Email: {fullUser?.customer?.billing?.email || '—'}</p>
+                        <p className='flex items-center gap-[8px]'>
+                          <span className='w-[100px]'>Address —</span>{' '}
+                          {fullUser?.customer?.billing?.address1 || '—'}
+                        </p>
+                        <p className='flex items-center gap-[8px]'>
+                          <span className='w-[100px]'>City —</span>{' '}
+                          {fullUser?.customer?.billing?.city || '—'}
+                        </p>
+                        <p className='flex items-center gap-[8px]'>
+                          <span className='w-[100px]'>Postcode —</span>{' '}
+                          {fullUser?.customer?.billing?.postcode || '—'}
+                        </p>
+                        <p className='flex items-center gap-[8px]'>
+                          <span className='w-[100px]'>State —</span>{' '}
+                          {fullUser?.customer?.billing?.state || '—'}
+                        </p>
+                        <p className='flex items-center gap-[8px]'>
+                          <span className='w-[100px]'>Phone —</span>{' '}
+                          {fullUser?.customer?.billing?.phone || '—'}
+                        </p>
+                        <p className='flex items-center gap-[8px]'>
+                          <span className='w-[100px]'>Email —</span>{' '}
+                          {fullUser?.customer?.billing?.email || '—'}
+                        </p>
                       </div>
                     </div>
                   </div>
 
-                  <Link href='/account/addresses/edit-billing'>
-                    <Button appearance='secondary' size='sm'>
-                      Edit billing address
-                    </Button>
-                  </Link>
+                  <div className='flex'>
+                    <Link href='/account/addresses/edit-billing'>
+                      <Button appearance='secondary' size='sm'>
+                        Edit billing address
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
 
-                <div className='max-w-[482px] text-md font-500 text-N-800'>
-                  <div className='pb-[16px]'>
-                    <div className='billing-address-heading mb-[16px]'>
+                <div className='flex max-w-[482px] flex-col gap-[16px]'>
+                  <div className='flex flex-col gap-[16px]'>
+                    <div className='shipping-address-heading'>
                       <p className='text-md font-500 text-N-800'>Shipping address</p>
                     </div>
 
-                    {/* <div className='flex w-full flex-col gap-[4px] pb-[16px]'>
-                      <CheckBox
-                        defaultChecked={useBillingAddressForShipping}
-                        children='Use same as billing address'
-                        onChange={(e: any) => {
-                          // setUseBillingAddressForShipping(e.target.checked)
-                          if (e.target.checked === true) {
-                            updateShipping()
-                              .then(() => {
-                                refetchFullUser()
-                                  .then((res: any) => {})
-                                  .catch((e: any) => {
-                                    return toast({ message: e.message, type: 'error' })
-                                  })
-                              })
-                              .catch()
-                          } else {
-                            setUseBillingAddressForShipping(false)
-                          }
-                        }}
-                      />
-                    </div> */}
-
-                    <div>
+                    <div className='flex flex-col'>
                       <h5 className='mb-[4px] text-base font-500 text-N-800'>
-                        {fullUser?.customer?.firstName} {fullUser?.customer?.lastName}
+                        {fullUser?.customer?.shipping?.firstName}{' '}
+                        {fullUser?.customer?.shipping?.lastName}
                       </h5>
                       <div className='text-md font-400 text-N-800'>
-                        <p>Address: {fullUser?.customer?.shipping?.address1 || '—'}</p>
-                        <p>City: {fullUser?.customer?.shipping?.city || '—'}</p>
-                        <p>Postcode: {fullUser?.customer?.shipping?.postcode || '—'}</p>
-                        <p>State: {fullUser?.customer?.shipping?.state || '—'}</p>
-                        <p>Phone: {fullUser?.customer?.shipping?.phone || '—'}</p>
+                        <p className='flex items-center gap-[8px]'>
+                          <span className='w-[100px]'>Address —</span>{' '}
+                          {fullUser?.customer?.shipping?.address1 || '—'}
+                        </p>
+                        <p className='flex items-center gap-[8px]'>
+                          <span className='w-[100px]'>City —</span>{' '}
+                          {fullUser?.customer?.shipping?.city || '—'}
+                        </p>
+                        <p className='flex items-center gap-[8px]'>
+                          <span className='w-[100px]'>Postcode —</span>{' '}
+                          {fullUser?.customer?.shipping?.postcode || '—'}
+                        </p>
+                        <p className='flex items-center gap-[8px]'>
+                          <span className='w-[100px]'>State —</span>{' '}
+                          {fullUser?.customer?.shipping?.state || '—'}
+                        </p>
+                        <p className='flex items-center gap-[8px]'>
+                          <span className='w-[100px]'>Phone —</span>{' '}
+                          {fullUser?.customer?.shipping?.phone || '—'}
+                        </p>
                       </div>
                     </div>
                   </div>
 
-                  <Link href='/account/addresses/edit-shipping'>
-                    <Button appearance='secondary' size='sm'>
-                      Edit shipping address
-                    </Button>
-                  </Link>
+                  <div className='flex'>
+                    <Link href='/account/addresses/edit-shipping'>
+                      <Button appearance='secondary' size='sm'>
+                        Edit shipping address
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

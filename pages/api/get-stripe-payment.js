@@ -2,7 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const DOMAIN = `${process.env.FRONTEND_DOMAIN}/shop/checkout`
 
 async function getStripePayment(req, res) {
-  const { cart } = req.body
+  const { cart, email } = req.body
 
   const prepItems = cart?.contents?.nodes?.map(item => {
     return {
@@ -23,10 +23,11 @@ async function getStripePayment(req, res) {
     line_items: prepItems,
     mode: 'payment',
     success_url: DOMAIN + '?payment=success&stripe_session_id={CHECKOUT_SESSION_ID}',
-    cancel_url: DOMAIN + '?payment=cancel&stripe_session_id={CHECKOUT_SESSION_ID}',
+    cancel_url: DOMAIN + '?payment=cancelled',
     payment_intent_data: {
       description: 'Tesla Owners UK Shop Order',
     },
+    customer_email: email,
   })
 
   res.json({ session })

@@ -17,7 +17,7 @@ import { UPDATE_SHIPPING } from '../../../lib/graphql'
 
 const Page: NextPage = () => {
   const router = useRouter()
-  const { fullUser, user, userOrders, refetchUser }: any = useAppContext()
+  const { fullUser, user, userOrders, refetchUser, refetchFullUser }: any = useAppContext()
 
   const initialVariables = {
     id: fullUser?.customer?.databaseId,
@@ -47,7 +47,7 @@ const Page: NextPage = () => {
       .then((res: any) => {
         toast({ message: 'Successfully updated', type: 'success' })
 
-        refetchUser()
+        refetchFullUser()
           .then((res: any) => {})
           .catch((e: any) => {
             return toast({ message: e.message, type: 'error' })

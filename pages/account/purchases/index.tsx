@@ -18,7 +18,16 @@ import { format } from 'date-fns'
 const Page: NextPage = () => {
   const router = useRouter()
   const { isDesktop, isMobile, isTablet } = useViewport()
-  const { fullUser, userOrders }: any = useAppContext()
+  const { fullUser, userOrders, refetchFullUser }: any = useAppContext()
+
+  useEffect(() => {
+    const fetchUserOrders = async () => {
+      await refetchFullUser()
+    }
+    fetchUserOrders()
+
+    return () => {}
+  }, [])
 
   return (
     <>
