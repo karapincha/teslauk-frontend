@@ -209,11 +209,15 @@ export const ExpandedProductDetails: FC<ExpandedProductDetailsProps> = ({
           </div>
         </div>
 
-        <div className='flex items-center pt-[28px]'>
-          <a href='#description' className='flex items-center gap-[4px] text-md font-500'>
-            Read more details about this product <i className='ri-arrow-down-s-line text-lg' />
-          </a>
-        </div>
+        {(product?.pageProduct?.features ||
+          product?.pageProduct?.reviews ||
+          product?.pageProduct?.videos) && (
+          <div className='flex items-center pt-[28px]'>
+            <a href='#description' className='flex items-center gap-[4px] text-md font-500'>
+              Read more details about this product <i className='ri-arrow-down-s-line text-lg' />
+            </a>
+          </div>
+        )}
       </div>
     </div>
   )
