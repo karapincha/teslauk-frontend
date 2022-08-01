@@ -1,21 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { SectionHeading } from '@/components/molecules'
 import { Button, TextField, CheckBox, DropdownMenu } from '@/components/atoms'
 import { Common as CommonLayout } from '@/components/layouts'
-import { toast } from '@/components/molecules'
+import { toast, PageLockOverlay } from '@/components/molecules'
 import { ArrowUpRight, LogOut } from 'react-feather'
 import Link from 'next/link'
 import { teslaModels } from '@/static-data/tesla-models'
 import { useQuery } from '@apollo/client'
 import { VERIFY_USER } from '../../lib/graphql'
 
+import { useAppContext } from '@/context'
 import { useRegistration } from '@/utils/useRegistration'
 
 const Page: NextPage = () => {
   const router = useRouter()
+  const { user }: any = useAppContext()
 
   const {
     logout,
@@ -34,6 +36,8 @@ const Page: NextPage = () => {
     runUpdateOrderStatus,
   } = useRegistration()
 
+  const [isLockedPage, setIsLockedPage] = useState(false)
+
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [password, setPassword] = useState('')
@@ -48,6 +52,22 @@ const Page: NextPage = () => {
   const { refetch: verifyUser } = useQuery(VERIFY_USER, {
     skip: true,
   })
+
+  /* Get LocalHost Data */
+  const loadLocalStorageData: any = async () => {
+    const promise = new Promise((resolve, reject) => {
+      const localStorageData = JSON.parse(localStorage.getItem('registration') || '{}')
+      const localStoragePaidAmount = JSON.parse(localStorage.getItem('paid') || '{}')
+      resolve({ ...localStorageData, ...localStoragePaidAmount })
+    })
+    return promise
+  }
+
+  /* Handle Unlock page with Toast */
+  const handleClose = ({ toastMessage, toastType }: any) => {
+    setIsLockedPage(false)
+    toast({ message: toastMessage, type: toastType })
+  }
 
   /* HANDLE VALIDATION */
   const handleValidation = (e: any) => {
@@ -97,11 +117,21 @@ const Page: NextPage = () => {
   }
 
   /* FINALIZE */
-  const handleFinalize = async (orderId: any) => {
+  const handleFinalize = async ({ orderId }: any) => {
+    const res = await loadLocalStorageData()
+
+    if (!res && !res.email) {
+      return handleClose({
+        toastMessage:
+          'Failed to load user data from the submission, If the problem persists, please contact support@teslaowners.org.uk',
+        toastType: 'error',
+      })
+    }
+
     runGetRegisteredUser({
       username,
       password,
-      onSuccess: ({ data }: any) => {
+      onSuccess: async ({ data }: any) => {
         updateUser({
           variables: {
             id: data?.viewer?.databaseId,
@@ -118,21 +148,24 @@ const Page: NextPage = () => {
               },
               onSuccess: async () => {
                 await runClearCart()
-                router.push('/account?new_account=true')
+                router.push('/account?newAccount=true')
               },
-              onFail: (e: any) => {
-                logout().catch(() => {
-                  return
+              onFail: async ({ message }: any) => {
+                await logout()
+                router.push('/account?orderStatusUpdate=failed')
+                return handleClose({
+                  toastMessage: message,
+                  toastType: 'error',
                 })
-                return toast({ message: e.message, type: 'error' })
               },
             })
           })
-          .catch((e: any) => {
-            logout().catch(() => {
-              return
+          .catch(async ({ message }: any) => {
+            await logout()
+            return handleClose({
+              toastMessage: message,
+              toastType: 'error',
             })
-            return toast({ message: e.message, type: 'error' })
           })
       },
       onFail: {},
@@ -142,13 +175,15 @@ const Page: NextPage = () => {
   /* HANDLE SUBMISSION */
   const handleSubmit = async (e: any) => {
     e.preventDefault()
+    setIsLockedPage(true)
+
     const { data: logoutRes } = await logout()
 
     if (logoutRes.logout.status === 'SUCCESS') {
       verifyUser({ email: email, username: username })
         .then(({ data }: any) => {
           if (!data?.verifyUser?.byUsername?.id && !data?.verifyUser?.byEmail?.id) {
-            runCheckout({
+            return runCheckout({
               productId: Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_FREE_ID),
               variables: {
                 email,
@@ -163,11 +198,26 @@ const Page: NextPage = () => {
                 paymentMethod: 'none',
               },
               onSuccess: ({ data }: any) => {
-                handleFinalize(data?.checkout?.order?.databaseId)
+                console.log(`runCheckout`, data)
+
+                if (data?.checkout?.order?.databaseId) {
+                  return handleFinalize({
+                    orderId: data?.checkout?.order?.databaseId,
+                  })
+                }
+
+                return handleClose({
+                  toastMessage:
+                    'Something went wrong. Please contact us at membership@teslaowners.org.uk',
+                  toastType: 'error',
+                })
               },
-              onFail: () => {
-                runClearCart()
-                return toast({ message: e.message, type: 'error' })
+              onFail: async ({ message }: any) => {
+                await runClearCart()
+                return handleClose({
+                  toastMessage: message,
+                  toastType: 'error',
+                })
               },
             })
           } else {
@@ -192,6 +242,13 @@ const Page: NextPage = () => {
       </Head>
 
       <CommonLayout>
+        {isLockedPage && (
+          <PageLockOverlay
+            heading='We are creating your account'
+            description='Please do not close this window, until we are finished.'
+          />
+        )}
+
         <div className='container'>
           {/*  bg-[url(/images/hero-pattern.svg)] */}
           <div className='flex flex-col items-center rounded-[8px] bg-N-50 bg-cover bg-no-repeat py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[80px] lg:pb-[80px]'>

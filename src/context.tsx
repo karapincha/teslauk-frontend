@@ -12,27 +12,15 @@ import { GET_COMMON, GET_FULL_USER, GET_CART } from '../lib/graphql'
 const AppContext = createContext({})
 
 export function AppWrapper({ children, values }: any) {
-  const [isPageLoading, setIsPageLoading] = useState(false)
-  const { data: commonData, loading: loadingCommonData } = useQuery(GET_COMMON)
-  const { data: cart, loading: loadingCart, refetch: refetchCart } = useQuery(GET_CART)
-
   const wrapperRef = useRef(null)
   const hamburgerRef = useRef(null)
 
-  const [showSideMenu, setShowSideMenu] = useState(false)
-  const [_orders, _setOrders] = useState<any>()
-
   const { user, refetchUser } = useLoggedInUser()
 
-  const {
-    data: fullUser,
-    refetch: refetchFullUser,
-    loading: fullUserLoading,
-  } = useQuery(GET_FULL_USER, {
-    variables: {
-      id: user?.id,
-    },
-  })
+  const [isPageLoading, setIsPageLoading] = useState(false)
+  const [showSideMenu, setShowSideMenu] = useState(false)
+  const [_orders, _setOrders] = useState<any>()
+  const [isSupporter, setIsSupporter] = useState<any>(null)
 
   useEffect(() => {
     Router.events.on('routeChangeStart', () => {
@@ -68,6 +56,19 @@ export function AppWrapper({ children, values }: any) {
     }
   }, [])
 
+  const { data: commonData, loading: loadingCommonData } = useQuery(GET_COMMON)
+  const { data: cart, loading: loadingCart, refetch: refetchCart } = useQuery(GET_CART)
+
+  const {
+    data: fullUser,
+    refetch: refetchFullUser,
+    loading: fullUserLoading,
+  } = useQuery(GET_FULL_USER, {
+    variables: {
+      id: user?.id,
+    },
+  })
+
   useEffect(() => {
     if (user && user?.id) {
       refetchFullUser()
@@ -79,6 +80,33 @@ export function AppWrapper({ children, values }: any) {
     if (fullUser?.customer?.orders) {
       _setOrders(fullUser?.customer?.orders?.nodes)
     }
+  }, [fullUser])
+
+  useEffect(() => {
+    const userSubscriptions = fullUser?.activeSubscriptions?.map((subscription: any) => {
+      const { data_json, ...restSubscription } = subscription
+      const productsJson = restSubscription?.products ? JSON.parse(restSubscription?.products) : {}
+
+      const isSupporter = productsJson.some(({ product_id }: any) => {
+        if (product_id === Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_FREE_ID)) {
+          setIsSupporter(false)
+          return false
+        }
+
+        setIsSupporter(true)
+        return true
+      })
+
+      const mergedSubscriptionData = {
+        ...restSubscription,
+        products: productsJson,
+        isSupporter,
+      }
+
+      return mergedSubscriptionData
+    })
+
+    console.log('userSubscriptions', userSubscriptions)
   }, [fullUser])
 
   useOutsideClick(wrapperRef, () => setShowSideMenu(false), hamburgerRef)
@@ -103,6 +131,7 @@ export function AppWrapper({ children, values }: any) {
     refetchFullUser,
     cart: cart?.cart,
     refetchCart,
+    isSupporter,
   }
 
   return <AppContext.Provider value={{ ...sharedState, ...values }}>{children}</AppContext.Provider>

@@ -6,10 +6,7 @@ import CN from 'classnames'
 import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti'
 
-import { format } from 'date-fns'
-
 import { ArrowRightCircle } from 'react-feather'
-import { Button } from '@/components/atoms'
 import { MemberCard } from '@/components/molecules/MemberCard'
 import { DashboardMenu } from '@/components/molecules/DashboardMenu'
 import { AuthLayout } from '@/components/layouts'
@@ -21,14 +18,12 @@ import { useRouter } from 'next/router'
 import { useViewport } from '@/utils'
 import { useAppContext } from '@/context'
 
-import { GET_FULL_USER, getUserOrders } from '../../lib/graphql'
-
 const Page: NextPage = () => {
   const { width, height } = useWindowSize()
   const router = useRouter()
-  const { new_account } = router?.query
+  const { newAccount } = router?.query
   const { isDesktop, isMobile, isTablet } = useViewport()
-  const { fullUser, fullUserLoading, user, userOrders }: any = useAppContext()
+  const { isSupporter, fullUser, fullUserLoading, user, userOrders }: any = useAppContext()
 
   const [_subscriptions, _setSubscriptions] = useState<any>()
   const [_subscribedProducts, _setSubscribedProducts] = useState<any>()
@@ -38,72 +33,72 @@ const Page: NextPage = () => {
   const [_subscriptionOrder, _setSubscriptionOrder] = useState<any>({})
 
   /* Filter and set user's active subscriptions and products */
-  useEffect(() => {
-    /* Subscriptions */
-    let subscriptions: any = []
+  // useEffect(() => {
+  //   /* Subscriptions */
+  //   let subscriptions: any = []
 
-    if (fullUser?.activeSubscriptions) {
-      subscriptions = fullUser?.activeSubscriptions?.map((subscription: any) => {
-        const productsJson = subscription?.products ? JSON.parse(subscription?.products) : {}
-        const dataJson = subscription?.data_json ? JSON.parse(subscription?.data_json) : {}
-        const mergedSubscriptionData = {
-          ...subscription,
-          ...dataJson,
-          ...productsJson[0],
-          data_json: `stripped`,
-        }
+  //   if (fullUser?.activeSubscriptions) {
+  //     subscriptions = fullUser?.activeSubscriptions?.map((subscription: any) => {
+  //       const productsJson = subscription?.products ? JSON.parse(subscription?.products) : {}
+  //       const dataJson = subscription?.data_json ? JSON.parse(subscription?.data_json) : {}
+  //       const mergedSubscriptionData = {
+  //         ...subscription,
+  //         ...dataJson,
+  //         ...productsJson[0],
+  //         data_json: `stripped`,
+  //       }
 
-        _setSubscribedProducts(productsJson?.map((product: any) => product))
-        return mergedSubscriptionData
-      })
-    }
+  //       _setSubscribedProducts(productsJson?.map((product: any) => product))
+  //       return mergedSubscriptionData
+  //     })
+  //   }
 
-    _setSubscriptions(subscriptions)
-    _setActiveSubscription(subscriptions[0])
+  //   _setSubscriptions(subscriptions)
+  //   _setActiveSubscription(subscriptions[0])
 
-    /* Check if subscription is with supporter + welcome pack */
-    const subscriptionOrder =
-      fullUser?.customer?.orders?.nodes?.filter((order: any) => {
-        const filtered = order?.lineItems?.nodes?.filter((item: any) => {
-          if (
-            item?.productId ===
-            Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
-          ) {
-            return order
-          }
-        })
-        return filtered
-      })[0] || {}
+  //   /* Check if subscription is with supporter + welcome pack */
+  //   const subscriptionOrder =
+  //     fullUser?.customer?.orders?.nodes?.filter((order: any) => {
+  //       const filtered = order?.lineItems?.nodes?.filter((item: any) => {
+  //         if (
+  //           item?.productId ===
+  //           Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
+  //         ) {
+  //           return order
+  //         }
+  //       })
+  //       return filtered
+  //     })[0] || {}
 
-    _setSubscriptionOrder(subscriptionOrder)
+  //   _setSubscriptionOrder(subscriptionOrder)
 
-    const shippingAddress = fullUser?.customer?.shipping
+  //   const shippingAddress = fullUser?.customer?.shipping
 
-    if (
-      !fullUserLoading &&
-      (!shippingAddress?.address1 ||
-        !shippingAddress?.city ||
-        !shippingAddress?.postcode ||
-        !shippingAddress?.state ||
-        !shippingAddress?.phone)
-    ) {
-      _setShowShippingAddressModal(true)
-    }
-  }, [fullUser])
+  //   if (
+  //     !fullUserLoading &&
+  //     (!shippingAddress?.address1 ||
+  //       !shippingAddress?.city ||
+  //       !shippingAddress?.postcode ||
+  //       !shippingAddress?.state ||
+  //       !shippingAddress?.phone)
+  //   ) {
+  //     _setShowShippingAddressModal(true)
+  //   }
+  // }, [fullUser])
 
-  useEffect(() => {
-    if (_activeSubscription?.product_id === Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_FREE_ID)) {
-      _setExpiryDate('Never')
-    }
-    if (
-      _activeSubscription?.product_id ===
-        Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID) ||
-      _activeSubscription?.product_id ===
-        Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
-    ) {
-      _setExpiryDate(_activeSubscription?.nextPayment)
-    }
-  }, [_activeSubscription])
+  // useEffect(() => {
+  //   if (_activeSubscription?.product_id === Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_FREE_ID)) {
+  //     _setExpiryDate('Never')
+  //   }
+  //   if (
+  //     _activeSubscription?.product_id ===
+  //       Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID) ||
+  //     _activeSubscription?.product_id ===
+  //       Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
+  //   ) {
+  //     _setExpiryDate(_activeSubscription?.nextPayment)
+  //   }
+  // }, [_activeSubscription])
 
   const quickLinks = [
     {
@@ -117,6 +112,16 @@ const Page: NextPage = () => {
       url: '/account/addressess',
     },
   ]
+
+  /* Run after confetti is complete on new account */
+  const handleAfterConfetti = () => {
+    console.log('after confetti')
+    console.log(`isSupporter`, isSupporter)
+  }
+
+  // useEffect(() => {
+  //   console.log(fullUser)
+  // }, [fullUser])
 
   const renderMembershipCard = () => {
     return (
@@ -146,8 +151,14 @@ const Page: NextPage = () => {
       </Head>
 
       <AuthLayout>
-        {new_account === 'true' && (
-          <Confetti width={width} height={height} run={true} recycle={false} />
+        {newAccount === 'true' && (
+          <Confetti
+            width={width}
+            height={height}
+            run={true}
+            recycle={false}
+            onConfettiComplete={handleAfterConfetti}
+          />
         )}
 
         {_showShippingAddressModal && _subscriptionOrder?.status === 'AWAITING_SHIPMENT' && (

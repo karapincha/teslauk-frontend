@@ -38,6 +38,4 @@ export const PageLockOverlay: FC<PageLockOverlayProps> = ({
   )
 }
 
-PageLockOverlay.defaultProps = {}
-
 export default PageLockOverlay

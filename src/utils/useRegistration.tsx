@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useMutation, useQuery } from '@apollo/client'
 import {
@@ -32,6 +32,10 @@ export const useRegistration = () => {
   } = useQuery(GET_CURRENT_USER, {
     skip: true,
   })
+
+  useEffect(() => {
+    console.log('currentUserData', currentUserData)
+  }, [currentUserData])
 
   /* Functions ===> */
   const runClearCart = async (onSuccess?: any, onFail?: any) => {
@@ -86,8 +90,10 @@ export const useRegistration = () => {
           password,
         },
       })
-        .then(() => {
-          getCurrentUser()
+        .then(async (res: any) => {
+          console.log(`runGetRegisteredUser LOGIN:`, res)
+
+          await getCurrentUser()
             .then((res: any) => {
               if (onSuccess) {
                 return onSuccess(res)

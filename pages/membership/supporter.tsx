@@ -66,6 +66,12 @@ const Page: NextPage = () => {
     return promise
   }
 
+  /* Handle Unlock page with Toast */
+  const handleClose = ({ toastMessage, toastType }: any) => {
+    setIsLockedPage(false)
+    toast({ message: toastMessage, type: toastType })
+  }
+
   /* FINALIZE */
   const handleFinalize = async ({ orderId, stripeCustomerId, gocardlessCustomerId }: any) => {
     const res = await loadLocalStorageData()
@@ -98,20 +104,20 @@ const Page: NextPage = () => {
                 orderId: orderId,
                 status: res?.isWelcomePackIncluded ? 'AWAITING_SHIPMENT' : 'COMPLETED',
               },
-              onSuccess: (res: any) => {
-                router.push('/account?newAccount=true')
+              onSuccess: async (res: any) => {
                 localStorage.clear()
+                await runClearCart()
+                router.push('/account?newAccount=true')
               },
               onFail: (e: any) => {
-                router.push('/account?orderStatusUpdate=failed')
                 localStorage.clear()
+                router.push('/account?orderStatusUpdate=failed')
+                return toast({ message: e.message, type: 'error' })
               },
             })
           })
-          .catch((e: any) => {
-            logout().catch(() => {
-              return
-            })
+          .catch(async (e: any) => {
+            await logout()
             return toast({ message: e.message, type: 'error' })
           })
       },
@@ -250,11 +256,6 @@ const Page: NextPage = () => {
     refreshCart()
   }, [payment, stripe_session_id, gocardless_session_id])
 
-  const handleClose = ({ toastMessage, toastType }: any) => {
-    setIsLockedPage(false)
-    toast({ message: toastMessage, type: toastType })
-  }
-
   const handlePaymentValidation = async (cartValue: number, cart: any) => {
     const res = await loadLocalStorageData()
 
@@ -293,8 +294,6 @@ const Page: NextPage = () => {
 
       const goCardLessRes = await handleVerifyGoCardLessPayment(gocardless_session_id)
       const { status } = goCardLessRes
-
-      console.log(goCardLessRes)
 
       if (status === 'confirmed') {
         toast({ message: 'Payment successful', type: 'success' })
@@ -347,6 +346,7 @@ const Page: NextPage = () => {
                 gocardlessCustomerId,
               })
             }
+
             return handleClose({
               toastMessage:
                 'Something went wrong. Please contact us at membership@teslaowners.org.uk',
