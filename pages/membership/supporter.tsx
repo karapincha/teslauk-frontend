@@ -23,36 +23,9 @@ import { VERIFY_USER } from '../../lib/graphql'
 
 const Page: NextPage = () => {
   const router = useRouter()
-  const {
-    status,
-    stripe_session_id,
-    gocardless_session_id,
-    payment,
-    billingRequest,
-    customerId,
-    paymentRequest,
-    ref,
-    stripeCustomerId,
-    gocardlessCustomerId,
-  } = router.query
-  const { handleStripePayment, handleVerifyStripePayment } = useStripePayment()
-  const { handleGoCardLessPayment, handleVerifyGoCardLessPayment } = useGoCardLessPayment()
+  const { stripe_session_id, gocardless_session_id, payment, gocardlessCustomerId } = router.query
 
   const { refetchCart }: any = useAppContext()
-  const [isWelcomePackIncluded, setIsWelcomePackIncluded] = useState(true)
-  const [defaultModel, setDefaultModel] = useState('model-3')
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('stripe')
-
-  const [showBrowserWindowAlert, setShowBrowserWindowAlert] = useState(false)
-  const [showPaymentFailedAlert, setShowPaymentFailedAlert] = useState(false)
-  const [isCreatingAccount, setIsCreatingAccount] = useState(false)
-
-  const [isLockedPage, setIsLockedPage] = useState(false)
-
-  const [selectedMembershipProduct, setSelectedMembershipProduct] = useState(
-    Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
-  )
-
   const {
     logout,
     loadingLogout,
@@ -70,21 +43,28 @@ const Page: NextPage = () => {
     runUpdateOrderStatus,
   } = useRegistration()
 
+  const { handleStripePayment, handleVerifyStripePayment } = useStripePayment()
+  const { handleGoCardLessPayment, handleVerifyGoCardLessPayment } = useGoCardLessPayment()
+
+  const [defaultModel, setDefaultModel] = useState('model-3')
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('stripe')
+  const [isLockedPage, setIsLockedPage] = useState(false)
   const [formData, setFormData] = useState<any>()
 
+  /* Queries */
+  const { refetch: verifyUser } = useQuery(VERIFY_USER, {
+    skip: true,
+  })
+
+  /* Get LocalHost Data */
   const loadLocalStorageData: any = async () => {
-    const myPromise = new Promise((resolve, reject) => {
+    const promise = new Promise((resolve, reject) => {
       const localStorageData = JSON.parse(localStorage.getItem('registration') || '{}')
       const localStoragePaidAmount = JSON.parse(localStorage.getItem('paid') || '{}')
       resolve({ ...localStorageData, ...localStoragePaidAmount })
     })
-
-    return myPromise
+    return promise
   }
-
-  const { refetch: verifyUser } = useQuery(VERIFY_USER, {
-    skip: true,
-  })
 
   /* FINALIZE */
   const handleFinalize = async ({ orderId, stripeCustomerId, gocardlessCustomerId }: any) => {
@@ -199,28 +179,33 @@ const Page: NextPage = () => {
   /* HANDLE SUBMISSION */
   const handleSubmit = async (e: any) => {
     e.preventDefault()
+    setIsLockedPage(true)
+
     const { data: logoutRes } = await logout()
 
     if (logoutRes.logout.status === 'SUCCESS') {
       verifyUser({ email: formData?.email, username: formData?.username })
         .then(({ data }: any) => {
-          if (!data?.verifyUser?.byUsername?.id && !data?.verifyUser?.byEmail?.id) {
-            if (selectedPaymentMethod === 'stripe') {
-              return stripeSubscribe()
-            }
+          const hasExistingUser = data?.verifyUser?.byUsername?.id && data?.verifyUser?.byEmail?.id
 
-            if (selectedPaymentMethod === 'gocardless') {
-              return goCardLessBillingRequest()
-            }
+          if (!hasExistingUser && selectedPaymentMethod === 'stripe') {
+            return stripeSubscribe()
           }
 
-          toast({
-            message: 'A user already exists with provided email and/or username',
-            type: 'error',
+          if (!hasExistingUser && selectedPaymentMethod === 'gocardless') {
+            return goCardLessBillingRequest()
+          }
+
+          return handleClose({
+            toastMessage: 'A user already exists with provided email and/or username',
+            toastType: 'error',
           })
         })
-        .catch((res: any) => {
-          toast({ message: res.message, type: 'error' })
+        .catch(({ message }: any) => {
+          return handleClose({
+            toastMessage: message,
+            toastType: 'error',
+          })
         })
     }
   }
@@ -399,9 +384,6 @@ const Page: NextPage = () => {
             })
           )
           setFormData({ ...res, isWelcomePackIncluded: true })
-          setSelectedMembershipProduct(
-            Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
-          )
         } else {
           localStorage.setItem(
             'registration',
@@ -410,16 +392,6 @@ const Page: NextPage = () => {
             })
           )
           setFormData({ ...res })
-
-          if (res?.isWelcomePackIncluded) {
-            setSelectedMembershipProduct(
-              Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
-            )
-          } else {
-            setSelectedMembershipProduct(
-              Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID)
-            )
-          }
         }
       })
       .catch(console.error)
@@ -452,23 +424,6 @@ const Page: NextPage = () => {
               className='mb-[20px]'
             />
 
-            {status === 'success' && showBrowserWindowAlert && (
-              <div className='alert flex w-full max-w-[672px] items-center gap-[20px] rounded-[8px] bg-Y-50 px-[40px] py-[16px] text-md font-500 text-R-800'>
-                <Spinner size={24} />
-                <span>
-                  We are attempting to create your account. Please don't close this browser window
-                  until we re-direct you to your account after completion.
-                </span>
-              </div>
-            )}
-
-            {showPaymentFailedAlert && (
-              <div className='alert flex w-full max-w-[672px] rounded-[8px] bg-R-50 px-[40px] py-[16px] text-md font-500 text-R-500'>
-                We couldn't create your account due to payment failure. You may re-try with a
-                different card or method.
-              </div>
-            )}
-
             <div className='w-[90%] pt-[32px] md:w-[672px]'>
               <div className='relative flex w-full justify-center rounded-t-[8px]'>
                 <img src='/images/register-banner.png' className='w-full rounded-t-[8px]' />
@@ -491,7 +446,7 @@ const Page: NextPage = () => {
                         <p className='text-sm font-500 text-N-600'>
                           <CheckBox
                             defaultChecked={formData?.isWelcomePackIncluded}
-                            disabled={isCreatingAccount}
+                            disabled={isLockedPage}
                             onChange={(e: any) => {
                               setFormData({ ...formData, isWelcomePackIncluded: e.target.checked })
                               localStorage.setItem(
@@ -540,7 +495,7 @@ const Page: NextPage = () => {
                           JSON.stringify({ ...formData, firstName: e.target.value })
                         )
                       }}
-                      disabled={isCreatingAccount}
+                      disabled={isLockedPage}
                       required
                     />
                     <TextField
@@ -554,7 +509,7 @@ const Page: NextPage = () => {
                           JSON.stringify({ ...formData, lastName: e.target.value })
                         )
                       }}
-                      disabled={isCreatingAccount}
+                      disabled={isLockedPage}
                       required
                     />
                   </div>
@@ -571,7 +526,7 @@ const Page: NextPage = () => {
                           JSON.stringify({ ...formData, username: e.target.value })
                         )
                       }}
-                      disabled={isCreatingAccount}
+                      disabled={isLockedPage}
                       required
                     />
                     <TextField
@@ -585,7 +540,7 @@ const Page: NextPage = () => {
                           JSON.stringify({ ...formData, email: e.target.value })
                         )
                       }}
-                      disabled={isCreatingAccount}
+                      disabled={isLockedPage}
                       required
                     />
                   </div>
@@ -603,7 +558,7 @@ const Page: NextPage = () => {
                           JSON.stringify({ ...formData, password: e.target.value })
                         )
                       }}
-                      disabled={isCreatingAccount}
+                      disabled={isLockedPage}
                       required
                     />
                     <TextField
@@ -618,7 +573,7 @@ const Page: NextPage = () => {
                           JSON.stringify({ ...formData, confirmPassword: e.target.value })
                         )
                       }}
-                      disabled={isCreatingAccount}
+                      disabled={isLockedPage}
                       required
                     />
                   </div>
@@ -633,7 +588,7 @@ const Page: NextPage = () => {
                         setFormData({ ...formData, vin: e.target.value })
                         localStorage.setItem('registration', JSON.stringify(formData))
                       }}
-                      disabled={isCreatingAccount}
+                      disabled={isLockedPage}
                     />
                   </div>
 
@@ -652,7 +607,7 @@ const Page: NextPage = () => {
                         }}
                         value={formData?.model || defaultModel}
                         placeholder='Select model'
-                        disabled={isCreatingAccount}
+                        disabled={isLockedPage}
                         required
                       />
 
@@ -675,7 +630,7 @@ const Page: NextPage = () => {
                     </div>
                   </div>
 
-                  {isWelcomePackIncluded && (
+                  {formData?.isWelcomePackIncluded && (
                     <>
                       <div className='flex flex-col gap-[8px]'>
                         <TextField
@@ -689,7 +644,7 @@ const Page: NextPage = () => {
                               JSON.stringify({ ...formData, badgeName: e.target.value })
                             )
                           }}
-                          disabled={isCreatingAccount}
+                          disabled={isLockedPage}
                           required
                         />
                         <p className='text-sm font-500 text-N-600'>
@@ -710,7 +665,7 @@ const Page: NextPage = () => {
                               JSON.stringify({ ...formData, locationName: e.target.value })
                             )
                           }}
-                          disabled={isCreatingAccount}
+                          disabled={isLockedPage}
                           required
                         />
                         <p className='text-sm font-500 text-N-600'>
@@ -727,7 +682,7 @@ const Page: NextPage = () => {
                     required
                     placeholder='Google / Search engine'
                     value={formData?.refSource || ''}
-                    disabled={isCreatingAccount}
+                    disabled={isLockedPage}
                     onChange={(e: any) => {
                       setFormData({ ...formData, refSource: e.target.value })
                       localStorage.setItem(
@@ -830,7 +785,7 @@ const Page: NextPage = () => {
                           JSON.stringify({ ...formData, privacyPolicy: e.target.checked })
                         )
                       }}
-                      disabled={isCreatingAccount}>
+                      disabled={isLockedPage}>
                       By clicking, I agree to adhere to the Club Rules and to the Club Privacy
                       Policy (outlined in the footer below). I agree that the Club may contact me
                       for the purposes of membership administration, marketing and other
@@ -845,7 +800,7 @@ const Page: NextPage = () => {
                     <Button
                       className='w-full text-base !font-600 md:w-[unset] lg:w-[unset]'
                       appearance='primary'
-                      disabled={isCreatingAccount}
+                      disabled={isLockedPage}
                       isLoading={
                         loadingLogout ||
                         loadingUpdateUser ||
