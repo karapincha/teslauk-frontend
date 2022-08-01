@@ -37,8 +37,6 @@ const Page: NextPage = () => {
   const [_showShippingAddressModal, _setShowShippingAddressModal] = useState(false)
   const [_subscriptionOrder, _setSubscriptionOrder] = useState<any>({})
 
-  const [runConfetti, setRunConfetti] = useState(false)
-
   /* Filter and set user's active subscriptions and products */
   useEffect(() => {
     /* Subscriptions */
@@ -148,16 +146,16 @@ const Page: NextPage = () => {
       </Head>
 
       <AuthLayout>
+        {new_account === 'true' && (
+          <Confetti width={width} height={height} run={true} recycle={false} />
+        )}
+
         {_showShippingAddressModal && _subscriptionOrder?.status === 'AWAITING_SHIPMENT' && (
           <div className='fixed top-0 right-0 bottom-0 left-0 flex items-center justify-center bg-slate-400/50'>
             <div className='flex w-full max-w-[600px]'>
               <UpdateOrderAddresses setShowAddressModal={_setShowShippingAddressModal} />
             </div>
           </div>
-        )}
-
-        {!_showShippingAddressModal && new_account === 'true' && (
-          <Confetti width={width} height={height} run={true} recycle={runConfetti} />
         )}
 
         <div className='container gap-[48px] pb-[40px] lg:grid lg:grid-cols-[160px_4fr_1fr] lg:pb-[80px]'>
@@ -245,49 +243,11 @@ const Page: NextPage = () => {
             <div className='flex'>
               {!isMobile && <div className='md:w-full'>{renderMembershipCard()}</div>}
             </div>
-
-            {/* <div className='events w-full rounded-[8px] bg-N-50 px-[24px] py-[24px] md:w-[340px] lg:w-[368px] lg:px-[32px] lg:py-[32px]'>
-              <p className='mb-[16px] text-md text-N-600'>Upcoming events</p>
-
-              <ul className='flex flex-col gap-[8px]'>
-                {upcomingEventsList.map(({ id, url, label, date }, index) => (
-                  <li key={id || index} className='flex justify-between'>
-                    <a target='_blank' href={url} className='text-md text-N-800 hover:text-B-500'>
-                      {label}
-                    </a>
-                    <p className='text-md text-N-800'>{date}</p>
-                  </li>
-                ))}
-              </ul>
-
-              <div className='pt-[8px]'>
-                <Link href='/events'>
-                  <Button
-                    iconAfter={<i className='ri-arrow-right-line text-lg' />}
-                    appearance='link'
-                    size='sm'>
-                    View all events
-                  </Button>
-                </Link>
-              </div>
-            </div> */}
           </div>
         </div>
       </AuthLayout>
     </>
   )
 }
-
-// export async function getStaticProps({ preview = false, previewData, user }: any) {
-//   const data = await getUserOrders()
-
-//   return {
-//     props: {
-//       preview,
-//       orders: data,
-//     },
-//     revalidate: 1,
-//   }
-// }
 
 export default Page

@@ -31,8 +31,8 @@ async function CreateBillingRequest(req, res) {
   })
 
   const billingRequestFlow = await client.billingRequestFlows.create({
-    redirect_uri: `${DOMAIN}?status=success&ref=GoCardLess&customerId=${billingRequest?.links?.customer}&billingRequest=${billingRequest?.id}&paymentRequest=${billingRequest?.links?.payment_request}`,
-    exit_uri: `${DOMAIN}?status=cancelled&ref=GoCardLess&customerId=${billingRequest?.links?.customer}&billingRequest=${billingRequest?.id}&paymentRequest=${billingRequest?.links?.payment_request}`,
+    redirect_uri: `${DOMAIN}?payment=success&ref=GoCardLess&gocardlessCustomerId=${billingRequest?.links?.customer}&billingRequest=${billingRequest?.id}&gocardless_session_id=${billingRequest?.links?.payment_request}`,
+    exit_uri: `${DOMAIN}?payment=cancelled`,
     links: {
       billing_request: billingRequest?.id,
     },

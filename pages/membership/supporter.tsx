@@ -10,10 +10,11 @@ import { useRouter } from 'next/router'
 import { useQuery } from '@apollo/client'
 import { useRegistration } from '@/utils/useRegistration'
 import { useAppContext } from '@/context'
+import { useViewport, useStripePayment, useGoCardLessPayment } from '@/utils'
 
 import { ArrowUpRight } from 'react-feather'
 import { Button, TextField, CheckBox, DropdownMenu, Radio, Spinner } from '@/components/atoms'
-import { SectionHeading } from '@/components/molecules'
+import { SectionHeading, PageLockOverlay } from '@/components/molecules'
 import { Common as CommonLayout } from '@/components/layouts'
 
 import { teslaModels } from '@/static-data/tesla-models'
@@ -22,9 +23,22 @@ import { VERIFY_USER } from '../../lib/graphql'
 
 const Page: NextPage = () => {
   const router = useRouter()
-  const { status, session_id, billingRequest, customerId, paymentRequest, ref, stripeCustomerId } =
-    router.query
-  const { fullUser, user, userOrders }: any = useAppContext()
+  const {
+    status,
+    stripe_session_id,
+    gocardless_session_id,
+    payment,
+    billingRequest,
+    customerId,
+    paymentRequest,
+    ref,
+    stripeCustomerId,
+    gocardlessCustomerId,
+  } = router.query
+  const { handleStripePayment, handleVerifyStripePayment } = useStripePayment()
+  const { handleGoCardLessPayment, handleVerifyGoCardLessPayment } = useGoCardLessPayment()
+
+  const { refetchCart }: any = useAppContext()
   const [isWelcomePackIncluded, setIsWelcomePackIncluded] = useState(true)
   const [defaultModel, setDefaultModel] = useState('model-3')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('stripe')
@@ -32,6 +46,8 @@ const Page: NextPage = () => {
   const [showBrowserWindowAlert, setShowBrowserWindowAlert] = useState(false)
   const [showPaymentFailedAlert, setShowPaymentFailedAlert] = useState(false)
   const [isCreatingAccount, setIsCreatingAccount] = useState(false)
+
+  const [isLockedPage, setIsLockedPage] = useState(false)
 
   const [selectedMembershipProduct, setSelectedMembershipProduct] = useState(
     Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
@@ -71,14 +87,18 @@ const Page: NextPage = () => {
   })
 
   /* FINALIZE */
-  const handleFinalize = async (orderId: any) => {
+  const handleFinalize = async ({ orderId, stripeCustomerId, gocardlessCustomerId }: any) => {
     const res = await loadLocalStorageData()
 
     if (!res && !res.email) {
-      return console.log('Failed to load user data from the submission.')
+      return handleClose({
+        toastMessage:
+          'Failed to load user data from the submission, If the problem persists, please contact support@teslaowners.org.uk',
+        toastType: 'error',
+      })
     }
 
-    runGetRegisteredUser({
+    await runGetRegisteredUser({
       username: res.username,
       password: res.password,
       onSuccess: ({ data }: any) => {
@@ -88,7 +108,7 @@ const Page: NextPage = () => {
             model: res.model || defaultModel,
             vin: res.vin,
             source: res.refSource,
-            gocardlessId: customerId,
+            gocardlessId: gocardlessCustomerId,
             stripeId: stripeCustomerId,
           },
         })
@@ -99,11 +119,11 @@ const Page: NextPage = () => {
                 status: res?.isWelcomePackIncluded ? 'AWAITING_SHIPMENT' : 'COMPLETED',
               },
               onSuccess: (res: any) => {
-                router.push('/account?new_account=true')
+                router.push('/account?newAccount=true')
                 localStorage.clear()
               },
               onFail: (e: any) => {
-                router.push('/account?order_status_update=failed')
+                router.push('/account?orderStatusUpdate=failed')
                 localStorage.clear()
               },
             })
@@ -195,7 +215,7 @@ const Page: NextPage = () => {
           }
 
           toast({
-            message: 'An user already exists with provided email and/or username',
+            message: 'A user already exists with provided email and/or username',
             type: 'error',
           })
         })
@@ -217,77 +237,6 @@ const Page: NextPage = () => {
     router.push(data?.subscription?.url)
   }
 
-  const handleCheckout = async (paymentMethod: string) => {
-    const res = await loadLocalStorageData()
-
-    if (!res && !res.email) {
-      return console.log('Failed to load user data from the submission.')
-    }
-
-    setIsCreatingAccount(true)
-
-    verifyUser({ email: res?.email, username: res?.username }).then(({ data }: any) => {
-      if (!data?.verifyUser?.byUsername?.id && !data?.verifyUser?.byEmail?.id) {
-        setShowBrowserWindowAlert(true)
-        toast({ message: "Payment complete. We'll now create your account", type: 'success' })
-
-        return runCheckout({
-          productId:
-            res?.payment === 3500
-              ? Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID)
-              : Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID),
-          variables: {
-            isPaid: true,
-            paymentMethod: paymentMethod || 'none',
-            email: res.email,
-            firstName: res.firstName,
-            lastName: res.lastName,
-            vin: res.vin,
-            model: res.model || defaultModel,
-            refSource: res.refSource,
-            username: res.username,
-            password: res.password,
-          },
-          onSuccess: ({ data }: any) => {
-            if (data?.checkout?.order?.databaseId) {
-              handleFinalize(data?.checkout?.order?.databaseId)
-            } else {
-              toast({
-                message: 'Something went wrong. Please contact us at membership@teslaowners.org.uk',
-                type: 'error',
-              })
-            }
-          },
-          onFail: (e: any) => {
-            runClearCart()
-            return toast({ message: e.message, type: 'error' })
-          },
-        })
-      } else {
-        localStorage.clear()
-      }
-    })
-  }
-
-  /* Stripe => Verify Payment */
-  const stripeVerifyPayment = async () => {
-    const { data }: any = await axios.post('/api/verify-payment', {
-      session_id,
-    })
-
-    if (data && data.session && data.session.payment_status === 'paid') {
-      handleCheckout('stripe')
-    } else if (data && data.session && data.session.payment_status === 'unpaid') {
-      setShowPaymentFailedAlert(true)
-      setIsCreatingAccount(false)
-      setShowBrowserWindowAlert(false)
-    } else {
-      setShowPaymentFailedAlert(false)
-      setShowBrowserWindowAlert(false)
-      setIsCreatingAccount(false)
-    }
-  }
-
   /* GoCardLess => Create Billing Request */
   const goCardLessBillingRequest = async () => {
     const { data } = await axios.post('/api/gocardless-create-billing-request', {
@@ -300,66 +249,138 @@ const Page: NextPage = () => {
     router.push(data?.billingRequestFlow?.authorisation_url)
   }
 
-  /* GoCardLess => Verify Payment */
-  const goCardLessVerify = async () => {
-    setIsCreatingAccount(true)
-    setShowBrowserWindowAlert(true)
+  useEffect(() => {
+    if (!payment || payment === 'cancelled') return
 
-    const { data } = await axios.post('/api/gocardless-verify-payment', {
-      customerId: customerId,
-      billingRequest: billingRequest,
-      paymentRequest: paymentRequest,
-    })
-
-    const payment = data?.payment
-
-    localStorage.setItem(
-      'paid',
-      JSON.stringify({
-        payment: payment?.amount,
+    const refreshCart = async () => {
+      setIsLockedPage(true)
+      let cartValue = 0
+      await refetchCart().then(({ data }: any) => {
+        cartValue = Number(data?.cart?.total?.substring(1))
+        return handlePaymentValidation(cartValue, data?.cart)
       })
-    )
+      return cartValue
+    }
 
-    if (payment && payment.status === 'confirmed') {
-      goCardLessSubscribe()
-    } else if (payment && payment.status === 'failed') {
-      setShowPaymentFailedAlert(true)
-      setIsCreatingAccount(false)
-      setShowBrowserWindowAlert(false)
-    } else {
-      setShowPaymentFailedAlert(false)
-      setShowBrowserWindowAlert(false)
-      setIsCreatingAccount(false)
+    refreshCart()
+  }, [payment, stripe_session_id, gocardless_session_id])
+
+  const handleClose = ({ toastMessage, toastType }: any) => {
+    setIsLockedPage(false)
+    toast({ message: toastMessage, type: toastType })
+  }
+
+  const handlePaymentValidation = async (cartValue: number, cart: any) => {
+    const res = await loadLocalStorageData()
+
+    /* Check if LocalHost has user form data */
+    if (!res || !res.email) {
+      router.push({ query: {} })
+      return handleClose({
+        toastMessage:
+          'Failed to load user data from the submission, If the problem persists, please contact support@teslaowners.org.uk',
+        toastType: 'error',
+      })
+    }
+
+    /* Handle Stripe */
+    if (payment && payment === 'success' && stripe_session_id) {
+      setSelectedPaymentMethod('stripe')
+
+      const stripeRes = await handleVerifyStripePayment(stripe_session_id)
+      const { status, customer } = stripeRes
+
+      if (status === 'complete') {
+        toast({ message: 'Payment successful', type: 'success' })
+        return handleOrder({ cart, stripeCustomerId: customer })
+      }
+
+      return handleClose({
+        toastMessage:
+          'Payment failed. If the problem persists, please contact support@teslaowners.org.uk',
+        toastType: 'error',
+      })
+    }
+
+    /* Handle GoCardLess */
+    if (payment && payment === 'success' && gocardless_session_id) {
+      setSelectedPaymentMethod('gocardless')
+
+      const goCardLessRes = await handleVerifyGoCardLessPayment(gocardless_session_id)
+      const { status } = goCardLessRes
+
+      console.log(goCardLessRes)
+
+      if (status === 'confirmed') {
+        toast({ message: 'Payment successful', type: 'success' })
+        return handleOrder({ cart, gocardlessCustomerId })
+      }
+
+      return handleClose({
+        toastMessage:
+          'Payment failed. If the problem persists, please contact support@teslaowners.org.uk',
+        toastType: 'error',
+      })
     }
   }
 
-  /* GoCardLess => Subscribe */
-  const goCardLessSubscribe = async () => {
-    const { data } = await axios.post('/api/gocardless-create-subscription', {
-      customerId: customerId,
-    })
+  const handleOrder = async ({ cart, stripeCustomerId }: any) => {
+    const res = await loadLocalStorageData()
 
-    if (data?.subscription?.status === 'active') {
-      handleCheckout('gocardless')
-    } else {
-      toast({
-        message: 'Something went wrong. Please contact us at membership@teslaowners.org.uk',
-        type: 'error',
+    if (!res && !res.email) {
+      return handleClose({
+        toastMessage:
+          'Failed to load user data from the submission, If the problem persists, please contact support@teslaowners.org.uk',
+        toastType: 'error',
       })
     }
+
+    await verifyUser({ email: res?.email, username: res?.username }).then(({ data }: any) => {
+      /* Process if a user doesn't exist with provided email or username */
+      if (!data?.verifyUser?.byUsername?.id && !data?.verifyUser?.byEmail?.id) {
+        return runCheckout({
+          productId: !res?.isWelcomePackIncluded
+            ? Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITHOUT_WELCOME_PACK_ID)
+            : Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID),
+          variables: {
+            isPaid: true,
+            paymentMethod: selectedPaymentMethod,
+            email: res.email,
+            firstName: res.firstName,
+            lastName: res.lastName,
+            vin: res.vin,
+            model: res.model || defaultModel,
+            refSource: res.refSource,
+            username: res.username,
+            password: res.password,
+          },
+          onSuccess: ({ data }: any) => {
+            if (data?.checkout?.order?.databaseId) {
+              return handleFinalize({
+                orderId: data?.checkout?.order?.databaseId,
+                stripeCustomerId,
+                gocardlessCustomerId,
+              })
+            }
+            return handleClose({
+              toastMessage:
+                'Something went wrong. Please contact us at membership@teslaowners.org.uk',
+              toastType: 'error',
+            })
+          },
+          onFail: async (e: any) => {
+            await runClearCart()
+            return handleClose({
+              toastMessage: e.message,
+              toastType: 'error',
+            })
+          },
+        })
+      }
+
+      return localStorage.clear()
+    })
   }
-
-  useEffect(() => {
-    if (session_id && formData?.email) {
-      stripeVerifyPayment()
-    }
-  }, [session_id, formData])
-
-  useEffect(() => {
-    if (customerId && ref === 'GoCardLess') {
-      goCardLessVerify()
-    }
-  }, [customerId, ref])
 
   useEffect(() => {
     const fetchLocalData = async () => {
@@ -413,6 +434,13 @@ const Page: NextPage = () => {
       </Head>
 
       <CommonLayout>
+        {isLockedPage && (
+          <PageLockOverlay
+            heading='We are creating your account'
+            description='Please do not close this window, until we are finished.'
+          />
+        )}
+
         <div className='container'>
           {/* bg-[url(/images/hero-pattern.svg)] */}
           <div className='flex flex-col items-center rounded-[8px] bg-N-50 bg-cover bg-no-repeat py-[24px] md:pt-[40px] md:pb-[80px] lg:pt-[80px] lg:pb-[80px]'>
@@ -802,15 +830,13 @@ const Page: NextPage = () => {
                           JSON.stringify({ ...formData, privacyPolicy: e.target.checked })
                         )
                       }}
-                      disabled={isCreatingAccount}
-                    />
-                    <p className='text-sm font-500 text-N-600'>
+                      disabled={isCreatingAccount}>
                       By clicking, I agree to adhere to the Club Rules and to the Club Privacy
                       Policy (outlined in the footer below). I agree that the Club may contact me
                       for the purposes of membership administration, marketing and other
                       communications as set out in our Club Privacy Policy. You may opt out at any
                       time.
-                    </p>
+                    </CheckBox>
                   </div>
                 </div>
 

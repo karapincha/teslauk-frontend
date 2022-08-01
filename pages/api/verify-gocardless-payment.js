@@ -21,7 +21,7 @@ async function verifyGoCardLessPayment(req, res) {
       }
     })[0]) || {}
 
-  return res.json({ status: payment?.status })
+  return res.json({ status: payment?.status, payment })
 }
 
 export default verifyGoCardLessPayment

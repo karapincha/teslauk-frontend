@@ -8,7 +8,9 @@ async function verifyStripePayment(req, res) {
     .retrieve(sessionId)
     .then(session => {
       return res.json({
+        session,
         status: session?.status,
+        customer: session?.customer,
         amount: session?.amount_total / 100,
       })
     })

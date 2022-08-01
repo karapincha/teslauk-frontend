@@ -36,15 +36,6 @@ const Page: NextPage = () => {
 
   const { user, fullUser, refetchFullUser, cart, refetchCart }: any = useAppContext()
 
-  useEffect(() => {
-    console.log(fullUser?.customer?.billing)
-    console.log(fullUser?.customer?.shipping)
-  }, [fullUser])
-
-  useEffect(() => {
-    console.log(user)
-  }, [user])
-
   const [showAddressModal, setShowAddressModal] = useState(false)
   const [addressModalHeading, setAddressModalHeading] = useState<any>(null)
   const [selectedAddress, setSelectedAddress] = useState<any>(null)
@@ -152,172 +143,146 @@ const Page: NextPage = () => {
   }
 
   useEffect(() => {
-    if (!payment) {
-      return
-    }
-
-    if (payment === 'success') {
-      setIsLockedPage(true)
-    }
-
-    if (payment === 'cancelled') {
-      return
-    }
+    if (!payment || payment === 'cancelled') return
 
     const refreshCart = async () => {
+      setIsLockedPage(true)
       let cartValue = 0
-
-      refetchCart()
-        .then(({ data }: any) => {
-          cartValue = Number(data?.cart?.total?.substring(1))
-          return handlePaymentValidation(cartValue, data?.cart)
-        })
-        .catch()
-
+      await refetchCart().then(({ data }: any) => {
+        cartValue = Number(data?.cart?.total?.substring(1))
+        return handlePaymentValidation(cartValue, data?.cart)
+      })
       return cartValue
     }
 
     refreshCart()
   }, [payment, stripe_session_id, gocardless_session_id])
 
+  /* Verify Payment by Returned Key */
   const handlePaymentValidation = async (cartValue: number, cart: any) => {
-    if (cart?.contents?.nodes?.length === 0) {
-      setIsLoading(false)
+    const handleClose = ({ toastMessage, toastType }: any) => {
       setIsLockedPage(false)
-      toast({ message: 'Your cart is empty', type: 'warning' })
+      toast({ message: toastMessage, type: toastType })
+    }
+
+    /* Handle Empty Cart */
+    if (cart?.contents?.nodes?.length === 0) {
+      handleClose({ toastMessage: 'Your cart is empty', toastType: 'error' })
       return router.push({ query: {} })
     }
 
-    /* Stripe */
+    /* Handle Stripe */
     if (payment && payment === 'success' && stripe_session_id) {
-      verifyOrderPaymentKey({
+      await verifyOrderPaymentKey({
         variables: {
           input: { paymentKey: stripe_session_id },
         },
-      })
-        .then(async ({ data }: any) => {
-          const existingOrders = JSON.parse(data?.verifyOrderByOrderKey?.orders)
+      }).then(async ({ data }: any) => {
+        setSelectedPaymentMethod('stripe')
+        const existingOrders = JSON.parse(data?.verifyOrderByOrderKey?.orders)
 
-          if (existingOrders.length === 0) {
-            setSelectedPaymentMethod('stripe')
+        if (existingOrders?.length > 0) {
+          return handleClose({
+            toastMessage:
+              'You have already placed an order with this payment key. If you are certain this is a mistake, please contact support@teslaowners.org.uk',
+            toastType: 'error',
+          })
+        }
 
-            const { status } = await handleVerifyStripePayment(stripe_session_id)
-            if (status === 'complete') {
-              toast({ message: 'Payment successful', type: 'success' })
-              await refetchFullUser()
-              return handleOrder(cart)
-            } else {
-              setIsLoading(false)
-              return toast({
-                message:
-                  'Payment failed. Please re-try. If the problem persists, please contact support@teslaowners.org.uk',
-                type: 'error',
-              })
-            }
-          } else {
-            setIsLoading(false)
-            setIsLockedPage(false)
-            return toast({
-              message:
-                'You have already placed an order with this payment key. If you think this is a mistake, please contact support@teslaowners.org.uk',
-              type: 'error',
-            })
-          }
+        const { status } = await handleVerifyStripePayment(stripe_session_id)
+
+        if (status === 'complete') {
+          toast({ message: 'Payment successful', type: 'success' })
+          return handleOrder(cart)
+        }
+
+        return handleClose({
+          toastMessage:
+            'Payment failed. If the problem persists, please contact support@teslaowners.org.uk',
+          toastType: 'error',
         })
-        .catch()
+      })
     }
 
-    /* GoCardLess */
+    /* Handle GoCardLess */
     if (payment && payment === 'success' && gocardless_session_id) {
-      verifyOrderPaymentKey({
+      await verifyOrderPaymentKey({
         variables: {
           input: { paymentKey: gocardless_session_id },
         },
-      })
-        .then(async ({ data }: any) => {
-          const existingOrders = JSON.parse(data?.verifyOrderByOrderKey?.orders)
+      }).then(async ({ data }: any) => {
+        setSelectedPaymentMethod('gocardless')
+        const existingOrders = JSON.parse(data?.verifyOrderByOrderKey?.orders)
 
-          if (existingOrders.length === 0) {
-            setSelectedPaymentMethod('gocardless')
-            const { status } = await handleVerifyGoCardLessPayment(gocardless_session_id)
+        if (existingOrders?.length > 0) {
+          return handleClose({
+            toastMessage:
+              'You have already placed an order with this payment key. If you are certain this is a mistake, please contact support@teslaowners.org.uk',
+            toastType: 'error',
+          })
+        }
 
-            if (status === 'confirmed') {
-              toast({ message: 'Payment successful', type: 'success' })
-              await refetchFullUser()
-              return handleOrder(cart)
-            } else {
-              setIsLoading(false)
-              return toast({
-                message:
-                  'Payment failed. Please re-try. If the problem persists, please contact support@teslaowners.org.uk',
-                type: 'error',
-              })
-            }
-          } else {
-            setIsLoading(false)
-            setIsLockedPage(false)
-            return toast({
-              message:
-                'You have already placed an order with this payment key. If you think this is a mistake, please contact support@teslaowners.org.uk',
-              type: 'error',
-            })
-          }
+        const { status } = await handleVerifyGoCardLessPayment(gocardless_session_id)
+
+        if (status === 'confirmed') {
+          toast({ message: 'Payment successful', type: 'success' })
+          await refetchFullUser()
+          return handleOrder(cart)
+        }
+
+        return handleClose({
+          toastMessage:
+            'Payment failed. If the problem persists, please contact support@teslaowners.org.uk',
+          toastType: 'error',
         })
-        .catch()
+      })
     }
   }
 
+  /* Process Order */
   const handleOrder = async (cart: any) => {
-    refetchFullUser()
-      .then(({ data }: any) => {
-        const billingAddress = data?.customer?.billing
-        const shippingAddress = data?.customer?.shipping
+    await refetchFullUser().then(async ({ data }: any) => {
+      const billingAddress = data?.customer?.billing
+      const shippingAddress = data?.customer?.shipping
 
-        placeOrder({
-          variables: {
-            input: {
-              metaData: [{ key: 'paymentKey', value: stripe_session_id || gocardless_session_id }],
-              paymentMethod: selectedPaymentMethod,
-              isPaid: true,
-              shipToDifferentAddress: true,
-              billing: {
-                address1: billingAddress?.address1,
-                firstName: billingAddress?.firstName,
-                lastName: billingAddress?.lastName,
-                phone: billingAddress?.phone,
-                city: billingAddress?.city,
-                postcode: billingAddress?.postcode,
-                state: billingAddress?.state,
-                email: billingAddress?.email,
-              },
-              shipping: {
-                address1: shippingAddress?.address1,
-                firstName: shippingAddress?.firstName,
-                lastName: shippingAddress?.lastName,
-                phone: shippingAddress?.phone,
-                city: shippingAddress?.city,
-                postcode: shippingAddress?.postcode,
-                state: shippingAddress?.state,
-                email: shippingAddress?.email,
-              },
+      await placeOrder({
+        variables: {
+          input: {
+            metaData: [{ key: 'paymentKey', value: stripe_session_id || gocardless_session_id }],
+            paymentMethod: selectedPaymentMethod,
+            isPaid: true,
+            shipToDifferentAddress: true,
+            billing: {
+              address1: billingAddress?.address1,
+              firstName: billingAddress?.firstName,
+              lastName: billingAddress?.lastName,
+              phone: billingAddress?.phone,
+              city: billingAddress?.city,
+              postcode: billingAddress?.postcode,
+              state: billingAddress?.state,
+              email: billingAddress?.email,
+            },
+            shipping: {
+              address1: shippingAddress?.address1,
+              firstName: shippingAddress?.firstName,
+              lastName: shippingAddress?.lastName,
+              phone: shippingAddress?.phone,
+              city: shippingAddress?.city,
+              postcode: shippingAddress?.postcode,
+              state: shippingAddress?.state,
+              email: shippingAddress?.email,
             },
           },
-        })
-          .then(async ({ data }: any) => {
-            if (data?.checkout?.result === 'success') {
-              toast({ message: 'Order successful', type: 'success' })
-              await clearCart()
-              await refetchCart()
-              return router.push('/shop/order-success')
-            }
-          })
-          .catch((res: any) => {
-            console.log(res)
-          })
+        },
+      }).then(async ({ data }: any) => {
+        if (data?.checkout?.result === 'success') {
+          toast({ message: 'Order successful', type: 'success' })
+          await clearCart()
+          await refetchCart()
+          return router.push('/shop/order-success')
+        }
       })
-      .catch((res: any) => {
-        console.log(res)
-      })
+    })
   }
 
   const renderPagePlaceholder = () => {

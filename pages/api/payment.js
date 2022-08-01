@@ -2,7 +2,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 const DOMAIN = `${process.env.FRONTEND_DOMAIN}/membership/supporter`
 
 async function CreateStripeSubscription(req, res) {
-  const { name, isWelcomePackIncluded, email, clientRef, product } = req.body
+  const { isWelcomePackIncluded, email, clientRef } = req.body
 
   const lineItems = isWelcomePackIncluded
     ? [
@@ -23,16 +23,13 @@ async function CreateStripeSubscription(req, res) {
       ]
 
   const subscription = await stripe.checkout.sessions.create({
-    billing_address_collection: 'required',
+    billing_address_collection: 'auto',
     line_items: lineItems,
     mode: 'subscription',
     customer_email: email,
-    success_url: `${DOMAIN}?status=success&session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${DOMAIN}?status=cancelled&session_id={CHECKOUT_SESSION_ID}`,
+    success_url: `${DOMAIN}?payment=success&stripe_session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${DOMAIN}?payment=cancelled`,
     client_reference_id: clientRef,
-    payment_intent_data: {
-      description: 'Tesla Owners UK Membership',
-    },
   })
 
   res.json({ subscription })
