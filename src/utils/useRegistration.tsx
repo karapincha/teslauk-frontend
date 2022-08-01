@@ -34,7 +34,7 @@ export const useRegistration = () => {
   })
 
   /* Functions ===> */
-  const runClearCart = (onSuccess?: any, onFail?: any) => {
+  const runClearCart = async (onSuccess?: any, onFail?: any) => {
     clearCart()
       .then((res: any) => {
         if (onSuccess) {

@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Header, Footer, SupplierRibbon } from '@/components/sections'
-import { useViewport } from '@/utils'
-import { useMutation, gql } from '@apollo/client'
-import { Button, CheckBox, TextField } from '@/components/atoms'
-import { CheckoutCard, PagePlaceholder, PageLockOverlay } from '@/components/molecules'
+
+import { Button, CheckBox } from '@/components/atoms'
 import { PaymentGateway } from '@/components/sections/PaymentGateway'
-import { AddressCard } from '@/components/molecules/AddressCard'
-import { useRouter } from 'next/router'
-
 import { Common as CommonLayout } from '@/components/layouts'
-import { AddressModal } from '@/components/molecules'
+import {
+  CheckoutCard,
+  PagePlaceholder,
+  PageLockOverlay,
+  AddressModal,
+  AddressCard,
+  toast,
+} from '@/components/molecules'
 
-import { toast } from '@/components/molecules'
-
+import { useRouter } from 'next/router'
+import { useMutation } from '@apollo/client'
+import { useViewport, useStripePayment, useGoCardLessPayment } from '@/utils'
 import { useAppContext } from '@/context'
-import { useStripePayment, useGoCardLessPayment } from '@/utils'
 
 import {
   UPDATE_SHIPPING,
@@ -30,69 +31,124 @@ import Link from 'next/link'
 const Page: NextPage = () => {
   const router = useRouter()
   const { payment, stripe_session_id, gocardless_session_id } = router.query
-  const { isMobile, isTablet, isDesktop } = useViewport()
   const { handleStripePayment, handleVerifyStripePayment } = useStripePayment()
   const { handleGoCardLessPayment, handleVerifyGoCardLessPayment } = useGoCardLessPayment()
 
   const { user, fullUser, refetchFullUser, cart, refetchCart }: any = useAppContext()
 
+  useEffect(() => {
+    console.log(fullUser?.customer?.billing)
+    console.log(fullUser?.customer?.shipping)
+  }, [fullUser])
+
+  useEffect(() => {
+    console.log(user)
+  }, [user])
+
   const [showAddressModal, setShowAddressModal] = useState(false)
-  const [addressModalHeading, setAddressModalHeading] = useState('')
-  const [selectedAddress, setSelectedAddress] = useState<any>({})
-  const [selectedAddressType, setSelectedAddressType] = useState<any>('')
+  const [addressModalHeading, setAddressModalHeading] = useState<any>(null)
+  const [selectedAddress, setSelectedAddress] = useState<any>(null)
+  const [selectedAddressType, setSelectedAddressType] = useState<any>(null)
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('stripe')
 
   const [agreedToTerms, setAgreedToTerms] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [isLockedPage, setIsLockedPage] = useState(false)
+  const [showUseBillingAddress, setShowUseBillingAddress] = useState(false)
 
   const [updateShipping, { loading: loadingUpdateShipping }] = useMutation(UPDATE_SHIPPING)
   const [updateBilling, { loading: loadingUpdateBilling }] = useMutation(UPDATE_BILLING)
+
   const [placeOrder, { loading: loadingPlaceOrder }] = useMutation(PLACE_ORDER)
   const [clearCart, { loading: loadingClearCart }] = useMutation(CLEAR_CART)
   const [verifyOrderPaymentKey, { loading: loadingVerifyOrderPaymentKey }] =
     useMutation(VERIFY_ORDER_PAYMENT_KEY)
 
-  const handleCloseAddressModal = async () => {
-    await refetchFullUser()
+  /* ===== START Address Modal Logics ===== */
+  const handleCloseAddressModal = async ({ status }: any) => {
     setShowAddressModal(false)
-    setAddressModalHeading('')
-    setSelectedAddress({})
-    setSelectedAddressType('')
+    setAddressModalHeading(null)
+    setSelectedAddress(null)
+    setSelectedAddressType(null)
+
+    if (status === 'success') {
+      return toast({ message: 'Address updated', type: 'success' })
+    } else if (status === 'error') {
+      return toast({ message: 'Error updating address', type: 'error' })
+    }
   }
 
-  const handleSubmit = async () => {
-    setIsLoading(true)
-
-    if (!fullUser?.customer?.shipping?.address1 || !fullUser?.customer?.shipping?.city) {
-      setIsLoading(false)
-      setSelectedAddressType('confirm-shipping')
-      setSelectedAddress(fullUser?.customer?.shipping)
-      setAddressModalHeading('Confirm Shipping Address')
-      setShowAddressModal(true)
-      return toast({ message: 'Please confirm your shipping address', type: 'warning' })
+  const handleSubmitAddressModal = async ({ address }: any) => {
+    const successHandle = async () => {
+      await refetchFullUser()
+      return handleCloseAddressModal({ status: 'success' })
     }
 
+    if (selectedAddressType === 'shipping') {
+      updateShipping({ variables: { ...address, id: user?.databaseId } })
+        .then(async () => successHandle())
+        .catch(() => handleCloseAddressModal({ status: 'error' }))
+    }
+
+    if (selectedAddressType === 'billing') {
+      updateBilling({
+        variables: { ...address, id: user?.databaseId },
+      })
+        .then(async () => successHandle())
+        .catch(() => handleCloseAddressModal({ status: 'error' }))
+    }
+  }
+  /* ===== END Address Modal Logics ===== */
+
+  const handleSubmit = async () => {
+    /* Billing address validation */
+    if (
+      !fullUser?.customer?.billing?.address1 ||
+      !fullUser?.customer?.billing?.city ||
+      !fullUser?.customer?.billing?.postcode ||
+      !fullUser?.customer?.billing?.phone
+    ) {
+      setSelectedAddress(fullUser?.customer?.billing)
+      setAddressModalHeading('Update billing Address')
+      setSelectedAddressType('billing')
+      setShowAddressModal(true)
+      return toast({ message: 'Please update your billing address', type: 'warning' })
+    }
+
+    /* Shipping address validation */
+    if (
+      !fullUser?.customer?.shipping?.address1 ||
+      !fullUser?.customer?.shipping?.city ||
+      !fullUser?.customer?.shipping?.postcode ||
+      !fullUser?.customer?.shipping?.phone
+    ) {
+      setSelectedAddress(fullUser?.customer?.shipping)
+      setAddressModalHeading('Update Shipping Address')
+      setSelectedAddressType('shipping')
+      setShowUseBillingAddress(true)
+      setShowAddressModal(true)
+      return toast({ message: 'Please update your shipping address', type: 'warning' })
+    }
+
+    /* TOS agreement validation */
     if (!agreedToTerms) {
-      setIsLoading(false)
       return toast({ message: 'You must agree to the terms and conditions', type: 'error' })
     }
 
-    /* Stripe */
+    /* Start loader */
+    setIsLoading(true)
+
+    /* Process Stripe */
     if (selectedPaymentMethod === 'stripe') {
       const paymentLink = await handleStripePayment({ cart, email: user?.email })
-      setIsLoading(false)
       return router.push(paymentLink)
     }
 
-    /* GoCardLess */
+    /* Process GoCardLess */
     if (selectedPaymentMethod === 'gocardless') {
       const paymentLink = await handleGoCardLessPayment({ cart, email: user?.email })
-      setIsLoading(false)
       return router.push(paymentLink)
     }
-
-    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -307,42 +363,14 @@ const Page: NextPage = () => {
           <>
             {showAddressModal && (
               <AddressModal
-                heading={addressModalHeading}
-                showUseBillingAddress={selectedAddressType === 'confirm-shipping'}
-                onClose={handleCloseAddressModal}
                 isLoading={loadingUpdateShipping || loadingUpdateBilling}
+                heading={addressModalHeading}
+                showUseBillingAddress={showUseBillingAddress}
                 billingAddress={fullUser?.customer?.billing}
                 shippingAddress={fullUser?.customer?.shipping}
                 address={selectedAddress}
-                selectedAddressType={selectedAddressType}
-                onSubmit={(address: any) => {
-                  if (
-                    selectedAddressType === 'shipping' ||
-                    selectedAddressType === 'confirm-shipping'
-                  ) {
-                    updateShipping({ variables: { ...address, id: user?.databaseId } })
-                      .then((res: any) => {
-                        handleCloseAddressModal()
-                        return toast({ message: 'Shipping address updated', type: 'success' })
-                      })
-                      .catch((res: any) => {
-                        handleCloseAddressModal()
-                        return toast({ message: 'Something went wrong.', type: 'error' })
-                      })
-                  }
-
-                  if (selectedAddressType === 'billing') {
-                    updateBilling({ variables: { ...address, id: user?.databaseId } })
-                      .then((res: any) => {
-                        handleCloseAddressModal()
-                        return toast({ message: 'Billing address updated', type: 'success' })
-                      })
-                      .catch((res: any) => {
-                        handleCloseAddressModal()
-                        return toast({ message: 'Something went wrong.', type: 'error' })
-                      })
-                  }
-                }}
+                onClose={handleCloseAddressModal}
+                onSubmit={handleSubmitAddressModal}
               />
             )}
 
@@ -410,40 +438,38 @@ const Page: NextPage = () => {
                 <div className='flex w-full flex-col gap-[32px]'>
                   <AddressCard
                     heading='Billing address'
-                    type='billing'
                     name={`${fullUser?.customer?.billing?.firstName} ${fullUser?.customer?.billing?.lastName}`}
                     address={`
-          ${fullUser?.customer?.billing?.address1 || ''} <br />
-          ${fullUser?.customer?.billing?.city || ''} <br />
-          ${fullUser?.customer?.billing?.postcode || ''} <br />
-          ${fullUser?.customer?.billing?.state || ''}
-          `}
-                    phoneNumber={fullUser?.customer?.billing?.phone}
-                    email={fullUser?.customer?.billing?.email}
+                      ${fullUser?.customer?.billing?.address1 || ''} <br />
+                      ${fullUser?.customer?.billing?.city || ''} <br />
+                      ${fullUser?.customer?.billing?.postcode || ''} <br />
+                      ${fullUser?.customer?.billing?.state || ''} <br />
+                      ${fullUser?.customer?.billing?.phone || ''} <br />
+                      ${fullUser?.customer?.billing?.email || ''}
+                    `}
                     onEditClick={() => {
                       setSelectedAddress(fullUser?.customer?.billing)
                       setAddressModalHeading('Update billing address')
-                      setShowAddressModal(true)
                       setSelectedAddressType('billing')
+                      setShowAddressModal(true)
                     }}
                   />
 
                   <AddressCard
                     heading='Shipping address'
-                    type='shipping'
                     name={`${fullUser?.customer?.shipping?.firstName} ${fullUser?.customer?.shipping?.lastName}`}
                     address={`
-          ${fullUser?.customer?.shipping?.address1 || ''} <br />
-          ${fullUser?.customer?.shipping?.city || ''} <br />
-          ${fullUser?.customer?.shipping?.postcode || ''} <br />
-          ${fullUser?.customer?.shipping?.state || ''}
-          `}
-                    phoneNumber={fullUser?.customer?.shipping?.phone}
+                      ${fullUser?.customer?.shipping?.address1 || ''} <br />
+                      ${fullUser?.customer?.shipping?.city || ''} <br />
+                      ${fullUser?.customer?.shipping?.postcode || ''} <br />
+                      ${fullUser?.customer?.shipping?.state || ''} <br />
+                      ${fullUser?.customer?.shipping?.phone || ''}
+                    `}
                     onEditClick={() => {
                       setSelectedAddress(fullUser?.customer?.shipping)
                       setAddressModalHeading('Update shipping address')
-                      setShowAddressModal(true)
                       setSelectedAddressType('shipping')
+                      setShowAddressModal(true)
                     }}
                   />
                 </div>

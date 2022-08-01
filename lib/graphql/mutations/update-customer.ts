@@ -38,12 +38,6 @@ export const UPDATE_BILLING = gql`
         billing {
           firstName
           lastName
-          email
-        }
-        shipping {
-          firstName
-          lastName
-          email
         }
       }
     }
@@ -58,7 +52,6 @@ export const UPDATE_SHIPPING = gql`
     $city: String
     $company: String
     $country: CountriesEnum
-    $email: String
     $firstName: String
     $lastName: String
     $phone: String
@@ -74,7 +67,6 @@ export const UPDATE_SHIPPING = gql`
           city: $city
           company: $company
           country: $country
-          email: $email
           firstName: $firstName
           lastName: $lastName
           phone: $phone
@@ -88,7 +80,6 @@ export const UPDATE_SHIPPING = gql`
         shipping {
           firstName
           lastName
-          email
         }
       }
     }

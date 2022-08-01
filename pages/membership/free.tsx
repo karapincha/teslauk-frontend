@@ -97,7 +97,7 @@ const Page: NextPage = () => {
   }
 
   /* FINALIZE */
-  const handleFinalize = (orderId: any) => {
+  const handleFinalize = async (orderId: any) => {
     runGetRegisteredUser({
       username,
       password,
@@ -116,7 +116,8 @@ const Page: NextPage = () => {
                 orderId: orderId,
                 status: 'COMPLETED',
               },
-              onSuccess: () => {
+              onSuccess: async () => {
+                await runClearCart()
                 router.push('/account?new_account=true')
               },
               onFail: (e: any) => {
@@ -371,15 +372,13 @@ const Page: NextPage = () => {
                       checked={privacyPolicy}
                       onChange={(e: any) => {
                         setPrivacyPolicy(e.target.checked)
-                      }}
-                    />
-                    <p className='text-sm font-500 text-N-600'>
+                      }}>
                       By clicking, I agree to adhere to the Club Rules and to the Club Privacy
                       Policy (outlined in the footer below). I agree that the Club may contact me
                       for the purposes of membership administration, marketing and other
                       communications as set out in our Club Privacy Policy. You may opt out at any
                       time.
-                    </p>
+                    </CheckBox>
                   </div>
                 </div>
 

@@ -4,19 +4,6 @@ export const GET_FULL_USER = gql`
   query getFullUser($id: ID!) {
     customer: customer(id: $id) {
       id
-      billing {
-        address1
-        city
-        address2
-        company
-        country
-        email
-        firstName
-        lastName
-        phone
-        postcode
-        state
-      }
       calculatedShipping
       databaseId
       date
@@ -62,18 +49,30 @@ export const GET_FULL_USER = gql`
       }
       username
       totalSpent
-      shipping {
+      billing {
+        firstName
+        lastName
+        company
         address1
         address2
         city
-        company
-        country
-        email
-        firstName
-        lastName
-        phone
         postcode
         state
+        country
+        phone
+        email
+      }
+      shipping {
+        firstName
+        lastName
+        company
+        address1
+        address2
+        city
+        postcode
+        state
+        country
+        phone
       }
     }
     memberships: userMemberships {
@@ -81,12 +80,6 @@ export const GET_FULL_USER = gql`
       id
       name
       slug
-      data_json
-    }
-    subscriptions: userSubscriptions {
-      datePaid
-      lastPayment
-      nextPayment
       data_json
     }
     activeSubscriptions: userActiveSubscriptions {

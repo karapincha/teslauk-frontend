@@ -81,6 +81,8 @@ export function AppWrapper({ children, values }: any) {
     }
   }, [fullUser])
 
+  useOutsideClick(wrapperRef, () => setShowSideMenu(false), hamburgerRef)
+
   let sharedState = {
     isLoading: isPageLoading || loadingCommonData,
     sidemenu: {
@@ -102,8 +104,6 @@ export function AppWrapper({ children, values }: any) {
     cart: cart?.cart,
     refetchCart,
   }
-
-  useOutsideClick(wrapperRef, () => setShowSideMenu(false), hamburgerRef)
 
   return <AppContext.Provider value={{ ...sharedState, ...values }}>{children}</AppContext.Provider>
 }
