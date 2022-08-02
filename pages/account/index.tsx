@@ -23,7 +23,8 @@ const Page: NextPage = () => {
   const router = useRouter()
   const { newAccount } = router?.query
   const { isDesktop, isMobile, isTablet } = useViewport()
-  const { isSupporter, fullUser, fullUserLoading, user, userOrders }: any = useAppContext()
+  const { isSupporter, subscription, fullUser, fullUserLoading, user, userOrders }: any =
+    useAppContext()
 
   const [_subscriptions, _setSubscriptions] = useState<any>()
   const [_subscribedProducts, _setSubscribedProducts] = useState<any>()
@@ -119,19 +120,15 @@ const Page: NextPage = () => {
     console.log(`isSupporter`, isSupporter)
   }
 
-  // useEffect(() => {
-  //   console.log(fullUser)
-  // }, [fullUser])
+  useEffect(() => {
+    console.log(`subscription`, subscription)
+  }, [subscription])
 
   const renderMembershipCard = () => {
     return (
       <>
-        <MemberCard
-          name={`${user?.firstName} ${user?.lastName}`}
-          email={user?.email}
-          type={_activeSubscription?.name || `N/A`}
-          expireDate={_expiryDate}
-        />
+        <MemberCard />
+
         <p
           className='py-[12px] text-center text-md text-N-600'
           dangerouslySetInnerHTML={{
@@ -140,6 +137,18 @@ const Page: NextPage = () => {
         />
       </>
     )
+  }
+
+  const membershipType = () => {
+    if (isSupporter === null || isSupporter === undefined) {
+      return 'N/A'
+    }
+
+    if (isSupporter) {
+      return 'Supporter Membership'
+    } else {
+      return 'Free Membership'
+    }
   }
 
   return (
@@ -176,64 +185,60 @@ const Page: NextPage = () => {
             </div>
           </div>
 
-          <div>
+          <div className='flex flex-col gap-[32px]'>
             <h4 className='text-h4 font-600 text-N-800'>Hello {`${user?.firstName}, Good Day!`}</h4>
 
             {isMobile && <div className='pt-[24px]'>{renderMembershipCard()}</div>}
 
-            <div className='pt-[24px] md:pt-[40px] lg:pt-[32px]'>
-              <div className='text-md font-500 text-N-800'>Membership details</div>
-              <div className='flex gap-[64px] pt-[24px] text-md'>
+            <div className='flex flex-col gap-[16px]'>
+              <p className='text-base font-500'>Membership details</p>
+              <div className='flex gap-[64px] text-md'>
                 <div className='flex flex-col gap-[8px]'>
                   <div className='flex flex-col lg:flex-row'>
-                    <p className='w-[80px] text-md font-500 text-N-600'>Name</p>
+                    <p className='pr-[8px] text-md font-500 text-N-600'>Name — </p>
                     <p>
                       {user?.firstName} {user?.lastName}
                     </p>
                   </div>
                   <div className='flex flex-col lg:flex-row'>
-                    <p className='w-[80px] text-md font-500 text-N-600'>Email</p>
+                    <p className='pr-[8px] text-md font-500 text-N-600'>Email — </p>
                     <p>{user?.email}</p>
                   </div>
                   <div className='flex flex-col lg:flex-row'>
-                    <p className='w-[80px] text-md font-500 text-N-600'>Type</p>
-                    <p>{_activeSubscription?.name || `N/A`}</p>
+                    <p className='pr-[8px] text-md font-500 text-N-600'>Type — </p>
+                    <p>{membershipType()}</p>
                   </div>
                   <div className='flex flex-col lg:flex-row'>
-                    <p className='w-[80px] text-md font-500 text-N-600'>ID</p>
-                    <p>{_activeSubscription?.order_id}</p>
+                    <p className='pr-[8px] text-md font-500 text-N-600'>ID — </p>
+                    <p>{user?.databaseId}</p>
                   </div>
                 </div>
+
                 <div className='flex flex-col gap-[8px]'>
                   <div className='flex flex-col lg:flex-row'>
-                    <p className='w-[80px] text-md font-500 text-N-600'>Status</p>
+                    <p className='pr-[8px] text-md font-500 text-N-600'>Status — </p>
                     <p
-                      className={CN('font-600', {
-                        'text-G-500': _activeSubscription?.status === 'active',
-                        'text-R-500': _activeSubscription?.status !== 'active',
+                      className={CN('font-600 capitalize', {
+                        'text-G-500': subscription?.status === 'active',
+                        'text-R-500': subscription?.status !== 'active',
                       })}>
-                      {_activeSubscription?.status}
+                      {subscription?.status}
                     </p>
                   </div>
                   <div className='flex flex-col lg:flex-row'>
-                    <p className='w-[80px] text-md font-500 text-N-600'>Start date</p>
-                    <p>{_activeSubscription?.start}</p>
+                    <p className='pr-[8px] text-md font-500 text-N-600'>Start date — </p>
+                    <p>{subscription?.start}</p>
                   </div>
                   <div className='flex flex-col lg:flex-row'>
-                    <p className='w-[80px] text-md font-500 text-N-600'>Expires on</p>
-                    <p
-                      className={CN('font-600', {
-                        'text-B-500': _expiryDate !== 'Never',
-                      })}>
-                      {_expiryDate}
-                    </p>
+                    <p className='pr-[8px] text-md font-500 text-N-600'>Renewal date — </p>
+                    <p>{isSupporter ? subscription?.nextPayment : 'Never'}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className='flex flex-col gap-[24px] pt-0 lg:pt-[40px]'>
-              <p className='text-md font-500 text-N-800'>Quick links</p>
+            <div className='flex flex-col gap-[24px]'>
+              <p className='text-base font-500'>Quick links</p>
 
               <ul className='flex flex-col gap-[8px]'>
                 {quickLinks.map(({ id, url, label }, index) => (

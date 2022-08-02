@@ -20,6 +20,7 @@ export function AppWrapper({ children, values }: any) {
   const [isPageLoading, setIsPageLoading] = useState(false)
   const [showSideMenu, setShowSideMenu] = useState(false)
   const [_orders, _setOrders] = useState<any>()
+
   const [isSupporter, setIsSupporter] = useState<any>(null)
 
   useEffect(() => {
@@ -82,6 +83,8 @@ export function AppWrapper({ children, values }: any) {
     }
   }, [fullUser])
 
+  const [userSubscription, setUserSubscription] = useState<any>({})
+
   useEffect(() => {
     const userSubscriptions = fullUser?.activeSubscriptions?.map((subscription: any) => {
       const { data_json, ...restSubscription } = subscription
@@ -106,7 +109,7 @@ export function AppWrapper({ children, values }: any) {
       return mergedSubscriptionData
     })
 
-    console.log('userSubscriptions', userSubscriptions)
+    setUserSubscription(userSubscriptions?.[0])
   }, [fullUser])
 
   useOutsideClick(wrapperRef, () => setShowSideMenu(false), hamburgerRef)
@@ -132,6 +135,7 @@ export function AppWrapper({ children, values }: any) {
     cart: cart?.cart,
     refetchCart,
     isSupporter,
+    subscription: userSubscription,
   }
 
   return <AppContext.Provider value={{ ...sharedState, ...values }}>{children}</AppContext.Provider>
