@@ -103,9 +103,11 @@ export const Login: FC<LoginProps> = ({
   return (
     <form className={LoginClasses} {...restProps}>
       <h4 className='pb-[24px] text-center text-h4 font-600 text-N-800'>Login</h4>
-      <Button appearance='ghost' className='absolute top-0 right-0' onClick={onClose}>
-        <i className='ri-close-fill' />
-      </Button>
+      {onClose && (
+        <Button appearance='ghost' className='absolute top-0 right-0' onClick={onClose}>
+          <i className='ri-close-fill' />
+        </Button>
+      )}
 
       <div>
         <div className='flex flex-col gap-[16px]'>
