@@ -18,7 +18,7 @@ import { format } from 'date-fns'
 const Page: NextPage = () => {
   const router = useRouter()
   const { isDesktop, isMobile, isTablet } = useViewport()
-  const { fullUser, userOrders, refetchFullUser }: any = useAppContext()
+  const { fullUser, customer, userOrders, refetchFullUser }: any = useAppContext()
 
   useEffect(() => {
     const fetchUserOrders = async () => {
@@ -28,6 +28,10 @@ const Page: NextPage = () => {
 
     return () => {}
   }, [])
+
+  useEffect(() => {
+    console.log(customer?.orders?.nodes[0])
+  }, [customer])
 
   return (
     <>
@@ -49,22 +53,32 @@ const Page: NextPage = () => {
             <h4 className='text-h4 font-600 text-N-800'>Purchases</h4>
 
             <ul className='flex w-full flex-col gap-[8px] overflow-auto pt-[32px] pb-[24px] md:w-[unset] lg:w-[unset]'>
-              <li className='grid grid-cols-[0.75fr_1fr_1fr_1fr_1fr] gap-[24px] rounded-[4px] px-[12px] py-[4px]'>
+              <li className='grid grid-cols-[1fr_3fr_2fr_2fr_2fr] gap-[24px] rounded-[4px] px-[12px] py-[4px]'>
                 <span className='text-md text-N-800'>Order ID</span>
+                <span className='text-md text-N-800'>Item(s)</span>
                 <span className='text-md text-N-800'>Date</span>
                 <span className='text-md text-N-800'>Status</span>
                 <span className='text-md text-N-800'>Total</span>
-                <span className='ml-auto text-md text-N-800'>Actions</span>
               </li>
 
-              {userOrders?.map((order: any, index: number) => {
-                const { id, orderNumber, date, status, total } = order || {}
+              {customer?.orders?.nodes?.map((order: any, index: number) => {
+                const { id, orderNumber, date, status, total, lineItems } = order
+
+                console.log(`lineItems`, lineItems)
 
                 return (
                   <li
                     key={id || index}
-                    className='grid grid-cols-[0.75fr_1fr_1fr_1fr_1fr] gap-[24px] rounded-[4px] border border-N-100 bg-white px-[12px] py-[4px]'>
+                    className='grid grid-cols-[1fr_3fr_2fr_2fr_2fr] gap-[24px] rounded-[4px] border border-N-100 bg-white px-[12px] py-[4px]'>
                     <span className='text-md text-N-800'>#{orderNumber}</span>
+
+                    <div className='flex flex-col text-md font-400 text-N-700'>
+                      {lineItems?.nodes?.map(({ product }: any, index: number) => {
+                        console.log(`product`, product)
+
+                        return <span key={index}>{product?.node.name}</span>
+                      })}
+                    </div>
 
                     <p className='text-md font-400 text-N-700'>{date.split('T')[0]}</p>
 
@@ -78,11 +92,11 @@ const Page: NextPage = () => {
 
                     <span className='text-md text-N-800'>{total}</span>
 
-                    <Link key={id || index} href={`/account/purchases/${orderNumber}`}>
+                    {/* <Link key={id || index} href={`/account/purchases/${orderNumber}`}>
                       <a className='ml-auto cursor-pointer text-md text-N-800 hover:text-B-500'>
                         View
                       </a>
-                    </Link>
+                    </Link> */}
                   </li>
                 )
               })}
