@@ -19,11 +19,6 @@ export const MemberCard: FC<MemberCardProps> = ({
   expireDate,
   ...restProps
 }: MemberCardProps) => {
-  const MemberCardClasses = CN(
-    `member-card bg-[url(/images/005.svg)] px-[24px] py-[24px] h-[236px] w-full md:w-full lg:w-[368px] bg-cover bg-no-repeat rounded-[8px]`,
-    className
-  )
-
   const { isSupporter, user, subscription }: any = useAppContext()
 
   const membershipType = () => {
@@ -39,13 +34,24 @@ export const MemberCard: FC<MemberCardProps> = ({
   }
 
   return (
-    <div className={MemberCardClasses} {...restProps}>
+    <div
+      className={CN(
+        `member-card h-[236px] w-full rounded-[8px] bg-cover bg-no-repeat px-[24px] py-[24px] md:w-full lg:w-[368px]`,
+        className,
+        {
+          'bg-[url(/images/supporter-card-bg.png)]': isSupporter,
+          'bg-[url(/images/non-supporter-card-bg.png)]': !isSupporter,
+        }
+      )}
+      {...restProps}>
       <div className='logos flex items-center justify-between'>
         <img src='/images/logo-circle.png' width={40} height={40} />
+
         <a href='#'>
           <img src='/images/wallet.png' width={110} height={34} />
         </a>
       </div>
+
       <div className='pt-[12px]'>
         <h4 className='text-h5 font-600 text-N-10'>{`${user?.firstName} ${user?.lastName}`}</h4>
         <p className='text-md text-N-10'>{user?.email}</p>
