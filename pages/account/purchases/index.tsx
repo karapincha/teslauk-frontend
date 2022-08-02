@@ -69,7 +69,7 @@ const Page: NextPage = () => {
                 return (
                   <li
                     key={id || index}
-                    className='grid grid-cols-[1fr_3fr_2fr_2fr_2fr] gap-[24px] rounded-[4px] border border-N-100 bg-white px-[12px] py-[4px]'>
+                    className='grid grid-cols-[1fr_3fr_2fr_2fr_2fr] gap-[24px] rounded-[4px] border border-N-100 bg-white px-[12px] py-[4px] items-center'>
                     <span className='text-md text-N-800'>#{orderNumber}</span>
 
                     <div className='flex flex-col text-md font-400 text-N-700'>
@@ -83,11 +83,12 @@ const Page: NextPage = () => {
                     <p className='text-md font-400 text-N-700'>{date.split('T')[0]}</p>
 
                     <p
-                      className={CN(`text-md font-400 text-N-800`, {
-                        'text-R-500': status === 'pending',
-                        'text-G-500': status === 'completed',
+                      className={CN(`text-sm font-500`, {
+                        'text-R-500': status === 'PENDING',
+                        'text-Y-600': status === 'PROCESSING',
+                        'text-G-500': status === 'COMPLETED',
                       })}>
-                      {status.replace(/^\w/, (c: any) => c.toUpperCase())}
+                      {status}
                     </p>
 
                     <span className='text-md text-N-800'>{total}</span>
