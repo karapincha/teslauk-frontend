@@ -69,7 +69,7 @@ const Page: NextPage = () => {
                 return (
                   <li
                     key={id || index}
-                    className='grid grid-cols-[1fr_3fr_2fr_2fr_2fr] gap-[24px] rounded-[4px] border border-N-100 bg-white px-[12px] py-[4px] items-center'>
+                    className='grid grid-cols-[1fr_3fr_2fr_2fr_2fr] items-center gap-[24px] rounded-[4px] border border-N-100 bg-white px-[12px] py-[4px]'>
                     <span className='text-md text-N-800'>#{orderNumber}</span>
 
                     <div className='flex flex-col text-md font-400 text-N-700'>
@@ -84,8 +84,14 @@ const Page: NextPage = () => {
 
                     <p
                       className={CN(`text-sm font-500`, {
-                        'text-R-500': status === 'PENDING',
+                        'text-B-500':
+                          status === 'CANCELLED' ||
+                          status === 'FAILED' ||
+                          status === 'ON_HOLD' ||
+                          status === 'PENDING_PAYMENT',
+                        'text-N-700': status === 'PENDING',
                         'text-Y-600': status === 'PROCESSING',
+                        'text-P-600': status === 'AWAITING_SHIPMENT',
                         'text-G-500': status === 'COMPLETED',
                       })}>
                       {status}
