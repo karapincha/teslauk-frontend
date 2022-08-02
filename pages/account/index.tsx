@@ -23,8 +23,17 @@ const Page: NextPage = () => {
   const router = useRouter()
   const { newAccount } = router?.query
   const { isDesktop, isMobile, isTablet } = useViewport()
-  const { isSupporter, subscription, fullUser, fullUserLoading, user, userOrders }: any =
-    useAppContext()
+  const {
+    isSupporter,
+    subscription,
+    fullUser,
+    customer,
+    hasShippingAddress,
+    fullUserLoading,
+    user,
+    userOrders,
+    welcomePackStatus,
+  }: any = useAppContext()
 
   const [_subscriptions, _setSubscriptions] = useState<any>()
   const [_subscribedProducts, _setSubscribedProducts] = useState<any>()
@@ -32,6 +41,8 @@ const Page: NextPage = () => {
   const [_expiryDate, _setExpiryDate] = useState<any>()
   const [_showShippingAddressModal, _setShowShippingAddressModal] = useState(false)
   const [_subscriptionOrder, _setSubscriptionOrder] = useState<any>({})
+
+  const [showShippingAddressModal, setShowShippingAddressModal] = useState(false)
 
   /* Filter and set user's active subscriptions and products */
   // useEffect(() => {
@@ -121,8 +132,10 @@ const Page: NextPage = () => {
   }
 
   useEffect(() => {
-    console.log(`subscription`, subscription)
-  }, [subscription])
+    if (isSupporter && !hasShippingAddress && welcomePackStatus === 'AWAITING_SHIPMENT') {
+      setShowShippingAddressModal(true)
+    }
+  }, [welcomePackStatus, hasShippingAddress, isSupporter])
 
   const renderMembershipCard = () => {
     return (
@@ -170,10 +183,18 @@ const Page: NextPage = () => {
           />
         )}
 
-        {_showShippingAddressModal && _subscriptionOrder?.status === 'AWAITING_SHIPMENT' && (
+        {showShippingAddressModal && (
           <div className='fixed top-0 right-0 bottom-0 left-0 flex items-center justify-center bg-slate-400/50'>
             <div className='flex w-full max-w-[600px]'>
-              <UpdateOrderAddresses setShowAddressModal={_setShowShippingAddressModal} />
+              <UpdateOrderAddresses
+                description={
+                  <>
+                    Please provide your shipping address to send your Welcome pack{' '}
+                    <i className='ri-gift-2-fill' />
+                  </>
+                }
+                onClose={() => setShowShippingAddressModal(false)}
+              />
             </div>
           </div>
         )}

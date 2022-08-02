@@ -44,6 +44,7 @@ module.exports = {
     boxShadow: {
       'DEFAULT': '0px_25px_50px_-12px_rgba(95,111,140,0.1)',
       'card-shadow': '0px 25px 50px -12px rgba(95,111,140,0.1)',
+      'button': '0px 20px 40px -16px rgba(95,111,140,0.3)',
       'none': 'none',
     },
     dropShadow: {

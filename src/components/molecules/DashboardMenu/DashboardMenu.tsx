@@ -85,10 +85,10 @@ export const DashboardMenu: FC<DashboardMenuProps> = ({
             <Link href={url}>
               <a
                 className={CN(
-                  `flex h-full w-full items-center gap-[8px] rounded-[4px] py-[8px] pl-[12px] hover:bg-N-50 hover:text-N-800`,
+                  `flex h-full w-full items-center gap-[8px] rounded-[4px] py-[8px] pl-[12px] hover:text-B-500`,
                   {
-                    'text-N-600': !isActive,
-                    'text-B-500': isActive,
+                    'text-N-800': !isActive,
+                    'bg-white shadow-button hover:text-N-800': isActive,
                   }
                 )}>
                 <span>{icon}</span>

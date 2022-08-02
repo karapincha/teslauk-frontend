@@ -17,7 +17,8 @@ export interface UpdateOrderAddressesProps {
 
 export const UpdateOrderAddresses: FC<UpdateOrderAddressesProps> = ({
   className,
-  setShowAddressModal,
+  onClose,
+  description,
   ...restProps
 }: UpdateOrderAddressesProps) => {
   const UpdateOrderAddressesClasses = CN(
@@ -25,7 +26,7 @@ export const UpdateOrderAddresses: FC<UpdateOrderAddressesProps> = ({
     className
   )
 
-  const { fullUser, user, userOrders }: any = useAppContext()
+  const { fullUser, user, userOrders, refetchFullUser }: any = useAppContext()
 
   const router = useRouter()
   const [formData, setFormData] = useState<any>()
@@ -81,40 +82,34 @@ export const UpdateOrderAddresses: FC<UpdateOrderAddressesProps> = ({
     return handleUpdateOrderAddresses(e)
   }
 
-  const handleUpdateOrderAddresses = (e: any) => {
-    updateShipping({
+  const handleUpdateOrderAddresses = async (e: any) => {
+    await updateShipping({
       variables: {
         ...formData,
         id: formData?.customerId,
       },
-    })
-      .then((res: any) => {
-        updateOrdersShippingAddress({
-          variables: {
-            ...formData,
-            customerId: formData?.customerId + '',
-          },
+    }).then(async (res: any) => {
+      await updateOrdersShippingAddress({
+        variables: {
+          ...formData,
+          customerId: formData?.customerId + '',
+        },
+      }).then(async (res: any) => {
+        onClose && onClose(res)
+        return toast({
+          message: "Shipping address saved. We'll send your welcome pack soon.",
+          type: 'success',
         })
-          .then((res: any) => {
-            setShowAddressModal(false)
-            toast({
-              message: "Shipping address saved. We'll send your welcome pack soon.",
-              type: 'success',
-            })
-          })
-          .catch()
       })
-      .catch()
+    })
   }
 
   return (
     <div className={UpdateOrderAddressesClasses} {...restProps}>
       <div className='mb-[20px] flex flex-col items-center gap-[4px]'>
-        <h4 className='text-center text-h4 font-600 text-N-800'>Save Shipping Address</h4>
-        <p className='flex items-center gap-[4px] text-md'>
-          Please provide your shipping address to send your Welcome pack{' '}
-          <i className='ri-gift-2-fill' />
-        </p>
+        <h4 className='text-center text-h4 font-600 text-N-800'>Update Shipping Address</h4>
+
+        {description && <p className='flex items-center gap-[4px] text-md'>{description}</p>}
       </div>
 
       <div className='flex flex-col gap-[16px]'>

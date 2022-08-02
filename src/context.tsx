@@ -76,8 +76,63 @@ export function AppWrapper({ children, values }: any) {
     }
   }, [user])
 
+  /* Address States =======> */
+  const [hasShippingAddress, setHasShippingAddress] = useState<any>(null)
+  const [hasBillingAddress, setHasBillingAddress] = useState<any>(null)
+
   useEffect(() => {
-    /* User Orders */
+    const shippingAddress = fullUser?.customer?.shipping
+    const billingAddress = fullUser?.customer?.billing
+
+    if (
+      !shippingAddress?.address1 ||
+      !shippingAddress?.city ||
+      !shippingAddress?.phone ||
+      !shippingAddress?.postcode ||
+      !shippingAddress?.state
+    ) {
+      setHasShippingAddress(false)
+    } else {
+      setHasShippingAddress(true)
+    }
+
+    if (
+      !billingAddress?.address1 ||
+      !billingAddress?.city ||
+      !billingAddress?.phone ||
+      !billingAddress?.email ||
+      !billingAddress?.postcode ||
+      !billingAddress?.state
+    ) {
+      setHasBillingAddress(false)
+    } else {
+      setHasBillingAddress(true)
+    }
+  }, [fullUser])
+  /* <======= Address States */
+
+  /* Welcome pack Status =======> */
+  const [welcomePackStatus, setWelcomePackStatus] = useState<any>(null)
+
+  useEffect(() => {
+    const subscriptionOrder =
+      fullUser?.customer?.orders?.nodes?.filter((order: any) => {
+        const filtered = order?.lineItems?.nodes?.filter((item: any) => {
+          if (
+            item?.productId ===
+            Number(process.env.NEXT_PUBLIC_SUBSCRIPTION_SUPPORTER_WITH_WELCOME_PACK_ID)
+          ) {
+            return order
+          }
+        })
+        return filtered
+      })[0] || {}
+
+    setWelcomePackStatus(subscriptionOrder?.status)
+  }, [fullUser])
+  /* <======= Welcome pack Status */
+
+  useEffect(() => {
     if (fullUser?.customer?.orders) {
       _setOrders(fullUser?.customer?.orders?.nodes)
     }
@@ -128,6 +183,7 @@ export function AppWrapper({ children, values }: any) {
     suppliers: commonData?.suppliers?.nodes,
     user,
     fullUser,
+    customer: fullUser?.customer,
     fullUserLoading,
     userOrders: _orders,
     refetchUser,
@@ -136,6 +192,9 @@ export function AppWrapper({ children, values }: any) {
     refetchCart,
     isSupporter,
     subscription: userSubscription,
+    hasShippingAddress,
+    hasBillingAddress,
+    welcomePackStatus,
   }
 
   return <AppContext.Provider value={{ ...sharedState, ...values }}>{children}</AppContext.Provider>
